@@ -1,0 +1,45 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Generate new localized screenshots"
+
+  # my lanes
+  lane :screenshots do
+    #fastlane deliver download_metadata
+  	capture_screenshots(
+        reinstall_app: true,
+        clear_previous_screenshots: true)
+  	frameit
+    deliver
+  end
+
+  lane :beta do
+    #sync_code_signing(type: "appstore")    # see code signing guide for more information
+    get_certificates
+    get_provisioning_profile
+    build_app(scheme: "ManaGuide")
+    upload_to_testflight
+    #pilot(skip_waiting_for_build_processing: true)
+  end
+
+  lane :release do
+    increment_build_number(
+      build_number: app_store_build_number + 1,
+      xcodeproj: "ManaGuide.xcodeproj"
+    )
+    sync_code_signing(type: "appstore")  # see code signing guide for more information
+    build_app(scheme: "ManaGuide")
+    upload_to_app_store
+  end
+end
