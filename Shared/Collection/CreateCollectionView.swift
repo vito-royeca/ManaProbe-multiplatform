@@ -92,6 +92,10 @@ struct CreateCollectionView: View {
                     }
                     .pickerStyle(.wheel)
                 }
+            } footer: {
+                if type == .new {
+                    Text("Name is required.")
+                }
             }
             
             Section {
@@ -117,7 +121,7 @@ struct CreateCollectionView: View {
                 }
                 .pickerStyle(.automatic)
             } footer: {
-                if type == .existing{
+                if type == .existing {
                     Text("Note: setting the Quantity to Zero will remove this card from the collection.")
                 }
             }
@@ -237,6 +241,9 @@ extension CreateCollectionView {
         switch type {
         case .new:
             if newName.isEmpty {
+                result  = false
+            }
+            if quantity == 0 {
                 result  = false
             }
         case .existing:

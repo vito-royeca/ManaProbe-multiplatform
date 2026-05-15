@@ -58,7 +58,7 @@ struct CardsListView<Header: View>: View {
                             let route = CardRoute.detail(cardArray: cardArray)
                             NavigationLink(value: route) {
                                 CardListItemView(card: innerCardInfo)
-//                                    .toolbar(.hidden, for: .tabBar)
+                                    .toolbar(.hidden, for: .tabBar)
                                     .swipeActions(allowsFullSwipe: false) {
                                         swipeActions(for: card)
                                     }

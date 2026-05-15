@@ -40,14 +40,14 @@ class AuthModel {
         let actionCodeSettings = ActionCodeSettings()
 
         actionCodeSettings.handleCodeInApp = true
-        actionCodeSettings.url = URL(string: "https://mana-guide.firebaseapp.com")
+        actionCodeSettings.url = URL(string: "https://manaprobe-dev.firebaseapp.com ")
         actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
-        actionCodeSettings.linkDomain = "mana-guide.firebaseapp.com"
+        actionCodeSettings.linkDomain = "manaprobe-dev.firebaseapp.com"
         let configuration = AuthConfiguration(
           shouldAutoUpgradeAnonymousUsers: true,
           customStringsBundle: .main,
-          tosUrl: URL(string: "https://managuideapp.com"),
-          privacyPolicyUrl: URL(string: "https://managuideapp.com/privacy.html"),
+//          tosUrl: URL(string: "https://manaprobe.com/"),
+          privacyPolicyUrl: URL(string: "https://manaprobe.com/privacy.html"),
           emailLinkSignInActionCodeSettings: actionCodeSettings,
           mfaEnabled: true
         )
