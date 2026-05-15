@@ -58,9 +58,9 @@ struct AccountView: View {
         VStack(spacing: 50) {
             Image("logoWords")
                 .resizable()
-                .frame(width: 200, height: 200)
+                .frame(maxWidth: 256, maxHeight: 64)
 
-            Text("You can do a lot of cool things in Mana Guide. However, you are currently not Signed in. Tap the button below to:")
+            Text("You can do a lot of cool things in Manaprobe. However, you are currently not Signed in. Tap the button below to:")
             Spacer()
             Button {
                 authModel.authService.isPresented = true
