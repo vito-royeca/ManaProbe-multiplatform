@@ -79,51 +79,23 @@ class SetsViewModel {
             
             clearData()
             
-//            var sectionedSets = [SectionedSets.SectionedSet]()
             switch sorter {
             case .name:
                 let response = try await ManaKitUtilities.shared.apollo.fetch(query: SetsByNameQuery())
-//                sectionedSets = response.data?.setsByName?.sectionedSets ?? []
-//                sections = response.data?.setsByName?.sections ?? []
-//                sectionIndexTitles = sections
                 if let sectionedSets = response.data?.setsByName?.fragments.sectionedSets {
                     process(sectionedSets: sectionedSets)
                 }
             case .type:
                 let response = try await ManaKitUtilities.shared.apollo.fetch(query: SetsByTypeQuery())
-//                sectionedSets = response.data?.setsByType?.sectionedSets ?? []
-//                sections = response.data?.setsByType?.sections ?? []
-//                sectionIndexTitles = []
                 if let sectionedSets = response.data?.setsByType?.fragments.sectionedSets {
                     process(sectionedSets: sectionedSets)
                 }
             case .year:
                 let response = try await ManaKitUtilities.shared.apollo.fetch(query: SetsByYearQuery())
-//                sectionedSets = response.data?.setsByYear?.sectionedSets ?? []
-//                sections = response.data?.setsByYear?.sections ?? []
-//                sectionIndexTitles = []
                 if let sectionedSets = response.data?.setsByYear?.fragments.sectionedSets {
                     process(sectionedSets: sectionedSets)
                 }
             }
-            
-//            for section in sections {
-//                var array = [Tree<SetBasicInfo>]()
-//                for set in sectionedSets.filter({ $0.section == section }).first?.sets ?? [] {
-//                    array.append(setToTree(set: set.fragments.setInfo))
-//                }
-//                sets[section] = array
-//            }
-//            
-//            var setTypesContainer = Set<SetBasicInfo.SetType>()
-//            for (_,v) in sets {
-//                for set in v {
-//                    setTypesContainer.insert(set.value.setType)
-//                }
-//            }
-//            setTypes = Array(setTypesContainer).sorted(by: { $0.name < $1.name })
-//            
-//            formatData()
             isBusy = false
         } catch {
             isFailed = true

@@ -93,6 +93,7 @@ enum CardsDisplay: String, CaseIterable {
 
 protocol CardsViewModelDelegate {
     func fetchCards(sortBy: CardsSorter, orderBy: CardsOrderer) async throws -> [CardBasicInfo]
+//    func reload(sortBy: CardsSorter, orderBy: CardsOrderer) async throws -> [CardBasicInfo]
 }
 
 class DefaultCardsViewModelDelegate: CardsViewModelDelegate {
@@ -102,6 +103,10 @@ class DefaultCardsViewModelDelegate: CardsViewModelDelegate {
         let cards = set?.cards.map(\.fragments.cardBasicInfo) ?? []
         return cards
     }
+    
+//    func reload(sortBy: CardsSorter, orderBy: CardsOrderer) async throws -> [CardBasicInfo] {
+//        return try await fetchCards(sortBy: sortBy, orderBy: orderBy)
+//    }
 }
 
 // MARK: - CardsViewModel
