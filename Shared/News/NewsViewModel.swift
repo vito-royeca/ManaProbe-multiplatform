@@ -33,8 +33,8 @@ class NewsViewModel {
         isFailed = false
         
         do {
-            let response = try await ManaKitUtilities.shared.apollo.fetch(query: FeedsQuery())
-            let feedData = response.data?.feeds?.feeds ?? []
+            let feedData = try await ManaKitUtilities.shared.feeds(fetchRemote: false)?
+                .feeds ?? []
             
             for feedItem in feedData {
                 

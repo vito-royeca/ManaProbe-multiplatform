@@ -96,7 +96,7 @@ extension SetView {
             }
         }
     } fetchData: {
-        try await ManaKitUtilities.shared.set(setID: "ecl", languageID: "en")
+        try await ManaKitUtilities.shared.set(fetchRemote: false, setID: "ecl", languageID: "en")
     }
     .environment(authModel)
     .environment(favoritesModel)

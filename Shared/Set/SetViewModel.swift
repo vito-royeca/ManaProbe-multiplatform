@@ -63,13 +63,9 @@ class SetViewModel {
             isFailed = false
             isBusy = true
             
-            let input = SetByIDInput(setID: setID,
-                                     languageID: language?.id ?? "en",
-                                     sortedBy: "name", /*GraphQLNullable(stringLiteral: sorter.parameterValue),*/
-                                     orderBy: "asc")
-            let response = try await ManaKitUtilities.shared.apollo.fetch(query: SetQuery(input: input))
-            set = response.data?.set?.fragments.setInfo
-            cards = response.data?.set?.cards.map { $0.fragments.cardBasicInfo } ?? []
+            let setData = try await ManaKitUtilities.shared.set(fetchRemote: false, setID: setID, languageID: language?.id ?? "en")
+            set = setData?.fragments.setInfo
+            cards = setData?.cards.map { $0.fragments.cardBasicInfo } ?? []
             if language == nil {
                 language = (set?.languages ?? []).first(where: { $0.id == languageID })
             }

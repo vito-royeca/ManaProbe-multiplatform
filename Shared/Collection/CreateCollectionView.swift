@@ -266,6 +266,7 @@ extension CreateCollectionView {
             }
         }
     } fetchData: {
-        try await ManaKitUtilities.shared.card(id: "inr_en_14b")
+        try await ManaKitUtilities.shared.card(fetchRemote: false,
+                                               id: "inr_en_14b")
     }
 }

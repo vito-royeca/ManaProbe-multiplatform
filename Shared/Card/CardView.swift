@@ -345,12 +345,13 @@ struct CardViewActionToolbar: ToolbarContent {
     
     AsyncPreviewView { data in
         NavigationView {
-            if let data = data {
-                CardView(card: data)
+            if let card = data?.fragments.cardCompleteInfo {
+                CardView(card: card)
             }
         }
     } fetchData: {
-        try await ManaKitUtilities.shared.card(id: "ecl_en_290")
+        try await ManaKitUtilities.shared.card(fetchRemote: false,
+                                               id: "ecl_en_290")
     }
     .environment(authModel)
     .environment(favoritesModel)

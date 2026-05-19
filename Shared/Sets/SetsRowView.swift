@@ -42,18 +42,28 @@ struct SetsRowView: View {
     }
 
     private var imageView: some View {
-        let url = URL(string: set.smallLogoURL ?? "")
-        
-        return LazyImage(url: url) { phase in
-            if let _ = phase.error {
-                Image(systemName: "photo.badge.exclamationmark")
-            } else if let image = phase.image {
-                image
+        Group {
+            if let lastPath = set.smallLogoURL?.split(separator: "/").last,
+               let uiImage = ManaKitUtilities.shared.image(fileName: String(lastPath)) {
+                Image(uiImage: uiImage)
+                    .renderingMode(.original)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .clipped()
             } else {
-                ProgressView()
+                let url = URL(string: set.smallLogoURL ?? "")
+                LazyImage(url: url) { phase in
+                    if let _ = phase.error {
+                        Image(systemName: "photo.badge.exclamationmark")
+                    } else if let image = phase.image {
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .clipped()
+                    } else {
+                        ProgressView()
+                    }
+                }
             }
         }
         .frame(width: 100, height: 50)

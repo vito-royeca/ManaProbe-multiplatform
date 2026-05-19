@@ -117,6 +117,7 @@ struct CollectionListItemView: View {
             }
         }
     } fetchData: {
-        try await ManaKitUtilities.shared.card(id: cardID)
+        try await ManaKitUtilities.shared.card(fetchRemote: false,
+                                               id: cardID)
     }
 }

@@ -68,6 +68,7 @@ extension CardAllPrintingsView {
             }
         }
     } fetchData: {
-        try await ManaKitUtilities.shared.card(id: "lea_en_98")
+        try await ManaKitUtilities.shared.card(fetchRemote: false,
+                                               id: "lea_en_98")
     }
 }

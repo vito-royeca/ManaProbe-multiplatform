@@ -90,7 +90,8 @@ struct CardGridItemView: View {
             }
         }
     } fetchData: {
-        try await ManaKitUtilities.shared.card(id: "isd_en_51")
+        try await ManaKitUtilities.shared.card(fetchRemote: false,
+                                               id: "isd_en_51")
     }
     .environment(authModel)
     .environment(favoritesModel)

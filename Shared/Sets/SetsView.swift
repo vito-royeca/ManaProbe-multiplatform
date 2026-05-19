@@ -144,6 +144,6 @@ extension SetsView {
             }
         }
     } fetchData: {
-        try await ManaKitUtilities.shared.setsByYear()
+        try await ManaKitUtilities.shared.sets(fetchRemote: false, type: .byYear)
     }
 }

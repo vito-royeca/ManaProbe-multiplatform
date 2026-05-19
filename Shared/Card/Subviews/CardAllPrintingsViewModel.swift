@@ -36,8 +36,10 @@ class CardAllPrintingsViewModel {
             isFailed = false
             isBusy = true
             
-            let response = try await ManaKitUtilities.shared.apollo.fetch(query: CardPrintingsQuery(id: card.id, languageID: card.language?.id ?? "en"))
-            cards = response.data?.cardPrintings?.cards.map { $0.fragments.cardBasicInfo } ?? []
+            cards = try await ManaKitUtilities.shared.cardPrintings(fetchRemote: false,
+                                                                    id: card.id,
+                                                                    languageID: card.language?.id ?? "en")?
+                .cards.map { $0.fragments.cardBasicInfo } ?? []
             
             isBusy = false
         } catch {

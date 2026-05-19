@@ -25,18 +25,28 @@ struct SetHeaderView: View {
     }
 
     private var imageView: some View {
-        let url = URL(string: viewModel.set?.bigLogoURL ?? "")
-        
-        return LazyImage(url: url) { phase in
-            if let _ = phase.error {
-                Image(systemName: "photo.badge.exclamationmark")
-            } else if let image = phase.image {
-                image
+        Group {
+            if let lastPath = viewModel.set?.bigLogoURL?.split(separator: "/").last,
+               let uiImage = ManaKitUtilities.shared.image(fileName: String(lastPath)) {
+                Image(uiImage: uiImage)
+                    .renderingMode(.original)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .clipped()
             } else {
-                ProgressView()
+                let url = URL(string: viewModel.set?.bigLogoURL ?? "")
+                LazyImage(url: url) { phase in
+                    if let _ = phase.error {
+                        Image(systemName: "photo.badge.exclamationmark")
+                    } else if let image = phase.image {
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .clipped()
+                    } else {
+                        ProgressView()
+                    }
+                }
             }
         }
         .frame(maxHeight: 100)

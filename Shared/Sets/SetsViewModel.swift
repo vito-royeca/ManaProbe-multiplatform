@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-import Apollo
 import ManaKit
 
 enum SetsSorter: String, CaseIterable {
@@ -81,18 +80,15 @@ class SetsViewModel {
             
             switch sorter {
             case .name:
-                let response = try await ManaKitUtilities.shared.apollo.fetch(query: SetsByNameQuery())
-                if let sectionedSets = response.data?.setsByName?.fragments.sectionedSets {
+                if let sectionedSets = try await ManaKitUtilities.shared.sets(fetchRemote: false, type: .byName) {
                     process(sectionedSets: sectionedSets)
                 }
             case .type:
-                let response = try await ManaKitUtilities.shared.apollo.fetch(query: SetsByTypeQuery())
-                if let sectionedSets = response.data?.setsByType?.fragments.sectionedSets {
+                if let sectionedSets = try await ManaKitUtilities.shared.sets(fetchRemote: false, type: .byType) {
                     process(sectionedSets: sectionedSets)
                 }
             case .year:
-                let response = try await ManaKitUtilities.shared.apollo.fetch(query: SetsByYearQuery())
-                if let sectionedSets = response.data?.setsByYear?.fragments.sectionedSets {
+                if let sectionedSets = try await ManaKitUtilities.shared.sets(fetchRemote: false, type: .byYear) {
                     process(sectionedSets: sectionedSets)
                 }
             }

@@ -60,8 +60,9 @@ class CardViewModel {
             
             clearData()
             
-            let response = try await ManaKitUtilities.shared.apollo.fetch(query: CardQuery(id: cardArray.selectedCard.id))
-            card = response.data?.card?.fragments.cardCompleteInfo
+            card = try await ManaKitUtilities.shared.card(fetchRemote: false, id: cardArray.selectedCard.id)?
+                .fragments
+                .cardCompleteInfo
             
             if let card = card {
                 faces = card.faces.map { $0.fragments.innerCardInfo }

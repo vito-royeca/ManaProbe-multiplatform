@@ -39,7 +39,9 @@ final class Tests_Prefetch: XCTestCase {
 
     func testPrefetchSets() async throws {
         do {
-            try await ManaKitUtilities.shared.prefetchSets()
+            try await ManaKitUtilities.shared.prefetchSets(fetchSetDetails: true,
+                                                           includeNonEnglishSets: false,
+                                                           fetchCards: true)
         } catch {
             print(error)
             

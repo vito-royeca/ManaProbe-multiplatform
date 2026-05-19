@@ -5,7 +5,6 @@
 //  Created by Vito Royeca on 4/26/26.
 //
 
-import Apollo
 import FirebaseAuth
 import FirebaseAuthSwiftUI
 import FirebaseFirestore
@@ -62,8 +61,8 @@ class FavoritesViewModel {
         
         do {
             let ids = favorites.map(\.cardID)
-            let response = try await ManaKitUtilities.shared.apollo.fetch(query: CardsByIDsQuery(ids: ids))
-            cards = response.data?.cardsByIDs?.cards.map { $0.fragments.cardBasicInfo } ?? []
+            cards = try await ManaKitUtilities.shared.cardsByIDs(fetchRemote: false, cardIDs: ids)?
+                .cards.map { $0.fragments.cardBasicInfo } ?? []
         } catch {
             isFailed = true
             isBusy = false

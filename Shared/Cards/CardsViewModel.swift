@@ -98,10 +98,11 @@ protocol CardsViewModelDelegate {
 
 class DefaultCardsViewModelDelegate: CardsViewModelDelegate {
     func fetchCards(sortBy: CardsSorter, orderBy: CardsOrderer) async throws -> [CardBasicInfo] {
-        let set = try await ManaKitUtilities.shared.set(setID: "ecl",
-                                                        languageID: "en")
-        let cards = set?.cards.map(\.fragments.cardBasicInfo) ?? []
-        return cards
+//        let set = try await ManaKitUtilities.shared.set(setID: "ecl",
+//                                                        languageID: "en")
+//        let cards = set?.cards.map(\.fragments.cardBasicInfo) ?? []
+//        return cards
+        []
     }
     
 //    func reload(sortBy: CardsSorter, orderBy: CardsOrderer) async throws -> [CardBasicInfo] {
