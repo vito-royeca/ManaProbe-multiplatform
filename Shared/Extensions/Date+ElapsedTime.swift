@@ -1,6 +1,6 @@
 //
 //  Date+ElapsedTime.swift
-//  ManaGuide (iOS)
+//  Manaprobe
 //
 //  Created by Vito Royeca on 5/13/22.
 //

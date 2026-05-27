@@ -1,6 +1,6 @@
 //
 //  TestView.swift
-//  ManaGuide
+//  Manaprobe
 //
 //  Created by Vito Royeca on 4/15/26.
 //

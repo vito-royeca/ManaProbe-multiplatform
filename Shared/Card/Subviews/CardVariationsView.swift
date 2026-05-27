@@ -1,6 +1,6 @@
 //
 //  CardVariationsView.swift
-//  ManaGuide
+//  Manaprobe
 //
 //  Created by Vito Royeca on 2/20/24.
 //

@@ -1,6 +1,6 @@
 //
-//  ManaGuideApp.swift
-//  ManaGuide
+//  ManaprobeApp.swift
+//  Manaprobe
 //
 //  Created by Vito Royeca on 3/21/22.
 //
@@ -18,7 +18,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 }
 
 @main
-struct ManaGuideApp: App {
+struct ManaprobeApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self)
     var delegate
 

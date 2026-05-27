@@ -1,6 +1,6 @@
 //
 //  TextViewWrapper.swift
-//  ManaGuide
+//  Manaprobe
 //
 //  Created by Vito Royeca on 3/21/22.
 //

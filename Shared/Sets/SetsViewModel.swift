@@ -1,9 +1,8 @@
 //
 //  SetsViewModel.swift
-//  ManaGuide
+//  Manaprobe
 //
 //  Created by Vito Royeca on 3/21/22.
-//  Copyright © 2022 Jovito Royeca. All rights reserved.
 //
 
 import SwiftUI

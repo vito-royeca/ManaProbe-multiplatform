@@ -1,6 +1,6 @@
 //
 //  SetView.swift
-//  ManaGuide
+//  Manaprobe
 //
 //  Created by Vito Royeca on 3/21/22.
 //
@@ -92,7 +92,7 @@ extension SetView {
                     SetView(set: data)
                 }
             } else {
-                Text("Can't parse")
+                Text("data not loaded.")
             }
         }
     } fetchData: {

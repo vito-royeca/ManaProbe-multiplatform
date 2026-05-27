@@ -1,6 +1,6 @@
 //
 //  CardSetInfoView.swift
-//  ManaGuide (iOS)
+//  Manaprobe
 //
 //  Created by Vito Royeca on 2/26/24.
 //

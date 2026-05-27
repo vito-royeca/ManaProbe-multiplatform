@@ -1,6 +1,6 @@
 //
 //  NewsMap.swift
-//  ManaGuide
+//  Manaprobe
 //
 //  Created by Vito Royeca on 3/30/22.
 //

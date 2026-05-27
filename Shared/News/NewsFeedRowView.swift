@@ -1,6 +1,6 @@
 //
 //  NewsFeedRowView.swift
-//  ManaGuide
+//  Manaprobe
 //
 //  Created by Vito Royeca on 4/24/22.
 //

@@ -1,9 +1,8 @@
 //
 //  SetsView.swift
-//  ManaGuide
+//  Manaprobe
 //
 //  Created by Vito Royeca on 3/21/22.
-//  Copyright © 2022 Jovito Royeca. All rights reserved.
 //
 
 import SwiftUI
@@ -140,7 +139,7 @@ extension SetsView {
             if let data = data {
                 SetsView(sectionedSets: data)
             } else {
-                Text("Can't parse")
+                Text("data not loaded.")
             }
         }
     } fetchData: {

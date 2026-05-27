@@ -1,9 +1,8 @@
 //
 //  ContentView.swift
-//  ManaGuide
+//  Manaprobe
 //
 //  Created by Vito Royeca on 11/10/20.
-//  Copyright © 2020 Vito Royeca. All rights reserved.
 //
 
 import SwiftUI
@@ -28,11 +27,11 @@ struct ContentView: View {
 //                    }
                 Text("Fullscreen view")
             default:
-                ManaGuideTabs()
+                ManaprobeTabs()
             }
         }
         #else
-        ManaGuideTabs()
+        ManaprobeTabs()
 //            .presentVideoPlayer()
         #endif
     }

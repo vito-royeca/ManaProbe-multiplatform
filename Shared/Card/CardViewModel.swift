@@ -1,6 +1,6 @@
 //
 //  CardViewModel.swift
-//  ManaGuide
+//  Manaprobe
 //
 //  Created by Jovito Royeca on 08.09.18.
 //  Copyright © 2018 Jovito Royeca. All rights reserved.
@@ -45,6 +45,8 @@ class CardViewModel {
         self.card = card
         self.cardArray = CardArray(selectedCard: card.fragments.innerCardInfo,
                                    cards: cards)
+        hasPrevious = true
+        hasNext = true
     }
     
     // MARK: - Methods

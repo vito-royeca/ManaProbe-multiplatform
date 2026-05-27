@@ -1,6 +1,6 @@
 //
 //  CollectionsRowView.swift
-//  ManaGuide
+//  Manaprobe
 //
 //  Created by Vito Royeca on 5/8/26.
 //

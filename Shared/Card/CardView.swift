@@ -1,6 +1,6 @@
 //
 //  CardView.swift
-//  ManaGuide
+//  Manaprobe
 //
 //  Created by Vito Royeca on 3/21/22.
 //
@@ -264,7 +264,7 @@ struct CardViewNavigationToolbar: ToolbarContent {
             } label: {
                 Image(systemName: "chevron.up")
             }
-            .disabled(!viewModel.hasNext)
+            .disabled(!viewModel.hasPrevious)
             
             Button {
                 Task {
@@ -273,7 +273,7 @@ struct CardViewNavigationToolbar: ToolbarContent {
             } label: {
                 Image(systemName: "chevron.down")
             }
-            .disabled(!viewModel.hasPrevious)
+            .disabled(!viewModel.hasNext)
         }
     }
 }

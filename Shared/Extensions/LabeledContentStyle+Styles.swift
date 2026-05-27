@@ -1,6 +1,6 @@
 //
 //  LabeledContentStyle+Styles.swift
-//  ManaGuide
+//  Manaprobe
 //
 //  Created by Vito Royeca on 11/23/23.
 //

@@ -1,6 +1,6 @@
 //
 //  ErrorView.swift
-//  ManaGuide
+//  Manaprobe
 //
 //  Created by Vito Royeca on 4/8/22.
 //

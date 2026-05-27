@@ -17,7 +17,7 @@
 		7604727C2FB96B5500B75E4F /* CollectionListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D60A482FAEEAA200A8F980 /* CollectionListItemView.swift */; };
 		7604727D2FB96B5500B75E4F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760B05272F903307003DB025 /* CardView.swift */; };
 		7604727E2FB96B5500B75E4F /* FlexibleTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C8DED82F929C4200B0144A /* FlexibleTabView.swift */; };
-		7604727F2FB96B5500B75E4F /* ManaGuideTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DFDFDA2F8BFD2F00477B8B /* ManaGuideTabs.swift */; };
+		7604727F2FB96B5500B75E4F /* ManaprobeTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DFDFDA2F8BFD2F00477B8B /* ManaprobeTabs.swift */; };
 		760472802FB96B5500B75E4F /* TextViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763D5BD22F84CE8F00405CD5 /* TextViewWrapper.swift */; };
 		760472812FB96B5500B75E4F /* SetsSorterMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76840DE22F8D7FCB000415C0 /* SetsSorterMenuView.swift */; };
 		760472822FB96B5500B75E4F /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76840DBC2F8D64EF000415C0 /* Color+Hex.swift */; };
@@ -44,7 +44,7 @@
 		760472972FB96B5500B75E4F /* AsyncPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C8DEE42F96E5D800B0144A /* AsyncPreviewView.swift */; };
 		760472982FB96B5500B75E4F /* CollectionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761CA9AC2FA84AE500788AA6 /* CollectionsViewModel.swift */; };
 		760472992FB96B5500B75E4F /* CardVariationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761035762F9178CC00EE42DA /* CardVariationsView.swift */; };
-		7604729A2FB96B5500B75E4F /* ManaGuideApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B41B7352812144D00AECF85 /* ManaGuideApp.swift */; };
+		7604729A2FB96B5500B75E4F /* ManaprobeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B41B7352812144D00AECF85 /* ManaprobeApp.swift */; };
 		7604729B2FB96B5500B75E4F /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D609AB2FACF2C400A8F980 /* CollectionView.swift */; };
 		7604729C2FB96B5500B75E4F /* SetsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DFDECB2F8BE02900477B8B /* SetsRowView.swift */; };
 		7604729D2FB96B5500B75E4F /* CardExtraInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761035732F916EE700EE42DA /* CardExtraInfoView.swift */; };
@@ -73,9 +73,7 @@
 		760472B62FB96B5500B75E4F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58A147102B033A9E00A957B7 /* Launch Screen.storyboard */; };
 		760472B72FB96B5500B75E4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B41B7372812144E00AECF85 /* Assets.xcassets */; };
 		760472BE2FB96BA200B75E4F /* Manaprobe--iOS--Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 760472BD2FB96BA200B75E4F /* Manaprobe--iOS--Info.plist */; };
-		760472C02FB96BA200B75E4F /* Manaprobe--iOS--Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 760472BD2FB96BA200B75E4F /* Manaprobe--iOS--Info.plist */; };
 		760472C32FB96BD600B75E4F /* Manaprobe--macOS--Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 760472C12FB96BD600B75E4F /* Manaprobe--macOS--Info.plist */; };
-		760472C42FB96BD600B75E4F /* Manaprobe--macOS--Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 760472C12FB96BD600B75E4F /* Manaprobe--macOS--Info.plist */; };
 		760472C92FB96DE400B75E4F /* Tests_Prefetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760472C62FB96D0700B75E4F /* Tests_Prefetch.swift */; };
 		76102D052F9D986C00A43DFA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 76102D032F9D986C00A43DFA /* GoogleService-Info.plist */; };
 		76CDD98A2FB9676500B7A47E /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 76CDD9892FB9676500B7A47E /* Apollo */; };
@@ -111,7 +109,7 @@
 		76CDD9D42FB9698500B7A47E /* Date+ElapsedTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BAC9E43282F4036008848D8 /* Date+ElapsedTime.swift */; };
 		76CDD9D52FB9698500B7A47E /* SetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B41B789281257F600AECF85 /* SetsView.swift */; };
 		76CDD9D62FB9698500B7A47E /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D609AB2FACF2C400A8F980 /* CollectionView.swift */; };
-		76CDD9D72FB9698500B7A47E /* ManaGuideApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B41B7352812144D00AECF85 /* ManaGuideApp.swift */; };
+		76CDD9D72FB9698500B7A47E /* ManaprobeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B41B7352812144D00AECF85 /* ManaprobeApp.swift */; };
 		76CDD9D82FB9698500B7A47E /* CardPricingInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761035822F91E4FC00EE42DA /* CardPricingInfoView.swift */; };
 		76CDD9D92FB9698500B7A47E /* CollectionsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D60A422FAE42CF00A8F980 /* CollectionsRowView.swift */; };
 		76CDD9DA2FB9698500B7A47E /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DFDEC52F8B6A6800477B8B /* SetView.swift */; };
@@ -123,7 +121,7 @@
 		76CDD9E02FB9698500B7A47E /* CardAllPrintingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7685952A2F9C18DB0019AEDA /* CardAllPrintingsViewModel.swift */; };
 		76CDD9E12FB9698500B7A47E /* FlexibleTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C8DED82F929C4200B0144A /* FlexibleTabView.swift */; };
 		76CDD9E22FB9698500B7A47E /* PlaceholderImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C8DEDE2F93FC6D00B0144A /* PlaceholderImageView.swift */; };
-		76CDD9E32FB9698500B7A47E /* ManaGuideTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DFDFDA2F8BFD2F00477B8B /* ManaGuideTabs.swift */; };
+		76CDD9E32FB9698500B7A47E /* ManaprobeTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DFDFDA2F8BFD2F00477B8B /* ManaprobeTabs.swift */; };
 		76CDD9E42FB9698500B7A47E /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E0287E2F9F0E4700F77633 /* FavoritesView.swift */; };
 		76CDD9E52FB9698500B7A47E /* SetsSorterMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76840DE22F8D7FCB000415C0 /* SetsSorterMenuView.swift */; };
 		76CDD9E62FB9698500B7A47E /* String+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A147192B03E4E100A957B7 /* String+Utilities.swift */; };
@@ -271,7 +269,7 @@
 		76DFDEC82F8B6A9300477B8B /* SetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewModel.swift; sourceTree = "<group>"; };
 		76DFDECB2F8BE02900477B8B /* SetsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsRowView.swift; sourceTree = "<group>"; };
 		76DFDF582F8BEF4800477B8B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		76DFDFDA2F8BFD2F00477B8B /* ManaGuideTabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManaGuideTabs.swift; sourceTree = "<group>"; };
+		76DFDFDA2F8BFD2F00477B8B /* ManaprobeTabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManaprobeTabs.swift; sourceTree = "<group>"; };
 		76DFDFDD2F8BFE2500477B8B /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
 		76E028512F9E9FB900F77633 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		76E028702F9EEC0F00F77633 /* AccountToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountToolbar.swift; sourceTree = "<group>"; };
@@ -280,7 +278,7 @@
 		76E0287E2F9F0E4700F77633 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		76E029232FA167C200F77633 /* CardListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListItemView.swift; sourceTree = "<group>"; };
 		76E029282FA167C200F77633 /* CardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsView.swift; sourceTree = "<group>"; };
-		8B41B7352812144D00AECF85 /* ManaGuideApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManaGuideApp.swift; sourceTree = "<group>"; };
+		8B41B7352812144D00AECF85 /* ManaprobeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManaprobeApp.swift; sourceTree = "<group>"; };
 		8B41B7372812144E00AECF85 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B41B7442812144E00AECF85 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		8B41B7492812144E00AECF85 /* Tests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -532,7 +530,7 @@
 				8BAC9E42282F4011008848D8 /* Extensions */,
 				76E0287A2F9F0DCB00F77633 /* Favorites */,
 				58A147102B033A9E00A957B7 /* Launch Screen.storyboard */,
-				8B41B7352812144D00AECF85 /* ManaGuideApp.swift */,
+				8B41B7352812144D00AECF85 /* ManaprobeApp.swift */,
 				761CA9842FA846F700788AA6 /* Models */,
 				8B75CA49281627B500597662 /* Navigation */,
 				8B41B83A28126ED600AECF85 /* News */,
@@ -636,7 +634,7 @@
 			isa = PBXGroup;
 			children = (
 				76DFDFDD2F8BFE2500477B8B /* Tabs.swift */,
-				76DFDFDA2F8BFD2F00477B8B /* ManaGuideTabs.swift */,
+				76DFDFDA2F8BFD2F00477B8B /* ManaprobeTabs.swift */,
 				76DFDF582F8BEF4800477B8B /* ContentView.swift */,
 				76D60A3F2FAD9DCB00A8F980 /* MoreView.swift */,
 			);
@@ -769,7 +767,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1330;
-				LastUpgradeCheck = 2640;
+				LastUpgradeCheck = 2650;
 				TargetAttributes = {
 					8B41B7482812144E00AECF85 = {
 						CreatedOnToolsVersion = 13.3;
@@ -820,7 +818,6 @@
 			files = (
 				760472B62FB96B5500B75E4F /* Launch Screen.storyboard in Resources */,
 				760472B72FB96B5500B75E4F /* Assets.xcassets in Resources */,
-				760472C42FB96BD600B75E4F /* Manaprobe--macOS--Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -831,7 +828,6 @@
 				76CDDA212FB9698500B7A47E /* GoogleService-Info.plist in Resources */,
 				76CDDA222FB9698500B7A47E /* Assets.xcassets in Resources */,
 				76CDDA232FB9698500B7A47E /* Launch Screen.storyboard in Resources */,
-				760472C02FB96BA200B75E4F /* Manaprobe--iOS--Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -869,7 +865,7 @@
 				7604727C2FB96B5500B75E4F /* CollectionListItemView.swift in Sources */,
 				7604727D2FB96B5500B75E4F /* CardView.swift in Sources */,
 				7604727E2FB96B5500B75E4F /* FlexibleTabView.swift in Sources */,
-				7604727F2FB96B5500B75E4F /* ManaGuideTabs.swift in Sources */,
+				7604727F2FB96B5500B75E4F /* ManaprobeTabs.swift in Sources */,
 				760472802FB96B5500B75E4F /* TextViewWrapper.swift in Sources */,
 				760472812FB96B5500B75E4F /* SetsSorterMenuView.swift in Sources */,
 				760472822FB96B5500B75E4F /* Color+Hex.swift in Sources */,
@@ -896,7 +892,7 @@
 				760472972FB96B5500B75E4F /* AsyncPreviewView.swift in Sources */,
 				760472982FB96B5500B75E4F /* CollectionsViewModel.swift in Sources */,
 				760472992FB96B5500B75E4F /* CardVariationsView.swift in Sources */,
-				7604729A2FB96B5500B75E4F /* ManaGuideApp.swift in Sources */,
+				7604729A2FB96B5500B75E4F /* ManaprobeApp.swift in Sources */,
 				7604729B2FB96B5500B75E4F /* CollectionView.swift in Sources */,
 				7604729C2FB96B5500B75E4F /* SetsRowView.swift in Sources */,
 				7604729D2FB96B5500B75E4F /* CardExtraInfoView.swift in Sources */,
@@ -953,7 +949,7 @@
 				76CDD9D42FB9698500B7A47E /* Date+ElapsedTime.swift in Sources */,
 				76CDD9D52FB9698500B7A47E /* SetsView.swift in Sources */,
 				76CDD9D62FB9698500B7A47E /* CollectionView.swift in Sources */,
-				76CDD9D72FB9698500B7A47E /* ManaGuideApp.swift in Sources */,
+				76CDD9D72FB9698500B7A47E /* ManaprobeApp.swift in Sources */,
 				76CDD9D82FB9698500B7A47E /* CardPricingInfoView.swift in Sources */,
 				76CDD9D92FB9698500B7A47E /* CollectionsRowView.swift in Sources */,
 				76CDD9DA2FB9698500B7A47E /* SetView.swift in Sources */,
@@ -965,7 +961,7 @@
 				76CDD9E02FB9698500B7A47E /* CardAllPrintingsViewModel.swift in Sources */,
 				76CDD9E12FB9698500B7A47E /* FlexibleTabView.swift in Sources */,
 				76CDD9E22FB9698500B7A47E /* PlaceholderImageView.swift in Sources */,
-				76CDD9E32FB9698500B7A47E /* ManaGuideTabs.swift in Sources */,
+				76CDD9E32FB9698500B7A47E /* ManaprobeTabs.swift in Sources */,
 				76CDD9E42FB9698500B7A47E /* FavoritesView.swift in Sources */,
 				76CDD9E52FB9698500B7A47E /* SetsSorterMenuView.swift in Sources */,
 				76CDD9E62FB9698500B7A47E /* String+Utilities.swift in Sources */,

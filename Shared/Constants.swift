@@ -1,9 +1,8 @@
 //
 //  Constants.swift
-//  ManaGuide
+//  Manaprobe
 //
 //  Created by Vito Royeca on 10/06/2018.
-//  Copyright © 2018 Jovito Royeca. All rights reserved.
 //
 
 import Foundation

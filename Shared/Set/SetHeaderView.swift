@@ -1,6 +1,6 @@
 //
 //  SetHeaderView.swift
-//  ManaGuide
+//  Manaprobe
 //
 //  Created by Vito Royeca on 11/1/23.
 //

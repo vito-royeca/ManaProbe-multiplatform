@@ -1,6 +1,6 @@
 //
 //  FullscreenCardImageView.swift
-//  ManaGuide
+//  Manaprobe
 //
 //  Created by Vito Royeca on 5/1/26.
 //

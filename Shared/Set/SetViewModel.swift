@@ -1,6 +1,6 @@
 //
 //  SetViewModel.swift
-//  ManaGuide
+//  Manaprobe
 //
 //  Created by Vito Royeca on 4/12/26.
 //

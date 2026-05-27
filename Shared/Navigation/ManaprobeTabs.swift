@@ -1,6 +1,6 @@
 //
-//  ManaGuideTabs.swift
-//  ManaGuide
+//  ManaprobeTabs.swift
+//  Manaprobe
 //
 //  Created by Vito Royeca on 4/12/26.
 //
@@ -9,7 +9,7 @@ import SwiftUI
 
 import ManaKit
 
-struct ManaGuideTabs: View {
+struct ManaprobeTabs: View {
     /// Keep track of tab view customizations in app storage.
     #if !os(macOS) && !os(tvOS)
     @AppStorage("sidebarCustomizations")
@@ -305,7 +305,7 @@ struct HeartView: View {
     }
 }
 
-extension ManaGuideTabs {
+extension ManaprobeTabs {
     func languageID(for set: SetBasicInfo) -> String {
         let language = set.languages.first(where: {
             $0.id == "en"
@@ -317,5 +317,5 @@ extension ManaGuideTabs {
 }
 
 #Preview {
-    ManaGuideTabs()
+    ManaprobeTabs()
 }

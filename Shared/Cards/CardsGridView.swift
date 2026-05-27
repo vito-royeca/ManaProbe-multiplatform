@@ -1,6 +1,6 @@
 //
 //  CardsGridView.swift
-//  ManaGuide (iOS)
+//  Manaprobe
 //
 //  Created by Vito Royeca on 11/19/23.
 //

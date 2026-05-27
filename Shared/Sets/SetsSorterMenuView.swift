@@ -1,6 +1,6 @@
 //
 //  SetsSorterMenuView.swift
-//  ManaGuide
+//  Manaprobe
 //
 //  Created by Vito Royeca on 4/13/26.
 //

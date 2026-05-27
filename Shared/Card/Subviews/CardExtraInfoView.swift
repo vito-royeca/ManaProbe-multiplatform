@@ -1,6 +1,6 @@
 //
 //  CardExtraInfoView.swift
-//  ManaGuide
+//  Manaprobe
 //
 //  Created by Vito Royeca on 11/8/23.
 //
