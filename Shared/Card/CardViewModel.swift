@@ -2,23 +2,17 @@
 //  CardViewModel.swift
 //  Manaprobe
 //
-//  Created by Jovito Royeca on 08.09.18.
-//  Copyright © 2018 Jovito Royeca. All rights reserved.
+//  Created by Vito Royeca on 08.09.18.
 //
 
 import SwiftUI
 import ManaKit
 
-struct CardArray: Hashable {
-    let selectedCard: InnerCardInfo
-    let cards: [String: [CardBasicInfo]]
-}
-
 // MARK: - CardViewModel
 
 @MainActor
 @Observable
-class CardViewModel {
+class CardViewModel: CardsNavigatorDisplayDelegate {
     // MARK: - Variables
     
     var card: CardCompleteInfo?
@@ -26,27 +20,16 @@ class CardViewModel {
     var face: InnerCardInfo?
     var cardList = [InnerCardInfo]()
 
-    var hasPrevious = false
-    var hasNext = false
-
     var isBusy = false
     var isFailed = false
     
     @ObservationIgnored
-    private var cardArray: CardArray
+    var id: String
     
     // MARK: - Initializers
     
-    init(cardArray: CardArray) {
-        self.cardArray = cardArray
-    }
-
-    init(card: CardCompleteInfo, cards: [String: [CardBasicInfo]] = [String: [CardBasicInfo]]()) {
-        self.card = card
-        self.cardArray = CardArray(selectedCard: card.fragments.innerCardInfo,
-                                   cards: cards)
-        hasPrevious = true
-        hasNext = true
+    init(id: String) {
+        self.id = id
     }
     
     // MARK: - Methods
@@ -60,20 +43,15 @@ class CardViewModel {
             isFailed = false
             isBusy = true
             
-            clearData()
-            
-            card = try await ManaKitUtilities.shared.card(fetchRemote: false, id: cardArray.selectedCard.id)?
+            card = try await ManaKitUtilities.shared.card(fetchRemote: false, id: id)?
                 .fragments
                 .cardCompleteInfo
             
             if let card = card {
                 faces = card.faces.map { $0.fragments.innerCardInfo }
                 face = faces?.first
-                cardArray = CardArray(selectedCard: card.fragments.innerCardInfo,
-                                      cards: cardArray.cards)
             }
 
-            formatData()
             isBusy = false
         } catch {
             isFailed = true
@@ -81,50 +59,17 @@ class CardViewModel {
         }
     }
     
-    func formatData() -> Void {
-        
-    }
-
     func reloadData() async {
         card = nil
         faces = nil
         face = nil
-//        clearData()
         await fetchData()
     }
 
-    private func clearData() {
-        
-    }
-}
+    // MARK: - CardsNavigatorDisplayDelegate
 
-extension CardViewModel {
-    func updateNavigation() {
-        var index = 0
-        var cardCount = 0
-        
-        for (_,v) in cardArray.cards {
-            cardCount += v.count
-            
-            for card in v {
-                index += 0
-                
-            }
-        }
-        hasPrevious = index != 0
-//        hasNext =
-    }
-    func goToNext() async {
-        guard hasNext else {
-            return
-        }
-        
-    }
-    
-    func goToPrevious() async {
-        guard hasPrevious else {
-            return
-        }
-        
+    func display(card: InnerCardInfo) async {
+        id = card.id
+        await reloadData()
     }
 }

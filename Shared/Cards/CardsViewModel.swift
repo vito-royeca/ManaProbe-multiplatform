@@ -133,11 +133,16 @@ class CardsViewModel {
     var orderer = CardsOrderer.defaultValue
     
     @ObservationIgnored
-    var currentCard: CardBasicInfo?
-    @ObservationIgnored
-    var cardIndex = 0
-    @ObservationIgnored
     var delegate: CardsViewModelDelegate?
+    
+    // MARK: - CardsNavigatorDelegate variables
+
+    @ObservationIgnored
+    var selectedCard: InnerCardInfo? = nil
+    @ObservationIgnored
+    var cardsArray: [InnerCardInfo] = [InnerCardInfo]()
+    var hasPrevious = false
+    var hasNext = false
     
     // MARK: - Initializers
     
@@ -168,15 +173,15 @@ class CardsViewModel {
     }
     
     func formatData() -> Void {
-        var cardsArray = [CardBasicInfo]()
+        var tempArray = [CardBasicInfo]()
         for (_,v) in cards {
-            cardsArray.append(contentsOf: v)
+            tempArray.append(contentsOf: v)
         }
         clearData()
 
         switch sorter {
         case .collectorNumber:
-            cards[""] = cardsArray.sorted(by: {
+            cards[""] = tempArray.sorted(by: {
                 let c0 = $0.collectorNumber ?? ""
                 let c1 = $1.collectorNumber ?? ""
                 let number0 = Int(c0)
@@ -191,7 +196,7 @@ class CardsViewModel {
             })
             cardSections = [""]
         case .name:
-            let keys = Set(cardsArray.map({
+            let keys = Set(tempArray.map({
                 if let name = $0.name,
                     let first = name.first {
                     first.isASCII && first.isLetter ? String(first).uppercased() : "#"
@@ -200,7 +205,7 @@ class CardsViewModel {
                 }
             }))
             for key in keys {
-                let array = cardsArray.filter({
+                let array = tempArray.filter({
                     if key == "#" {
                         if let name = $0.name,
                             let first = name.first {
@@ -220,10 +225,10 @@ class CardsViewModel {
             cardSections = keys.sorted()
             cardSectionIndexTitles = cardSections
         case .rarity:
-            let keys = Set(cardsArray.map({ $0.rarity?.name ?? "" }))
+            let keys = Set(tempArray.map({ $0.rarity?.name ?? "" }))
             for key in keys {
                 if !key.isEmpty {
-                    let array = cardsArray.filter({ $0.rarity?.name ?? "" == key })
+                    let array = tempArray.filter({ $0.rarity?.name ?? "" == key })
                     cards[key] = array.sorted(by: { $0.name ?? "" < $1.name ?? ""})
                 } else {
                     print("key is empty")
@@ -232,7 +237,7 @@ class CardsViewModel {
             cardSections = keys.sorted()
         case .type:
             var keys = Set<String>()
-            for card in cardsArray {
+            for card in tempArray {
                 for name in (card.supertypes ?? []).map({ $0.name }) {
                     keys.insert(name)
                 }
@@ -240,7 +245,7 @@ class CardsViewModel {
             
             for key in keys {
                 var array = [CardBasicInfo]()
-                for card in cardsArray {
+                for card in tempArray {
                     let supertypes = (card.supertypes ?? []).filter({ $0.name == key })
                     if !supertypes.isEmpty {
                         array.append(card)
@@ -250,6 +255,15 @@ class CardsViewModel {
             }
             cardSections = keys.sorted()
         }
+        
+        // CardsNavigatorDelegate
+        self.cardsArray = [InnerCardInfo]()
+        for section in cardSections {
+            if let subarray = cards[section] {
+                self.cardsArray.append(contentsOf: subarray.map{ $0.fragments.innerCardInfo })
+            }
+        }
+        updateNavigation()
     }
     
     func reloadData() async {
@@ -262,6 +276,53 @@ class CardsViewModel {
         cards.removeAll()
         cardSections.removeAll()
         cardSectionIndexTitles.removeAll()
+    }
+}
+
+extension CardsViewModel: @MainActor CardsNavigatorDelegate {
+    
+    // MARK: - CardsNavigatorDelegate
+
+    private func selectedIndex() -> Int? {
+        guard let selectedCard = selectedCard else {
+            return nil
+        }
+        
+        let index = cardsArray.firstIndex(where: { $0.id == selectedCard.id })
+        
+        return index
+    }
+
+    func updateNavigation() {
+        let index = selectedIndex()
+        hasPrevious = index != 0
+        hasNext = (index ?? 0)  < cardsArray.count - 1
+    }
+    
+    func goToPrevious() {
+        guard hasPrevious else {
+            return
+        }
+        
+        if let index = selectedIndex() {
+            let card = cardsArray[index - 1]
+            print("selectedCard: \(selectedCard?.id ?? ""); previousCard: \(card.id)")
+            selectedCard = card
+            updateNavigation()
+        }
+    }
+
+    func goToNext() {
+        guard hasNext else {
+            return
+        }
+        
+        if let index = selectedIndex() {
+            let card = cardsArray[index + 1]
+            print("selectedCard: \(selectedCard?.id ?? ""); nextCard: \(card.id)")
+            selectedCard = card
+            updateNavigation()
+        }
     }
 }
 

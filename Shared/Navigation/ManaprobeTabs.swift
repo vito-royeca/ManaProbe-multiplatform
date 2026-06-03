@@ -144,8 +144,8 @@ struct ManaprobeTabs: View {
                 }
                 .navigationDestination(for: CardRoute.self) { route in
                     switch route {
-                    case .detail(let cardArray):
-                        CardView(cardArray: cardArray)
+                    case .details(let selectedCard, let navigator):
+                        CardView(card: selectedCard, navigator: navigator)
                     case .printings(let card):
                         CardAllPrintingsView(card: card)
                     }
@@ -188,8 +188,8 @@ struct ManaprobeTabs: View {
         FavoritesView()
             .navigationDestination(for: CardRoute.self) { route in
                 switch route {
-                case .detail(let cardArray):
-                    CardView(cardArray: cardArray)
+                case .details(let selectedCard, let navigator):
+                    CardView(card: selectedCard, navigator: navigator)
                 case .printings(let card):
                     CardAllPrintingsView(card: card)
                 }
@@ -200,8 +200,8 @@ struct ManaprobeTabs: View {
         CollectionsView()
             .navigationDestination(for: CardRoute.self) { route in
                 switch route {
-                case .detail(let cardArray):
-                    CardView(cardArray: cardArray)
+                case .details(let selectedCard, let navigator):
+                    CardView(card: selectedCard, navigator: navigator)
                 case .printings(let card):
                     CardAllPrintingsView(card: card)
                 }
@@ -237,71 +237,12 @@ struct ManaprobeTabs: View {
             }
             .navigationDestination(for: CardRoute.self) { route in
                 switch route {
-                case .detail(let cardArray):
-                    CardView(cardArray: cardArray)
+                case .details(let selectedCard, let navigator):
+                    CardView(card: selectedCard, navigator: navigator)
                 case .printings(let card):
                     CardAllPrintingsView(card: card)
                 }
             }
-    }
-}
-
-struct HeartView: View {
-    var body: some View {
-        NavigationStack {
-            List {
-                NavigationLink(value: "Health") {
-                    Text("Health")
-                }
-                NavigationLink(value: "Wealth") {
-                    Text("Wealth")
-                }
-            }
-            .navigationTitle("Heart")
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button {
-                        
-                    } label : {
-                        Image(systemName: "xmark")
-                    }
-                }
-            }
-            .navigationDestination(for: String.self) { string in
-                switch string {
-                case "Health":
-                    List {
-                        Text("Health Details")
-                    }
-                    .navigationTitle("Health Details")
-                    .toolbar {
-                        ToolbarItem(placement: .confirmationAction) {
-                            Button {
-                                
-                            } label : {
-                                Image(systemName: "checkmark")
-                            }
-                        }
-                    }
-                case "Wealth":
-                    List {
-                        Text("Wealth Details")
-                    }
-                    .navigationTitle("Wealth Details")
-                    .toolbar {
-                        ToolbarItem(placement: .confirmationAction) {
-                            Button {
-                                
-                            } label : {
-                                Image(systemName: "checkmark")
-                            }
-                        }
-                    }
-                default:
-                    Text("Not Implemented")
-                }
-            }
-        }
     }
 }
 

@@ -15,6 +15,8 @@ struct CardView: View {
     
     @State
     private var viewModel: CardViewModel
+    private var navigator: CardsNavigatorDelegate?
+
     @Environment(\.horizontalSizeClass)
     private var horizontalSizeClass
     @State
@@ -30,14 +32,13 @@ struct CardView: View {
     
     // MARK: - Initializers
     
-    init(cardArray: CardArray) {
-        let model = CardViewModel(cardArray: cardArray)
+    init(card: InnerCardInfo, navigator: CardsNavigatorDelegate?) {
+        let model = CardViewModel(id: card.id)
         _viewModel = State(wrappedValue: model)
-    }
-    
-    init(card: CardCompleteInfo) {
-        let model = CardViewModel(card: card)
-        _viewModel = State(wrappedValue: model)
+        
+        self.navigator = navigator
+        self.navigator?.selectedCard = card
+        self.navigator?.updateNavigation()
     }
 
     // MARK: - UI
@@ -81,7 +82,9 @@ struct CardView: View {
             informationView
         }
         .toolbar {
-            navigationToolbarView
+            if let navigator {
+                CardsNavigatorToolbar(navigatorDelegate: navigator, displayDelegate: viewModel)
+            }
             actionToolbarView
         }
         .navigationTitle(viewModel.face?.displayName ?? viewModel.card?.displayName ?? "")
@@ -109,7 +112,9 @@ struct CardView: View {
             }
             .toolbar {
                 titleToolbar
-                navigationToolbarView
+                if let navigator {
+                    CardsNavigatorToolbar(navigatorDelegate: navigator, displayDelegate: viewModel)
+                }
                 actionToolbarView
             }
             .toolbarBackground(.hidden)
@@ -221,11 +226,15 @@ struct CardView: View {
     }
     
     var fullscreenView: some View {
-        FullscreenCardImageView(model: $viewModel)
-    }
-
-    var navigationToolbarView: some ToolbarContent {
-        CardViewNavigationToolbar(viewModel: $viewModel)
+        Group {
+            if let navigator {
+                FullscreenCardImageView(model: $viewModel,
+                                        navigatorDelegate: navigator,
+                                        displayDelegate: viewModel)
+            } else {
+                EmptyView()
+            }
+        }
     }
 
     var actionToolbarView: some ToolbarContent {
@@ -246,35 +255,6 @@ private extension View {
     func previewHeaderContent() -> some View {
         self.foregroundColor(.white)
             .shadow(color: .black.opacity(0.4), radius: 1, x: 1, y: 1)
-    }
-}
-
-// MARK: - CardViewNavigationToolbar
-
-struct CardViewNavigationToolbar: ToolbarContent {
-    @Binding
-    var viewModel: CardViewModel
-    
-    var body: some ToolbarContent {
-        ToolbarItemGroup(placement: .topBarTrailing) {
-            Button {
-                Task {
-                    await viewModel.goToPrevious()
-                }
-            } label: {
-                Image(systemName: "chevron.up")
-            }
-            .disabled(!viewModel.hasPrevious)
-            
-            Button {
-                Task {
-                    await viewModel.goToNext()
-                }
-            } label: {
-                Image(systemName: "chevron.down")
-            }
-            .disabled(!viewModel.hasNext)
-        }
     }
 }
 
@@ -345,8 +325,9 @@ struct CardViewActionToolbar: ToolbarContent {
     
     AsyncPreviewView { data in
         NavigationView {
-            if let card = data?.fragments.cardCompleteInfo {
-                CardView(card: card)
+            if let data {
+                let card = data.fragments.innerCardInfo
+                CardView(card: card, navigator: nil)
             }
         }
     } fetchData: {

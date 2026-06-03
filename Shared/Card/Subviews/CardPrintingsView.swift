@@ -22,9 +22,7 @@ struct CardPrintingsView: View {
     var contentView: some View {
         return DisclosureGroup("Printings", isExpanded: $isExpanded) {
             ForEach(cards, id: \.self) { card in
-                let cardArray = CardArray(selectedCard: card,
-                                          cards: [:])
-                let route = CardRoute.detail(cardArray: cardArray)
+                let route = CardRoute.details(selectedCard: card, navigator: nil)
                 NavigationLink(value: route) {
                     CardListItemView(card: card)
                         .tint(.primary)

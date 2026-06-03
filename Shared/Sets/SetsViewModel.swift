@@ -108,7 +108,6 @@ class SetsViewModel {
             sectionIndexTitles = []
         case .year:
             sections = sectionedSets.sections
-            sectionIndexTitles = []
         }
         
         for section in sections {

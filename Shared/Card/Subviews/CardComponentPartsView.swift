@@ -21,9 +21,7 @@ struct CardComponentPartsView: View {
     var contentView: some View {
         DisclosureGroup("Parts", isExpanded: $isExpanded) {
             ForEach(Array(componentParts), id: \.self) { part in
-                let cardArray = CardArray(selectedCard: part.card.fragments.innerCardInfo,
-                                          cards: [:])
-                let route = CardRoute.detail(cardArray: cardArray)
+                let route = CardRoute.details(selectedCard: part.card.fragments.innerCardInfo, navigator: nil)
                 NavigationLink(value: route) {
                     VStack(alignment: .leading) {
                         Text(part.component.name)

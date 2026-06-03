@@ -49,9 +49,7 @@ struct CardsGridView<Header: View>: View {
                         Section(header: Text(section)) {
                             ForEach(cards, id: \.self) { card in
                                 let innerCardInfo = card.fragments.innerCardInfo
-                                let cardArray = CardArray(selectedCard: innerCardInfo,
-                                                          cards: viewModel.cards)
-                                let route = CardRoute.detail(cardArray: cardArray)
+                                let route = CardRoute.details(selectedCard: innerCardInfo, navigator: viewModel)
                                 NavigationLink(value: route) {
                                     VStack {
                                         CardGridItemView(card: innerCardInfo)

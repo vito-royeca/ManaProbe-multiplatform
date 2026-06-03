@@ -30,6 +30,8 @@ struct FullscreenCardImageView: View {
     
     @Binding
     var model: CardViewModel
+    var navigatorDelegate: CardsNavigatorDelegate
+    var displayDelegate: CardsNavigatorDisplayDelegate
     
     @State
     private var rotation = 0.0
@@ -39,6 +41,7 @@ struct FullscreenCardImageView: View {
             imageView
                 .rotationEffect(.degrees(rotation))
                 .background(Color.black)
+                .gesture(dragGesture)
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
                         Button(action: {
@@ -132,7 +135,35 @@ struct FullscreenCardImageView: View {
             }
         }
     }
+    
+    var dragGesture: some Gesture {
+        DragGesture(minimumDistance: 20, coordinateSpace: .global).onEnded { value in
+            let horizontalAmount = value.translation.width
+            let verticalAmount = value.translation.height
+            
+            if abs(horizontalAmount) > abs(verticalAmount) {
+                if horizontalAmount < 0 {
+                    print("left swipe")
+                    goToNext()
+                    
+                } else {
+                    print("right swipe")
+                    goToPrevious()
+                }
+            } else {
+                if verticalAmount < 0 {
+                    print("up swipe")
+                    goToNext()
+                } else {
+                    print("down swipe")
+                    goToPrevious()
+                }
+            }
+        }
+    }
 }
+
+// MARK: - Image actions
 
 extension FullscreenCardImageView {
     func rotate(degrees: CGFloat) {
@@ -148,6 +179,28 @@ extension FullscreenCardImageView {
             model.face = model.faces?.last
         } else {
             model.face = model.faces?.first
+        }
+    }
+}
+
+// MARK: - Swipe actions
+
+extension FullscreenCardImageView {
+    func goToPrevious() {
+        navigatorDelegate.goToPrevious()
+        if let card = navigatorDelegate.selectedCard {
+            Task {
+                await displayDelegate.display(card: card)
+            }
+        }
+    }
+    
+    func goToNext() {
+        navigatorDelegate.goToNext()
+        if let card = navigatorDelegate.selectedCard {
+            Task {
+                await displayDelegate.display(card: card)
+            }
         }
     }
 }

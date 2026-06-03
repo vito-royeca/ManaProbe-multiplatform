@@ -21,9 +21,7 @@ struct CardVariationsView: View {
     var contentView: some View {
         DisclosureGroup("Variations", isExpanded: $isExpanded) {
             ForEach(cards, id: \.self) { card in
-                let cardArray = CardArray(selectedCard: card,
-                                          cards: [:])
-                let route = CardRoute.detail(cardArray: cardArray)
+                let route = CardRoute.details(selectedCard: card, navigator: nil)
                 NavigationLink(value: route) {
                     CardListItemView(card: card)
                         .tint(.primary)

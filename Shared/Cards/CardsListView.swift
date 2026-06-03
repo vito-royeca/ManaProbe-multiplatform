@@ -12,9 +12,9 @@ import ManaKit
 //    public var id: String { __data["id"] }
 //}
 
-struct CardListViewID: Identifiable {
-    var id: String
-}
+//struct CardListViewID: Identifiable {
+//    var id: String
+//}
 
 struct CardsListView<Header: View>: View {
     // MARK: - Variables
@@ -31,7 +31,7 @@ struct CardsListView<Header: View>: View {
     private var header: Header
 
     @State
-    private var selectedCard: CardListViewID? = nil
+    private var isCollectionPresented = false
     
     // MARK: - Initializers
 
@@ -40,7 +40,14 @@ struct CardsListView<Header: View>: View {
     }
     
     var body: some View {
-        contentView
+        ScrollViewReader { proxy in
+            contentView
+                .onAppear() {
+                    if let selectedCard = viewModel.selectedCard {
+                        proxy.scrollTo(selectedCard.id, anchor: .top)
+                    }
+                }
+        }
     }
     
     var contentView: some View {
@@ -53,9 +60,7 @@ struct CardsListView<Header: View>: View {
                     Section(header: Text(section)) {
                         ForEach(cards, id: \.self) { card in
                             let innerCardInfo = card.fragments.innerCardInfo
-                            let cardArray = CardArray(selectedCard: innerCardInfo,
-                                                      cards: viewModel.cards)
-                            let route = CardRoute.detail(cardArray: cardArray)
+                            let route = CardRoute.details(selectedCard: innerCardInfo, navigator: viewModel)
                             NavigationLink(value: route) {
                                 CardListItemView(card: innerCardInfo)
                                     .toolbar(.hidden, for: .tabBar)
@@ -64,6 +69,7 @@ struct CardsListView<Header: View>: View {
                                     }
                             }
                             .buttonStyle(.plain)
+                            .id(card.id)
                         }
                     }
                 } else {
@@ -73,9 +79,9 @@ struct CardsListView<Header: View>: View {
         }
         .listStyle(.plain)
         .navigationLinkIndicatorVisibility(.hidden)
-        .sheet(item: $selectedCard) { id in
-            if let card = viewModel.cards.values.flatMap(\.self).first(where: { $0.id == id.id }) {
-                CreateCollectionView(card: card.fragments.innerCardInfo)
+        .sheet(isPresented: $isCollectionPresented) {
+            if let card = viewModel.selectedCard {
+                CreateCollectionView(card: card)
             } else {
                 EmptyView()
             }
@@ -122,7 +128,7 @@ extension CardsListView {
         if authModel.user == nil {
             authModel.showAccountView.toggle()
         } else {
-            selectedCard = CardListViewID(id: card.id)
+            viewModel.selectedCard = card.fragments.innerCardInfo
         }
     }
 

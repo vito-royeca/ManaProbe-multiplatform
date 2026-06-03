@@ -22,9 +22,7 @@ struct CardLanguagesView: View {
         DisclosureGroup("Other Languages", isExpanded: $isExpanded) {
             ForEach(cards, id: \.self) { card in
                 VStack(alignment: .leading) {
-                    let cardArray = CardArray(selectedCard: card,
-                                              cards: [:])
-                    let route = CardRoute.detail(cardArray: cardArray)
+                    let route = CardRoute.details(selectedCard: card, navigator: nil)
                     Text(card.language?.name ?? "")
                     NavigationLink(value: route) {
                         CardListItemView(card: card)
