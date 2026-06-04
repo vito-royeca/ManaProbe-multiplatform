@@ -93,11 +93,7 @@ struct CardListItemView: View {
 #Preview {
     AsyncPreviewView { data in
         List {
-            if let data = data {
-                CardListItemView(card: data.fragments.innerCardInfo)
-            } else {
-                EmptyView()
-            }
+            CardListItemView(card: data.fragments.innerCardInfo)
         }
     } fetchData: {
         try await ManaKitUtilities.shared.card(fetchRemote: false,

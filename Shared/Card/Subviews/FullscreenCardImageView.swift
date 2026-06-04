@@ -208,10 +208,8 @@ extension FullscreenCardImageView {
 #Preview {
 //    AsyncPreviewView { data in
 //        NavigationView {
-//            if let data = data {
-//                FullscreenCardImageView(card: nil,
-//                                        face: nil)
-//            }
+//            FullscreenCardImageView(card: nil,
+//                                    face: nil)
 //        }
 //    } fetchData: {
 //        try await ManaKitUtilities.shared.card(id: "ecl_en_290")

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AsyncPreviewView<VisualContent: View, ModelData>: View {
-    var viewBuilder: (ModelData?) -> VisualContent
+    var viewBuilder: (ModelData) -> VisualContent
     var fetchData: () async throws -> ModelData?
     
     @State private var modelData: ModelData?
@@ -32,8 +32,13 @@ struct AsyncPreviewView<VisualContent: View, ModelData>: View {
             viewBuilder(modelData)
         }
         else if let error {
-            Text(error.localizedDescription)
-                .foregroundStyle(Color.red)
+            VStack {
+                Image(systemName: "exclamationmark.triangle")
+                    .font(.largeTitle)
+                    .foregroundStyle(Color.red)
+                Text(error.localizedDescription)
+                    .foregroundStyle(Color.red)
+            }
         }
         else {
             Text("Calculating async data...")

@@ -14,7 +14,7 @@ enum CardRoute: Hashable {
     
     func hash(into hasher: inout Hasher) {
         switch self {
-        case .details(let selectedCard, let navigator):
+        case .details(let selectedCard, _):
             hasher.combine(0) // Unique seed for this case
             hasher.combine(selectedCard)
         case .printings(let value):
@@ -131,8 +131,8 @@ extension CardsView {
         CardsView(delegate: DefaultCardsViewModelDelegate())
             .navigationDestination(for: CardRoute.self) { route in
                 switch route {
-                case .details(let selectedCard, let cardArray):
-                    CardView(card: selectedCard, navigator: nil)
+                case .details(let selectedCard, let navigator):
+                    CardView(card: selectedCard, navigator: navigator)
                 case .printings(let card):
                     CardAllPrintingsView(card: card)
                 }

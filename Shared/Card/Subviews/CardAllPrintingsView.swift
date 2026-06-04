@@ -63,9 +63,7 @@ extension CardAllPrintingsView {
 #Preview {
     AsyncPreviewView { data in
         NavigationView {
-            if let data = data {
-                CardAllPrintingsView(card: data.fragments.innerCardInfo)
-            }
+            CardAllPrintingsView(card: data.fragments.innerCardInfo)
         }
     } fetchData: {
         try await ManaKitUtilities.shared.card(fetchRemote: false,

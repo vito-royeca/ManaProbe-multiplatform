@@ -135,13 +135,7 @@ extension SetsView {
 //#Preview(traits: .landscapeRight) {
 #Preview {
     AsyncPreviewView { data in
-        Group {
-            if let data = data {
-                SetsView(sectionedSets: data)
-            } else {
-                Text("data not loaded.")
-            }
-        }
+        SetsView(sectionedSets: data)
     } fetchData: {
         try await ManaKitUtilities.shared.sets(fetchRemote: false, type: .byYear)
     }

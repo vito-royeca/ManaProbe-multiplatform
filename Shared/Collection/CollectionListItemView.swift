@@ -109,12 +109,8 @@ struct CollectionListItemView: View {
                         notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non nisl at nunc lobortis accumsan a eget est. Integer eleifend.")
     AsyncPreviewView { data in
         List {
-            if let data = data {
-                CollectionListItemView(card: data.fragments.innerCardInfo,
-                                       fbCard: fbCard)
-            } else {
-                EmptyView()
-            }
+            CollectionListItemView(card: data.fragments.innerCardInfo,
+                                   fbCard: fbCard)
         }
     } fetchData: {
         try await ManaKitUtilities.shared.card(fetchRemote: false,

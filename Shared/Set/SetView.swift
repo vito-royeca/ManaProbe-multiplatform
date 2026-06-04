@@ -86,17 +86,13 @@ extension SetView {
     let favoritesModel = FavoritesViewModel()
     
     AsyncPreviewView { data in
-        Group {
-            if let data = data {
-                NavigationStack {
-                    SetView(set: data)
-                }
-            } else {
-                Text("data not loaded.")
-            }
+        NavigationStack {
+            SetView(set: data)
         }
     } fetchData: {
-        try await ManaKitUtilities.shared.set(fetchRemote: false, setID: "ecl", languageID: "en")
+        try await ManaKitUtilities.shared.set(fetchRemote: false,
+                                              setID: "ecl",
+                                              languageID: "en")
     }
     .environment(authModel)
     .environment(favoritesModel)

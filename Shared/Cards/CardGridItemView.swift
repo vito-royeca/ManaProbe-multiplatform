@@ -79,13 +79,9 @@ struct CardGridItemView: View {
     AsyncPreviewView { data in
         Grid {
             GridRow {
-                if let data = data {
-                    ScrollView {
-                        CardGridItemView(card: data.fragments.innerCardInfo)
-                        Text(data.fragments.innerCardInfo.displayName ?? "")
-                    }
-                } else {
-                    EmptyView()
+                ScrollView {
+                    CardGridItemView(card: data.fragments.innerCardInfo)
+                    Text(data.fragments.innerCardInfo.displayName ?? "")
                 }
             }
         }

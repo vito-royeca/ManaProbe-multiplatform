@@ -325,10 +325,7 @@ struct CardViewActionToolbar: ToolbarContent {
     
     AsyncPreviewView { data in
         NavigationView {
-            if let data {
-                let card = data.fragments.innerCardInfo
-                CardView(card: card, navigator: nil)
-            }
+            CardView(card: data.fragments.innerCardInfo, navigator: nil)
         }
     } fetchData: {
         try await ManaKitUtilities.shared.card(fetchRemote: false,
