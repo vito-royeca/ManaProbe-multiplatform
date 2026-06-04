@@ -13,6 +13,8 @@
 		4739CAAE2FC8C10A00B787F0 /* CardsNavigatorToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4739CAAC2FC8C0FC00B787F0 /* CardsNavigatorToolbar.swift */; };
 		473C581A2FD06A6B00219522 /* CardsNavigatorDisplayDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473C58192FD06A5E00219522 /* CardsNavigatorDisplayDelegate.swift */; };
 		473C581B2FD06A6B00219522 /* CardsNavigatorDisplayDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473C58192FD06A5E00219522 /* CardsNavigatorDisplayDelegate.swift */; };
+		47F6E0C02FD1F32C00F71B4A /* CardViewActionToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F6E0BF2FD1F31B00F71B4A /* CardViewActionToolbar.swift */; };
+		47F6E0C12FD1F32C00F71B4A /* CardViewActionToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F6E0BF2FD1F31B00F71B4A /* CardViewActionToolbar.swift */; };
 		760472752FB96B5500B75E4F /* CardSetInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760B05662F90710E003DB025 /* CardSetInfoView.swift */; };
 		760472762FB96B5500B75E4F /* CardCommonInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760B05652F90710E003DB025 /* CardCommonInfoView.swift */; };
 		760472772FB96B5500B75E4F /* CardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E029282FA167C200F77633 /* CardsView.swift */; };
@@ -224,6 +226,7 @@
 		4739CAA82FC8A43200B787F0 /* CardsNavigatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsNavigatorDelegate.swift; sourceTree = "<group>"; };
 		4739CAAC2FC8C0FC00B787F0 /* CardsNavigatorToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsNavigatorToolbar.swift; sourceTree = "<group>"; };
 		473C58192FD06A5E00219522 /* CardsNavigatorDisplayDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsNavigatorDisplayDelegate.swift; sourceTree = "<group>"; };
+		47F6E0BF2FD1F31B00F71B4A /* CardViewActionToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewActionToolbar.swift; sourceTree = "<group>"; };
 		58A147102B033A9E00A957B7 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		58A147162B0348DC00A957B7 /* Notifications+Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notifications+Names.swift"; sourceTree = "<group>"; };
 		58A147192B03E4E100A957B7 /* String+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utilities.swift"; sourceTree = "<group>"; };
@@ -419,6 +422,7 @@
 		760B052C2F903307003DB025 /* Card */ = {
 			isa = PBXGroup;
 			children = (
+				47F6E0BF2FD1F31B00F71B4A /* CardViewActionToolbar.swift */,
 				760B05272F903307003DB025 /* CardView.swift */,
 				760B05622F9038B3003DB025 /* CardViewModel.swift */,
 				760B051B2F903307003DB025 /* Subviews */,
@@ -456,11 +460,11 @@
 		763D5BD52F84CE8F00405CD5 /* Common Views */ = {
 			isa = PBXGroup;
 			children = (
+				76C8DEE42F96E5D800B0144A /* AsyncPreviewView.swift */,
 				76C8DEDE2F93FC6D00B0144A /* PlaceholderImageView.swift */,
 				763D5BD22F84CE8F00405CD5 /* TextViewWrapper.swift */,
 				763D5BD32F84CE8F00405CD5 /* View+Extras.swift */,
 				763D5BD42F84CE8F00405CD5 /* WebView.swift */,
-				76C8DEE42F96E5D800B0144A /* AsyncPreviewView.swift */,
 			);
 			path = "Common Views";
 			sourceTree = "<group>";
@@ -911,6 +915,7 @@
 				4739CAAD2FC8C10A00B787F0 /* CardsNavigatorToolbar.swift in Sources */,
 				760472952FB96B5500B75E4F /* PlaceholderImageView.swift in Sources */,
 				760472962FB96B5500B75E4F /* SetsView.swift in Sources */,
+				47F6E0C12FD1F32C00F71B4A /* CardViewActionToolbar.swift in Sources */,
 				760472972FB96B5500B75E4F /* AsyncPreviewView.swift in Sources */,
 				760472982FB96B5500B75E4F /* CollectionsViewModel.swift in Sources */,
 				473C581B2FD06A6B00219522 /* CardsNavigatorDisplayDelegate.swift in Sources */,
@@ -1007,6 +1012,7 @@
 				76CDD9F52FB9698500B7A47E /* AccountView.swift in Sources */,
 				76CDD9F62FB9698500B7A47E /* LabeledContentStyle+Styles.swift in Sources */,
 				76CDD9F72FB9698500B7A47E /* TextViewWrapper.swift in Sources */,
+				47F6E0C02FD1F32C00F71B4A /* CardViewActionToolbar.swift in Sources */,
 				76CDD9F82FB9698500B7A47E /* ContentView.swift in Sources */,
 				76CDD9F92FB9698500B7A47E /* CardsSorterMenuView.swift in Sources */,
 				76CDD9FA2FB9698500B7A47E /* CardsChartsView.swift in Sources */,

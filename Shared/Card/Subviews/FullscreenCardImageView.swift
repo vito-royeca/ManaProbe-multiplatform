@@ -34,7 +34,9 @@ struct FullscreenCardImageView: View {
     var displayDelegate: CardsNavigatorDisplayDelegate
     
     @State
-    private var rotation = 0.0
+    private var rotation: CGFloat = .zero
+    @State
+    private var isCollectionsPresented = false
 
     var body: some View {
         NavigationStack {
@@ -43,27 +45,13 @@ struct FullscreenCardImageView: View {
                 .background(Color.black)
                 .gesture(dragGesture)
                 .toolbar {
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button(action: {
-                            dismiss()
-                        }) {
-                            Image(systemName: "xmark")
-                                .foregroundColor(.white)
-                        }
-                    }
+                    closeToolbarItem
                     
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button(action: {
-                            
-                        }) {
-                            Image(systemName: "ellipsis")
-                                .foregroundColor(.white)
-                        }
-                    }
+                    CardsNavigatorToolbar(navigatorDelegate: navigatorDelegate, displayDelegate: displayDelegate)
                     
-                    ToolbarItem(placement: .bottomBar) {
-                        actionView
-                    }
+                    CardViewActionToolbar(viewModel: $model,
+                                          isCollectionsPresented: $isCollectionsPresented,
+                                          rotation: $rotation)
                 }
         }
         .background(Color.black)
@@ -94,44 +82,13 @@ struct FullscreenCardImageView: View {
         }
     }
     
-    var actionView: some View {
-        Group {
-            if let layout = model.card?.layout {
-                switch layout.name {
-                case "Planar",
-                    "Split":
-                    Button {
-                        rotate(degrees: 90)
-                    } label: {
-                        Image(systemName: FullscreenCardImageViewAction.rotate.iconName)
-                    }
-                    .tint(.accentColor)
-
-                case "Flip":
-                    Button {
-                        switchFace()
-                        rotate(degrees: 180)
-                    } label: {
-                        Image(systemName: FullscreenCardImageViewAction.flip.iconName)
-                    }
-                    .tint(.accentColor)
-
-                case "Double Faced Token",
-                    "Modal Dfc",
-                    "Reversible Card",
-                    "Transform":
-                    Button {
-                        switchFace()
-                    } label: {
-                        Image(systemName: FullscreenCardImageViewAction.transform.iconName)
-                    }
-                    .tint(.accentColor)
-                    
-                default:
-                    EmptyView()
-                }
-            } else {
-                EmptyView()
+    var closeToolbarItem: some ToolbarContent {
+        ToolbarItem(placement: .cancellationAction) {
+            Button(action: {
+                dismiss()
+            }) {
+                Image(systemName: "xmark")
+                    .foregroundColor(.white)
             }
         }
     }
@@ -159,26 +116,6 @@ struct FullscreenCardImageView: View {
                     goToPrevious()
                 }
             }
-        }
-    }
-}
-
-// MARK: - Image actions
-
-extension FullscreenCardImageView {
-    func rotate(degrees: CGFloat) {
-        rotation += degrees
-        
-        if rotation >= 360 {
-            rotation = 0
-        }
-    }
-
-    func switchFace() {
-        if model.face == model.faces?.first {
-            model.face = model.faces?.last
-        } else {
-            model.face = model.faces?.first
         }
     }
 }

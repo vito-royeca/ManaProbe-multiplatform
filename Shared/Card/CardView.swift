@@ -32,6 +32,9 @@ struct CardView: View {
     
     @State
     private var needsReload = false
+    @State
+    private var rotation: CGFloat = .zero
+    
     private let scrollManager = ScrollManager()
     
     
@@ -238,6 +241,7 @@ struct CardView: View {
                 PlaceholderImageView(imageName: ManaKitUtilities.ImageName.cardBack)
             }
         }
+        .rotationEffect(.degrees(rotation))
     }
     
     var fullscreenView: some View {
@@ -254,7 +258,8 @@ struct CardView: View {
 
     var actionToolbarView: some ToolbarContent {
         CardViewActionToolbar(viewModel: $viewModel,
-                              isCollectionsPresented: $isCollectionsPresented)
+                              isCollectionsPresented: $isCollectionsPresented,
+                              rotation: $rotation)
     }
 }
 
@@ -279,65 +284,6 @@ private extension View {
     }
 }
 
-// MARK: - CardViewActionToolbar
-
-struct CardViewActionToolbar: ToolbarContent {
-    @Binding
-    var viewModel: CardViewModel
-    
-    @Binding
-    var isCollectionsPresented: Bool
-    
-    @Environment(AuthModel.self)
-    private var authModel
-    
-    @Environment(FavoritesViewModel.self)
-    private var favoritesViewModel
-    
-    var body: some ToolbarContent {
-        ToolbarItemGroup(placement: .bottomBar) {
-            Button {
-                handleCollections()
-            } label: {
-                Image(systemName: "folder.badge.plus")
-            }
-            .foregroundColor(.accentColor)
-
-            Button {
-                handleFavorite()
-            } label: {
-                if let card = viewModel.card,
-                   favoritesViewModel.isFavorite(cardID: card.id) {
-                    Image(systemName: "heart.fill")
-                } else {
-                    Image(systemName: "heart")
-                }
-            }
-            .foregroundColor(.accentColor)
-        }
-    }
-    
-    func handleCollections() {
-        if authModel.user == nil {
-            authModel.showAccountView.toggle()
-        } else {
-            isCollectionsPresented.toggle()
-        }
-    }
-
-    func handleFavorite() {
-        if authModel.user == nil {
-            authModel.showAccountView.toggle()
-        } else {
-            if let card = viewModel.card {
-                Task {
-                    try await favoritesViewModel.createOrDelete(card: card.fragments.cardBasicInfo)
-                }
-            }
-        }
-    }
-}
-    
 // MARK: - Previews
 
 #Preview {
