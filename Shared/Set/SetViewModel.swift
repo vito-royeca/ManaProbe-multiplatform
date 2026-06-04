@@ -54,8 +54,8 @@ class SetViewModel {
 
     // MARK: - Methods
     
-    func fetchData() async -> Void {
-        guard !isBusy, set == nil else {
+    func fetchData(fetchRemote: Bool = false) async -> Void {
+        guard !isBusy else {
             return
         }
         
@@ -63,7 +63,9 @@ class SetViewModel {
             isFailed = false
             isBusy = true
             
-            let setData = try await ManaKitUtilities.shared.set(fetchRemote: false, setID: setID, languageID: language?.id ?? "en")
+            let setData = try await ManaKitUtilities.shared.set(fetchRemote: fetchRemote,
+                                                                setID: setID,
+                                                                languageID: language?.id ?? "en")
             set = setData?.fragments.setInfo
             cards = setData?.cards.map { $0.fragments.cardBasicInfo } ?? []
             if language == nil {
@@ -80,13 +82,14 @@ class SetViewModel {
     func reloadData() async {
         set = nil
         cards.removeAll()
-        await fetchData()
+        await fetchData(fetchRemote: true)
     }
 }
 
 extension SetViewModel: CardsViewModelDelegate {
-    func fetchCards(sortBy: CardsSorter, orderBy: CardsOrderer) async throws -> [ManaKit.CardBasicInfo] {
-        cards
+    func fetchCards(fetchRemote: Bool, sortBy: CardsSorter, orderBy: CardsOrderer) async throws -> [ManaKit.CardBasicInfo] {
+        await fetchData(fetchRemote: fetchRemote)
+        return cards
     }
 }
 

@@ -55,19 +55,19 @@ struct CardsView<Header: View>: View where Header: View {
     }
 
     var body: some View {
-//        Group {
-//            if viewModel.isBusy {
-//                BusyView()
-//            } else if viewModel.isFailed {
-//                ErrorView {
-//                    fetchData()
-//                } cancelAction: {
-//                    viewModel.isFailed = false
-//                }
-//            } else {
+        Group {
+            if viewModel.isBusy {
+                BusyView()
+            } else if viewModel.isFailed {
+                ErrorView {
+                    fetchData()
+                } cancelAction: {
+                    viewModel.isFailed = false
+                }
+            } else {
                 contentView
-//            }
-//        }
+            }
+        }
         .task {
             fetchData()
         }

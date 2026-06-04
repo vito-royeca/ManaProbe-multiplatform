@@ -54,14 +54,14 @@ class FavoritesViewModel {
         }
     }
     
-    private func fetchCardsData() async -> Void {
+    private func fetchCardsData(fetchRemote: Bool = false) async -> Void {
         guard !favorites.isEmpty, cards.isEmpty else {
             return
         }
         
         do {
             let ids = favorites.map(\.cardID)
-            cards = try await ManaKitUtilities.shared.cardsByIDs(fetchRemote: false, cardIDs: ids)?
+            cards = try await ManaKitUtilities.shared.cardsByIDs(fetchRemote: fetchRemote, cardIDs: ids)?
                 .cards.map { $0.fragments.cardBasicInfo } ?? []
         } catch {
             isFailed = true
@@ -140,7 +140,8 @@ class FavoritesViewModel {
 }
 
 extension FavoritesViewModel: CardsViewModelDelegate {
-    func fetchCards(sortBy: CardsSorter, orderBy: CardsOrderer) async throws -> [ManaKit.CardBasicInfo] {
-        cards
+    func fetchCards(fetchRemote: Bool, sortBy: CardsSorter, orderBy: CardsOrderer) async throws -> [ManaKit.CardBasicInfo] {
+        await fetchCardsData(fetchRemote: fetchRemote)
+        return cards
     }
 }

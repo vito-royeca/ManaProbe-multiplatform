@@ -24,22 +24,7 @@ struct CardAllPrintingsView: View {
     // MARK: - UI
 
     var body: some View {
-        Group {
-            if viewModel.isBusy {
-                BusyView()
-            } else if viewModel.isFailed {
-                ErrorView {
-                    fetchData()
-                } cancelAction: {
-                    viewModel.isBusy = false
-                }
-            } else {
-                contentView
-            }
-        }
-        .task {
-            fetchData()
-        }
+        contentView
     }
     
     private var contentView: some View {
@@ -50,13 +35,6 @@ struct CardAllPrintingsView: View {
     }
 }
 
-extension CardAllPrintingsView {
-    func fetchData() {
-        Task {
-            await viewModel.fetchData()
-        }
-    }
-}
 
 // MARK: - Previews
 

@@ -66,8 +66,8 @@ class SetsViewModel {
     
     // MARK: - Methods
     
-    func fetchData() async -> Void {
-        guard !isBusy, sets.isEmpty else {
+    func fetchData(fetchRemote: Bool = false) async -> Void {
+        guard !isBusy else {
             return
         }
         
@@ -79,15 +79,15 @@ class SetsViewModel {
             
             switch sorter {
             case .name:
-                if let sectionedSets = try await ManaKitUtilities.shared.sets(fetchRemote: false, type: .byName) {
+                if let sectionedSets = try await ManaKitUtilities.shared.sets(fetchRemote: fetchRemote, type: .byName) {
                     process(sectionedSets: sectionedSets)
                 }
             case .type:
-                if let sectionedSets = try await ManaKitUtilities.shared.sets(fetchRemote: false, type: .byType) {
+                if let sectionedSets = try await ManaKitUtilities.shared.sets(fetchRemote: fetchRemote, type: .byType) {
                     process(sectionedSets: sectionedSets)
                 }
             case .year:
-                if let sectionedSets = try await ManaKitUtilities.shared.sets(fetchRemote: false, type: .byYear) {
+                if let sectionedSets = try await ManaKitUtilities.shared.sets(fetchRemote: fetchRemote, type: .byYear) {
                     process(sectionedSets: sectionedSets)
                 }
             }
@@ -231,7 +231,7 @@ class SetsViewModel {
     
     func reloadData() async {
         clearData()
-        await fetchData()
+        await fetchData(fetchRemote: true)
     }
 
     func filterData(query: String) {

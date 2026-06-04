@@ -11,6 +11,8 @@ import NukeUI
 import ScrollKit
 
 struct CardView: View {
+    let visibleHeaderRatioReloadThreshold = CGFloat(1.5)
+    
     // MARK: - Variables
     
     @State
@@ -28,7 +30,10 @@ struct CardView: View {
     @State
     private var isCollectionsPresented = false
     
+    @State
+    private var needsReload = false
     private let scrollManager = ScrollManager()
+    
     
     // MARK: - Initializers
     
@@ -76,6 +81,8 @@ struct CardView: View {
             }
         }
     }
+    
+    // MARK: - normal view
     
     var normalView: some View {
         ScrollView {
@@ -151,6 +158,14 @@ struct CardView: View {
     func handleScrollOffset(_ offset: CGPoint, visibleHeaderRatio: CGFloat) {
         self.scrollOffset = offset
         self.visibleHeaderRatio = visibleHeaderRatio
+        
+        if visibleHeaderRatio >= visibleHeaderRatioReloadThreshold {
+            needsReload = true
+        }
+        if needsReload && offset.y == 0 {
+            needsReload = false
+            reloadData()
+        }
     }
 
     var informationView: some View {
@@ -247,6 +262,12 @@ extension CardView {
     func fetchData() {
         Task {
             await viewModel.fetchData()
+        }
+    }
+    
+    func reloadData() {
+        Task {
+            await viewModel.reloadData()
         }
     }
 }

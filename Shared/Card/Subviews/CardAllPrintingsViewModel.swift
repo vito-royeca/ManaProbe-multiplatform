@@ -27,8 +27,8 @@ class CardAllPrintingsViewModel {
     
     // MARK: - Methods
     
-    func fetchData() async -> Void {
-        guard !isBusy, cards.isEmpty else {
+    func fetchData(fetchRemote: Bool = false) async -> Void {
+        guard !isBusy else {
             return
         }
         
@@ -36,7 +36,7 @@ class CardAllPrintingsViewModel {
             isFailed = false
             isBusy = true
             
-            cards = try await ManaKitUtilities.shared.cardPrintings(fetchRemote: false,
+            cards = try await ManaKitUtilities.shared.cardPrintings(fetchRemote: fetchRemote,
                                                                     id: card.id,
                                                                     languageID: card.language?.id ?? "en")?
                 .cards.map { $0.fragments.cardBasicInfo } ?? []
@@ -50,7 +50,8 @@ class CardAllPrintingsViewModel {
 }
 
 extension CardAllPrintingsViewModel: CardsViewModelDelegate {
-    func fetchCards(sortBy: CardsSorter, orderBy: CardsOrderer) async throws -> [ManaKit.CardBasicInfo] {
-        cards
+    func fetchCards(fetchRemote: Bool, sortBy: CardsSorter, orderBy: CardsOrderer) async throws -> [ManaKit.CardBasicInfo] {
+        await fetchData(fetchRemote: fetchRemote)
+        return cards
     }
 }

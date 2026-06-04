@@ -62,6 +62,9 @@ struct CardsChartsView<Header: View>: View {
         }
         .listStyle(.inset)
         .navigationLinkIndicatorVisibility(.hidden)
+        .refreshable {
+            reloadData()
+        }
     }
     
     var colorsChartView: some View {
@@ -124,6 +127,14 @@ struct CardsChartsView<Header: View>: View {
             }
         }
         .aspectRatio(1, contentMode: .fit)
+    }
+}
+
+extension CardsChartsView {
+    func reloadData() -> Void {
+        Task {
+            await viewModel.reloadData()
+        }
     }
 }
 

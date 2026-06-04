@@ -35,22 +35,7 @@ struct SetView: View {
     // MARK: - UI
 
     var body: some View {
-        Group {
-            if viewModel.isBusy {
-                BusyView()
-            } else if viewModel.isFailed {
-                ErrorView {
-                    fetchData()
-                } cancelAction: {
-                    viewModel.isFailed = false
-                }
-            } else {
-                contentView
-            }
-        }
-        .task {
-            fetchData()
-        }
+        contentView
     }
     
     private var contentView: some View {
@@ -62,20 +47,6 @@ struct SetView: View {
         .navigationLinkIndicatorVisibility(.hidden)
         .navigationTitle(viewModel.set?.name ?? "")
         .navigationBarTitleDisplayMode(.inline)
-    }
-}
-
-extension SetView {
-    func fetchData() {
-        Task {
-            await viewModel.fetchData()
-        }
-    }
-    
-    func reloadData() -> Void {
-        Task {
-            await viewModel.reloadData()
-        }
     }
 }
 

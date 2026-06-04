@@ -92,22 +92,17 @@ enum CardsDisplay: String, CaseIterable {
 // MARK: - CardsViewModelDelegate
 
 protocol CardsViewModelDelegate {
-    func fetchCards(sortBy: CardsSorter, orderBy: CardsOrderer) async throws -> [CardBasicInfo]
-//    func reload(sortBy: CardsSorter, orderBy: CardsOrderer) async throws -> [CardBasicInfo]
+    func fetchCards(fetchRemote: Bool, sortBy: CardsSorter, orderBy: CardsOrderer) async throws -> [CardBasicInfo]
 }
 
 class DefaultCardsViewModelDelegate: CardsViewModelDelegate {
-    func fetchCards(sortBy: CardsSorter, orderBy: CardsOrderer) async throws -> [CardBasicInfo] {
+    func fetchCards(fetchRemote: Bool, sortBy: CardsSorter, orderBy: CardsOrderer) async throws -> [CardBasicInfo] {
 //        let set = try await ManaKitUtilities.shared.set(setID: "ecl",
 //                                                        languageID: "en")
 //        let cards = set?.cards.map(\.fragments.cardBasicInfo) ?? []
 //        return cards
         []
     }
-    
-//    func reload(sortBy: CardsSorter, orderBy: CardsOrderer) async throws -> [CardBasicInfo] {
-//        return try await fetchCards(sortBy: sortBy, orderBy: orderBy)
-//    }
 }
 
 // MARK: - CardsViewModel
@@ -152,8 +147,8 @@ class CardsViewModel {
     
     // MARK: - Methods
     
-    func fetchData() async -> Void {
-        guard !isBusy/*, set == nil*/ else {
+    func fetchData(fetchRemote: Bool = false) async -> Void {
+        guard !isBusy else {
             return
         }
         
@@ -162,7 +157,9 @@ class CardsViewModel {
             isBusy = true
             
             clearData()
-            let array = try await delegate?.fetchCards(sortBy: sorter, orderBy: orderer) ?? []
+            let array = try await delegate?.fetchCards(fetchRemote: fetchRemote,
+                                                       sortBy: sorter,
+                                                       orderBy: orderer) ?? []
             cards[""] = array
             formatData()
             isBusy = false
@@ -269,7 +266,7 @@ class CardsViewModel {
     func reloadData() async {
         cards.removeAll()
         clearData()
-        await fetchData()
+        await fetchData(fetchRemote: true)
     }
 
     private func clearData() {
@@ -306,7 +303,6 @@ extension CardsViewModel: @MainActor CardsNavigatorDelegate {
         
         if let index = selectedIndex() {
             let card = cardsArray[index - 1]
-            print("selectedCard: \(selectedCard?.id ?? ""); previousCard: \(card.id)")
             selectedCard = card
             updateNavigation()
         }
@@ -319,7 +315,6 @@ extension CardsViewModel: @MainActor CardsNavigatorDelegate {
         
         if let index = selectedIndex() {
             let card = cardsArray[index + 1]
-            print("selectedCard: \(selectedCard?.id ?? ""); nextCard: \(card.id)")
             selectedCard = card
             updateNavigation()
         }

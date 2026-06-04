@@ -34,8 +34,8 @@ class CardViewModel: CardsNavigatorDisplayDelegate {
     
     // MARK: - Methods
     
-    func fetchData() async -> Void {
-        guard !isBusy, card == nil else {
+    func fetchData(fetchRemote: Bool = false) async -> Void {
+        guard !isBusy else {
             return
         }
         
@@ -43,7 +43,7 @@ class CardViewModel: CardsNavigatorDisplayDelegate {
             isFailed = false
             isBusy = true
             
-            card = try await ManaKitUtilities.shared.card(fetchRemote: false, id: id)?
+            card = try await ManaKitUtilities.shared.card(fetchRemote: fetchRemote, id: id)?
                 .fragments
                 .cardCompleteInfo
             
@@ -63,13 +63,13 @@ class CardViewModel: CardsNavigatorDisplayDelegate {
         card = nil
         faces = nil
         face = nil
-        await fetchData()
+        await fetchData(fetchRemote: true)
     }
 
     // MARK: - CardsNavigatorDisplayDelegate
 
     func display(card: InnerCardInfo) async {
         id = card.id
-        await reloadData()
+        await fetchData()
     }
 }

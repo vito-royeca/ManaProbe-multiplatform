@@ -19,5 +19,3 @@ protocol CardsNavigatorDelegate {
     func goToNext()
     
 }
-
-
