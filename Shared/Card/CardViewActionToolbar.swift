@@ -8,6 +8,7 @@
 import SwiftUI
 
 import ManaKit
+import Nuke
 import NukeUI
 
 struct CardViewActionToolbar: ToolbarContent {
@@ -17,7 +18,6 @@ struct CardViewActionToolbar: ToolbarContent {
     var isCollectionsPresented: Bool
     @Binding
     var rotation: CGFloat
-//    var placement: ToolbarItemPlacement = .bottomBar
     
     @Environment(AuthModel.self)
     private var authModel
@@ -25,20 +25,16 @@ struct CardViewActionToolbar: ToolbarContent {
     @Environment(FavoritesViewModel.self)
     private var favoritesViewModel
     
-    @StateObject private var normalFetchImage = FetchImage()
-    @State private var normalImage: Image?
-//    private var cardTransferrable: CardTransferable?
-    
+    @State
+    private var normalImage: Image?
+
     var body: some ToolbarContent {
         ToolbarItemGroup(placement: .bottomBar) {
             collectionsButton
             favoriteButton
             shareButton
                 .onAppear {
-                    if let normalURL = viewModel.card?.normalURL {
-                        normalFetchImage.load(URL(string: normalURL))
-//                        normalImage = normalFetchImage.image
-                    }
+                    loadNormalImage()
                 }
             
             Spacer()
@@ -118,21 +114,39 @@ struct CardViewActionToolbar: ToolbarContent {
     
     var shareButton: some View {
         Group {
-            if let normalImage = normalFetchImage.image {
+            if let normalImage {
                 let card = CardTransferable(image: normalImage,
                                             title: viewModel.card?.displayName ?? "Unknown card",
                                             description: viewModel.card?.oracleText ?? "")
                 
                 ShareLink(item: card,
-                          preview: SharePreview(card.title, image: card.image))
-                    .foregroundColor(.accentColor)
-                    .labelStyle(.iconOnly)
+                          preview: SharePreview(card.title, image: card.image),
+                          label: {
+                    Image(systemName: "square.and.arrow.up")
+                        .foregroundColor(.accentColor)
+                })
             } else {
                 Text("")
             }
         }
-    }
         
+    }
+
+    func loadNormalImage() {
+        if let normalUrl = viewModel.card?.normalURL,
+           let url = URL(string: normalUrl) {
+
+            Task {
+                do {
+                    let imageTask = ImagePipeline.shared.imageTask(with: url)
+                    let uiImage = try await imageTask.image
+                    normalImage = Image(uiImage: uiImage)
+                } catch {
+                    print(error)
+                }
+            }
+        }
+    }
 }
 
 // MARK: - Actions

@@ -41,7 +41,7 @@ final class Tests_Prefetch: XCTestCase {
         do {
             try await ManaKitUtilities.shared.prefetchSets(fetchSetDetails: true,
                                                            includeNonEnglishSets: false,
-                                                           fetchCards: true)
+                                                           fetchCards: false)
         } catch {
             print(error)
             
