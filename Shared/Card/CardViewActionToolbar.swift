@@ -48,7 +48,8 @@ struct CardViewActionToolbar: ToolbarContent {
                 case "Flip":
                     flipButton
 
-                case "Double Faced Token",
+                case "Art Series",
+                    "Double Faced Token",
                     "Modal Dfc",
                     "Reversible Card",
                     "Transform":
@@ -129,7 +130,6 @@ struct CardViewActionToolbar: ToolbarContent {
                 Text("")
             }
         }
-        
     }
 
     func loadNormalImage() {
