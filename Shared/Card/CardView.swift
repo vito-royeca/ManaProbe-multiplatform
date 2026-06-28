@@ -245,15 +245,9 @@ struct CardView: View {
     }
     
     var fullscreenView: some View {
-        Group {
-            if let navigator {
-                FullscreenCardImageView(model: $viewModel,
-                                        navigatorDelegate: navigator,
-                                        displayDelegate: viewModel)
-            } else {
-                EmptyView()
-            }
-        }
+        FullscreenCardImageView(model: $viewModel,
+                                navigatorDelegate: navigator,
+                                displayDelegate: viewModel)
     }
 
     var actionToolbarView: some ToolbarContent {

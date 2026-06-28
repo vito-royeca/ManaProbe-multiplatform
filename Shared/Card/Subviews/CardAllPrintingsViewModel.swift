@@ -10,14 +10,10 @@ import ManaKit
 
 @MainActor
 @Observable
-class CardAllPrintingsViewModel {
+class CardAllPrintingsViewModel: CardsViewModel  {
     // MARK: - Variables
     
     var card: InnerCardInfo
-    var cards = [CardBasicInfo]()
-    
-    var isBusy = false
-    var isFailed = false
 
     // MARK: - Initializers
 
@@ -27,7 +23,7 @@ class CardAllPrintingsViewModel {
     
     // MARK: - Methods
     
-    func fetchData(fetchRemote: Bool = false) async -> Void {
+    override func fetchData(fetchRemote: Bool = false) async -> Void {
         guard !isBusy else {
             return
         }
@@ -35,23 +31,18 @@ class CardAllPrintingsViewModel {
         do {
             isFailed = false
             isBusy = true
+            cards.removeAll()
             
-            cards = try await ManaKitUtilities.shared.cardPrintings(fetchRemote: fetchRemote,
-                                                                    id: card.id,
-                                                                    languageID: card.language?.id ?? "en")?
+            cards[""] = try await ManaKitUtilities.shared.cardPrintings(fetchRemote: fetchRemote,
+                                                                        id: card.id,
+                                                                        languageID: card.language?.id ?? "en")?
                 .cards.map { $0.fragments.cardBasicInfo } ?? []
+            formatData()
             
             isBusy = false
         } catch {
             isFailed = true
             isBusy = false
         }
-    }
-}
-
-extension CardAllPrintingsViewModel: CardsViewModelDelegate {
-    func fetchCards(fetchRemote: Bool, sortBy: CardsSorter, orderBy: CardsOrderer) async throws -> [ManaKit.CardBasicInfo] {
-        await fetchData(fetchRemote: fetchRemote)
-        return cards
     }
 }

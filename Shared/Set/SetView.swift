@@ -39,7 +39,7 @@ struct SetView: View {
     }
     
     private var contentView: some View {
-        CardsView(delegate: viewModel) {
+        CardsView(viewModel: viewModel) {
             SetHeaderView(viewModel: viewModel)
                 .listRowSeparator(.hidden)
                 .padding(5)

@@ -17,8 +17,6 @@ import ManaKit
 @Observable
 class CollectionViewModel {
     var collection: FBCollection?
-    var cards = [CardBasicInfo]()
-    
     var isBusy = false
     var isFailed = false
 
@@ -53,7 +51,7 @@ class CollectionViewModel {
         
         do {
             let ids = collection.cards.map(\.cardID)
-            cards = try await ManaKitUtilities.shared.cardsByIDs(fetchRemote: fetchRemote, cardIDs: ids)?
+            cards[""] = try await ManaKitUtilities.shared.cardsByIDs(fetchRemote: fetchRemote, cardIDs: ids)?
                 .cards.map { $0.fragments.cardBasicInfo } ?? []
                 
         } catch {
@@ -153,11 +151,13 @@ class CollectionViewModel {
 //        return (normalTotal, foilTotal)
 //    }
 
-}
 
-extension CollectionViewModel: CardsViewModelDelegate {
-    func fetchCards(fetchRemote: Bool, sortBy: CardsSorter, orderBy: CardsOrderer) async throws -> [ManaKit.CardBasicInfo] {
+
+    // MARK: - CardsViewModelDelegate
+
+    func fetchCards(fetchRemote: Bool, sortBy: CardsSorter, orderBy: CardsOrderer) async throws{
         await fetchCardsData(fetchRemote: fetchRemote)
-        return cards
     }
+    
+    var cards = [String: [CardBasicInfo]]()
 }

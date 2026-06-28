@@ -47,10 +47,9 @@ struct CardsView<Header: View>: View where Header: View {
     
     // MARK: - Initializers
 
-    init(delegate: CardsViewModelDelegate?,
+    init(viewModel: CardsViewModel,
          @ViewBuilder header: @escaping () -> Header = { EmptyView() }) {
-        let model = CardsViewModel(delegate: delegate)
-        _viewModel = State(wrappedValue: model)
+        self.viewModel = viewModel
         self.header = header
     }
 
@@ -124,11 +123,12 @@ extension CardsView {
 }
 
 #Preview {
+    let viewModel = CardsViewModel()
     let authModel = AuthModel()
     let favoritesModel = FavoritesViewModel()
     
     NavigationStack {
-        CardsView(delegate: DefaultCardsViewModelDelegate())
+        CardsView(viewModel: viewModel)
             .navigationDestination(for: CardRoute.self) { route in
                 switch route {
                 case .details(let selectedCard, let navigator):

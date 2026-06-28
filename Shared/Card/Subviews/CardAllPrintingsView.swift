@@ -28,7 +28,7 @@ struct CardAllPrintingsView: View {
     }
     
     private var contentView: some View {
-        CardsView(delegate: viewModel)
+        CardsView(viewModel: viewModel)
             .navigationLinkIndicatorVisibility(.hidden)
             .navigationTitle("All Printings")
             .navigationBarTitleDisplayMode(.inline)

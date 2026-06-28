@@ -30,8 +30,8 @@ struct FullscreenCardImageView: View {
     
     @Binding
     var model: CardViewModel
-    var navigatorDelegate: CardsNavigatorDelegate
-    var displayDelegate: CardsNavigatorDisplayDelegate
+    var navigatorDelegate: CardsNavigatorDelegate?
+    var displayDelegate: CardsNavigatorDisplayDelegate?
     
     @State
     private var rotation: CGFloat = .zero
@@ -47,7 +47,9 @@ struct FullscreenCardImageView: View {
                 .toolbar {
                     closeToolbarItem
                     
-                    CardsNavigatorToolbar(navigatorDelegate: navigatorDelegate, displayDelegate: displayDelegate)
+                    if let navigatorDelegate, let displayDelegate {
+                        CardsNavigatorToolbar(navigatorDelegate: navigatorDelegate, displayDelegate: displayDelegate)
+                    }
                     
                     CardViewActionToolbar(viewModel: $model,
                                           isCollectionsPresented: $isCollectionsPresented,
@@ -76,8 +78,10 @@ struct FullscreenCardImageView: View {
                     .aspectRatio(contentMode: .fit)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
             } else {
-                PlaceholderImageView(imageName: ManaKitUtilities.ImageName.cardBack)
+                PlaceholderImageView(imageName: ManaKitUtilities.ImageName.cardBack,
+                                     contentMode: .fit)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
+                    
             }
         }
     }
@@ -100,19 +104,19 @@ struct FullscreenCardImageView: View {
             
             if abs(horizontalAmount) > abs(verticalAmount) {
                 if horizontalAmount < 0 {
-                    print("left swipe")
+//                    print("left swipe")
                     goToNext()
                     
                 } else {
-                    print("right swipe")
+//                    print("right swipe")
                     goToPrevious()
                 }
             } else {
                 if verticalAmount < 0 {
-                    print("up swipe")
+//                    print("up swipe")
                     goToNext()
                 } else {
-                    print("down swipe")
+//                    print("down swipe")
                     goToPrevious()
                 }
             }
@@ -124,6 +128,11 @@ struct FullscreenCardImageView: View {
 
 extension FullscreenCardImageView {
     func goToPrevious() {
+        guard let navigatorDelegate,
+            let displayDelegate else {
+            return
+        }
+        
         navigatorDelegate.goToPrevious()
         if let card = navigatorDelegate.selectedCard {
             Task {
@@ -133,6 +142,11 @@ extension FullscreenCardImageView {
     }
     
     func goToNext() {
+        guard let navigatorDelegate,
+            let displayDelegate else {
+            return
+        }
+
         navigatorDelegate.goToNext()
         if let card = navigatorDelegate.selectedCard {
             Task {
@@ -143,12 +157,24 @@ extension FullscreenCardImageView {
 }
 
 #Preview {
-//    AsyncPreviewView { data in
-//        NavigationView {
-//            FullscreenCardImageView(card: nil,
-//                                    face: nil)
-//        }
-//    } fetchData: {
-//        try await ManaKitUtilities.shared.card(id: "ecl_en_290")
-//    }
+    @Previewable
+    @State
+    var cardViewModel = CardViewModel(id: "ecl_en_290")
+    var navigator: CardsNavigatorDelegate?
+    let authModel = AuthModel()
+    let favoritesModel = FavoritesViewModel()
+    
+    
+    AsyncPreviewView { data in
+        NavigationView {
+            FullscreenCardImageView(model: $cardViewModel,
+                                    navigatorDelegate: navigator,
+                                    displayDelegate: cardViewModel)
+        }
+    } fetchData: {
+        try await ManaKitUtilities.shared.card(fetchRemote: false,
+                                               id: "ecl_en_290")
+    }
+    .environment(authModel)
+    .environment(favoritesModel)
 }

@@ -55,12 +55,12 @@ class AuthModel {
         authService = AuthService(
           configuration: configuration
         )
-        .withAppleSignIn()
-        .withPhoneSignIn()
+//        .withAppleSignIn()
+//        .withPhoneSignIn()
         .withGoogleSignIn()
-        .withFacebookSignIn(FacebookProviderSwift())
+//        .withFacebookSignIn(FacebookProviderSwift())
     //    .withTwitterSignIn()
-        .withOAuthSignIn(OAuthProviderSwift.github())
+//        .withOAuthSignIn(OAuthProviderSwift.github())
     //    .withOAuthSignIn(OAuthProviderSwift.microsoft())
     //    .withOAuthSignIn(OAuthProviderSwift.yahoo())
     //    .withOAuthSignIn(
@@ -74,7 +74,7 @@ class AuthModel {
     //        buttonForegroundColor: .white
     //      )
     //    )
-        .withEmailSignIn()
+//        .withEmailSignIn()
     }
     
     func initials(from name: String) -> String {

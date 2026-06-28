@@ -141,13 +141,13 @@ extension CardsChartsView {
 #Preview {
     let authModel = AuthModel()
     let favoritesModel = FavoritesViewModel()
-    let model = CardsViewModel(delegate: DefaultCardsViewModelDelegate())
+    let model = CardsViewModel()
     
     NavigationStack {
         CardsChartsView {
             Text("Charts")
         }
-            .environment(model)
+        .environment(model)
     }
     .task {
         await model.fetchData()

@@ -14,16 +14,12 @@ import ManaKit
 
 @MainActor
 @Observable
-class SetViewModel {
+class SetViewModel: CardsViewModel  {
     
     // MARK: - Variables
 
     var set: SetInfo?
     var language: SetInfo.Language? = nil
-    var cards = [CardBasicInfo]()
-    
-    var isBusy = false
-    var isFailed = false
     
     @ObservationIgnored
     var currentCard: CardBasicInfo?
@@ -45,16 +41,20 @@ class SetViewModel {
     }
     
     init(set: SetQuery.Data.Set) {
+        let langID = set.languages.first?.id ?? "en"
+        
+        self.setID = set.id
+        self.languageID = langID
+        
         self.set = set.fragments.setInfo
-        setID = set.id
-        languageID = set.languages.first?.id ?? "en"
-        language = set.languages.first(where: { $0.id == languageID })
-        cards = set.cards.map { $0.fragments.cardBasicInfo }
+        self.language = set.languages.first(where: { $0.id == langID })
+        super.init(cards: ["" : set.cards.map { $0.fragments.cardBasicInfo }])
     }
 
+    
     // MARK: - Methods
     
-    func fetchData(fetchRemote: Bool = false) async -> Void {
+    override func fetchData(fetchRemote: Bool = false) async -> Void {
         guard !isBusy else {
             return
         }
@@ -62,15 +62,17 @@ class SetViewModel {
         do {
             isFailed = false
             isBusy = true
+            cards.removeAll()
             
             let setData = try await ManaKitUtilities.shared.set(fetchRemote: fetchRemote,
                                                                 setID: setID,
                                                                 languageID: language?.id ?? "en")
             set = setData?.fragments.setInfo
-            cards = setData?.cards.map { $0.fragments.cardBasicInfo } ?? []
+            cards[""] = setData?.cards.map { $0.fragments.cardBasicInfo } ?? []
             if language == nil {
                 language = (set?.languages ?? []).first(where: { $0.id == languageID })
             }
+            formatData()
             
             isBusy = false
         } catch {
@@ -79,17 +81,10 @@ class SetViewModel {
         }
     }
     
-    func reloadData() async {
+    override func reloadData() async {
         set = nil
-        cards.removeAll()
-        await fetchData(fetchRemote: true)
+        await super.reloadData()
     }
-}
-
-extension SetViewModel: CardsViewModelDelegate {
-    func fetchCards(fetchRemote: Bool, sortBy: CardsSorter, orderBy: CardsOrderer) async throws -> [ManaKit.CardBasicInfo] {
-        await fetchData(fetchRemote: fetchRemote)
-        return cards
-    }
+    
 }
 

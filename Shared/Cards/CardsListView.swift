@@ -8,14 +8,6 @@
 import SwiftUI
 import ManaKit
 
-//extension InnerCardInfo: @retroactive Identifiable {
-//    public var id: String { __data["id"] }
-//}
-
-//struct CardListViewID: Identifiable {
-//    var id: String
-//}
-
 struct CardsListView<Header: View>: View {
     // MARK: - Variables
 

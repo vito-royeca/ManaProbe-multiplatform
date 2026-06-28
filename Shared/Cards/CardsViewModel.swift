@@ -89,22 +89,6 @@ enum CardsDisplay: String, CaseIterable {
     static let defaultValue: CardsDisplay = .list
 }
 
-// MARK: - CardsViewModelDelegate
-
-protocol CardsViewModelDelegate {
-    func fetchCards(fetchRemote: Bool, sortBy: CardsSorter, orderBy: CardsOrderer) async throws -> [CardBasicInfo]
-}
-
-class DefaultCardsViewModelDelegate: CardsViewModelDelegate {
-    func fetchCards(fetchRemote: Bool, sortBy: CardsSorter, orderBy: CardsOrderer) async throws -> [CardBasicInfo] {
-//        let set = try await ManaKitUtilities.shared.set(setID: "ecl",
-//                                                        languageID: "en")
-//        let cards = set?.cards.map(\.fragments.cardBasicInfo) ?? []
-//        return cards
-        []
-    }
-}
-
 // MARK: - CardsViewModel
 
 @MainActor
@@ -116,19 +100,15 @@ class CardsViewModel {
     var cards = [String: [CardBasicInfo]]()
     var cardSections = [String]()
     var cardSectionIndexTitles = [String]()
-    
     var isBusy = false
     var isFailed = false
-    
+
     @AppStorage("CardsSorter")
     @ObservationIgnored
     var sorter = CardsSorter.defaultValue
     @AppStorage("CardsOrderer")
     @ObservationIgnored
     var orderer = CardsOrderer.defaultValue
-    
-    @ObservationIgnored
-    var delegate: CardsViewModelDelegate?
     
     // MARK: - CardsNavigatorDelegate variables
 
@@ -140,36 +120,24 @@ class CardsViewModel {
     var hasNext = false
     
     // MARK: - Initializers
-    
-    init(delegate: CardsViewModelDelegate? = nil) {
-        self.delegate = delegate
+    init(cards: [String: [CardBasicInfo]] = [:]) {
+        self.cards = cards
+        formatData()
     }
-    
+
     // MARK: - Methods
     
     func fetchData(fetchRemote: Bool = false) async -> Void {
-        guard !isBusy else {
-            return
-        }
-        
-        do {
-            isFailed = false
-            isBusy = true
-            
-            clearData()
-            let array = try await delegate?.fetchCards(fetchRemote: fetchRemote,
-                                                       sortBy: sorter,
-                                                       orderBy: orderer) ?? []
-            cards[""] = array
-            formatData()
-            isBusy = false
-        } catch {
-            isFailed = true
-            isBusy = false
-        }
+        // let subclasses override this method
+    }
+    
+    func reloadData() async {
+        clearData()
+        await fetchData(fetchRemote: true)
     }
     
     func formatData() -> Void {
+        var tempCards = [String: [CardBasicInfo]]()
         var tempArray = [CardBasicInfo]()
         for (_,v) in cards {
             tempArray.append(contentsOf: v)
@@ -178,7 +146,7 @@ class CardsViewModel {
 
         switch sorter {
         case .collectorNumber:
-            cards[""] = tempArray.sorted(by: {
+            tempCards[""] = tempArray.sorted(by: {
                 let c0 = $0.collectorNumber ?? ""
                 let c1 = $1.collectorNumber ?? ""
                 let number0 = Int(c0)
@@ -217,7 +185,7 @@ class CardsViewModel {
                         return name.uppercased().hasPrefix(key)
                     }
                 })
-                cards[key] = array.sorted(by: { $0.name ?? "" < $1.name ?? ""})
+                tempCards[key] = array.sorted(by: { $0.name ?? "" < $1.name ?? ""})
             }
             cardSections = keys.sorted()
             cardSectionIndexTitles = cardSections
@@ -226,7 +194,7 @@ class CardsViewModel {
             for key in keys {
                 if !key.isEmpty {
                     let array = tempArray.filter({ $0.rarity?.name ?? "" == key })
-                    cards[key] = array.sorted(by: { $0.name ?? "" < $1.name ?? ""})
+                    tempCards[key] = array.sorted(by: { $0.name ?? "" < $1.name ?? ""})
                 } else {
                     print("key is empty")
                 }
@@ -248,7 +216,7 @@ class CardsViewModel {
                         array.append(card)
                     }
                 }
-                cards[key] = array.sorted(by: { $0.name ?? "" < $1.name ?? "" })
+                tempCards[key] = array.sorted(by: { $0.name ?? "" < $1.name ?? "" })
             }
             cardSections = keys.sorted()
         }
@@ -261,14 +229,11 @@ class CardsViewModel {
             }
         }
         updateNavigation()
+        
+        cards.removeAll()
+        cards = tempCards
     }
     
-    func reloadData() async {
-        cards.removeAll()
-        clearData()
-        await fetchData(fetchRemote: true)
-    }
-
     private func clearData() {
         cards.removeAll()
         cardSections.removeAll()

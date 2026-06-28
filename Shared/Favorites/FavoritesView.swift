@@ -16,19 +16,11 @@ struct FavoritesView: View {
     }
     
     private var contentView: some View {
-        CardsView(delegate: viewModel)
+        CardsView(viewModel: viewModel)
             .navigationLinkIndicatorVisibility(.hidden)
             .navigationTitle(MyTabs.favorites.name)
     }
 }
-
-//extension FavoritesView {
-//    func fetchData() {
-//        Task {
-//            await viewModel.fetchData()
-//        }
-//    }
-//}
 
 #Preview {
     let authModel = AuthModel()

@@ -12,28 +12,25 @@ import ManaKit
 
 @MainActor
 @Observable
-class FavoritesViewModel {
+class FavoritesViewModel: CardsViewModel {
     var favorites = [FBFavorite]()
-    var cards = [CardBasicInfo]()
     
-    var isBusy = false
-    var isFailed = false
-
     @ObservationIgnored
     private let collentionName = "favorites"
     
     @ObservationIgnored
     private var db = Firestore.firestore()
-
-    func fetchData() async -> Void {
+    
+    override func fetchData(fetchRemote: Bool = false) async -> Void {
         guard !isBusy, let user = Auth.auth().currentUser else {
             return
         }
-
-        isFailed = false
-        isBusy = true
         
         do {
+            isFailed = false
+            isBusy = true
+            cards.removeAll()
+            
             let snapshot = try await db
                 .collection(collentionName)
                 .whereField("uid", isEqualTo: user.uid)
@@ -44,25 +41,14 @@ class FavoritesViewModel {
             }
             
             if !favorites.isEmpty {
-                await fetchCardsData()
+                let ids = favorites.map(\.cardID)
+                cards[""] = try await ManaKitUtilities.shared.cardsByIDs(fetchRemote: fetchRemote, cardIDs: ids)?
+                    .cards.map { $0.fragments.cardBasicInfo } ?? []
             }
             
+            formatData()
+            
             isBusy = false
-        } catch {
-            isFailed = true
-            isBusy = false
-        }
-    }
-    
-    private func fetchCardsData(fetchRemote: Bool = false) async -> Void {
-        guard !favorites.isEmpty, cards.isEmpty else {
-            return
-        }
-        
-        do {
-            let ids = favorites.map(\.cardID)
-            cards = try await ManaKitUtilities.shared.cardsByIDs(fetchRemote: fetchRemote, cardIDs: ids)?
-                .cards.map { $0.fragments.cardBasicInfo } ?? []
         } catch {
             isFailed = true
             isBusy = false
@@ -85,14 +71,15 @@ class FavoritesViewModel {
                 .addDocument(from: favorite)
             let doc = try await ref.getDocument()
             favorites.append(try doc.data(as: FBFavorite.self))
-            cards.append(card)
+            var array = cards[""] ?? []
+            array.append(card)
             isBusy = false
         } catch {
             isFailed = true
             isBusy = false
         }
     }
-
+    
     func delete(card: CardBasicInfo) async throws -> Void {
         guard let _ = Auth.auth().currentUser,
               let favoriteId = favorites.filter({ $0.cardID == card.id }).first?.id else {
@@ -105,7 +92,11 @@ class FavoritesViewModel {
         do {
             try await db.collection(collentionName).document(favoriteId).delete()
             favorites.removeAll(where: { $0.id == favoriteId })
-            cards.removeAll(where: { $0.id == card.id })
+            for (k,_) in cards {
+                var array = cards[k] ?? []
+                array.removeAll(where: { $0.id == card.id })
+            }
+            
             isBusy = false
         } catch {
             isFailed = true
@@ -125,7 +116,7 @@ class FavoritesViewModel {
         guard let _ = Auth.auth().currentUser else {
             return false
         }
-
+        
         return favorites.filter({ $0.cardID == cardID }).count > 0
     }
     
@@ -136,12 +127,5 @@ class FavoritesViewModel {
             favorites.removeAll()
             cards.removeAll()
         }
-    }
-}
-
-extension FavoritesViewModel: CardsViewModelDelegate {
-    func fetchCards(fetchRemote: Bool, sortBy: CardsSorter, orderBy: CardsOrderer) async throws -> [ManaKit.CardBasicInfo] {
-        await fetchCardsData(fetchRemote: fetchRemote)
-        return cards
     }
 }
