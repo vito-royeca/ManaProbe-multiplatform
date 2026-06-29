@@ -139,7 +139,7 @@ struct SetHeaderView: View {
 extension SetHeaderView {
     func fetchData() {
         Task {
-            await viewModel.reloadData()
+            await viewModel.fetchData()
         }
     }
 }

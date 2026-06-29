@@ -224,13 +224,13 @@ class CardsViewModel {
         // CardsNavigatorDelegate
         self.cardsArray = [InnerCardInfo]()
         for section in cardSections {
-            if let subarray = cards[section] {
+            if let subarray = tempCards[section] {
                 self.cardsArray.append(contentsOf: subarray.map{ $0.fragments.innerCardInfo })
             }
         }
         updateNavigation()
         
-        cards.removeAll()
+//        cards.removeAll()
         cards = tempCards
     }
     

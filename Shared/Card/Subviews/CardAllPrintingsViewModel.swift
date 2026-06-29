@@ -24,7 +24,7 @@ class CardAllPrintingsViewModel: CardsViewModel  {
     // MARK: - Methods
     
     override func fetchData(fetchRemote: Bool = false) async -> Void {
-        guard !isBusy else {
+        guard !isBusy, cards.isEmpty else {
             return
         }
         

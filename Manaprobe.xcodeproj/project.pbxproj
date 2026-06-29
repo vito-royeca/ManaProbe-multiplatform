@@ -83,6 +83,8 @@
 		760472BE2FB96BA200B75E4F /* Manaprobe--iOS--Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 760472BD2FB96BA200B75E4F /* Manaprobe--iOS--Info.plist */; };
 		760472C32FB96BD600B75E4F /* Manaprobe--macOS--Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 760472C12FB96BD600B75E4F /* Manaprobe--macOS--Info.plist */; };
 		760472C92FB96DE400B75E4F /* Tests_Prefetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760472C62FB96D0700B75E4F /* Tests_Prefetch.swift */; };
+		760E7E5C2FF22724003A3F49 /* CardRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760E7E5B2FF2271C003A3F49 /* CardRoute.swift */; };
+		760E7E5D2FF22724003A3F49 /* CardRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760E7E5B2FF2271C003A3F49 /* CardRoute.swift */; };
 		76102D052F9D986C00A43DFA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 76102D032F9D986C00A43DFA /* GoogleService-Info.plist */; };
 		76CDD98A2FB9676500B7A47E /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 76CDD9892FB9676500B7A47E /* Apollo */; };
 		76CDD98C2FB9676500B7A47E /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 76CDD98B2FB9676500B7A47E /* ApolloAPI */; };
@@ -242,6 +244,7 @@
 		760B05622F9038B3003DB025 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		760B05652F90710E003DB025 /* CardCommonInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCommonInfoView.swift; sourceTree = "<group>"; };
 		760B05662F90710E003DB025 /* CardSetInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSetInfoView.swift; sourceTree = "<group>"; };
+		760E7E5B2FF2271C003A3F49 /* CardRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardRoute.swift; sourceTree = "<group>"; };
 		76102D032F9D986C00A43DFA /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		761035702F9169FA00EE42DA /* CardOtherInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardOtherInfoView.swift; sourceTree = "<group>"; };
 		761035732F916EE700EE42DA /* CardExtraInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardExtraInfoView.swift; sourceTree = "<group>"; };
@@ -512,6 +515,7 @@
 			children = (
 				767DD79C2FA286A200911032 /* CardGridItemView.swift */,
 				76E029232FA167C200F77633 /* CardListItemView.swift */,
+				760E7E5B2FF2271C003A3F49 /* CardRoute.swift */,
 				470482C12FAA444A0004CC16 /* CardsChartsView.swift */,
 				767DD7AB2FA296A700911032 /* CardsGridView.swift */,
 				767DD7AC2FA296A700911032 /* CardsListView.swift */,
@@ -911,6 +915,7 @@
 				760472912FB96B5500B75E4F /* FavoritesViewModel.swift in Sources */,
 				760472922FB96B5500B75E4F /* FirebaseModels.swift in Sources */,
 				760472932FB96B5500B75E4F /* Notifications+Names.swift in Sources */,
+				760E7E5D2FF22724003A3F49 /* CardRoute.swift in Sources */,
 				760472942FB96B5500B75E4F /* CardOtherInfoView.swift in Sources */,
 				4739CAAD2FC8C10A00B787F0 /* CardsNavigatorToolbar.swift in Sources */,
 				760472952FB96B5500B75E4F /* PlaceholderImageView.swift in Sources */,
@@ -989,6 +994,7 @@
 				76CDD9DF2FB9698500B7A47E /* Color+Hex.swift in Sources */,
 				76CDD9E02FB9698500B7A47E /* CardAllPrintingsViewModel.swift in Sources */,
 				76CDD9E12FB9698500B7A47E /* FlexibleTabView.swift in Sources */,
+				760E7E5C2FF22724003A3F49 /* CardRoute.swift in Sources */,
 				76CDD9E22FB9698500B7A47E /* PlaceholderImageView.swift in Sources */,
 				76CDD9E32FB9698500B7A47E /* ManaprobeTabs.swift in Sources */,
 				76CDD9E42FB9698500B7A47E /* FavoritesView.swift in Sources */,

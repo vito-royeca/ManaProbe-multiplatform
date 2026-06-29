@@ -67,7 +67,7 @@ class SetsViewModel {
     // MARK: - Methods
     
     func fetchData(fetchRemote: Bool = false) async -> Void {
-        guard !isBusy else {
+        guard !isBusy, sets.isEmpty else {
             return
         }
         
