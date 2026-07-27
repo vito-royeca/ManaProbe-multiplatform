@@ -136,6 +136,7 @@ extension SetsView {
 #Preview {
     AsyncPreviewView { data in
         SetsView(sectionedSets: data)
+            .environment(AuthModel())
     } fetchData: {
         try await ManaKitUtilities.shared.sets(fetchRemote: false, type: .byYear)
     }

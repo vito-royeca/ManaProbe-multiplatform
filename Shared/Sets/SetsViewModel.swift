@@ -124,6 +124,7 @@ class SetsViewModel {
                 setTypesContainer.insert(set.value.setType)
             }
         }
+        
         setTypes = Array(setTypesContainer).sorted(by: { $0.name < $1.name })
         
         formatData()
@@ -215,7 +216,7 @@ class SetsViewModel {
             let keys = Set(setsArray.map({ $0.value.setType.name }))
             for key in keys {
                 let array = setsArray.filter({ $0.value.setType.name == key })
-                sets[key] = array.sorted(by: { $0.value.name < $1.value.name })
+                sets[key] = array.sorted(by: { $0.value.setType.name < $1.value.setType.name })
             }
             sections = keys.sorted()
         case .year:
@@ -223,7 +224,6 @@ class SetsViewModel {
             for key in keys {
                 let array = setsArray.filter({ $0.value.yearSection == key })
                 sets[key] = array.sorted(by: { $0.value.releaseDate > $1.value.releaseDate })
-                    .sorted(by: { $0.value.name < $1.value.name })
             }
             sections = keys.sorted().reversed()
         }

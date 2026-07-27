@@ -1127,7 +1127,7 @@
 		76CDDA262FB9698500B7A47E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				API_URL_ENDPOINT = "http://aswang:4000/graphql";
+				API_URL_ENDPOINT = "http://localhost:4000/graphql";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -1170,7 +1170,7 @@
 		76CDDA272FB9698500B7A47E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				API_URL_ENDPOINT = "http://aswang:4000/graphql";
+				API_URL_ENDPOINT = "https://api.manaprobe.com";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
