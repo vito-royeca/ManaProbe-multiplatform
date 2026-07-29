@@ -78,15 +78,6 @@ struct AccountView: View {
     private var profileView : some View {
         List {
             headerView
-            NavigationLink(value: "") {
-                Text("Favorite News")
-            }
-            NavigationLink(value: "Favorites") {
-                Text("Favorite Cards")
-            }
-            NavigationLink(value: "Collections") {
-                Text("Collections")
-            }
             
             Section {
                 Button {
@@ -119,6 +110,20 @@ struct AccountView: View {
         }
     }
 
+    var linksView: some View {
+        Section {
+            NavigationLink(value: "") {
+                Text("Favorite News")
+            }
+            NavigationLink(value: "Favorites") {
+                Text("Favorite Cards")
+            }
+            NavigationLink(value: "Collections") {
+                Text("Collections")
+            }
+        }
+    }
+    
     var avatarView: some View {
         Group {
             if authModel.authService.authenticationState == .authenticated {

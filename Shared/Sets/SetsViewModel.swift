@@ -35,7 +35,7 @@ struct Tree<Value: Hashable>: Hashable, Identifiable {
 
 // MARK: - SetsViewModel
 
-//@MainActor
+@MainActor
 @Observable
 class SetsViewModel {
     

@@ -55,7 +55,7 @@ class SetViewModel: CardsViewModel  {
     // MARK: - Methods
     
     override func fetchData(fetchRemote: Bool = false) async -> Void {
-        guard !isBusy, set == nil, cards.isEmpty else {
+        guard !isBusy/*, set == nil, cards.isEmpty*/ else {
             return
         }
         
