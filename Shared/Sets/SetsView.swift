@@ -61,19 +61,17 @@ struct SetsView: View {
         List {
             if query.isEmpty {
                 ForEach(viewModel.sections, id: \.self) { section in
-                    if let sets = viewModel.sets[section] {
-                        Section(header: Text(section)) {
-                            OutlineGroup(sets,
-                                         id: \.id,
-                                         children: \.children) { set in
+                    Section(header: Text(section)) {
+                        ForEach(viewModel.sets[section] ?? [], id: \.self) { set in
+                            ExpandableOutlineGroup(node: set,
+                                                   childKeyPath: \.children,
+                                                   isExpanded: true) { set in
                                 NavigationLink(value: set.value) {
                                     SetsRowView(set: set.value)
                                         .tint(.primary)
                                 }
                             }
                         }
-                    } else {
-                        EmptyView()
                     }
                 }
             } else {
@@ -85,7 +83,7 @@ struct SetsView: View {
                 }
             }
         }
-        .listStyle(.plain)
+        .listStyle(SidebarListStyle())
         .navigationLinkIndicatorVisibility(.hidden)
         .navigationTitle(Tabs.sets.name)
         .navigationBarTitleDisplayMode(.inline)
