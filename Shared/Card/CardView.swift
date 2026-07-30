@@ -290,7 +290,7 @@ private extension View {
         }
     } fetchData: {
         try await ManaKitUtilities.shared.card(fetchRemote: false,
-                                               id: "ecl_en_290")
+                                               id: "one_en_196")
     }
     .environment(authModel)
     .environment(favoritesModel)

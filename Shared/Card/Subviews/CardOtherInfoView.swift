@@ -14,12 +14,28 @@ struct CardOtherInfoView: View {
     @State
     private var isFrameEffectsExpanded  = true
     
+    @State
+    private var isKeywordsExpanded  = true
+    
     var body: some View {
         Group {
             LabeledContent {
                 Text("#\(card.collectorNumber ?? String.emdash)")
             } label: {
                 Text("Collector Number")
+            }
+
+            if card.keywords.count > 0 {
+                DisclosureGroup("Keywords",
+                                isExpanded: $isKeywordsExpanded) {
+                    VStack {
+                        ForEach(card.keywords, id: \.self) { keyword in
+                            Text(keyword.name)
+                                .foregroundStyle(.secondary)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
+                    }
+                }
             }
 
             if let language = card.language {

@@ -139,23 +139,23 @@ struct NewsFeedRowView: View {
 }
 
 #Preview {
-    let item = FeedItem(channel: "Mana Guide",
-                        channelImage: "https://managuideapp.com/images/favicon.ico",
+    let item = FeedItem(channel: "Manaprobe",
+                        channelImage: "https://manaprobe.com/images/favicon.ico",
                         title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                        image: "https://managuideapp.com/images/logo.png",
+                        image: "https://manaprobe.com/images/logo.png",
                         datePublished: Date(),
-                        author: "Mana Guide")
-    let item2 = FeedItem(channel: "Mana Guide",
-                        channelImage: "https://managuideapp.com/images/favicon.ico",
+                        author: "Manaprobe")
+    let item2 = FeedItem(channel: "Manaprobe",
+                        channelImage: "https://manaprobe.com/images/favicon.ico",
                         title: "Lorem ipsum dolor sit amet",
-                        image: "https://managuideapp.com/images/logo.png",
+                        image: "https://manaprobe.com/images/logo.png",
                          datePublished: Date(),
-                         author: "Mana Guide")
-    let item3 = FeedItem(channel: "Mana Guide",
-                        channelImage: "https://managuideapp.com/images/favicon.ico",
+                         author: "Manaprobe")
+    let item3 = FeedItem(channel: "Manaprobe",
+                        channelImage: "https://manaprobe.com/images/favicon.ico",
                          title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                          datePublished: Date(),
-                         author: "Mana Guide")
+                         author: "Manaprobe")
     Group {
         List {
             NewsFeedRowView(item: item, style: .vertical)

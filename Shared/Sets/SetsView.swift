@@ -83,7 +83,7 @@ struct SetsView: View {
                 }
             }
         }
-        .listStyle(SidebarListStyle())
+        .listStyle(.plain)
         .navigationLinkIndicatorVisibility(.hidden)
         .navigationTitle(Tabs.sets.name)
         .navigationBarTitleDisplayMode(.inline)

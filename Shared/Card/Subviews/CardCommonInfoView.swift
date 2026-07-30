@@ -124,8 +124,12 @@ struct CardCommonInfoView: View {
                 if artists.count > 1 {
                     DisclosureGroup("Artists",
                                     isExpanded: $isArtistsExpanded) {
-                        ForEach(artists, id: \.self) { artist in
-                            Text(artist.name)
+                        VStack {
+                            ForEach(artists, id: \.self) { artist in
+                                Text(artist.name)
+                                    .foregroundStyle(.secondary)
+                                    .frame(maxWidth: .infinity, alignment: .trailing)
+                            }
                         }
                     }
                 } else {
