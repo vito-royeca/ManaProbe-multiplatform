@@ -65,8 +65,10 @@ struct CardView: View {
                 #if os(iOS)
                 if horizontalSizeClass == .compact {
                     stickyHeaderView
+                        .toolbar(.hidden, for: .tabBar)
                 } else {
                     normalView
+                        .toolbar(.hidden, for: .tabBar)
                 }
                 #else
                 normalView

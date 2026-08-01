@@ -21,11 +21,11 @@ class SetViewModel: CardsViewModel  {
     var set: SetInfo?
     var language: SetInfo.Language? = nil
     
-    @ObservationIgnored
-    var currentCard: CardBasicInfo?
+//    @ObservationIgnored
+//    var currentCard: CardBasicInfo?
     
-    @ObservationIgnored
-    var cardIndex = 0
+//    @ObservationIgnored
+//    var cardIndex = 0
 
     @ObservationIgnored
     private var setID: String

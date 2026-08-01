@@ -48,24 +48,19 @@ struct CardsListView<Header: View>: View {
                 .listRowSeparator(.hidden)
 
             ForEach(viewModel.cardSections, id: \.self) { section in
-                if let cards = viewModel.cards[section] {
-                    Section(header: Text(section)) {
-                        ForEach(cards, id: \.self) { card in
-                            let innerCardInfo = card.fragments.innerCardInfo
-                            let route = CardRoute.details(selectedCard: innerCardInfo, navigator: viewModel)
-                            NavigationLink(value: route) {
-                                CardListItemView(card: innerCardInfo)
-                                    .toolbar(.hidden, for: .tabBar)
-                                    .swipeActions(allowsFullSwipe: false) {
-                                        swipeActions(for: card)
-                                    }
-                            }
-                            .buttonStyle(.plain)
-                            .id(card.id)
+                Section(header: Text(section)) {
+                    ForEach(viewModel.cards[section] ?? [], id: \.self) { card in
+                        let innerCardInfo = card.fragments.innerCardInfo
+                        let route = CardRoute.details(selectedCard: innerCardInfo, navigator: viewModel)
+                        NavigationLink(value: route) {
+                            CardListItemView(card: innerCardInfo)
+                                .swipeActions(allowsFullSwipe: false) {
+                                    swipeActions(for: card)
+                                }
                         }
+                        .buttonStyle(.plain)
+                        .id(card.id)
                     }
-                } else {
-                    EmptyView()
                 }
             }
         }

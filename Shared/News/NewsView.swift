@@ -85,23 +85,19 @@ struct NewsView: View {
             
             LazyVGrid(columns: columns, pinnedViews: []) {
                 ForEach(keys, id: \.self) { key in
-                    if let feeds = viewModel.feeds[key] {
-                        Section(header: Text(key)) {
-                            ForEach(feeds, id: \.self) { feed in
-                                let tap = TapGesture()
-                                    .onEnded { _ in
-                                        currentFeed = feed
-                                    }
-                                
-                                NewsFeedRowView(item: feed,
-                                                style: .vertical)
-                                    .gesture(tap)
-                                    .listRowSeparator(.hidden)
-                                    .padding(.bottom)
-                            }
+                    Section(header: Text(key)) {
+                        ForEach(viewModel.feeds[key] ?? [], id: \.self) { feed in
+                            let tap = TapGesture()
+                                .onEnded { _ in
+                                    currentFeed = feed
+                                }
+                            
+                            NewsFeedRowView(item: feed,
+                                            style: .vertical)
+                                .gesture(tap)
+                                .listRowSeparator(.hidden)
+                                .padding(.bottom)
                         }
-                    } else {
-                        EmptyView()
                     }
                 }
             }

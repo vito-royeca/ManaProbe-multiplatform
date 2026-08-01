@@ -26,9 +26,6 @@ struct ManaprobeTabs: View {
     private var selectedTab: Tabs = .news
     
     @State
-    private var query = ""
-    
-    @State
     private var authModel = AuthModel()
     
     @State
@@ -161,9 +158,16 @@ struct ManaprobeTabs: View {
     
     var searchView: some View {
         NavigationStack {
-            Text(Tabs.search.name)
+            SearchView()
+                .navigationDestination(for: CardRoute.self) { route in
+                    switch route {
+                    case .details(let selectedCard, let navigator):
+                        CardView(card: selectedCard, navigator: navigator)
+                    case .printings(let card):
+                        CardAllPrintingsView(card: card)
+                    }
+                }
         }
-        .searchable(text: $query)
     }
 
     var moreView: some View {

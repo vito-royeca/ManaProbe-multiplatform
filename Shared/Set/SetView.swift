@@ -11,8 +11,8 @@ import ManaKit
 struct SetView: View {
     // MARK: - Variables
 
-    @Environment(\.horizontalSizeClass)
-    private var horizontalSizeClass
+//    @Environment(\.horizontalSizeClass)
+//    private var horizontalSizeClass
     
     @State
     private var viewModel: SetViewModel

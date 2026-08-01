@@ -45,23 +45,18 @@ struct CardsGridView<Header: View>: View {
 
             LazyVGrid(columns: columns, alignment: .leading, pinnedViews: []) {
                 ForEach(viewModel.cardSections, id: \.self) { section in
-                    if let cards = viewModel.cards[section] {
-                        Section(header: Text(section)) {
-                            ForEach(cards, id: \.self) { card in
-                                let innerCardInfo = card.fragments.innerCardInfo
-                                let route = CardRoute.details(selectedCard: innerCardInfo, navigator: viewModel)
-                                NavigationLink(value: route) {
-                                    VStack {
-                                        CardGridItemView(card: innerCardInfo)
-                                            .toolbar(.hidden, for: .tabBar)
-                                        Divider()
-                                    }
+                    Section(header: Text(section)) {
+                        ForEach(viewModel.cards[section] ?? [], id: \.self) { card in
+                            let innerCardInfo = card.fragments.innerCardInfo
+                            let route = CardRoute.details(selectedCard: innerCardInfo, navigator: viewModel)
+                            NavigationLink(value: route) {
+                                VStack {
+                                    CardGridItemView(card: innerCardInfo)
+                                    Divider()
                                 }
-                                .buttonStyle(.plain)
                             }
+                            .buttonStyle(.plain)
                         }
-                    } else {
-                        EmptyView()
                     }
                 }
             }

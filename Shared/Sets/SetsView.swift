@@ -100,7 +100,7 @@ struct SetsView: View {
         }
         .searchable(text: $query,
                     placement: .navigationBarDrawer(displayMode: .automatic),
-                    prompt: "Search for Magic sets...")
+                    prompt: "Search for Magic sets")
         .refreshable {
             reloadData()
         }

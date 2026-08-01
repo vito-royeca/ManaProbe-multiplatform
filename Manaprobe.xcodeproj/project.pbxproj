@@ -88,6 +88,10 @@
 		76102D052F9D986C00A43DFA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 76102D032F9D986C00A43DFA /* GoogleService-Info.plist */; };
 		7695BB21301AB69A00FCA122 /* ExpandableOutlineGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB20301AB69100FCA122 /* ExpandableOutlineGroup.swift */; };
 		7695BB22301AB69A00FCA122 /* ExpandableOutlineGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB20301AB69100FCA122 /* ExpandableOutlineGroup.swift */; };
+		7695BB2F301B9EBF00FCA122 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB2E301B9EBF00FCA122 /* SearchView.swift */; };
+		7695BB30301B9EBF00FCA122 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB2E301B9EBF00FCA122 /* SearchView.swift */; };
+		7695BB32301BCA3D00FCA122 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB31301BCA3D00FCA122 /* SearchViewModel.swift */; };
+		7695BB33301BCA3D00FCA122 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB31301BCA3D00FCA122 /* SearchViewModel.swift */; };
 		76CDD98A2FB9676500B7A47E /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 76CDD9892FB9676500B7A47E /* Apollo */; };
 		76CDD98C2FB9676500B7A47E /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 76CDD98B2FB9676500B7A47E /* ApolloAPI */; };
 		76CDD98E2FB9678A00B7A47E /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 76CDD98D2FB9678A00B7A47E /* FirebaseCore */; };
@@ -273,6 +277,8 @@
 		76840DE22F8D7FCB000415C0 /* SetsSorterMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsSorterMenuView.swift; sourceTree = "<group>"; };
 		7685952A2F9C18DB0019AEDA /* CardAllPrintingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAllPrintingsViewModel.swift; sourceTree = "<group>"; };
 		7695BB20301AB69100FCA122 /* ExpandableOutlineGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableOutlineGroup.swift; sourceTree = "<group>"; };
+		7695BB2E301B9EBF00FCA122 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		7695BB31301BCA3D00FCA122 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		76C8DED82F929C4200B0144A /* FlexibleTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleTabView.swift; sourceTree = "<group>"; };
 		76C8DEDE2F93FC6D00B0144A /* PlaceholderImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderImageView.swift; sourceTree = "<group>"; };
 		76C8DEE42F96E5D800B0144A /* AsyncPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncPreviewView.swift; sourceTree = "<group>"; };
@@ -483,6 +489,15 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		7695BB27301B9E5600FCA122 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				7695BB2E301B9EBF00FCA122 /* SearchView.swift */,
+				7695BB31301BCA3D00FCA122 /* SearchViewModel.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		76D609AA2FACF23400A8F980 /* Collection */ = {
 			isa = PBXGroup;
 			children = (
@@ -566,6 +581,7 @@
 				761CA9842FA846F700788AA6 /* Models */,
 				8B75CA49281627B500597662 /* Navigation */,
 				8B41B83A28126ED600AECF85 /* News */,
+				7695BB27301B9E5600FCA122 /* Search */,
 				8B41B7B72812588500AECF85 /* Set */,
 				8B41B785281257F600AECF85 /* Sets */,
 				8B41B84C28126FC900AECF85 /* Status */,
@@ -900,6 +916,7 @@
 				7604727E2FB96B5500B75E4F /* FlexibleTabView.swift in Sources */,
 				7604727F2FB96B5500B75E4F /* ManaprobeTabs.swift in Sources */,
 				760472802FB96B5500B75E4F /* TextViewWrapper.swift in Sources */,
+				7695BB2F301B9EBF00FCA122 /* SearchView.swift in Sources */,
 				760472812FB96B5500B75E4F /* SetsSorterMenuView.swift in Sources */,
 				760472822FB96B5500B75E4F /* Color+Hex.swift in Sources */,
 				760472832FB96B5500B75E4F /* CardAllPrintingsView.swift in Sources */,
@@ -922,6 +939,7 @@
 				760472932FB96B5500B75E4F /* Notifications+Names.swift in Sources */,
 				760E7E5D2FF22724003A3F49 /* CardRoute.swift in Sources */,
 				760472942FB96B5500B75E4F /* CardOtherInfoView.swift in Sources */,
+				7695BB33301BCA3D00FCA122 /* SearchViewModel.swift in Sources */,
 				4739CAAD2FC8C10A00B787F0 /* CardsNavigatorToolbar.swift in Sources */,
 				760472952FB96B5500B75E4F /* PlaceholderImageView.swift in Sources */,
 				760472962FB96B5500B75E4F /* SetsView.swift in Sources */,
@@ -1002,7 +1020,9 @@
 				760E7E5C2FF22724003A3F49 /* CardRoute.swift in Sources */,
 				76CDD9E22FB9698500B7A47E /* PlaceholderImageView.swift in Sources */,
 				76CDD9E32FB9698500B7A47E /* ManaprobeTabs.swift in Sources */,
+				7695BB30301B9EBF00FCA122 /* SearchView.swift in Sources */,
 				76CDD9E42FB9698500B7A47E /* FavoritesView.swift in Sources */,
+				7695BB32301BCA3D00FCA122 /* SearchViewModel.swift in Sources */,
 				76CDD9E52FB9698500B7A47E /* SetsSorterMenuView.swift in Sources */,
 				76CDD9E62FB9698500B7A47E /* String+Utilities.swift in Sources */,
 				76CDD9E72FB9698500B7A47E /* CardView.swift in Sources */,

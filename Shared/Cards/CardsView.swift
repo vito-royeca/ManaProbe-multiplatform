@@ -11,8 +11,8 @@ import ManaKit
 struct CardsView<Header: View>: View where Header: View {
     // MARK: - Variables
 
-    @Environment(\.horizontalSizeClass)
-    private var horizontalSizeClass
+//    @Environment(\.horizontalSizeClass)
+//    private var horizontalSizeClass
     
     @State
     private var viewModel: CardsViewModel
