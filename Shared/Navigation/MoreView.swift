@@ -8,16 +8,8 @@
 import SwiftUI
 
 struct MoreView: View {
-    @Environment(AuthModel.self)
-    private var authModel
-
     var body: some View {
         contentView
-            .onAppear {
-                if authModel.user == nil {
-                    authModel.showAccountView.toggle()
-                }
-            }
     }
     
     var contentView: some View {

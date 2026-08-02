@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct CollectionsView: View {
+    @Environment(AuthModel.self)
+    private var authModel
+
     @State
     private var viewModel = CollectionsViewModel()
     
@@ -23,6 +26,11 @@ struct CollectionsView: View {
                 }
             } else {
                 contentView
+                    .onAppear {
+                        if authModel.user == nil {
+                            authModel.showAccountView.toggle()
+                        }
+                    }
             }
         }
         .task {
@@ -55,5 +63,8 @@ extension CollectionsView {
 }
 
 #Preview {
+    let authModel = AuthModel()
+    
     CollectionsView()
+        .environment(authModel)
 }

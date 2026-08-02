@@ -8,11 +8,19 @@
 import SwiftUI
 
 struct FavoritesView: View {
+    @Environment(AuthModel.self)
+    private var authModel
+
     @Environment(FavoritesViewModel.self)
     private var viewModel
     
     var body: some View {
         contentView
+            .onAppear {
+                if authModel.user == nil {
+                    authModel.showAccountView.toggle()
+                }
+            }
     }
     
     private var contentView: some View {
