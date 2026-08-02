@@ -69,31 +69,30 @@ struct CardsChartsView<Header: View>: View {
     
     var colorsChartView: some View {
         Chart(viewModel.colorsChartData()) { dataPoint in
-            BarMark(x: .value("Count", dataPoint.count),
-                    y: .value("Name", dataPoint.name))
-            .annotation(position: .trailing) {
-                Text(String(dataPoint.count))
-            }
-            .foregroundStyle(viewModel.color(name: dataPoint.name))
-            .clipShape(RoundedRectangle(cornerRadius: 0))
+            SectorMark(angle: .value("Count", dataPoint.count))
+                .foregroundStyle(by: .value("Name", dataPoint.name))
+                .foregroundStyle(viewModel.color(name: dataPoint.name))
+                .annotation(position: .overlay) {
+                    Text("\(dataPoint.count)")
+                        .font(.subheadline)
+                        .foregroundStyle(.white)
+                }
         }
-        .chartLegend(.hidden)
-        .chartXAxis(.hidden)
-        .chartYAxis {
-            AxisMarks { _ in
-                AxisValueLabel()
-            }
+        .chartLegend(alignment: .center, spacing: 18)
+        .onChange(of: viewModel.colorsChartData(), initial: true) { _, newValue in
+            cardColors = Dictionary(uniqueKeysWithValues: Set(newValue).map { ($0.name, viewModel.color(name: $0.name)) })
         }
-        .aspectRatio(1, contentMode: .fit)
+        .chartForegroundStyleScale { (name: String) in
+            cardColors[name] ?? .clear
+        }
+        .aspectRatio(2, contentMode: .fit)
     }
 
     var raritiesChartView: some View {
         Chart(viewModel.raritiesChartData()) { dataPoint in
-            SectorMark(angle: .value("Type", dataPoint.count))
+            SectorMark(angle: .value("Count", dataPoint.count))
                 .foregroundStyle(by: .value("Name", dataPoint.name))
-                .foregroundStyle(
-                    viewModel.color(rarity: dataPoint.name)
-                )
+                .foregroundStyle(viewModel.color(rarity: dataPoint.name))
                 .annotation(position: .overlay) {
                     Text("\(dataPoint.count)")
                         .font(.subheadline)

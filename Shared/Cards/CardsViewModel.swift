@@ -298,13 +298,13 @@ struct ChartData: Identifiable, Equatable, Hashable {
 extension CardsViewModel {
     func colorsChartData() -> [ChartData] {
         var chartData = [ChartData]()
-        var cardsArray = [CardBasicInfo]()
+        var array = [CardBasicInfo]()
         for (_,v) in cards {
-            cardsArray.append(contentsOf: v)
+            array.append(contentsOf: v)
         }
         
         var colors = Set<String>()
-        for card in cardsArray {
+        for card in array {
             if card.colors.isEmpty {
                 colors.insert("Colorless")
             } else {
@@ -316,7 +316,7 @@ extension CardsViewModel {
         
         for color in colors {
             var count = 0
-            for card in cardsArray {
+            for card in array {
                 if card.faces.isEmpty {
                     if card.colors.isEmpty {
                         if color == "Colorless" {
