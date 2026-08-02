@@ -125,7 +125,7 @@ struct ManaprobeTabs: View {
         .environment(favoritesModel)
     }
     
-    // MARK: - tabs
+    // MARK: - tabs and views
     
     var newsView: some View {
         NavigationStack {
@@ -219,8 +219,6 @@ struct ManaprobeTabs: View {
         Text("Decks")
             .navigationTitle("Decks")
     }
-    
-    // MARK: - Sheets
     
     var accountView: some View {
         AccountView()

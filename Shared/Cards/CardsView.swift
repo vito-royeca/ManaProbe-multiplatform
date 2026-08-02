@@ -21,11 +21,15 @@ struct CardsView<Header: View>: View where Header: View {
     @AppStorage("CardsDisplay")
     var display = CardsDisplay.defaultValue
     
+    private var showAccountButton = false
+    
     // MARK: - Initializers
 
     init(viewModel: CardsViewModel,
+         showAccountButton: Bool = false,
          @ViewBuilder header: @escaping () -> Header = { EmptyView() }) {
         self.viewModel = viewModel
+        self.showAccountButton = showAccountButton
         self.header = header
     }
 
@@ -42,9 +46,6 @@ struct CardsView<Header: View>: View where Header: View {
             } else {
                 contentView
             }
-        }
-        .task {
-            fetchData()
         }
     }
     
@@ -72,8 +73,15 @@ struct CardsView<Header: View>: View where Header: View {
             }
         }
         .toolbar {
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
+            ToolbarItemGroup(placement: .topBarTrailing) {
                 CardsSorterMenuView(viewModel: viewModel)
+            }
+
+            if showAccountButton {
+                if #available(iOS 26.0, *) {
+                    ToolbarSpacer(.fixed, placement: .topBarTrailing)
+                }
+                AccountToolbar(placement: .topBarTrailing)
             }
         }
     }

@@ -25,6 +25,9 @@ struct CardAllPrintingsView: View {
 
     var body: some View {
         contentView
+            .task {
+                await viewModel.fetchData()
+            }
     }
     
     private var contentView: some View {

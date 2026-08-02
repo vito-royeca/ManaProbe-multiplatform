@@ -14,20 +14,40 @@ struct SearchView: View {
 
     var body: some View {
         contentView
-            .onSubmit(of: .search) {
-                fetchData()
-            }
     }
     
     private var contentView: some View {
-        CardsView(viewModel: viewModel)
+        Group {
+            if !viewModel.query.isEmpty && !viewModel.cards.isEmpty {
+                resultsView
+            } else {
+                suggestionsView
+            }
+        }
+        .onSubmit(of: .search) {
+            fetchData()
+        }
+    }
+    
+    private var suggestionsView: some View {
+        SearchSuggestionsView()
             .navigationLinkIndicatorVisibility(.hidden)
             .navigationTitle(Tabs.search.name)
-            .navigationBarTitleDisplayMode(.inline)
             .searchable(text: $viewModel.query,
                         placement: .automatic,
                         prompt: "Search for cards")
-            .tabViewSearchActivation(.searchTabSelection)
+//            .tabViewSearchActivation(.searchTabSelection)
+    }
+    
+    private var resultsView: some View {
+        CardsView(viewModel: viewModel,
+                  showAccountButton: true)
+            .navigationLinkIndicatorVisibility(.hidden)
+            .navigationTitle(Tabs.search.name)
+            .searchable(text: $viewModel.query,
+                        placement: .automatic,
+                        prompt: "Search for cards")
+//            .tabViewSearchActivation(.searchTabSelection)
     }
 }
 
@@ -57,3 +77,4 @@ extension SearchView {
     .environment(authModel)
     .environment(favoritesModel)
 }
+

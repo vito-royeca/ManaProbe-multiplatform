@@ -90,11 +90,11 @@ struct SetsView: View {
         .modifier(SectionIndex(sections: viewModel.sections,
                                sectionIndexTitles: viewModel.sectionIndexTitles))
         .toolbar {
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
+            ToolbarItemGroup(placement: .topBarTrailing) {
                 SetsSorterMenuView(viewModel: viewModel)
             }
             if #available(iOS 26.0, *) {
-                ToolbarSpacer(.fixed, placement: .navigationBarTrailing)
+                ToolbarSpacer(.fixed, placement: .topBarTrailing)
             }
             AccountToolbar(placement: .topBarTrailing)
         }
