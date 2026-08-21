@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ManaKit
 
 struct MoreView: View {
     var body: some View {
@@ -14,22 +15,33 @@ struct MoreView: View {
     
     var contentView: some View {
         List {
-            NavigationLink(value: "Favorites") {
-                HStack {
-                    Image(systemName: "heart.fill")
-                    Text("Favorites")
+            Section(header: Text("My")) {
+                NavigationLink(value: "Favorites") {
+                    HStack {
+                        Image(systemName: "heart.fill")
+                        Text("Favorites")
+                    }
+                }
+                NavigationLink(value: "Collections") {
+                    HStack {
+                        Image(systemName: "rectangle.stack")
+                        Text("Collections")
+                    }
+                }
+                NavigationLink(value: "Decks") {
+                    HStack {
+                        Image(systemName: "square.stack.3d.up")
+                        Text("Decks")
+                    }
                 }
             }
-            NavigationLink(value: "Collections") {
-                HStack {
-                    Image(systemName: "rectangle.stack")
-                    Text("Collections")
-                }
-            }
-            NavigationLink(value: "Decks") {
-                HStack {
-                    Image(systemName: "square.stack.3d.up")
-                    Text("Decks")
+
+            Section(header: Text("Tools")) {
+                NavigationLink(value: "Rules") {
+                    HStack {
+                        Image(systemName: "text.book.closed")
+                        Text("Comprehensive Rules")
+                    }
                 }
             }
         }
@@ -38,9 +50,69 @@ struct MoreView: View {
         .toolbar {
             AccountToolbar(placement: .topBarTrailing)
         }
+        .navigationDestination(for: String.self) { string in
+            switch string {
+            case "Favorites":
+                favoritesView
+            case "Collections":
+                collectionsView
+            case "Decks":
+                Text("Decks")
+            case "Rules":
+                rulesView
+            default:
+                Text("Not Implemented")
+            }
+        }
+        .navigationDestination(for: RuleInfo.self) { rule in
+            RulesView(rule: rule.fragments.ruleBasicInfo)
+        }
+        .navigationDestination(for: RuleInfo.Child.self) { rule in
+            RulesView(rule: rule.fragments.ruleBasicInfo)
+        }
+    }
+    
+    var favoritesView: some View {
+        FavoritesView()
+            .navigationDestination(for: CardRoute.self) { route in
+                switch route {
+                case .details(let selectedCard, let navigator):
+                    CardView(card: selectedCard, navigator: navigator)
+                case .printings(let card):
+                    CardAllPrintingsView(card: card)
+                }
+            }
+    }
+    
+    var collectionsView: some View {
+        CollectionsView()
+            .navigationDestination(for: CardRoute.self) { route in
+                switch route {
+                case .details(let selectedCard, let navigator):
+                    CardView(card: selectedCard, navigator: navigator)
+                case .printings(let card):
+                    CardAllPrintingsView(card: card)
+                }
+            }
+            .navigationDestination(for: FBCollection.self) { collecton in
+                CollectionView(collection: collecton)
+            }
+    }
+    
+    var decksView: some View {
+        Text("Decks")
+            .navigationTitle("Decks")
+    }
+
+    var rulesView: some View {
+        RulesView()
     }
 }
 
 #Preview {
-    MoreView()
+    NavigationStack {
+        MoreView()
+            .environment(AuthModel())
+            .environment(FavoritesViewModel())
+    }
 }

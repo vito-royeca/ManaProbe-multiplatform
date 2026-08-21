@@ -13,10 +13,6 @@ struct SetsView: View {
     
     @State
     private var viewModel = SetsViewModel()
-    @State
-    private var showingSort = false
-    @State
-    private var query = ""
 
     // MARK: Initializers
     init() {
@@ -44,7 +40,7 @@ struct SetsView: View {
                 contentView
             }
         }
-        .onChange(of: query) {
+        .onChange(of: viewModel.query) {
             filterData()
         }
         .onSubmit(of: .search) {
@@ -59,7 +55,7 @@ struct SetsView: View {
     
     private var contentView: some View {
         List {
-            if query.isEmpty {
+            if viewModel.query.isEmpty {
                 ForEach(viewModel.sections, id: \.self) { section in
                     Section(header: Text(section)) {
                         ForEach(viewModel.sets[section] ?? [], id: \.self) { set in
@@ -98,7 +94,7 @@ struct SetsView: View {
             }
             AccountToolbar(placement: .topBarTrailing)
         }
-        .searchable(text: $query,
+        .searchable(text: $viewModel.query,
                     placement: .navigationBarDrawer(displayMode: .automatic),
                     prompt: "Search for Magic sets")
         .refreshable {
@@ -117,11 +113,11 @@ extension SetsView {
     }
 
     func filterData() {
-        viewModel.filterData(query: query)
+        viewModel.filterData(query: viewModel.query)
     }
     
     func reloadData() -> Void {
-        query = ""
+        viewModel.query = ""
         Task {
             await viewModel.reloadData()
         }

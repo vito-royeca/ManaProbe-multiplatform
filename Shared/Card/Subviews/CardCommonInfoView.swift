@@ -68,9 +68,11 @@ struct CardCommonInfoView: View {
                !printedText.isEmpty {
                 LabeledContent {
                     AttributedText(
-                        addColor(to: NSAttributedString(symbol: printedText,
-                                                        pointSize: 16),
-                                 colorScheme: colorScheme)
+//                        addColor(to: NSAttributedString(symbol: printedText,
+//                                                        pointSize: 16),
+//                                 colorScheme: colorScheme)
+                        NSAttributedString(symbol: printedText,
+                                           pointSize: 16)
                     )
                 } label: {
                     Text("Printed Text")
@@ -82,9 +84,11 @@ struct CardCommonInfoView: View {
                !oracleText.isEmpty {
                 LabeledContent {
                     AttributedText(
-                        addColor(to: NSAttributedString(symbol: oracleText,
-                                                        pointSize: 16),
-                                 colorScheme: colorScheme)
+//                        addColor(to: NSAttributedString(symbol: oracleText,
+//                                                        pointSize: 16),
+//                                 colorScheme: colorScheme)
+                        NSAttributedString(symbol: oracleText,
+                                           pointSize: 16)
                     )
                 } label: {
                     Text("Oracle Text")

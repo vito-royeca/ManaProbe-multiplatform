@@ -173,70 +173,11 @@ struct ManaprobeTabs: View {
     var moreView: some View {
         NavigationStack {
             MoreView()
-                .navigationDestination(for: String.self) { string in
-                    switch string {
-                    case "Favorites":
-                        favoritesView
-                    case "Collections":
-                        collectionsView
-                    case "Decks":
-                        Text("Decks")
-                    default:
-                        Text("Not Implemented")
-                    }
-                }
         }
     }
 
-    var favoritesView: some View {
-        FavoritesView()
-            .navigationDestination(for: CardRoute.self) { route in
-                switch route {
-                case .details(let selectedCard, let navigator):
-                    CardView(card: selectedCard, navigator: navigator)
-                case .printings(let card):
-                    CardAllPrintingsView(card: card)
-                }
-            }
-    }
-    
-    var collectionsView: some View {
-        CollectionsView()
-            .navigationDestination(for: CardRoute.self) { route in
-                switch route {
-                case .details(let selectedCard, let navigator):
-                    CardView(card: selectedCard, navigator: navigator)
-                case .printings(let card):
-                    CardAllPrintingsView(card: card)
-                }
-            }
-            .navigationDestination(for: FBCollection.self) { collecton in
-                CollectionView(collection: collecton)
-            }
-    }
-    
-    var decksView: some View {
-        Text("Decks")
-            .navigationTitle("Decks")
-    }
-    
     var accountView: some View {
         AccountView()
-            .navigationDestination(for: String.self) { string in
-                switch string {
-                case "Favorites":
-                    // TODO
-                    NavigationStack {
-                        favoritesView
-                    }
-                case "Collections":
-                    NavigationStack {
-                        collectionsView
-                    }
-                default:
-                    Text("Not Implemented")
-                }
-            }
             .navigationDestination(for: CardRoute.self) { route in
                 switch route {
                 case .details(let selectedCard, let navigator):

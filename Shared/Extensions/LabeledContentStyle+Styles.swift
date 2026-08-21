@@ -10,8 +10,8 @@ import SwiftUI
 struct VerticalLabeledContentStyle: LabeledContentStyle {
     func makeBody(configuration: Configuration) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            configuration.label
-            configuration.content.foregroundColor(.gray)
+            configuration.label.font(.headline)
+            configuration.content.font(.subheadline) //.foregroundColor(.gray)
         }
     }
 }

@@ -71,8 +71,8 @@ extension SearchView {
             SearchView()
         }
     } fetchData: {
-        try await ManaKitUtilities.shared.search(fetchRemote: false,
-                                                 query: "angel")
+        try await ManaKitUtilities.shared.cardsSearch(fetchRemote: false,
+                                                      query: "angel")
     }
     .environment(authModel)
     .environment(favoritesModel)

@@ -30,8 +30,8 @@ class SearchViewModel: CardsViewModel {
             isBusy = true
             cards.removeAll()
             
-            let searchData = try await ManaKitUtilities.shared.search(fetchRemote: fetchRemote,
-                                                                      query: query)
+            let searchData = try await ManaKitUtilities.shared.cardsSearch(fetchRemote: fetchRemote,
+                                                                           query: query)
             cards[""] = searchData?.cards.map { $0.fragments.cardBasicInfo } ?? []
             formatData()
             

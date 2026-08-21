@@ -27,12 +27,6 @@ enum SetsSorter: String, CaseIterable {
     static let defaultValue: SetsSorter = .year
 }
 
-struct Tree<Value: Hashable>: Hashable, Identifiable {
-    var id: String
-    let value: Value
-    var children: [Tree]? = nil
-}
-
 // MARK: - SetsViewModel
 
 @MainActor
@@ -40,6 +34,9 @@ struct Tree<Value: Hashable>: Hashable, Identifiable {
 class SetsViewModel {
     
     // MARK: - Variables
+
+    var showingSort = false
+    var query = ""
     
     var sets = [String: [Tree<SetBasicInfo>]]()
     var filteredSets = [Tree<SetBasicInfo>]()
