@@ -48,13 +48,14 @@ struct CardListItemView: View {
     var informationView: some View {
         VStack(alignment: .leading) {
             Text(card.displayName ?? "")
+                .font(.body)
             Spacer()
             HStack {
-                Text(card.set?.keyruneUnicode.keyrune2Unicode() ?? "e684")
+                Text(card.set?.keyruneUnicode.toSetUnicode() ?? "e684")
                     .font(Font.custom("Keyrune", size: 20))
                     .foregroundColor(Color(hex: card.keyruneColor ?? "000"))
                 Text("\u{2022} #\(card.collectorNumber ?? "") \u{2022} \(card.rarity?.name ?? "") \u{2022} \(card.language?.displayID ?? "")")
-                    .font(.footnote)
+                    .font(.subheadline)
                     .foregroundColor(Color.gray)
                 Spacer()
             }
@@ -67,19 +68,19 @@ struct CardListItemView: View {
                let marketPrice = price.market,
                marketPrice > 0 {
                 Text("Normal: \(String(format: "$%.2f", marketPrice))")
-                    .font(.footnote)
+                    .font(.subheadline)
             } else {
                 Text("Normal: \u{2014}")
-                    .font(.footnote)
+                    .font(.subheadline)
             }
             if let price = card.prices?.filter({ ($0.isFoil ?? false)}).first,
                let marketPrice = price.market,
                marketPrice > 0 {
                 Text("Foil: \(String(format: "$%.2f", marketPrice))")
-                    .font(.footnote)
+                    .font(.subheadline)
             } else {
                 Text("Foil: \u{2014}")
-                    .font(.footnote)
+                    .font(.subheadline)
             }
         }
     }

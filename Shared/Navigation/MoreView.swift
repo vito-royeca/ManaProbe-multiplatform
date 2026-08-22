@@ -18,7 +18,7 @@ struct MoreView: View {
             Section(header: Text("My")) {
                 NavigationLink(value: "Favorites") {
                     HStack {
-                        Image(systemName: "heart.fill")
+                        Image(systemName: "heart")
                         Text("Favorites")
                     }
                 }
@@ -43,6 +43,12 @@ struct MoreView: View {
                         Text("Comprehensive Rules")
                     }
                 }
+                NavigationLink(value: "Life Tracker") {
+                    HStack {
+                        Image(systemName: "heart.text.clipboard")
+                        Text("Life Tracker")
+                    }
+                }
             }
         }
         .listStyle(.plain)
@@ -56,13 +62,14 @@ struct MoreView: View {
                 favoritesView
             case "Collections":
                 collectionsView
-            case "Decks":
-                Text("Decks")
             case "Rules":
                 rulesView
             default:
                 Text("Not Implemented")
             }
+        }
+        .navigationDestination(for: GlossaryIndex.self) { index in
+            RulesView(glossaryIndex: index)
         }
         .navigationDestination(for: RuleInfo.self) { rule in
             RulesView(rule: rule.fragments.ruleBasicInfo)
@@ -105,7 +112,7 @@ struct MoreView: View {
     }
 
     var rulesView: some View {
-        RulesView()
+        RulesView(rule: nil)
     }
 }
 

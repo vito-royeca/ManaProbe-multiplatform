@@ -62,7 +62,6 @@
 		760472A12FB96B5500B75E4F /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760B05622F9038B3003DB025 /* CardViewModel.swift */; };
 		760472A22FB96B5500B75E4F /* CardPrintingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7610357A2F917E7700EE42DA /* CardPrintingsView.swift */; };
 		760472A32FB96B5500B75E4F /* CardLanguagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761035792F917E7700EE42DA /* CardLanguagesView.swift */; };
-		760472A42FB96B5500B75E4F /* String+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A147192B03E4E100A957B7 /* String+Utilities.swift */; };
 		760472A52FB96B5500B75E4F /* CreateCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761CA9AF2FA84F6300788AA6 /* CreateCollectionView.swift */; };
 		760472A62FB96B5500B75E4F /* CardGridItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767DD79C2FA286A200911032 /* CardGridItemView.swift */; };
 		760472A72FB96B5500B75E4F /* SetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B41B788281257F600AECF85 /* SetsViewModel.swift */; };
@@ -94,6 +93,9 @@
 		764E45F83037749700BA2FC1 /* RulesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764E45F53037748D00BA2FC1 /* RulesViewModel.swift */; };
 		764E45FA3037A82400BA2FC1 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764E45F93037A82000BA2FC1 /* Tree.swift */; };
 		764E45FB3037A82400BA2FC1 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764E45F93037A82000BA2FC1 /* Tree.swift */; };
+		764E4601303944C000BA2FC1 /* RulesRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764E4600303944C000BA2FC1 /* RulesRowView.swift */; };
+		764E4602303944C000BA2FC1 /* RulesRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764E4600303944C000BA2FC1 /* RulesRowView.swift */; };
+		764E4603303944C000BA2FC1 /* RulesRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764E4600303944C000BA2FC1 /* RulesRowView.swift */; };
 		7695BB21301AB69A00FCA122 /* ExpandableOutlineGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB20301AB69100FCA122 /* ExpandableOutlineGroup.swift */; };
 		7695BB22301AB69A00FCA122 /* ExpandableOutlineGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB20301AB69100FCA122 /* ExpandableOutlineGroup.swift */; };
 		7695BB2F301B9EBF00FCA122 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB2E301B9EBF00FCA122 /* SearchView.swift */; };
@@ -150,7 +152,6 @@
 		76CDD9E32FB9698500B7A47E /* ManaprobeTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DFDFDA2F8BFD2F00477B8B /* ManaprobeTabs.swift */; };
 		76CDD9E42FB9698500B7A47E /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E0287E2F9F0E4700F77633 /* FavoritesView.swift */; };
 		76CDD9E52FB9698500B7A47E /* SetsSorterMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76840DE22F8D7FCB000415C0 /* SetsSorterMenuView.swift */; };
-		76CDD9E62FB9698500B7A47E /* String+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A147192B03E4E100A957B7 /* String+Utilities.swift */; };
 		76CDD9E72FB9698500B7A47E /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760B05272F903307003DB025 /* CardView.swift */; };
 		76CDD9E82FB9698500B7A47E /* CollectionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761CA9AC2FA84AE500788AA6 /* CollectionsViewModel.swift */; };
 		76CDD9E92FB9698500B7A47E /* CardsGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767DD7AB2FA296A700911032 /* CardsGridView.swift */; };
@@ -247,7 +248,6 @@
 		47F6E0BF2FD1F31B00F71B4A /* CardViewActionToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewActionToolbar.swift; sourceTree = "<group>"; };
 		58A147102B033A9E00A957B7 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		58A147162B0348DC00A957B7 /* Notifications+Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notifications+Names.swift"; sourceTree = "<group>"; };
-		58A147192B03E4E100A957B7 /* String+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utilities.swift"; sourceTree = "<group>"; };
 		58AB9C5A2B0FF37F00A73696 /* LabeledContentStyle+Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LabeledContentStyle+Styles.swift"; sourceTree = "<group>"; };
 		58ED3E9D2B0C064C003A93DD /* EmptyResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyResultView.swift; sourceTree = "<group>"; };
 		760472BB2FB96B5500B75E4F /* Manaprobe (macOS).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Manaprobe (macOS).app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -281,6 +281,7 @@
 		764E45F1303773ED00BA2FC1 /* RulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesView.swift; sourceTree = "<group>"; };
 		764E45F53037748D00BA2FC1 /* RulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesViewModel.swift; sourceTree = "<group>"; };
 		764E45F93037A82000BA2FC1 /* Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
+		764E4600303944C000BA2FC1 /* RulesRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesRowView.swift; sourceTree = "<group>"; };
 		767DD79C2FA286A200911032 /* CardGridItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGridItemView.swift; sourceTree = "<group>"; };
 		767DD7A12FA2893700911032 /* CardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsViewModel.swift; sourceTree = "<group>"; };
 		767DD7A62FA294C700911032 /* CardsSorterMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsSorterMenuView.swift; sourceTree = "<group>"; };
@@ -502,6 +503,7 @@
 			children = (
 				764E45F53037748D00BA2FC1 /* RulesViewModel.swift */,
 				764E45F1303773ED00BA2FC1 /* RulesView.swift */,
+				764E4600303944C000BA2FC1 /* RulesRowView.swift */,
 			);
 			path = Rules;
 			sourceTree = "<group>";
@@ -722,7 +724,6 @@
 				8BAC9E43282F4036008848D8 /* Date+ElapsedTime.swift */,
 				58AB9C5A2B0FF37F00A73696 /* LabeledContentStyle+Styles.swift */,
 				58A147162B0348DC00A957B7 /* Notifications+Names.swift */,
-				58A147192B03E4E100A957B7 /* String+Utilities.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -987,7 +988,6 @@
 				760472A12FB96B5500B75E4F /* CardViewModel.swift in Sources */,
 				760472A22FB96B5500B75E4F /* CardPrintingsView.swift in Sources */,
 				760472A32FB96B5500B75E4F /* CardLanguagesView.swift in Sources */,
-				760472A42FB96B5500B75E4F /* String+Utilities.swift in Sources */,
 				760472A52FB96B5500B75E4F /* CreateCollectionView.swift in Sources */,
 				760472A62FB96B5500B75E4F /* CardGridItemView.swift in Sources */,
 				760472A72FB96B5500B75E4F /* SetsViewModel.swift in Sources */,
@@ -999,6 +999,7 @@
 				760472AC2FB96B5500B75E4F /* Tabs.swift in Sources */,
 				760472AD2FB96B5500B75E4F /* ContentView.swift in Sources */,
 				760472AE2FB96B5500B75E4F /* LabeledContentStyle+Styles.swift in Sources */,
+				764E4602303944C000BA2FC1 /* RulesRowView.swift in Sources */,
 				760472AF2FB96B5500B75E4F /* SetView.swift in Sources */,
 				760472B02FB96B5500B75E4F /* CollectionHeaderView.swift in Sources */,
 				760472B12FB96B5500B75E4F /* AuthModel.swift in Sources */,
@@ -1057,7 +1058,6 @@
 				76CDD9E42FB9698500B7A47E /* FavoritesView.swift in Sources */,
 				7695BB32301BCA3D00FCA122 /* SearchViewModel.swift in Sources */,
 				76CDD9E52FB9698500B7A47E /* SetsSorterMenuView.swift in Sources */,
-				76CDD9E62FB9698500B7A47E /* String+Utilities.swift in Sources */,
 				76CDD9E72FB9698500B7A47E /* CardView.swift in Sources */,
 				76CDD9E82FB9698500B7A47E /* CollectionsViewModel.swift in Sources */,
 				76CDD9E92FB9698500B7A47E /* CardsGridView.swift in Sources */,
@@ -1083,6 +1083,7 @@
 				7695BB21301AB69A00FCA122 /* ExpandableOutlineGroup.swift in Sources */,
 				76CDD9FA2FB9698500B7A47E /* CardsChartsView.swift in Sources */,
 				76CDD9FB2FB9698500B7A47E /* AuthModel.swift in Sources */,
+				764E4603303944C000BA2FC1 /* RulesRowView.swift in Sources */,
 				76CDD9FC2FB9698500B7A47E /* CardExtraInfoView.swift in Sources */,
 				76CDD9FD2FB9698500B7A47E /* WebView.swift in Sources */,
 				4739CAAE2FC8C10A00B787F0 /* CardsNavigatorToolbar.swift in Sources */,
@@ -1100,6 +1101,7 @@
 				8B41B7502812144E00AECF85 /* Tests_iOSLaunchTests.swift in Sources */,
 				764E45F4303773ED00BA2FC1 /* RulesView.swift in Sources */,
 				760472C92FB96DE400B75E4F /* Tests_Prefetch.swift in Sources */,
+				764E4601303944C000BA2FC1 /* RulesRowView.swift in Sources */,
 				8B41B74E2812144E00AECF85 /* Tests_iOS.swift in Sources */,
 				764E45F63037749700BA2FC1 /* RulesViewModel.swift in Sources */,
 				8B6CAF6C284043DC0073E8FE /* SnapshotHelper.swift in Sources */,

@@ -21,12 +21,12 @@ struct SetsRowView: View {
         HStack(alignment: .center, spacing: 10) {
             imageView
 
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 10) {
                 if (set.isOnlineOnly) {
                     onlineOnlyView
                 }
                 Text(set.name)
-                    .font(.subheadline)
+                    .font(.body)
                 infoView
             }
         }
@@ -72,7 +72,7 @@ struct SetsRowView: View {
     private var infoView: some View {
         HStack {
             let cardCount = set.cardCount ?? 0
-            Text(set.keyruneUnicode.keyrune2Unicode())
+            Text(set.keyruneUnicode.toSetUnicode())
                 .font(Font.custom("Keyrune", size: 20))
             Text((set.id).uppercased())
                 .font(.subheadline)

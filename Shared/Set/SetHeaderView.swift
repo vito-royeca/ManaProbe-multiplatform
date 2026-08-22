@@ -84,7 +84,7 @@ struct SetHeaderView: View {
                     Text("Symbol")
                         .font(.footnote)
                         .foregroundColor(Color.gray)
-                    Text(viewModel.set?.keyruneUnicode.keyrune2Unicode() ?? "")
+                    Text(viewModel.set?.keyruneUnicode.toSetUnicode() ?? "")
                         .font(Font.custom("Keyrune", size: 20))
                 }
                 Spacer()

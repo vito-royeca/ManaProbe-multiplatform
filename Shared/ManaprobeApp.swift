@@ -48,8 +48,9 @@ struct ManaprobeApp: App {
         let apiURLEndpoint = Bundle.main.infoDictionary! ["API_URL_ENDPOINT"] as! String
         print("apiURLEndpoint = \(apiURLEndpoint)")
         ManaKitUtilities.shared.configure(apiURL: apiURLEndpoint)
+        ManaKitUtilities.shared.loadCustomFonts()
         Task {
-            await ManaKitUtilities.shared.downloadKeyruneFont()
+            await ManaKitUtilities.shared.downloadSymbolsFont()
         }
     }
     

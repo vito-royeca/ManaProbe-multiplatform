@@ -54,7 +54,7 @@ struct CollectionListItemView: View {
             Text(card.displayName ?? "")
             Spacer()
             HStack {
-                Text(card.set?.keyruneUnicode.keyrune2Unicode() ?? "e684")
+                Text(card.set?.keyruneUnicode.toSetUnicode() ?? "e684")
                     .font(Font.custom("Keyrune", size: 20))
                     .foregroundColor(Color(hex: card.keyruneColor ?? "000"))
                 Text("\u{2022} #\(card.collectorNumber ?? "") \u{2022} \(card.rarity?.name ?? "") \u{2022} \(card.language?.displayID ?? "")")

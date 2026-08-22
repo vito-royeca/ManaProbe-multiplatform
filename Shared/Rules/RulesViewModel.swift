@@ -14,12 +14,18 @@ extension RuleInfo {
         "\(term ?? "")\(definition != nil ? ". \(definition!)" : "")"
     }
     
-    var definitionWithLinks: String {
-        let hyperLinkText = "see rule"
-        var result = definition ?? ""
-        
-        
-        return result
+//    var definitionWithLinks: String {
+//        let hyperLinkText = "see rule"
+//        var result = definition ?? ""
+//        
+//        
+//        return result
+//    }
+}
+
+extension RuleBasicInfo {
+    var titleString: String {
+        "\(term ?? "")\(definition != nil ? ". \(definition!)" : "")"
     }
 }
 
@@ -29,15 +35,24 @@ extension RuleInfo.Child {
     }
 }
 
+enum GlossaryIndex: String, CaseIterable {
+    case A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z
+}
+
 // MARK: - RulesViewModel
 
 @MainActor
 @Observable
 class RulesViewModel {
     // MARK: - Variables
+    
     var rules = [RuleInfo]()
+    var searchResults = [RuleInfo]()
+    var query = ""
     @ObservationIgnored
     var rule: RuleBasicInfo? = nil
+    @ObservationIgnored
+    var glossaryIndex: GlossaryIndex? = nil
     
     var isBusy = false
     var isFailed = false
@@ -46,7 +61,9 @@ class RulesViewModel {
     var title: String {
         get {
             if let rule {
-                return "\(rule.term ?? "") \(rule.definition != nil ? ". \(rule.definition!)" : "")"
+                return rule.titleString
+            } else if let glossaryIndex {
+                return glossaryIndex.rawValue
             } else {
                 return "Comprehensive Rules"
             }
@@ -59,20 +76,39 @@ class RulesViewModel {
         self.rule = rule
     }
     
+    init(glossaryIndex: GlossaryIndex? = nil) {
+        self.glossaryIndex = glossaryIndex
+    }
+    
     // MARK: - Methods
     
     func fetchData(fetchRemote: Bool = false) async -> Void {
-        guard !isBusy, rules.isEmpty else {
+        guard !isBusy, rules.isEmpty || searchResults.isEmpty else {
             return
         }
         
         do {
             isFailed = false
             isBusy = true
-            rules = [RuleInfo]()
-            
-            for rule in try await ManaKitUtilities.shared.rules(fetchRemote: fetchRemote, id: rule?.id ?? nil)?.rules ?? [] {
-                rules.append(rule.fragments.ruleInfo)
+
+            if query.isEmpty {
+                rules.removeAll()
+                
+                if let glossaryIndex {
+                    for rule in try await ManaKitUtilities.shared.glossarySearch(fetchRemote: fetchRemote, letter: glossaryIndex.rawValue)?.rules ?? [] {
+                        rules.append(rule.fragments.ruleInfo)
+                    }
+                } else {
+                    for rule in try await ManaKitUtilities.shared.rules(fetchRemote: fetchRemote, id: rule?.id ?? nil)?.rules ?? [] {
+                        rules.append(rule.fragments.ruleInfo)
+                    }
+                }
+            } else {
+                searchResults.removeAll()
+                
+                for rule in try await ManaKitUtilities.shared.rulesSearch(fetchRemote: fetchRemote, query: query)?.rules ?? [] {
+                    searchResults.append(rule.fragments.ruleInfo)
+                }
             }
             
             isBusy = false
@@ -82,16 +118,16 @@ class RulesViewModel {
         }
     }
     
-//    private func ruleToTree(rule: RuleInfo) -> Tree<RuleBasicInfo> {
-//        var tree = Tree(id: "\(rule.id)", value: rule.fragments.ruleBasicInfo)
-//        var children = [Tree<RuleBasicInfo>]()
-//        
-//        for child in rule.children ?? [] {
-//            children.append(Tree(id: "\(child.id)", value: child.fragments.ruleBasicInfo))
-//        }
-//        
-//        tree.children = children
-//        return tree
-//    }
+    func createGlossaryTree() -> Tree<String> {
+        var tree = Tree(id: "0", value: "Glossary")
+        var children: [Tree<String>] = []
+        
+        for letter in GlossaryIndex.allCases {
+            children.append(Tree(id: letter.rawValue, value: letter.rawValue))
+        }
+        
+        tree.children = children
+        return tree
+    }
 }
 

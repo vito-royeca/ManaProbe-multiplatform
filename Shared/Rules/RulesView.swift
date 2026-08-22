@@ -21,6 +21,11 @@ struct RulesView: View {
         _viewModel = State(wrappedValue: model)
     }
     
+    init(glossaryIndex: GlossaryIndex? = nil) {
+        let model = RulesViewModel(glossaryIndex: glossaryIndex)
+        _viewModel = State(wrappedValue: model)
+    }
+    
     var body: some View {
         Group {
             if viewModel.isBusy {
@@ -35,12 +40,12 @@ struct RulesView: View {
                 contentView
             }
         }
-//        .onChange(of: query) {
-//            filterData()
-//        }
-//        .onSubmit(of: .search) {
-//            filterData()
-//        }
+        .onChange(of: viewModel.query) {
+            filterData()
+        }
+        .onSubmit(of: .search) {
+            fetchData()
+        }
         .task {
             fetchData()
         }
@@ -49,53 +54,77 @@ struct RulesView: View {
     // MARK: - Private variables
     
     private var contentView: some View {
-        List {
-            if let rule = viewModel.rule {
-                if viewModel.rules.isEmpty {
-                    LabeledContent {
-                        Text(rule.definition ?? "")
-                    } label: {
-                        Text(rule.term ?? "")
-                    }
-                    .labeledContentStyle(.vertical)
+//        List {
+//            if viewModel.searchResults.isEmpty {
+//                if let rule = viewModel.rule {
+//                    if viewModel.rules.isEmpty {
+//                        RulesRowView(title: rule.term ?? "",
+//                                     contents: rule.definition ?? "")
+//                    } else {
+//                        ForEach(viewModel.rules, id: \.self) { child in
+//                            let children = child.children ?? [RuleInfo.Child]()
+//                            
+//                            if children.count == 1 {
+//                                RulesRowView(title: child.children?[0].term ?? "",
+//                                             contents: child.children?[0].definition ?? "")
+//                            } else {
+//                                ForEach(children, id: \.self) { innerChild in
+//                                    if (innerChild.children ?? []).isEmpty {
+//                                        RulesRowView(title: innerChild.term ?? "",
+//                                                     contents: innerChild.definition ?? "")
+//                                    } else {
+//                                        NavigationLink(value: innerChild) {
+//                                            Text(innerChild.titleString)
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                } else {
+//                    ForEach(viewModel.rules, id: \.self) { rule in
+//                        if rule.term == "Glossary" {
+//                            ExpandableOutlineGroup(node: viewModel.createGlossaryTree(),
+//                                                   childKeyPath: \.children,
+//                                                   isExpanded: false) { tree in
+//                                Group {
+//                                    if tree.id == "0" {
+//                                        Text(tree.value)
+//                                    } else {
+//                                        NavigationLink(value: GlossaryIndex(rawValue: tree.value)) {
+//                                            Text(tree.value)
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        } else {
+//                            if let _ = rule.termSection {
+//                                RulesRowView(title: rule.term ?? "",
+//                                             contents: rule.definition ?? "")
+//                            } else {
+//                                NavigationLink(value: rule) {
+//                                    Text(rule.titleString)
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            } else {
+//                ForEach(viewModel.searchResults, id: \.self) { result in
+//                    RulesRowView(title: result.term ?? "",
+//                                 contents: result.definition ?? "")
+//                }
+//            }
+//        }
+        Group {
+            if viewModel.searchResults.isEmpty {
+                if let _ = viewModel.rule {
+                    rulesView
                 } else {
-                    ForEach(viewModel.rules, id: \.self) { child in
-                        let children = child.children ?? [RuleInfo.Child]()
-
-                        if children.count == 1 {
-                            LabeledContent {
-                                Text(child.children?[0].definition ?? "")
-                            } label: {
-                                Text(child.children?[0].term ?? "")
-                            }
-                            .labeledContentStyle(.vertical)
-                        } else {
-                            ForEach(children, id: \.self) { innerChild in
-                                if (innerChild.children ?? []).isEmpty {
-                                    LabeledContent {
-                                        AttributedText(
-                                            NSAttributedString(symbol: innerChild.definition ?? "",
-                                                               pointSize: 16)
-                                        )
-                                    } label: {
-                                        Text(innerChild.term ?? "")
-                                    }
-                                    .labeledContentStyle(.vertical)
-                                } else {
-                                    NavigationLink(value: innerChild) {
-                                        Text(innerChild.titleString)
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    glossaryView
                 }
             } else {
-                ForEach(viewModel.rules, id: \.self) { rule in
-                    NavigationLink(value: rule) {
-                        Text(rule.titleString)
-                    }
-                }
+                searchResultsView
             }
         }
         .listStyle(.plain)
@@ -105,12 +134,81 @@ struct RulesView: View {
         .toolbar {
             AccountToolbar(placement: .topBarTrailing)
         }
-//        .searchable(text: $query,
-//                    placement: .navigationBarDrawer(displayMode: .automatic),
-//                    prompt: "Search for Magic sets")
-//        .refreshable {
-//            reloadData()
-//        }
+        .searchable(text: $viewModel.query,
+                    placement: .navigationBarDrawer(displayMode: .automatic),
+                    prompt: "Search the Comprehensive Rules")
+        .refreshable {
+            reloadData()
+        }
+    }
+    
+    private var rulesView: some View {
+        List {
+            if viewModel.rules.isEmpty {
+                RulesRowView(title: viewModel.rule?.term ?? "",
+                             contents: viewModel.rule?.definition ?? "")
+            } else {
+                ForEach(viewModel.rules, id: \.self) { child in
+                    let children = child.children ?? [RuleInfo.Child]()
+                    
+                    if children.count == 1 {
+                        RulesRowView(title: child.children?[0].term ?? "",
+                                     contents: child.children?[0].definition ?? "")
+                    } else {
+                        ForEach(children, id: \.self) { innerChild in
+                            if (innerChild.children ?? []).isEmpty {
+                                RulesRowView(title: innerChild.term ?? "",
+                                             contents: innerChild.definition ?? "")
+                            } else {
+                                NavigationLink(value: innerChild) {
+                                    Text(innerChild.titleString)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private var glossaryView: some View {
+        List {
+            ForEach(viewModel.rules, id: \.self) { rule in
+                if rule.term == "Glossary" {
+                    ExpandableOutlineGroup(node: viewModel.createGlossaryTree(),
+                                           childKeyPath: \.children,
+                                           isExpanded: false) { tree in
+                        Group {
+                            if tree.id == "0" {
+                                Text(tree.value)
+                            } else {
+                                NavigationLink(value: GlossaryIndex(rawValue: tree.value)) {
+                                    Text(tree.value)
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    if let _ = rule.termSection {
+                        RulesRowView(title: rule.term ?? "",
+                                     contents: rule.definition ?? "")
+                    } else {
+                        NavigationLink(value: rule) {
+                            Text(rule.titleString)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private var searchResultsView: some View {
+        List {
+            ForEach(viewModel.searchResults, id: \.self) { result in
+                RulesRowView(title: result.term ?? "",
+                             contents: result.definition ?? "")
+            }
+        }
     }
 }
 
@@ -123,22 +221,22 @@ extension RulesView {
         }
     }
 
-//    func filterData() {
-//        viewModel.filterData(query: query)
-//    }
-//    
-//    func reloadData() -> Void {
-//        query = ""
-//        Task {
-//            await viewModel.reloadData()
-//        }
-//    }
+    func filterData() {
+        if viewModel.query.isEmpty {
+            viewModel.searchResults.removeAll()
+        }
+    }
+    
+    func reloadData() -> Void {
+        viewModel.query = ""
+        fetchData()
+    }
 }
 
 
 #Preview {
     NavigationStack {
-        RulesView()
+        RulesView(rule: nil)
             .environment(AuthModel())
     }
 }

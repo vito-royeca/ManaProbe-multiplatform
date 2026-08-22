@@ -19,7 +19,7 @@ struct CardSetInfoView: View {
         }
         
         LabeledContent {
-            Text(card.set?.keyruneUnicode.keyrune2Unicode() ?? "e684")
+            Text(card.set?.keyruneUnicode.toSetUnicode() ?? "e684")
                 .font(Font.custom("Keyrune", size: 20))
                 .foregroundColor(Color(hex: card.keyruneColor ?? "000"))
         } label: {

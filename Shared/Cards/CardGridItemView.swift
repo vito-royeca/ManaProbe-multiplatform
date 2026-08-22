@@ -46,19 +46,19 @@ struct CardGridItemView: View {
                    let marketPrice = price.market,
                    marketPrice > 0 {
                     Text("Normal: \(String(format: "$%.2f", marketPrice))")
-                        .font(.footnote)
+                        .font(.subheadline)
                 } else {
                     Text("Normal: \u{2014}")
-                        .font(.footnote)
+                        .font(.subheadline)
                 }
                 if let price = card.prices?.filter({ ($0.isFoil ?? false)}).first,
                    let marketPrice = price.market,
                    marketPrice > 0 {
                     Text("Foil: \(String(format: "$%.2f", marketPrice))")
-                        .font(.footnote)
+                        .font(.subheadline)
                 } else {
                     Text("Foil: \u{2014}")
-                        .font(.footnote)
+                        .font(.subheadline)
                 }
             }
             Spacer()
