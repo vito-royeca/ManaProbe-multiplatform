@@ -82,7 +82,7 @@ struct SetsView: View {
         .listStyle(.plain)
         .navigationLinkIndicatorVisibility(.hidden)
         .navigationTitle(Tabs.sets.name)
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.large)
         .modifier(SectionIndex(sections: viewModel.sections,
                                sectionIndexTitles: viewModel.sectionIndexTitles))
         .toolbar {

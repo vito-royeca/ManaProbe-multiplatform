@@ -60,12 +60,16 @@ class RulesViewModel {
     @ObservationIgnored
     var title: String {
         get {
-            if let rule {
-                return rule.titleString
-            } else if let glossaryIndex {
-                return glossaryIndex.rawValue
+            if searchResults.isEmpty {
+                if let rule {
+                    return rule.titleString
+                } else if let glossaryIndex {
+                    return glossaryIndex.rawValue
+                } else {
+                    return "Comprehensive Rules"
+                }
             } else {
-                return "Comprehensive Rules"
+                return "\(searchResults.count) rules found"
             }
         }
     }
@@ -83,8 +87,14 @@ class RulesViewModel {
     // MARK: - Methods
     
     func fetchData(fetchRemote: Bool = false) async -> Void {
-        guard !isBusy, rules.isEmpty || searchResults.isEmpty else {
+        // TODO: handle query and rules.isEmpty
+        guard !isBusy else {
             return
+        }
+        
+        if (query.isEmpty && !rules.isEmpty) ||
+           (!query.isEmpty && !searchResults.isEmpty) {
+           return
         }
         
         do {

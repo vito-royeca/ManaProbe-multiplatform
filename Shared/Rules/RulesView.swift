@@ -54,68 +54,6 @@ struct RulesView: View {
     // MARK: - Private variables
     
     private var contentView: some View {
-//        List {
-//            if viewModel.searchResults.isEmpty {
-//                if let rule = viewModel.rule {
-//                    if viewModel.rules.isEmpty {
-//                        RulesRowView(title: rule.term ?? "",
-//                                     contents: rule.definition ?? "")
-//                    } else {
-//                        ForEach(viewModel.rules, id: \.self) { child in
-//                            let children = child.children ?? [RuleInfo.Child]()
-//                            
-//                            if children.count == 1 {
-//                                RulesRowView(title: child.children?[0].term ?? "",
-//                                             contents: child.children?[0].definition ?? "")
-//                            } else {
-//                                ForEach(children, id: \.self) { innerChild in
-//                                    if (innerChild.children ?? []).isEmpty {
-//                                        RulesRowView(title: innerChild.term ?? "",
-//                                                     contents: innerChild.definition ?? "")
-//                                    } else {
-//                                        NavigationLink(value: innerChild) {
-//                                            Text(innerChild.titleString)
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                } else {
-//                    ForEach(viewModel.rules, id: \.self) { rule in
-//                        if rule.term == "Glossary" {
-//                            ExpandableOutlineGroup(node: viewModel.createGlossaryTree(),
-//                                                   childKeyPath: \.children,
-//                                                   isExpanded: false) { tree in
-//                                Group {
-//                                    if tree.id == "0" {
-//                                        Text(tree.value)
-//                                    } else {
-//                                        NavigationLink(value: GlossaryIndex(rawValue: tree.value)) {
-//                                            Text(tree.value)
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                        } else {
-//                            if let _ = rule.termSection {
-//                                RulesRowView(title: rule.term ?? "",
-//                                             contents: rule.definition ?? "")
-//                            } else {
-//                                NavigationLink(value: rule) {
-//                                    Text(rule.titleString)
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            } else {
-//                ForEach(viewModel.searchResults, id: \.self) { result in
-//                    RulesRowView(title: result.term ?? "",
-//                                 contents: result.definition ?? "")
-//                }
-//            }
-//        }
         Group {
             if viewModel.searchResults.isEmpty {
                 if let _ = viewModel.rule {
@@ -130,7 +68,7 @@ struct RulesView: View {
         .listStyle(.plain)
         .navigationLinkIndicatorVisibility(.hidden)
         .navigationTitle(viewModel.title)
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.large)
         .toolbar {
             AccountToolbar(placement: .topBarTrailing)
         }
