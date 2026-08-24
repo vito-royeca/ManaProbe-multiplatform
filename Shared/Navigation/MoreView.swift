@@ -9,8 +9,15 @@ import SwiftUI
 import ManaKit
 
 struct MoreView: View {
+    @State
+    private var isFullScreenPresented = false
+    
     var body: some View {
         contentView
+            .fullScreenCover(isPresented: $isFullScreenPresented) {
+                lifeTrackerView
+                    .presentationBackground(.white.opacity(1))
+            }
     }
     
     var contentView: some View {
@@ -43,12 +50,16 @@ struct MoreView: View {
                         Text("Comprehensive Rules")
                     }
                 }
-                NavigationLink(value: "Life Tracker") {
+//                NavigationLink(value: "Life Tracker") {
                     HStack {
                         Image(systemName: "heart.text.clipboard")
                         Text("Life Tracker")
+                        
                     }
-                }
+                    .onTapGesture {
+                        isFullScreenPresented.toggle()
+                    }
+//                }
             }
         }
         .listStyle(.plain)

@@ -85,9 +85,9 @@
 		760E7E5C2FF22724003A3F49 /* CardRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760E7E5B2FF2271C003A3F49 /* CardRoute.swift */; };
 		760E7E5D2FF22724003A3F49 /* CardRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760E7E5B2FF2271C003A3F49 /* CardRoute.swift */; };
 		76102D052F9D986C00A43DFA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 76102D032F9D986C00A43DFA /* GoogleService-Info.plist */; };
-		7648053F303C17C5006794FF /* LifeTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7648053E303C17C5006794FF /* LifeTrackerView.swift */; };
-		76480540303C17C5006794FF /* LifeTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7648053E303C17C5006794FF /* LifeTrackerView.swift */; };
-		76480541303C17C5006794FF /* LifeTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7648053E303C17C5006794FF /* LifeTrackerView.swift */; };
+		7648053F303C17C5006794FF /* LifeTrackerMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7648053E303C17C5006794FF /* LifeTrackerMainView.swift */; };
+		76480540303C17C5006794FF /* LifeTrackerMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7648053E303C17C5006794FF /* LifeTrackerMainView.swift */; };
+		76480541303C17C5006794FF /* LifeTrackerMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7648053E303C17C5006794FF /* LifeTrackerMainView.swift */; };
 		764E45F2303773ED00BA2FC1 /* RulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764E45F1303773ED00BA2FC1 /* RulesView.swift */; };
 		764E45F3303773ED00BA2FC1 /* RulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764E45F1303773ED00BA2FC1 /* RulesView.swift */; };
 		764E45F4303773ED00BA2FC1 /* RulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764E45F1303773ED00BA2FC1 /* RulesView.swift */; };
@@ -99,6 +99,15 @@
 		764E4601303944C000BA2FC1 /* RulesRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764E4600303944C000BA2FC1 /* RulesRowView.swift */; };
 		764E4602303944C000BA2FC1 /* RulesRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764E4600303944C000BA2FC1 /* RulesRowView.swift */; };
 		764E4603303944C000BA2FC1 /* RulesRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764E4600303944C000BA2FC1 /* RulesRowView.swift */; };
+		76502155303C7F910015B8C9 /* LifeTrackerPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76502154303C7F910015B8C9 /* LifeTrackerPlayerView.swift */; };
+		76502156303C7F910015B8C9 /* LifeTrackerPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76502154303C7F910015B8C9 /* LifeTrackerPlayerView.swift */; };
+		76502157303C7F910015B8C9 /* LifeTrackerPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76502154303C7F910015B8C9 /* LifeTrackerPlayerView.swift */; };
+		76502159303C7FAE0015B8C9 /* LifeTrackerGameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76502158303C7FAE0015B8C9 /* LifeTrackerGameModel.swift */; };
+		7650215A303C7FAE0015B8C9 /* LifeTrackerGameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76502158303C7FAE0015B8C9 /* LifeTrackerGameModel.swift */; };
+		7650215B303C7FAE0015B8C9 /* LifeTrackerGameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76502158303C7FAE0015B8C9 /* LifeTrackerGameModel.swift */; };
+		7650215D303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7650215C303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift */; };
+		7650215E303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7650215C303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift */; };
+		7650215F303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7650215C303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift */; };
 		7695BB21301AB69A00FCA122 /* ExpandableOutlineGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB20301AB69100FCA122 /* ExpandableOutlineGroup.swift */; };
 		7695BB22301AB69A00FCA122 /* ExpandableOutlineGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB20301AB69100FCA122 /* ExpandableOutlineGroup.swift */; };
 		7695BB2F301B9EBF00FCA122 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB2E301B9EBF00FCA122 /* SearchView.swift */; };
@@ -281,11 +290,14 @@
 		763D5BD22F84CE8F00405CD5 /* TextViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewWrapper.swift; sourceTree = "<group>"; };
 		763D5BD32F84CE8F00405CD5 /* View+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extras.swift"; sourceTree = "<group>"; };
 		763D5BD42F84CE8F00405CD5 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
-		7648053E303C17C5006794FF /* LifeTrackerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerView.swift; sourceTree = "<group>"; };
+		7648053E303C17C5006794FF /* LifeTrackerMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerMainView.swift; sourceTree = "<group>"; };
 		764E45F1303773ED00BA2FC1 /* RulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesView.swift; sourceTree = "<group>"; };
 		764E45F53037748D00BA2FC1 /* RulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesViewModel.swift; sourceTree = "<group>"; };
 		764E45F93037A82000BA2FC1 /* Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
 		764E4600303944C000BA2FC1 /* RulesRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesRowView.swift; sourceTree = "<group>"; };
+		76502154303C7F910015B8C9 /* LifeTrackerPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerPlayerView.swift; sourceTree = "<group>"; };
+		76502158303C7FAE0015B8C9 /* LifeTrackerGameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerGameModel.swift; sourceTree = "<group>"; };
+		7650215C303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerPlayerModel.swift; sourceTree = "<group>"; };
 		767DD79C2FA286A200911032 /* CardGridItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGridItemView.swift; sourceTree = "<group>"; };
 		767DD7A12FA2893700911032 /* CardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsViewModel.swift; sourceTree = "<group>"; };
 		767DD7A62FA294C700911032 /* CardsSorterMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsSorterMenuView.swift; sourceTree = "<group>"; };
@@ -505,7 +517,10 @@
 		7648053D303C17A5006794FF /* Life Tracker */ = {
 			isa = PBXGroup;
 			children = (
-				7648053E303C17C5006794FF /* LifeTrackerView.swift */,
+				7648053E303C17C5006794FF /* LifeTrackerMainView.swift */,
+				7650215C303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift */,
+				76502158303C7FAE0015B8C9 /* LifeTrackerGameModel.swift */,
+				76502154303C7F910015B8C9 /* LifeTrackerPlayerView.swift */,
 			);
 			path = "Life Tracker";
 			sourceTree = "<group>";
@@ -976,7 +991,7 @@
 				7604728E2FB96B5500B75E4F /* CollectionViewModel.swift in Sources */,
 				7604728F2FB96B5500B75E4F /* AccountToolbar.swift in Sources */,
 				760472902FB96B5500B75E4F /* CollectionsRowView.swift in Sources */,
-				7648053F303C17C5006794FF /* LifeTrackerView.swift in Sources */,
+				7648053F303C17C5006794FF /* LifeTrackerMainView.swift in Sources */,
 				760472912FB96B5500B75E4F /* FavoritesViewModel.swift in Sources */,
 				764E45F2303773ED00BA2FC1 /* RulesView.swift in Sources */,
 				760472922FB96B5500B75E4F /* FirebaseModels.swift in Sources */,
@@ -1000,6 +1015,7 @@
 				7604729F2FB96B5500B75E4F /* CardsViewModel.swift in Sources */,
 				760472A02FB96B5500B75E4F /* FavoritesView.swift in Sources */,
 				760472A12FB96B5500B75E4F /* CardViewModel.swift in Sources */,
+				7650215F303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift in Sources */,
 				760472A22FB96B5500B75E4F /* CardPrintingsView.swift in Sources */,
 				760472A32FB96B5500B75E4F /* CardLanguagesView.swift in Sources */,
 				760472A52FB96B5500B75E4F /* CreateCollectionView.swift in Sources */,
@@ -1013,6 +1029,8 @@
 				760472AC2FB96B5500B75E4F /* Tabs.swift in Sources */,
 				760472AD2FB96B5500B75E4F /* ContentView.swift in Sources */,
 				760472AE2FB96B5500B75E4F /* LabeledContentStyle+Styles.swift in Sources */,
+				76502157303C7F910015B8C9 /* LifeTrackerPlayerView.swift in Sources */,
+				7650215B303C7FAE0015B8C9 /* LifeTrackerGameModel.swift in Sources */,
 				764E4602303944C000BA2FC1 /* RulesRowView.swift in Sources */,
 				760472AF2FB96B5500B75E4F /* SetView.swift in Sources */,
 				760472B02FB96B5500B75E4F /* CollectionHeaderView.swift in Sources */,
@@ -1027,6 +1045,7 @@
 			files = (
 				76CDD9BE2FB9698500B7A47E /* TestView.swift in Sources */,
 				76CDD9BF2FB9698500B7A47E /* Constants.swift in Sources */,
+				76502155303C7F910015B8C9 /* LifeTrackerPlayerView.swift in Sources */,
 				76CDD9C02FB9698500B7A47E /* SetHeaderView.swift in Sources */,
 				76CDD9C12FB9698500B7A47E /* FullscreenCardImageView.swift in Sources */,
 				76CDD9C22FB9698500B7A47E /* CardViewModel.swift in Sources */,
@@ -1058,7 +1077,7 @@
 				76CDD9DA2FB9698500B7A47E /* SetView.swift in Sources */,
 				76CDD9DB2FB9698500B7A47E /* CardGridItemView.swift in Sources */,
 				76CDD9DC2FB9698500B7A47E /* CardSetInfoView.swift in Sources */,
-				76480540303C17C5006794FF /* LifeTrackerView.swift in Sources */,
+				76480540303C17C5006794FF /* LifeTrackerMainView.swift in Sources */,
 				76CDD9DD2FB9698500B7A47E /* CardCommonInfoView.swift in Sources */,
 				76CDD9DE2FB9698500B7A47E /* MoreView.swift in Sources */,
 				473C581A2FD06A6B00219522 /* CardsNavigatorDisplayDelegate.swift in Sources */,
@@ -1093,6 +1112,7 @@
 				76CDD9F62FB9698500B7A47E /* LabeledContentStyle+Styles.swift in Sources */,
 				76CDD9F72FB9698500B7A47E /* TextViewWrapper.swift in Sources */,
 				47F6E0C02FD1F32C00F71B4A /* CardViewActionToolbar.swift in Sources */,
+				7650215D303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift in Sources */,
 				76CDD9F82FB9698500B7A47E /* ContentView.swift in Sources */,
 				76CDD9F92FB9698500B7A47E /* CardsSorterMenuView.swift in Sources */,
 				7695BB21301AB69A00FCA122 /* ExpandableOutlineGroup.swift in Sources */,
@@ -1105,6 +1125,7 @@
 				76CDD9FE2FB9698500B7A47E /* SetsRowView.swift in Sources */,
 				76CDD9FF2FB9698500B7A47E /* CardComponentPartsView.swift in Sources */,
 				76CDDA002FB9698500B7A47E /* FirebaseModels.swift in Sources */,
+				7650215A303C7FAE0015B8C9 /* LifeTrackerGameModel.swift in Sources */,
 				76CDDA012FB9698500B7A47E /* View+Extras.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1114,13 +1135,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B41B7502812144E00AECF85 /* Tests_iOSLaunchTests.swift in Sources */,
+				7650215E303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift in Sources */,
 				764E45F4303773ED00BA2FC1 /* RulesView.swift in Sources */,
 				760472C92FB96DE400B75E4F /* Tests_Prefetch.swift in Sources */,
 				764E4601303944C000BA2FC1 /* RulesRowView.swift in Sources */,
+				76502159303C7FAE0015B8C9 /* LifeTrackerGameModel.swift in Sources */,
 				8B41B74E2812144E00AECF85 /* Tests_iOS.swift in Sources */,
 				764E45F63037749700BA2FC1 /* RulesViewModel.swift in Sources */,
+				76502156303C7F910015B8C9 /* LifeTrackerPlayerView.swift in Sources */,
 				8B6CAF6C284043DC0073E8FE /* SnapshotHelper.swift in Sources */,
-				76480541303C17C5006794FF /* LifeTrackerView.swift in Sources */,
+				76480541303C17C5006794FF /* LifeTrackerMainView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
