@@ -85,6 +85,9 @@
 		760E7E5C2FF22724003A3F49 /* CardRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760E7E5B2FF2271C003A3F49 /* CardRoute.swift */; };
 		760E7E5D2FF22724003A3F49 /* CardRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760E7E5B2FF2271C003A3F49 /* CardRoute.swift */; };
 		76102D052F9D986C00A43DFA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 76102D032F9D986C00A43DFA /* GoogleService-Info.plist */; };
+		7648053F303C17C5006794FF /* LifeTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7648053E303C17C5006794FF /* LifeTrackerView.swift */; };
+		76480540303C17C5006794FF /* LifeTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7648053E303C17C5006794FF /* LifeTrackerView.swift */; };
+		76480541303C17C5006794FF /* LifeTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7648053E303C17C5006794FF /* LifeTrackerView.swift */; };
 		764E45F2303773ED00BA2FC1 /* RulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764E45F1303773ED00BA2FC1 /* RulesView.swift */; };
 		764E45F3303773ED00BA2FC1 /* RulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764E45F1303773ED00BA2FC1 /* RulesView.swift */; };
 		764E45F4303773ED00BA2FC1 /* RulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764E45F1303773ED00BA2FC1 /* RulesView.swift */; };
@@ -278,6 +281,7 @@
 		763D5BD22F84CE8F00405CD5 /* TextViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewWrapper.swift; sourceTree = "<group>"; };
 		763D5BD32F84CE8F00405CD5 /* View+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extras.swift"; sourceTree = "<group>"; };
 		763D5BD42F84CE8F00405CD5 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		7648053E303C17C5006794FF /* LifeTrackerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerView.swift; sourceTree = "<group>"; };
 		764E45F1303773ED00BA2FC1 /* RulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesView.swift; sourceTree = "<group>"; };
 		764E45F53037748D00BA2FC1 /* RulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesViewModel.swift; sourceTree = "<group>"; };
 		764E45F93037A82000BA2FC1 /* Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
@@ -498,6 +502,14 @@
 			path = "Common Views";
 			sourceTree = "<group>";
 		};
+		7648053D303C17A5006794FF /* Life Tracker */ = {
+			isa = PBXGroup;
+			children = (
+				7648053E303C17C5006794FF /* LifeTrackerView.swift */,
+			);
+			path = "Life Tracker";
+			sourceTree = "<group>";
+		};
 		764E45F030376BCF00BA2FC1 /* Rules */ = {
 			isa = PBXGroup;
 			children = (
@@ -604,6 +616,7 @@
 				8BAC9E42282F4011008848D8 /* Extensions */,
 				76E0287A2F9F0DCB00F77633 /* Favorites */,
 				58A147102B033A9E00A957B7 /* Launch Screen.storyboard */,
+				7648053D303C17A5006794FF /* Life Tracker */,
 				8B41B7352812144D00AECF85 /* ManaprobeApp.swift */,
 				761CA9842FA846F700788AA6 /* Models */,
 				8B75CA49281627B500597662 /* Navigation */,
@@ -963,6 +976,7 @@
 				7604728E2FB96B5500B75E4F /* CollectionViewModel.swift in Sources */,
 				7604728F2FB96B5500B75E4F /* AccountToolbar.swift in Sources */,
 				760472902FB96B5500B75E4F /* CollectionsRowView.swift in Sources */,
+				7648053F303C17C5006794FF /* LifeTrackerView.swift in Sources */,
 				760472912FB96B5500B75E4F /* FavoritesViewModel.swift in Sources */,
 				764E45F2303773ED00BA2FC1 /* RulesView.swift in Sources */,
 				760472922FB96B5500B75E4F /* FirebaseModels.swift in Sources */,
@@ -1044,6 +1058,7 @@
 				76CDD9DA2FB9698500B7A47E /* SetView.swift in Sources */,
 				76CDD9DB2FB9698500B7A47E /* CardGridItemView.swift in Sources */,
 				76CDD9DC2FB9698500B7A47E /* CardSetInfoView.swift in Sources */,
+				76480540303C17C5006794FF /* LifeTrackerView.swift in Sources */,
 				76CDD9DD2FB9698500B7A47E /* CardCommonInfoView.swift in Sources */,
 				76CDD9DE2FB9698500B7A47E /* MoreView.swift in Sources */,
 				473C581A2FD06A6B00219522 /* CardsNavigatorDisplayDelegate.swift in Sources */,
@@ -1105,6 +1120,7 @@
 				8B41B74E2812144E00AECF85 /* Tests_iOS.swift in Sources */,
 				764E45F63037749700BA2FC1 /* RulesViewModel.swift in Sources */,
 				8B6CAF6C284043DC0073E8FE /* SnapshotHelper.swift in Sources */,
+				76480541303C17C5006794FF /* LifeTrackerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

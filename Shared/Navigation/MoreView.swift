@@ -64,6 +64,8 @@ struct MoreView: View {
                 collectionsView
             case "Rules":
                 rulesView
+            case "Life Tracker":
+                lifeTrackerView
             default:
                 Text("Not Implemented")
             }
@@ -113,6 +115,12 @@ struct MoreView: View {
 
     var rulesView: some View {
         RulesView(rule: nil)
+            .toolbar(.hidden, for: .tabBar)
+    }
+    
+    var lifeTrackerView: some View {
+        LifeTrackerMainView()
+            .toolbar(.hidden, for: .tabBar)
     }
 }
 
