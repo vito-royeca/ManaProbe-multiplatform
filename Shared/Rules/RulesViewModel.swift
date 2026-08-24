@@ -64,7 +64,7 @@ class RulesViewModel {
                 if let rule {
                     return rule.titleString
                 } else if let glossaryIndex {
-                    return glossaryIndex.rawValue
+                    return "Glossary - \(glossaryIndex.rawValue)"
                 } else {
                     return "Comprehensive Rules"
                 }

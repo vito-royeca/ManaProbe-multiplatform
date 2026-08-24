@@ -33,10 +33,10 @@ struct CardViewActionToolbar: ToolbarContent {
             collectionsButton
             favoriteButton
             shareButton
-                .onAppear {
-                    loadNormalImage()
+                .task {
+                    await loadNormalImage()
                 }
-            
+
             Spacer()
             
             if let layout = viewModel.card?.layout {
@@ -62,6 +62,41 @@ struct CardViewActionToolbar: ToolbarContent {
         }
     }
     
+    var collectionsButton: some View {
+        Button {
+            handleCollections()
+        } label: {
+            Image(systemName: "folder.badge.plus")
+        }
+        .tint(.accentColor)
+    }
+    
+    var favoriteButton: some View {
+        Button {
+            handleFavorite()
+        } label: {
+            if let card = viewModel.card,
+               favoritesViewModel.isFavorite(cardID: card.id) {
+                Image(systemName: "heart.fill")
+            } else {
+                Image(systemName: "heart")
+            }
+        }
+        .tint(.accentColor)
+    }
+    
+    var shareButton: some View {
+        let item = CardTransferable(card: viewModel.card, image: normalImage)
+                
+        return ShareLink(item: item,
+                         preview: SharePreview(item.title, image: item.image),
+                         label: {
+            Image(systemName: "square.and.arrow.up")
+                .foregroundStyle(Color.accentColor)
+        })
+            
+    }
+
     var rotateButton: some View {
         Button {
             rotate(degrees: 90)
@@ -90,60 +125,16 @@ struct CardViewActionToolbar: ToolbarContent {
         .tint(.accentColor)
     }
 
-    var collectionsButton: some View {
-        Button {
-            handleCollections()
-        } label: {
-            Image(systemName: "folder.badge.plus")
-        }
-        .foregroundColor(.accentColor)
-    }
-
-    var favoriteButton: some View {
-        Button {
-            handleFavorite()
-        } label: {
-            if let card = viewModel.card,
-               favoritesViewModel.isFavorite(cardID: card.id) {
-                Image(systemName: "heart.fill")
-            } else {
-                Image(systemName: "heart")
-            }
-        }
-        .foregroundColor(.accentColor)
-    }
-    
-    var shareButton: some View {
-        Group {
-            if let normalImage {
-                let card = CardTransferable(image: normalImage,
-                                            title: viewModel.card?.displayName ?? "Unknown card",
-                                            description: viewModel.card?.oracleText ?? "")
-                
-                ShareLink(item: card,
-                          preview: SharePreview(card.title, image: card.image),
-                          label: {
-                    Image(systemName: "square.and.arrow.up")
-                        .foregroundColor(.accentColor)
-                })
-            } else {
-                Text("")
-            }
-        }
-    }
-
-    func loadNormalImage() {
+    func loadNormalImage() async {
         if let normalUrl = viewModel.card?.normalURL,
            let url = URL(string: normalUrl) {
 
-            Task {
-                do {
-                    let imageTask = ImagePipeline.shared.imageTask(with: url)
-                    let uiImage = try await imageTask.image
-                    normalImage = Image(uiImage: uiImage)
-                } catch {
-                    print(error)
-                }
+            do {
+                let imageTask = ImagePipeline.shared.imageTask(with: url)
+                let uiImage = try await imageTask.image
+                normalImage = Image(uiImage: uiImage)
+            } catch {
+                print(error)
             }
         }
     }
@@ -187,20 +178,35 @@ extension CardViewActionToolbar {
             }
         }
     }
-    
-    func handleShare() {
-        
-    }
 }
 
 struct CardTransferable: Transferable {
-    
     static var transferRepresentation: some TransferRepresentation {
         ProxyRepresentation(exporting: \.image)
+            .suggestedFileName { item in
+                item.saveFileName
+            }
     }
-    
+
     public var image: Image
     public var title: String
-    public var description: String
+    public var saveFileName: String
+    
+    init(card: CardCompleteInfo?, image: Image?) {
+        title = ""
+        saveFileName = "File"
+        
+        if let card = card,
+           let set = card.set,
+           let language = card.language,
+           let displayName = card.displayName,
+           let image {
+            let saveFileName = "\(displayName) - \(set.code) - \(language.id)"
+            self.image = image
+            self.title = displayName
+            self.saveFileName = saveFileName
+        } else {
+            self.image = Image(systemName: "photo.badge.exclamationmark")
+        }
+    }
 }
-

@@ -83,20 +83,20 @@ struct RulesView: View {
     private var rulesView: some View {
         List {
             if viewModel.rules.isEmpty {
-                RulesRowView(title: viewModel.rule?.term ?? "",
-                             contents: viewModel.rule?.definition ?? "")
+                RulesRowView(term: viewModel.rule?.term ?? "",
+                             definition: viewModel.rule?.definition ?? "")
             } else {
                 ForEach(viewModel.rules, id: \.self) { child in
                     let children = child.children ?? [RuleInfo.Child]()
                     
                     if children.count == 1 {
-                        RulesRowView(title: child.children?[0].term ?? "",
-                                     contents: child.children?[0].definition ?? "")
+                        RulesRowView(term: child.children?[0].term ?? "",
+                                     definition: child.children?[0].definition ?? "")
                     } else {
                         ForEach(children, id: \.self) { innerChild in
                             if (innerChild.children ?? []).isEmpty {
-                                RulesRowView(title: innerChild.term ?? "",
-                                             contents: innerChild.definition ?? "")
+                                RulesRowView(term: innerChild.term ?? "",
+                                             definition: innerChild.definition ?? "")
                             } else {
                                 NavigationLink(value: innerChild) {
                                     Text(innerChild.titleString)
@@ -128,8 +128,8 @@ struct RulesView: View {
                     }
                 } else {
                     if let _ = rule.termSection {
-                        RulesRowView(title: rule.term ?? "",
-                                     contents: rule.definition ?? "")
+                        RulesRowView(term: rule.term ?? "",
+                                     definition: rule.definition ?? "")
                     } else {
                         NavigationLink(value: rule) {
                             Text(rule.titleString)
@@ -143,8 +143,8 @@ struct RulesView: View {
     private var searchResultsView: some View {
         List {
             ForEach(viewModel.searchResults, id: \.self) { result in
-                RulesRowView(title: result.term ?? "",
-                             contents: result.definition ?? "")
+                RulesRowView(term: result.term ?? "",
+                             definition: result.definition ?? "")
             }
         }
     }
