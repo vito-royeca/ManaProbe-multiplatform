@@ -49,6 +49,8 @@ class LifeTrackerGameModel {
         if self.startingLife <= 0 {
             self.startingLife = 1
         }
+        
+        initPlayers()
     }
     
     func initPlayers() {

@@ -105,18 +105,21 @@ class RulesViewModel {
                 rules.removeAll()
                 
                 if let glossaryIndex {
-                    for rule in try await ManaKitUtilities.shared.glossarySearch(fetchRemote: fetchRemote, letter: glossaryIndex.rawValue)?.rules ?? [] {
+                    for rule in try await ManaKitUtilities.shared.glossarySearch(fetchRemote: fetchRemote,
+                                                                                 letter: glossaryIndex.rawValue)?.rules ?? [] {
                         rules.append(rule.fragments.ruleInfo)
                     }
                 } else {
-                    for rule in try await ManaKitUtilities.shared.rules(fetchRemote: fetchRemote, id: rule?.id ?? nil)?.rules ?? [] {
+                    for rule in try await ManaKitUtilities.shared.rules(fetchRemote: fetchRemote,
+                                                                        id: rule?.id ?? nil)?.rules ?? [] {
                         rules.append(rule.fragments.ruleInfo)
                     }
                 }
             } else {
                 searchResults.removeAll()
                 
-                for rule in try await ManaKitUtilities.shared.rulesSearch(fetchRemote: fetchRemote, query: query)?.rules ?? [] {
+                for rule in try await ManaKitUtilities.shared.rulesSearch(fetchRemote: fetchRemote,
+                                                                          query: query)?.rules ?? [] {
                     searchResults.append(rule.fragments.ruleInfo)
                 }
             }

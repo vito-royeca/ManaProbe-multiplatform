@@ -13,9 +13,9 @@ struct LifeTrackerMainView: View {
     
     @State
     var gameModel = LifeTrackerGameModel(playerCount: 4, startingLife: 40)
-    
+
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             HStack {
                 playButton
                 Spacer()
@@ -30,7 +30,6 @@ struct LifeTrackerMainView: View {
                 playerCountView
                 startingLifeView
             }
-            .padding(10)
             
             playersView
                 .border(Color.black, width: 2)
@@ -99,13 +98,10 @@ struct LifeTrackerMainView: View {
     }
     
     var playersView: some View {
-        GeometryReader { proxy in
-            VStack(spacing: 0) {
-                ForEach(gameModel.players, id: \.id) { player in
-                    LifeTrackerPlayerView(startingLife: gameModel.startingLife)
-                        .frame(height: proxy.size.height / CGFloat(gameModel.playerCount))
-                        .border(Color.black, width: 1)
-                }
+        VStack(spacing: 0) {
+            ForEach(gameModel.players, id: \.id) { player in
+                LifeTrackerPlayerView(startingLife: gameModel.startingLife)
+                    .border(Color.black, width: 1)
             }
         }
     }

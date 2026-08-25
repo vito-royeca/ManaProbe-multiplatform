@@ -108,6 +108,8 @@
 		7650215D303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7650215C303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift */; };
 		7650215E303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7650215C303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift */; };
 		7650215F303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7650215C303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift */; };
+		76502161303C918D0015B8C9 /* SizeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76502160303C91870015B8C9 /* SizeCalculator.swift */; };
+		76502162303C918D0015B8C9 /* SizeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76502160303C91870015B8C9 /* SizeCalculator.swift */; };
 		7695BB21301AB69A00FCA122 /* ExpandableOutlineGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB20301AB69100FCA122 /* ExpandableOutlineGroup.swift */; };
 		7695BB22301AB69A00FCA122 /* ExpandableOutlineGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB20301AB69100FCA122 /* ExpandableOutlineGroup.swift */; };
 		7695BB2F301B9EBF00FCA122 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB2E301B9EBF00FCA122 /* SearchView.swift */; };
@@ -298,6 +300,7 @@
 		76502154303C7F910015B8C9 /* LifeTrackerPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerPlayerView.swift; sourceTree = "<group>"; };
 		76502158303C7FAE0015B8C9 /* LifeTrackerGameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerGameModel.swift; sourceTree = "<group>"; };
 		7650215C303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerPlayerModel.swift; sourceTree = "<group>"; };
+		76502160303C91870015B8C9 /* SizeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeCalculator.swift; sourceTree = "<group>"; };
 		767DD79C2FA286A200911032 /* CardGridItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGridItemView.swift; sourceTree = "<group>"; };
 		767DD7A12FA2893700911032 /* CardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsViewModel.swift; sourceTree = "<group>"; };
 		767DD7A62FA294C700911032 /* CardsSorterMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsSorterMenuView.swift; sourceTree = "<group>"; };
@@ -517,9 +520,9 @@
 		7648053D303C17A5006794FF /* Life Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				76502158303C7FAE0015B8C9 /* LifeTrackerGameModel.swift */,
 				7648053E303C17C5006794FF /* LifeTrackerMainView.swift */,
 				7650215C303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift */,
-				76502158303C7FAE0015B8C9 /* LifeTrackerGameModel.swift */,
 				76502154303C7F910015B8C9 /* LifeTrackerPlayerView.swift */,
 			);
 			path = "Life Tracker";
@@ -748,6 +751,7 @@
 		8BAC9E42282F4011008848D8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				76502160303C91870015B8C9 /* SizeCalculator.swift */,
 				76840DBC2F8D64EF000415C0 /* Color+Hex.swift */,
 				8BAC9E43282F4036008848D8 /* Date+ElapsedTime.swift */,
 				58AB9C5A2B0FF37F00A73696 /* LabeledContentStyle+Styles.swift */,
@@ -1006,6 +1010,7 @@
 				760472972FB96B5500B75E4F /* AsyncPreviewView.swift in Sources */,
 				760472982FB96B5500B75E4F /* CollectionsViewModel.swift in Sources */,
 				473C581B2FD06A6B00219522 /* CardsNavigatorDisplayDelegate.swift in Sources */,
+				76502162303C918D0015B8C9 /* SizeCalculator.swift in Sources */,
 				760472992FB96B5500B75E4F /* CardVariationsView.swift in Sources */,
 				7604729A2FB96B5500B75E4F /* ManaprobeApp.swift in Sources */,
 				7604729B2FB96B5500B75E4F /* CollectionView.swift in Sources */,
@@ -1051,6 +1056,7 @@
 				76CDD9C22FB9698500B7A47E /* CardViewModel.swift in Sources */,
 				764E45FB3037A82400BA2FC1 /* Tree.swift in Sources */,
 				76CDD9C32FB9698500B7A47E /* CollectionViewModel.swift in Sources */,
+				76502161303C918D0015B8C9 /* SizeCalculator.swift in Sources */,
 				76CDD9C42FB9698500B7A47E /* ErrorView.swift in Sources */,
 				76CDD9C52FB9698500B7A47E /* BusyView.swift in Sources */,
 				76CDD9C62FB9698500B7A47E /* Notifications+Names.swift in Sources */,
