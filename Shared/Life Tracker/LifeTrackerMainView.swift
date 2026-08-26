@@ -12,7 +12,17 @@ struct LifeTrackerMainView: View {
     var dismiss
     
     @State
-    var gameModel = LifeTrackerGameModel(playerCount: 4, startingLife: 40)
+    var gameModel: LifeTrackerGameModel
+
+    init() {
+        do {
+            let model = try LifeTrackerGameModel(playerCount: 1,
+                                                 startingLife: 40)
+            _gameModel = State(wrappedValue: model)
+        } catch {
+            fatalError(error.localizedDescription)
+        }
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -75,6 +85,9 @@ struct LifeTrackerMainView: View {
                 }
             }
             .pickerStyle(.menu)
+            .onChange(of: gameModel.playerCount) {
+                gameModel.initPlayers()
+            }
             .disabled(gameModel.isGameStarted)
         }, label: {
             Text("Players")
@@ -91,6 +104,9 @@ struct LifeTrackerMainView: View {
                 }
             }
             .pickerStyle(.menu)
+            .onChange(of: gameModel.startingLife) {
+                gameModel.initPlayers()
+            }
             .disabled(gameModel.isGameStarted)
         }, label: {
             Text("Starting Life")
@@ -99,18 +115,37 @@ struct LifeTrackerMainView: View {
     
     var playersView: some View {
         VStack(spacing: 0) {
-            ForEach(gameModel.players, id: \.id) { player in
-                LifeTrackerPlayerView(startingLife: gameModel.startingLife)
+            ForEach(gameModel.players.enumerated(), id: \.offset) { index, player in
+                LifeTrackerPlayerView(viewModel: player)
                     .border(Color.black, width: 1)
             }
         }
     }
-}
-
-
-
-enum LifeTrackerError: Error {
-    case invalidPlayerCount
+    
+    var onePlayerView: some View {
+        LifeTrackerPlayerView(viewModel: gameModel.players.first!)
+            .border(Color.black, width: 1)
+    }
+    
+    var twoPlayersView: some View {
+        Text("")
+    }
+    
+    var threePlayersView: some View {
+        Text("")
+    }
+    
+    var fourPlayersView: some View {
+        Text("")
+    }
+    
+    var fivePlayersView: some View {
+        Text("")
+    }
+    
+    var sixPlayersView: some View {
+        Text("")
+    }
 }
 
 #Preview {

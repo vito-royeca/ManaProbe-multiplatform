@@ -24,12 +24,11 @@ class LifeTrackerPlayerModel: Identifiable {
             return _life
         }
         set {
-            if newValue <= minLife {
-                _life = minLife
+            _life = newValue
+            if _life <= minLife {
                 isDead = true
-            } else {
-                _life = newValue
             }
+            
         }
     }
     
@@ -39,13 +38,9 @@ class LifeTrackerPlayerModel: Identifiable {
             return _poison
         }
         set {
-            if newValue <= 0 {
-                _poison = 0
-            } else {
-                _poison = newValue
-                if _poison >= maxPoison {
-                    isDead = true
-                }
+            _poison = newValue
+            if _poison >= maxPoison {
+                isDead = true
             }
         }
     }
@@ -56,9 +51,16 @@ class LifeTrackerPlayerModel: Identifiable {
             return _commanderDamage
         }
         set {
-            if _commanderDamage >= maxPoison {
+            _commanderDamage = newValue
+            if _commanderDamage >= maxCommanderDamage {
                 isDead = true
             }
         }
+    }
+    
+    init(name:String = "",
+         life: Int = 0) {
+        self.name = name
+        self.life = life
     }
 }

@@ -7,42 +7,28 @@
 
 import SwiftUI
 
+enum LifeTrackerError: Error {
+    case invalidPlayerCount
+}
+
 @Observable
 class LifeTrackerGameModel {
+    let minPlayers = 1
     let maxPlayers = 6
 
     var players = [LifeTrackerPlayerModel()]
-    
-    private var _playerCount: Int = 0
-    var playerCount: Int {
-        get {
-            return _playerCount
-        }
-        set {
-            _playerCount = newValue
-            initPlayers()
-        }
-    }
-    
-    private var _startingLife: Int = 0
-    var startingLife: Int {
-        get {
-            return _startingLife
-        }
-        set {
-            _startingLife = newValue
-            initPlayers()
-        }
-    }
+    var playerCount = 0
+    var startingLife = 0
     
     var isGameOver = false
     var isGameStarted = false
     var isGamePaused = false
     
-    init(playerCount: Int, startingLife: Int) {
-//        guard playerCount > 0 else {
-//            throw LifeTrackerError.invalidPlayerCount
-//        }
+    init(playerCount: Int, startingLife: Int) throws {
+        guard playerCount >= minPlayers &&
+              playerCount <= maxPlayers else {
+            throw LifeTrackerError.invalidPlayerCount
+        }
         
         self.playerCount = playerCount
         self.startingLife = startingLife
@@ -54,15 +40,15 @@ class LifeTrackerGameModel {
     }
     
     func initPlayers() {
-        players = [LifeTrackerPlayerModel()]
+        players.removeAll()
         
-        for i in 0..<self.playerCount-1 {
+        for i in 0...self.playerCount-1 {
             let player = LifeTrackerPlayerModel()
-            player.life = self.startingLife
             player.name = "Player \(i+1)"
-            
+            player.life = startingLife
             players.append(player)
         }
+        
     }
     
     func start() {

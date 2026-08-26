@@ -14,54 +14,51 @@ struct LifeTrackerPlayerView: View {
     var viewModel: LifeTrackerPlayerModel
     @State
     var transitionColor: Color = .primary
-    @State
-    var bodyViewSize: CGSize = .zero
     
-    init(startingLife: Int) {
-        let model = LifeTrackerPlayerModel()
-        model.life = startingLife
-        _viewModel = State(wrappedValue: model)
+    init(viewModel: LifeTrackerPlayerModel) {
+        self.viewModel = viewModel
     }
 
     var body: some View {
-        ZStack {
-            let width = (bodyViewSize.width > bodyViewSize.height
-                ? bodyViewSize.width
-                : bodyViewSize.height) / 2
-            let height = (bodyViewSize.height > bodyViewSize.width
-                ? bodyViewSize.width
-                : bodyViewSize.height) - labelHeight * 2
-            
-            HStack(spacing: 0) {
-                minusButton
-                    .frame(minWidth: width,
-                           minHeight: height)
-                    .background(Rectangle().fill(Color.cyan))
-                    .onTapGesture {
-                        decreaseStat()
-                    }
-                
-                plusButton
-                    .frame(minWidth: width,
-                           minHeight: height)
-                    .background(Rectangle().fill(Color.gray))
-                    .onTapGesture {
-                        increaseStat()
-                    }
-            }
-            
-            VStack(alignment: .center) {
-                playerNameView
-                    .frame(minWidth: bodyViewSize.width,
-                           minHeight: labelHeight)
+        GeometryReader { proxy in
+            ZStack() {
+                let width = proxy.size.width
+                let height = (proxy.size.height >= proxy.size.width
+                    ? proxy.size.width
+                    : proxy.size.height)
+
+                HStack(spacing: 0) {
+                    minusButton
+                        .frame(minWidth: width / 2,
+                               minHeight: height)
+                        .background(Rectangle().fill(Color.cyan))
+                        .onTapGesture {
+                            decreaseStat()
+                        }
                     
-                Spacer()
-            }
-            
-            lifeView
+                    plusButton
+                        .frame(minWidth: width / 2,
+                               minHeight: height)
+                        .background(Rectangle().fill(Color.gray))
+                        .onTapGesture {
+                            increaseStat()
+                        }
+                }
                 
+                VStack(alignment: .center) {
+                    playerNameView
+                        .frame(width: width,
+                               height: labelHeight)
+                        .background(Rectangle().fill(Color.teal))
+    
+                    Spacer()
+                }
+    
+                lifeView
+                    .frame(height: height)
+                
+            }
         }
-        .saveSize(in: $bodyViewSize)
     }
     
     var playerNameView: some View {
@@ -72,16 +69,14 @@ struct LifeTrackerPlayerView: View {
     var minusButton: some View {
         Text("-")
             .font(.system(size: 50))
-        .fixedSize(horizontal: false, vertical: true)
-        .multilineTextAlignment(.center)
+        .multilineTextAlignment(.leading)
         .disabled(viewModel.isDead)
     }
     
     var plusButton: some View {
         Text("+")
             .font(.system(size: 50))
-        .fixedSize(horizontal: false, vertical: true)
-        .multilineTextAlignment(.center)
+        .multilineTextAlignment(.trailing)
         .disabled(viewModel.isDead)
     }
     
@@ -110,19 +105,9 @@ struct LifeTrackerPlayerView: View {
 
 #Preview {
     @Previewable @State
-    var count = 2
-    @Previewable @State
-    var bodyViewSize: CGSize = .zero
+    var count = 1
     
     VStack(spacing: 0) {
-        let width = (bodyViewSize.width > bodyViewSize.height
-            ? bodyViewSize.height
-            : bodyViewSize.width)
-        let height = (bodyViewSize.height > bodyViewSize.width
-            ? bodyViewSize.width
-            : bodyViewSize.height)
-        
-        Text("Players")
         Picker("Players", selection: $count) {
             ForEach((1...6), id: \.self) {
                 Text("\($0)")
@@ -132,14 +117,13 @@ struct LifeTrackerPlayerView: View {
         .padding(.bottom, 10)
 
         Group {
-            ForEach(1...count, id: \.self) { _ in
-                LifeTrackerPlayerView(startingLife: 40)
+            ForEach(1...count, id: \.self) { index in
+                let model = LifeTrackerPlayerModel(name: "Player\(index)",
+                                                   life: 40)
+                LifeTrackerPlayerView(viewModel: model)
                     .border(Color.black, width: 1)
-                    .frame(minWidth: width, minHeight: height)
             }
         }
-        .saveSize(in: $bodyViewSize)
+        .padding(1)
     }
-    
-    
 }
