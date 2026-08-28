@@ -42,7 +42,6 @@ struct LifeTrackerMainView: View {
             }
             
             playersView
-//                .border(Color.black, width: 2)
         }
     }
     
@@ -150,7 +149,6 @@ struct LifeTrackerMainView: View {
                 case 0:
                     LifeTrackerPlayerView(viewModel: player,
                                           rotation: .upsideDown)
-//                        .border(Color.black, width: 1)
                 case 1:
                     LifeTrackerPlayerView(viewModel: player,
                                           rotation: .none)
@@ -169,10 +167,8 @@ struct LifeTrackerMainView: View {
             } else {
                 let view1 = LifeTrackerPlayerView(viewModel: gameModel.players[0],
                                                   rotation: .left)
-                    
                 let view2 = LifeTrackerPlayerView(viewModel: gameModel.players[1],
                                                   rotation: .right)
-                    
                 let view3 = LifeTrackerPlayerView(viewModel: gameModel.players[2],
                                                   rotation: .none)
                     
@@ -188,28 +184,94 @@ struct LifeTrackerMainView: View {
     }
     
     var fourPlayersView: some View {
-        VStack(spacing: 0) {
-            ForEach(gameModel.players.enumerated(), id: \.offset) { index, player in
-                LifeTrackerPlayerView(viewModel: player,
-                                      rotation: .none)
+        Group {
+            if gameModel.players.count != 4 {
+                EmptyView()
+            } else {
+                let view1 = LifeTrackerPlayerView(viewModel: gameModel.players[0],
+                                                  rotation: .left)
+                let view2 = LifeTrackerPlayerView(viewModel: gameModel.players[1],
+                                                  rotation: .right)
+                let view3 = LifeTrackerPlayerView(viewModel: gameModel.players[2],
+                                                  rotation: .left)
+                let view4 = LifeTrackerPlayerView(viewModel: gameModel.players[3],
+                                                  rotation: .right)
+
+                VStack(spacing: 1) {
+                    HStack(spacing: 1) {
+                        view1
+                        view2
+                    }
+                    HStack(spacing: 1) {
+                        view3
+                        view4
+                    }
+                }
             }
         }
     }
     
     var fivePlayersView: some View {
-        VStack(spacing: 0) {
-            ForEach(gameModel.players.enumerated(), id: \.offset) { index, player in
-                LifeTrackerPlayerView(viewModel: player,
-                                      rotation: .none)
+        Group {
+            if gameModel.players.count != 5 {
+                EmptyView()
+            } else {
+                let view1 = LifeTrackerPlayerView(viewModel: gameModel.players[0],
+                                                  rotation: .left)
+                let view2 = LifeTrackerPlayerView(viewModel: gameModel.players[1],
+                                                  rotation: .left)
+                let view3 = LifeTrackerPlayerView(viewModel: gameModel.players[2],
+                                                  rotation: .right)
+                let view4 = LifeTrackerPlayerView(viewModel: gameModel.players[3],
+                                                  rotation: .right)
+                let view5 = LifeTrackerPlayerView(viewModel: gameModel.players[4],
+                                                  rotation: .right)
+
+                HStack(spacing: 1) {
+                    VStack(spacing: 1) {
+                        view1
+                        view2
+                    }
+                    VStack(spacing: 1) {
+                        view3
+                        view4
+                        view5
+                    }
+                }
             }
         }
     }
     
     var sixPlayersView: some View {
-        VStack(spacing: 0) {
-            ForEach(gameModel.players.enumerated(), id: \.offset) { index, player in
-                LifeTrackerPlayerView(viewModel: player,
-                                      rotation: .none)
+        Group {
+            if gameModel.players.count != 6 {
+                EmptyView()
+            } else {
+                let view1 = LifeTrackerPlayerView(viewModel: gameModel.players[0],
+                                                  rotation: .left)
+                let view2 = LifeTrackerPlayerView(viewModel: gameModel.players[1],
+                                                  rotation: .left)
+                let view3 = LifeTrackerPlayerView(viewModel: gameModel.players[2],
+                                                  rotation: .left)
+                let view4 = LifeTrackerPlayerView(viewModel: gameModel.players[3],
+                                                  rotation: .right)
+                let view5 = LifeTrackerPlayerView(viewModel: gameModel.players[4],
+                                                  rotation: .right)
+                let view6 = LifeTrackerPlayerView(viewModel: gameModel.players[5],
+                                                  rotation: .right)
+
+                HStack(spacing: 1) {
+                    VStack(spacing: 1) {
+                        view1
+                        view2
+                        view3
+                    }
+                    VStack(spacing: 1) {
+                        view4
+                        view5
+                        view6
+                    }
+                }
             }
         }
     }

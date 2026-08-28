@@ -131,15 +131,23 @@ struct LifeTrackerPlayerView: View {
     }
     
     var minusButton: some View {
-        Image(systemName: "minus.circle")
-            .imageScale(.large)
-            .disabled(viewModel.isDead)
+        HStack() {
+            Image(systemName: "minus.circle")
+                .imageScale(.large)
+                .disabled(viewModel.isDead)
+            Spacer()
+        }
+        .padding()
     }
     
     var plusButton: some View {
-        Image(systemName: "plus.circle")
-            .imageScale(.large)
-            .disabled(viewModel.isDead)
+        HStack {
+            Spacer()
+            Image(systemName: "plus.circle")
+                .imageScale(.large)
+                .disabled(viewModel.isDead)
+        }
+        .padding()
     }
     
     var lifeView: some View {
