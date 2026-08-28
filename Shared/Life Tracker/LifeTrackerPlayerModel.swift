@@ -21,21 +21,20 @@ class LifeTrackerPlayerModel: Identifiable {
     private var _life: Int = 0
     var life: Int {
         get {
-            return _life
+            _life
         }
         set {
             _life = newValue
             if _life <= minLife {
                 isDead = true
             }
-            
         }
     }
     
     private var _poison: Int = 0
     var poison: Int {
         get {
-            return _poison
+            _poison
         }
         set {
             _poison = newValue
@@ -48,7 +47,7 @@ class LifeTrackerPlayerModel: Identifiable {
     private var _commanderDamage: Int = 0
     var commanderDamage: Int {
         get {
-            return _commanderDamage
+            _commanderDamage
         }
         set {
             _commanderDamage = newValue

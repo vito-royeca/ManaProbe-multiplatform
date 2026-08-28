@@ -7,56 +7,120 @@
 
 import SwiftUI
 
+enum LifeTrackerPlayerViewRotation: Double {
+    case none = 0
+    case left = 90
+    case right = -90
+    case upsideDown = 180
+}
+
 struct LifeTrackerPlayerView: View {
-    let labelHeight = CGFloat(30)
+    let labelHeight = Double(30)
     
     @State
     var viewModel: LifeTrackerPlayerModel
     @State
+    var rotation: LifeTrackerPlayerViewRotation
+    @State
     var transitionColor: Color = .primary
     
-    init(viewModel: LifeTrackerPlayerModel) {
+    init(viewModel: LifeTrackerPlayerModel, rotation: LifeTrackerPlayerViewRotation) {
         self.viewModel = viewModel
+        self.rotation = rotation
     }
 
     var body: some View {
+        switch rotation {
+        case .none, .upsideDown:
+            normalView
+                .rotationEffect(.degrees(rotation.rawValue))
+        case .left, .right:
+            GeometryReader { proxy in
+                let diff = proxy.size.height - proxy.size.width
+                sideView
+                    .rotationEffect(.degrees(rotation.rawValue))
+                    .offset(x: 0, y: rotation == .left ? -diff/2 : diff/2)
+            }
+        }
+    }
+    
+    var normalView: some View {
         GeometryReader { proxy in
             ZStack() {
-                let width = proxy.size.width
-                let height = (proxy.size.height >= proxy.size.width
-                    ? proxy.size.width
-                    : proxy.size.height)
+                let size = computeSize(by: proxy)
 
-                HStack(spacing: 0) {
-                    minusButton
-                        .frame(minWidth: width / 2,
-                               minHeight: height)
-                        .background(Rectangle().fill(Color.cyan))
-                        .onTapGesture {
-                            decreaseStat()
-                        }
+                VStack(spacing: 0) {
+                    HStack {
+                        playerNameView
+                        Spacer()
+                        Image(systemName: "gear")
+                    }
+                    .padding()
+                    .frame(width: size.width,
+                           height: labelHeight)
+                    .background(Rectangle().fill(Color.indigo))
                     
-                    plusButton
-                        .frame(minWidth: width / 2,
-                               minHeight: height)
-                        .background(Rectangle().fill(Color.gray))
-                        .onTapGesture {
-                            increaseStat()
-                        }
-                }
-                
-                VStack(alignment: .center) {
-                    playerNameView
-                        .frame(width: width,
-                               height: labelHeight)
-                        .background(Rectangle().fill(Color.teal))
-    
-                    Spacer()
+
+                    HStack(spacing: 0) {
+                        minusButton
+                            .frame(width: size.width / 2,
+                                   height: size.height - labelHeight)
+                            .background(Rectangle().fill(Color.cyan))
+                            .onTapGesture {
+                                decreaseStat()
+                            }
+                        plusButton
+                            .frame(width: size.width / 2,
+                                   height: size.height - labelHeight)
+                            .background(Rectangle().fill(Color.gray))
+                            .onTapGesture {
+                                increaseStat()
+                            }
+                    }
                 }
     
                 lifeView
-                    .frame(height: height)
+                    .frame(height: size.height)
+            }
+        }
+    }
+    
+    var sideView: some View {
+        GeometryReader { proxy in
+            ZStack() {
+                let size = computeSize(by: proxy)
                 
+                VStack(spacing: 0) {
+                    HStack {
+                        playerNameView
+                        Spacer()
+                        Image(systemName: "gear")
+                    }
+                    .padding()
+                    .frame(width: size.height,
+                           height: labelHeight)
+                    .background(Rectangle().fill(Color.indigo))
+                    
+                    HStack(spacing: 0) {
+                        minusButton
+                            .frame(width: size.height / 2,
+                                   height: size.width - labelHeight)
+                            .background(Rectangle().fill(Color.cyan))
+                            .onTapGesture {
+                                decreaseStat()
+                            }
+                        plusButton
+                            .frame(width: size.height / 2,
+                                   height: size.width - labelHeight)
+                            .background(Rectangle().fill(Color.gray))
+                            .onTapGesture {
+                                increaseStat()
+                            }
+                    }
+                }
+            
+                lifeView
+                    .frame(height: size.height)
             }
         }
     }
@@ -67,17 +131,15 @@ struct LifeTrackerPlayerView: View {
     }
     
     var minusButton: some View {
-        Text("-")
-            .font(.system(size: 50))
-        .multilineTextAlignment(.leading)
-        .disabled(viewModel.isDead)
+        Image(systemName: "minus.circle")
+            .imageScale(.large)
+            .disabled(viewModel.isDead)
     }
     
     var plusButton: some View {
-        Text("+")
-            .font(.system(size: 50))
-        .multilineTextAlignment(.trailing)
-        .disabled(viewModel.isDead)
+        Image(systemName: "plus.circle")
+            .imageScale(.large)
+            .disabled(viewModel.isDead)
     }
     
     var lifeView: some View {
@@ -88,6 +150,28 @@ struct LifeTrackerPlayerView: View {
             .transition(.opacity)
     }
     
+    func computeSize(by proxy: GeometryProxy) -> CGSize {
+        var width = CGFloat(0)
+        var height = CGFloat(0)
+        
+        switch rotation {
+        case .none, .upsideDown:
+            width = proxy.size.width
+            height = proxy.size.height >= proxy.size.width
+                ? proxy.size.width
+                : proxy.size.height
+        case .left, .right:
+            width = proxy.size.width
+            height = proxy.size.height
+//            width = proxy.size.width
+//            height = proxy.size.height >= proxy.size.width
+//                ? proxy.size.width
+//                : proxy.size.height
+        }
+        
+        return CGSize(width: width, height: height)
+    }
+
     func decreaseStat() {
         withAnimation (.easeInOut(duration: 0.5)) {
             viewModel.life -= 1
@@ -105,7 +189,7 @@ struct LifeTrackerPlayerView: View {
 
 #Preview {
     @Previewable @State
-    var count = 1
+    var count = 2
     
     VStack(spacing: 0) {
         Picker("Players", selection: $count) {
@@ -120,7 +204,8 @@ struct LifeTrackerPlayerView: View {
             ForEach(1...count, id: \.self) { index in
                 let model = LifeTrackerPlayerModel(name: "Player\(index)",
                                                    life: 40)
-                LifeTrackerPlayerView(viewModel: model)
+                LifeTrackerPlayerView(viewModel: model,
+                                      rotation: .none)
                     .border(Color.black, width: 1)
             }
         }
