@@ -122,6 +122,9 @@
 		7651F94D304270C500D83ED8 /* LifeTrackerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7651F94C304270C500D83ED8 /* LifeTrackerSettingsView.swift */; };
 		7651F94E304270C500D83ED8 /* LifeTrackerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7651F94C304270C500D83ED8 /* LifeTrackerSettingsView.swift */; };
 		7651F94F304270C500D83ED8 /* LifeTrackerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7651F94C304270C500D83ED8 /* LifeTrackerSettingsView.swift */; };
+		76756D0230433D9B000C8279 /* LifeTrackerDiceMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76756D0130433D9B000C8279 /* LifeTrackerDiceMenuView.swift */; };
+		76756D0330433D9B000C8279 /* LifeTrackerDiceMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76756D0130433D9B000C8279 /* LifeTrackerDiceMenuView.swift */; };
+		76756D0430433D9B000C8279 /* LifeTrackerDiceMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76756D0130433D9B000C8279 /* LifeTrackerDiceMenuView.swift */; };
 		7695BB21301AB69A00FCA122 /* ExpandableOutlineGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB20301AB69100FCA122 /* ExpandableOutlineGroup.swift */; };
 		7695BB22301AB69A00FCA122 /* ExpandableOutlineGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB20301AB69100FCA122 /* ExpandableOutlineGroup.swift */; };
 		7695BB2F301B9EBF00FCA122 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB2E301B9EBF00FCA122 /* SearchView.swift */; };
@@ -317,6 +320,7 @@
 		7651F94430421F0800D83ED8 /* AnimatingTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatingTextView.swift; sourceTree = "<group>"; };
 		7651F9483042520100D83ED8 /* 6colors.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = 6colors.plist; sourceTree = "<group>"; };
 		7651F94C304270C500D83ED8 /* LifeTrackerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerSettingsView.swift; sourceTree = "<group>"; };
+		76756D0130433D9B000C8279 /* LifeTrackerDiceMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerDiceMenuView.swift; sourceTree = "<group>"; };
 		767DD79C2FA286A200911032 /* CardGridItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGridItemView.swift; sourceTree = "<group>"; };
 		767DD7A12FA2893700911032 /* CardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsViewModel.swift; sourceTree = "<group>"; };
 		767DD7A62FA294C700911032 /* CardsSorterMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsSorterMenuView.swift; sourceTree = "<group>"; };
@@ -515,6 +519,7 @@
 		763D5BBF2F84CBD200405CD5 /* Experimental */ = {
 			isa = PBXGroup;
 			children = (
+				7651F94430421F0800D83ED8 /* AnimatingTextView.swift */,
 				760B05082F8FF92F003DB025 /* TestView.swift */,
 			);
 			path = Experimental;
@@ -537,6 +542,7 @@
 			isa = PBXGroup;
 			children = (
 				7651F9483042520100D83ED8 /* 6colors.plist */,
+				76756D0130433D9B000C8279 /* LifeTrackerDiceMenuView.swift */,
 				76502158303C7FAE0015B8C9 /* LifeTrackerGameModel.swift */,
 				7648053E303C17C5006794FF /* LifeTrackerMainView.swift */,
 				7650215C303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift */,
@@ -775,7 +781,6 @@
 				8BAC9E43282F4036008848D8 /* Date+ElapsedTime.swift */,
 				58AB9C5A2B0FF37F00A73696 /* LabeledContentStyle+Styles.swift */,
 				58A147162B0348DC00A957B7 /* Notifications+Names.swift */,
-				7651F94430421F0800D83ED8 /* AnimatingTextView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1036,6 +1041,7 @@
 				76502162303C918D0015B8C9 /* SizeCalculator.swift in Sources */,
 				760472992FB96B5500B75E4F /* CardVariationsView.swift in Sources */,
 				7604729A2FB96B5500B75E4F /* ManaprobeApp.swift in Sources */,
+				76756D0330433D9B000C8279 /* LifeTrackerDiceMenuView.swift in Sources */,
 				7604729B2FB96B5500B75E4F /* CollectionView.swift in Sources */,
 				7604729C2FB96B5500B75E4F /* SetsRowView.swift in Sources */,
 				7604729D2FB96B5500B75E4F /* CardExtraInfoView.swift in Sources */,
@@ -1148,6 +1154,7 @@
 				76CDD9F72FB9698500B7A47E /* TextViewWrapper.swift in Sources */,
 				47F6E0C02FD1F32C00F71B4A /* CardViewActionToolbar.swift in Sources */,
 				7650215D303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift in Sources */,
+				76756D0230433D9B000C8279 /* LifeTrackerDiceMenuView.swift in Sources */,
 				76CDD9F82FB9698500B7A47E /* ContentView.swift in Sources */,
 				76CDD9F92FB9698500B7A47E /* CardsSorterMenuView.swift in Sources */,
 				7695BB21301AB69A00FCA122 /* ExpandableOutlineGroup.swift in Sources */,
@@ -1177,6 +1184,7 @@
 				76502159303C7FAE0015B8C9 /* LifeTrackerGameModel.swift in Sources */,
 				7651F94730421F0800D83ED8 /* AnimatingTextView.swift in Sources */,
 				8B41B74E2812144E00AECF85 /* Tests_iOS.swift in Sources */,
+				76756D0430433D9B000C8279 /* LifeTrackerDiceMenuView.swift in Sources */,
 				764E45F63037749700BA2FC1 /* RulesViewModel.swift in Sources */,
 				76502156303C7F910015B8C9 /* LifeTrackerPlayerView.swift in Sources */,
 				7651F94D304270C500D83ED8 /* LifeTrackerSettingsView.swift in Sources */,

@@ -18,54 +18,6 @@ class LifeTrackerGameModel {
 
     var players = [LifeTrackerPlayerModel()]
     
-//    @AppStorage("LifeTrackerPlayerCount")
-//    @ObservationIgnored
-//    var _playerCount = LifeTrackerGameModel.minPlayers
-//    var playerCount: Int {
-//        get {
-//            _playerCount
-//        }
-//        set {
-//            _playerCount = newValue
-//            if _playerCount < LifeTrackerGameModel.minPlayers {
-//                _playerCount = LifeTrackerGameModel.minPlayers
-//            }
-//            if _playerCount > LifeTrackerGameModel.maxPlayers {
-//                _playerCount = LifeTrackerGameModel.maxPlayers
-//            }
-//            initPlayers()
-//        }
-//    }
-//    
-//    @AppStorage("LifeTrackerStartingLife")
-//    @ObservationIgnored
-//    var _startingLife = LifeTrackerGameModel.minStartingLife
-//    var startingLife: Int {
-//        get {
-//            _startingLife
-//        }
-//        set {
-//            _startingLife = newValue
-//            if _startingLife < LifeTrackerGameModel.minStartingLife {
-//                _startingLife = LifeTrackerGameModel.minStartingLife
-//            }
-//            initPlayers()
-//        }
-//    }
-//    
-//    @AppStorage("LifeTrackerColorPalette")
-//    @ObservationIgnored
-//    var _colorPalette = LifeTrackerGameModel.defaultColorPalette
-//    var colorPalette: String {
-//        get {
-//            _colorPalette
-//        }
-//        set {
-//            _colorPalette = newValue
-//            initPlayers()
-//        }
-//    }
-
     @AppStorage("LifeTrackerPlayerCount")
     @ObservationIgnored
     var playerCount = LifeTrackerGameModel.minPlayers
@@ -82,8 +34,8 @@ class LifeTrackerGameModel {
     var isGameOver = false
     var isGameStarted = false
     var isGamePaused = true
-    var timer: Date? = nil
-    var timerPaused: Date? = nil
+    var timerStart: Date? = nil
+    var timerEnd: Date? = nil
     
     init() {
         initPlayers()
@@ -102,7 +54,6 @@ class LifeTrackerGameModel {
         }
 
         players.removeAll()
-        timer = Date()
         
         let colors = colorsFromPalette()
         for i in 0...playerCount-1 {
@@ -118,36 +69,36 @@ class LifeTrackerGameModel {
         isGameStarted = true
         isGameOver = false
         isGamePaused = false
-        timer = Date()
+        timerStart = Date()
     }
     
     func stop() {
         isGameStarted = false
         isGameOver = true
         isGamePaused = true
-        timer = nil
-        timerPaused = nil
+        timerStart = nil
+        timerEnd = nil
     }
     
     func pause() {
         isGamePaused = true
-        timerPaused = Date()
+        timerEnd = Date()
     }
     
     func resume() {
-        if let timerPaused {
-            let interval = Date().timeIntervalSince(timerPaused)
-            timer = Date(timeIntervalSinceNow: interval)
+        if let timerEnd {
+            let interval = Date().timeIntervalSince(timerEnd)
+            timerStart = Date(timeIntervalSinceNow: -interval)
         }
-        timerPaused = nil
+        timerEnd = nil
         isGamePaused = false
     }
     
     func pausedTime() -> String {
-        if let timerPaused {
+        if let timerEnd {
             let formatter = DateFormatter()
             formatter.timeStyle = .short
-            return formatter.string(from: timerPaused)
+            return formatter.string(from: timerEnd)
         } else {
             return "0:00"
         }
@@ -179,4 +130,3 @@ class LifeTrackerGameModel {
         return [:]
     }
 }
-

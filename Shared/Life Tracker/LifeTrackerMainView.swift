@@ -28,10 +28,9 @@ struct LifeTrackerMainView: View {
             HStack {
                 playPauseButton
                 stopButton
-//                Spacer()
                 timerView
                 Spacer()
-                diceButton
+                LifeTrackerDiceMenuView()
                 settingsButton
                 closeButton
             }
@@ -61,7 +60,6 @@ struct LifeTrackerMainView: View {
     
     var stopButton: some View {
         Button {
-            
             isStopPresented.toggle()
         } label: {
             Image(systemName: "stop.fill")
@@ -77,15 +75,6 @@ struct LifeTrackerMainView: View {
         .disabled(!gameModel.isGameStarted)
     }
 
-    var diceButton: some View {
-        Button {
-            
-        } label: {
-            Image(systemName: "dice.fill")
-                .font(.largeTitle)
-        }
-    }
-    
     var settingsButton: some View {
         Button {
             isSettingsPresented.toggle()
@@ -108,12 +97,12 @@ struct LifeTrackerMainView: View {
 
     var timerView: some View {
         if gameModel.isGamePaused {
-            Text(gameModel.pausedTime())
+            Text(gameModel.timerEnd ?? Date(), style: .offset)
                 .font(.largeTitle)
                 .foregroundStyle(Color.white)
                 .monospacedDigit()
         } else {
-            Text(gameModel.timer ?? Date(), style: .timer)
+            Text(gameModel.timerStart ?? Date(), style: .timer)
                 .font(.largeTitle)
                 .foregroundStyle(Color.white)
                 .monospacedDigit()
@@ -123,9 +112,7 @@ struct LifeTrackerMainView: View {
     var playersView: some View {
         Group {
             if gameModel.isSettingsChanging {
-                ProgressView()
-                    .background(Color.black)
-                    .foregroundStyle(Color.black)
+                EmptyView()
             } else {
                 switch gameModel.playerCount {
                 case 1:
