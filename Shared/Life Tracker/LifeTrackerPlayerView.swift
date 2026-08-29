@@ -62,7 +62,10 @@ struct LifeTrackerPlayerView: View {
                 let diff = proxy.size.height - proxy.size.width
                 sideView
                     .rotationEffect(.degrees(rotation.rawValue))
-                    .offset(x: 0, y: rotation == .left ? -diff/2 : diff/2)
+                    .offset(x: 0,
+                            y: rotation == .left
+                                ? -diff/2
+                                : diff/2)
                     .sheet(isPresented: $isSettingsPresented) {
                         LifeTrackerPlayerSettingsView(viewModel: $viewModel)
                     }
@@ -84,7 +87,7 @@ struct LifeTrackerPlayerView: View {
                                 isSettingsPresented.toggle()
                             }
                     }
-                    .padding(5)
+                    .padding(1)
                     .frame(width: size.width,
                            height: labelHeight)
                     .background(Rectangle().fill(viewModel.color))
@@ -160,7 +163,7 @@ struct LifeTrackerPlayerView: View {
     
     var playerNameView: some View {
         Text(viewModel.name)
-            .font(.title2)
+            .font(.default)
             .foregroundStyle(viewModel.color)
             .colorInvert()
     }

@@ -14,7 +14,9 @@ struct LifeTrackerMainView: View {
     @State
     var gameModel: LifeTrackerGameModel
     @State
-    var isSettingsPresented: Bool = false
+    private var isSettingsPresented: Bool = false
+    @State
+    private var isStopPresented: Bool = false
     
     init() {
         let model = LifeTrackerGameModel()
@@ -22,13 +24,15 @@ struct LifeTrackerMainView: View {
     }
 
     var body: some View {
-        VStack(spacing: 10) {
+        VStack(spacing: 5) {
             HStack {
-                playButton
-                settingsButton
-                Spacer()
+                playPauseButton
+                stopButton
+//                Spacer()
                 timerView
                 Spacer()
+                diceButton
+                settingsButton
                 closeButton
             }
             playersView
@@ -39,24 +43,49 @@ struct LifeTrackerMainView: View {
         }
     }
     
-    var playButton: some View {
+    var playPauseButton: some View {
         Button {
-            gameModel.isGamePaused
-                ? gameModel.pause()
+            gameModel.isGameStarted
+                ? gameModel.isGamePaused
+                    ? gameModel.resume()
+                    : gameModel.pause()
                 : gameModel.start()
         } label: {
-            let name = gameModel.isGameStarted ?
-                "play.fill"
-                :
-                gameModel.isGamePaused ?
-                    "pause.fill"
-                    :
-                    "play.fill"
+            let name = gameModel.isGamePaused
+                ? "play.fill"
+                : "pause.fill"
             Image(systemName: name)
                 .font(.largeTitle)
         }
     }
+    
+    var stopButton: some View {
+        Button {
+            
+            isStopPresented.toggle()
+        } label: {
+            Image(systemName: "stop.fill")
+                .font(.largeTitle)
+        }
+        .confirmationDialog("Game Stop Confirmation",
+                            isPresented: $isStopPresented) {
+            Button("Your current will game reset. Are you sure?",
+                   role: .destructive) {
+                gameModel.stop()
+            }
+        }
+        .disabled(!gameModel.isGameStarted)
+    }
 
+    var diceButton: some View {
+        Button {
+            
+        } label: {
+            Image(systemName: "dice.fill")
+                .font(.largeTitle)
+        }
+    }
+    
     var settingsButton: some View {
         Button {
             isSettingsPresented.toggle()
@@ -64,23 +93,31 @@ struct LifeTrackerMainView: View {
             Image(systemName: "gearshape.fill")
                 .font(.largeTitle)
         }
+        .disabled(gameModel.isGameStarted)
     }
 
     var closeButton: some View {
         Button {
-            gameModel.isGameStarted
-                ? gameModel.stop()
-                : dismiss()
+            dismiss()
         } label: {
             Image(systemName: gameModel.isGameStarted ? "stop.fill" : "xmark")
                 .font(.largeTitle)
         }
+        .disabled(gameModel.isGameStarted)
     }
 
     var timerView: some View {
-        Text("00:00")
-            .font(.largeTitle)
-            .foregroundStyle(Color.white)
+        if gameModel.isGamePaused {
+            Text(gameModel.pausedTime())
+                .font(.largeTitle)
+                .foregroundStyle(Color.white)
+                .monospacedDigit()
+        } else {
+            Text(gameModel.timer ?? Date(), style: .timer)
+                .font(.largeTitle)
+                .foregroundStyle(Color.white)
+                .monospacedDigit()
+        }
     }
 
     var playersView: some View {

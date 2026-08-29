@@ -81,7 +81,9 @@ class LifeTrackerGameModel {
     var isSettingsChanging = false
     var isGameOver = false
     var isGameStarted = false
-    var isGamePaused = false
+    var isGamePaused = true
+    var timer: Date? = nil
+    var timerPaused: Date? = nil
     
     init() {
         initPlayers()
@@ -100,6 +102,7 @@ class LifeTrackerGameModel {
         }
 
         players.removeAll()
+        timer = Date()
         
         let colors = colorsFromPalette()
         for i in 0...playerCount-1 {
@@ -115,16 +118,39 @@ class LifeTrackerGameModel {
         isGameStarted = true
         isGameOver = false
         isGamePaused = false
+        timer = Date()
     }
     
     func stop() {
         isGameStarted = false
         isGameOver = true
-        isGamePaused = false
+        isGamePaused = true
+        timer = nil
+        timerPaused = nil
     }
     
     func pause() {
-        isGamePaused.toggle()
+        isGamePaused = true
+        timerPaused = Date()
+    }
+    
+    func resume() {
+        if let timerPaused {
+            let interval = Date().timeIntervalSince(timerPaused)
+            timer = Date(timeIntervalSinceNow: interval)
+        }
+        timerPaused = nil
+        isGamePaused = false
+    }
+    
+    func pausedTime() -> String {
+        if let timerPaused {
+            let formatter = DateFormatter()
+            formatter.timeStyle = .short
+            return formatter.string(from: timerPaused)
+        } else {
+            return "0:00"
+        }
     }
     
     func colorsFromPalette() -> [Color] {
