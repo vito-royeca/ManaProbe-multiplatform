@@ -25,6 +25,7 @@ class LifeTrackerPlayerModel: Identifiable, Equatable, Hashable {
     var isDead = false
     var energy = 0
     var name = ""
+    var color: Color = .clear
     
     private var _life: Int = 0
     var life: Int {

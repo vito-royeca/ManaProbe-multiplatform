@@ -13,44 +13,37 @@ struct LifeTrackerMainView: View {
     
     @State
     var gameModel: LifeTrackerGameModel
-
+    @State
+    var isSettingsPresented: Bool = false
+    
     init() {
-        do {
-            let model = try LifeTrackerGameModel(playerCount: 3,
-                                                 startingLife: 40)
-            _gameModel = State(wrappedValue: model)
-        } catch {
-            fatalError(error.localizedDescription)
-        }
+        let model = LifeTrackerGameModel()
+        _gameModel = State(wrappedValue: model)
     }
 
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: 10) {
             HStack {
                 playButton
+                settingsButton
                 Spacer()
-                Text("00:00")
-                    .font(.largeTitle)
+                timerView
                 Spacer()
                 closeButton
             }
-            .padding(10)
-            
-            HStack {
-                playerCountView
-                startingLifeView
-            }
-            
             playersView
+        }
+        .background(Color.black)
+        .sheet(isPresented: $isSettingsPresented) {
+            LifeTrackerSettingsView(gameModel: $gameModel)
         }
     }
     
     var playButton: some View {
         Button {
-            gameModel.isGamePaused ?
-                gameModel.pause()
-                :
-                gameModel.start()
+            gameModel.isGamePaused
+                ? gameModel.pause()
+                : gameModel.start()
         } label: {
             let name = gameModel.isGameStarted ?
                 "play.fill"
@@ -64,81 +57,65 @@ struct LifeTrackerMainView: View {
         }
     }
 
+    var settingsButton: some View {
+        Button {
+            isSettingsPresented.toggle()
+        } label: {
+            Image(systemName: "gearshape.fill")
+                .font(.largeTitle)
+        }
+    }
+
     var closeButton: some View {
         Button {
-            gameModel.isGameStarted ?
-              gameModel.stop()
-              :
-              dismiss()
+            gameModel.isGameStarted
+                ? gameModel.stop()
+                : dismiss()
         } label: {
             Image(systemName: gameModel.isGameStarted ? "stop.fill" : "xmark")
                 .font(.largeTitle)
         }
     }
-    
-    var playerCountView: some View {
-        LabeledContent(content: {
-            Picker("Players",
-                   selection: $gameModel.playerCount) {
-                ForEach((1...self.gameModel.maxPlayers),
-                        id: \.self) {
-                    Text("\($0)")
-                }
-            }
-            .pickerStyle(.menu)
-            .onChange(of: gameModel.playerCount) {
-                gameModel.initPlayers()
-            }
-            .disabled(gameModel.isGameStarted)
-        }, label: {
-            Text("Players")
-        })
+
+    var timerView: some View {
+        Text("00:00")
+            .font(.largeTitle)
+            .foregroundStyle(Color.white)
     }
-    
-    var startingLifeView: some View {
-        return LabeledContent(content: {
-            Picker("Starting Life",
-                   selection: $gameModel.startingLife) {
-                ForEach(gameModel.startingLifeArray,
-                        id: \.self) { life in
-                    Text("\(life)")
-                }
-            }
-            .pickerStyle(.menu)
-            .onChange(of: gameModel.startingLife) {
-                gameModel.initPlayers()
-            }
-            .disabled(gameModel.isGameStarted)
-        }, label: {
-            Text("Starting Life")
-        })
-    }
-    
+
     var playersView: some View {
         Group {
-            switch gameModel.playerCount {
-            case 1:
-                onePlayerView
-            case 2:
-                twoPlayersView
-            case 3:
-                threePlayersView
-            case 4:
-                fourPlayersView
-            case 5:
-                fivePlayersView
-            case 6:
-                sixPlayersView
-            default:
-                Text("Not Implemented")
+            if gameModel.isSettingsChanging {
+                ProgressView()
+                    .background(Color.black)
+                    .foregroundStyle(Color.black)
+            } else {
+                switch gameModel.playerCount {
+                case 1:
+                    onePlayerView
+                case 2:
+                    twoPlayersView
+                case 3:
+                    threePlayersView
+                case 4:
+                    fourPlayersView
+                case 5:
+                    fivePlayersView
+                case 6:
+                    sixPlayersView
+                default:
+                    Text("Not Implemented")
+                }
             }
         }
     }
     
     var onePlayerView: some View {
-        ForEach(gameModel.players.enumerated(), id: \.offset) { index, player in
-            LifeTrackerPlayerView(viewModel: player,
-                                  rotation: .none)
+        VStack(spacing: 1) {
+            ForEach(gameModel.players.enumerated(), id: \.offset) { index, player in
+                LifeTrackerPlayerView(viewModel: player,
+                                      rotation: .none)
+            }
         }
     }
     
@@ -155,7 +132,6 @@ struct LifeTrackerMainView: View {
                 default:
                     EmptyView()
                 }
-                
             }
         }
     }
@@ -191,20 +167,20 @@ struct LifeTrackerMainView: View {
                 let view1 = LifeTrackerPlayerView(viewModel: gameModel.players[0],
                                                   rotation: .left)
                 let view2 = LifeTrackerPlayerView(viewModel: gameModel.players[1],
-                                                  rotation: .right)
-                let view3 = LifeTrackerPlayerView(viewModel: gameModel.players[2],
                                                   rotation: .left)
+                let view3 = LifeTrackerPlayerView(viewModel: gameModel.players[2],
+                                                  rotation: .right)
                 let view4 = LifeTrackerPlayerView(viewModel: gameModel.players[3],
                                                   rotation: .right)
 
                 VStack(spacing: 1) {
                     HStack(spacing: 1) {
                         view1
-                        view2
+                        view4
                     }
                     HStack(spacing: 1) {
+                        view2
                         view3
-                        view4
                     }
                 }
             }
@@ -233,9 +209,9 @@ struct LifeTrackerMainView: View {
                         view2
                     }
                     VStack(spacing: 1) {
-                        view3
-                        view4
                         view5
+                        view4
+                        view3
                     }
                 }
             }
@@ -267,9 +243,9 @@ struct LifeTrackerMainView: View {
                         view3
                     }
                     VStack(spacing: 1) {
-                        view4
-                        view5
                         view6
+                        view5
+                        view4
                     }
                 }
             }

@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Cozy Neutral Retreat</key>
+    <array>
+        <string>CB997E</string>
+        <string>DDBEA9</string>
+        <string>FFE8D6</string>
+        <string>B7B7A4</string>
+        <string>A5A58D</string>
+        <string>6B705C</string>
+    </array>
+              
+              <key>Autumn Harvest</key>
+              <array>
+                  <string>EDE0D4</string>
+                  <string>E6CCB2</string>
+                  <string>DDB892</string>
+                  <string>B08968</string>
+                  <string>7F5539</string>
+                  <string>9C6644</string>
+              </array>
+                        
+              <key>Earthy Green Tones</key>
+              <array>
+                  <string>E9F5DB</string>
+                  <string>CFE1B9</string>
+                  <string>B5C99A</string>
+                  <string>97A97C</string>
+                  <string>87986A</string>
+                  <string>718355</string>
+              </array>
+                        
+              <key>Green Meadow</key>
+              <array>
+                  <string>143601</string>
+                  <string>1A4301</string>
+                  <string>245501</string>
+                  <string>538D22</string>
+                  <string>73A942</string>
+                  <string>AAD576</string>
+              </array>
+                        
+              <key>Creamy Delight</key>
+              <array>
+                  <string>E8D1C5</string>
+                  <string>EDDCD2</string>
+                  <string>FFF1E6</string>
+                  <string>F0EFEB</string>
+                  <string>EEDDD3</string>
+                  <string>EDEDE8</string>
+              </array>
+                
+              <key>Electric Rainbow Burst</key>
+              <array>
+                  <string>01BEFE</string>
+                  <string>FFDD00</string>
+                  <string>FF7D00</string>
+                  <string>FF006D</string>
+                  <string>ADFF02</string>
+                  <string>8F00FF</string>
+              </array>
+                
+              <key>Chocolate Chip Cookie</key>
+              <array>
+                  <string>8E412E</string>
+                  <string>BA6F4D</string>
+                  <string>E6CEBC</string>
+                  <string>A2A182</string>
+                  <string>687259</string>
+                  <string>F4ECE2</string>
+              </array>
+              
+              <key>Candy Floss Delight</key>
+              <array>
+                  <string>F47068</string>
+                  <string>FFB3AE</string>
+                  <string>FFF4F1</string>
+                  <string>1697A6</string>
+                  <string>0E606B</string>
+                  <string>FFC24B</string>
+              </array>
+                
+              <key>Summer Sunset Paradise</key>
+              <array>
+                  <string>EF476F</string>
+                  <string>F78C6B</string>
+                  <string>FFD166</string>
+                  <string>06D6A0</string>
+                  <string>118AB2</string>
+                  <string>073B4C</string>
+              </array>
+                        
+              <key>Soft Whispering Breeze</key>
+              <array>
+                  <string>D6CCC2</string>
+                  <string>DED6CE</string>
+                  <string>E5DED8</string>
+                  <string>EEEAE6</string>
+                  <string>E3D5CA</string>
+                  <string>F5EBE0</string>
+              </array>
+                        
+              <key>Sun-Kissed Serenity</key>
+              <array>
+                  <string>FEC5BB</string>
+                  <string>FCD5CE</string>
+                  <string>FAE1DD</string>
+                  <string>F8EDEB</string>
+                  <string>E8E8E4</string>
+                  <string>D8E2DC</string>
+              </array>
+                        
+              <key>Royal Purple Majesty</key>
+              <array>
+                  <string>422680</string>
+                  <string>341671</string>
+                  <string>280659</string>
+                  <string>660F56</string>
+                  <string>AE2D68</string>
+                  <string>F54952</string>
+              </array>
+                        
+              <key>Bubblegum Beach Sunset</key>
+              <array>
+                  <string>FF5883</string>
+                  <string>FF91AD</string>
+                  <string>FEC9D7</string>
+                  <string>B9EEE1</string>
+                  <string>79D3BE</string>
+                  <string>39B89A</string>
+              </array>
+                        
+              <key>Fiery Ocean Sunset</key>
+              <array>
+                  <string>FD5901</string>
+                  <string>F78104</string>
+                  <string>FAAB36</string>
+                  <string>249EA0</string>
+                  <string>008083</string>
+                  <string>005F60</string>
+              </array>
+                        
+              <key>Cozy Autumn Vibes</key>
+              <array>
+                  <string>797D62</string>
+                  <string>9B9B7A</string>
+                  <string>D9AE94</string>
+                  <string>F1DCA7</string>
+                  <string>D08C60</string>
+                  <string>997B66</string>
+              </array>
+                        
+              <key>Toasty Cinnamon Latte</key>
+              <array>
+                  <string>EDE0D4</string>
+                  <string>E6CCB2</string>
+                  <string>DDB892</string>
+                  <string>B08968</string>
+                  <string>9C6644</string>
+                  <string>7F5539</string>
+              </array>
+                        
+              <key>Rose Petal Romance</key>
+              <array>
+                  <string>B9375E</string>
+                  <string>E05780</string>
+                  <string>FF7AA2</string>
+                  <string>FF9EBB</string>
+                  <string>FFC2D4</string>
+                  <string>FFE0E9</string>
+              </array>
+                        
+              <key>Midnight Ocean Depths</key>
+              <array>
+                  <string>00132D</string>
+                  <string>00193B</string>
+                  <string>001E45</string>
+                  <string>002657</string>
+                  <string>002D67</string>
+                  <string>00377E</string>
+              </array>
+                        
+              <key>Warm Autumn Harvest</key>
+              <array>
+                  <string>EB5E28</string>
+                  <string>F9A03F</string>
+                  <string>F3C053</string>
+                  <string>A1C349</string>
+                  <string>87A330</string>
+                  <string>6A8532</string>
+              </array>
+                        
+              <key>Tropical Sunset Vibes</key>
+              <array>
+                  <string>264653</string>
+                  <string>2A9D8F</string>
+                  <string>8AB17D</string>
+                  <string>E9C46A</string>
+                  <string>F4A261</string>
+                  <string>E76F51</string>
+              </array>
+                        
+              <key>Sunny Beach Retro Vibes</key>
+              <array>
+                  <string>A8E8F9</string>
+                  <string>00537A</string>
+                  <string>013C58</string>
+                  <string>F5A201</string>
+                  <string>FFBA42</string>
+                  <string>FFD35B</string>
+              </array>
+                        
+              <key>Berrylicious Night Sky</key>
+              <array>
+                  <string>FD0363</string>
+                  <string>CC095D</string>
+                  <string>9C1057</string>
+                  <string>6B1650</string>
+                  <string>3B1D4A</string>
+                  <string>0A2344</string>
+              </array>
+                
+              <key>Electric Dreams</key>
+              <array>
+                  <string>0015FF</string>
+                  <string>FF00A1</string>
+                  <string>90FE00</string>
+                  <string>8400FF</string>
+                  <string>00FFF7</string>
+                  <string>FF7300</string>
+              </array>
+                
+              <key>Sunset Ocean Orchid</key>
+              <array>
+                  <string>FF595E</string>
+                  <string>FF924C</string>
+                  <string>FFCA3A</string>
+                  <string>8AC926</string>
+                  <string>1982C4</string>
+                  <string>6A4C93</string>
+              </array>
+                
+              <key>Enchanted Garden Party</key>
+              <array>
+                  <string>386641</string>
+                  <string>6A994E</string>
+                  <string>A7C957</string>
+                  <string>FBF7EF</string>
+                  <string>C9182C</string>
+                  <string>782832</string>
+              </array>
+                        
+              <key>Sunny Citrus Delight</key>
+              <array>
+                  <string>F5DEBC</string>
+                  <string>F4C8A6</string>
+                  <string>ECA77F</string>
+                  <string>DEE7B1</string>
+                  <string>CCDA87</string>
+                  <string>C4D473</string>
+              </array>
+                        
+              <key>Golden Sunburst</key>
+              <array>
+                  <string>FFF8D6</string>
+                  <string>FFF0AD</string>
+                  <string>FFE985</string>
+                  <string>FFDD47</string>
+                  <string>FFD61F</string>
+                  <string>FFD100</string>
+              </array>
+                        
+              <key>Cozy Sunshine Morning</key>
+              <array>
+                  <string>CCD5AE</string>
+                  <string>E9EDC9</string>
+                  <string>FEFAE0</string>
+                  <string>FAEDCD</string>
+                  <string>E7C8A0</string>
+                  <string>D4A373</string>
+              </array>
+                        
+              <key>Whimsical Unicorn Dream</key>
+              <array>
+                  <string>9F8BE8</string>
+                  <string>AF99FF</string>
+                  <string>CAADFF</string>
+                  <string>FFC2E2</string>
+                  <string>FFADC7</string>
+                  <string>FF99B6</string>
+              </array>
+                        
+              <key>Sun-kissed Autumn Fields</key>
+              <array>
+                  <string>264653</string>
+                  <string>287271</string>
+                  <string>2A9D8F</string>
+                  <string>E9C46A</string>
+                  <string>F4A261</string>
+                  <string>E76F51</string>
+              </array>
+                        
+              <key>Mysterious Night Sky</key>
+              <array>
+                  <string>231C35</string>
+                  <string>242039</string>
+                  <string>2A2B47</string>
+                  <string>484564</string>
+                  <string>5B5271</string>
+                  <string>6E5774</string>
+              </array>
+                        
+              <key>Golden Sun Glow</key>
+              <array>
+                  <string>797D62</string>
+                  <string>9B9B7A</string>
+                  <string>F1DCA7</string>
+                  <string>FFCB69</string>
+                  <string>D08C60</string>
+                  <string>997B66</string>
+              </array>
+                        
+              <key>Vibrant Color Splash</key>
+              <array>
+                  <string>CD001A</string>
+                  <string>EF6A00</string>
+                  <string>F2CD00</string>
+                  <string>79C300</string>
+                  <string>1961AE</string>
+                  <string>61007D</string>
+              </array>
+                        
+              <key>Rich Earthy Jewel</key>
+              <array>
+                  <string>361C0E</string>
+                  <string>570211</string>
+                  <string>7E3110</string>
+                  <string>004540</string>
+                  <string>032C4D</string>
+                  <string>360825</string>
+              </array>
+                        
+              <key>Pastel Rainbow Bliss</key>
+              <array>
+                  <string>FF99C8</string>
+                  <string>FEC8C3</string>
+                  <string>FCF6BD</string>
+                  <string>D0F4DE</string>
+                  <string>A9DEF9</string>
+                  <string>E4C1F9</string>
+              </array>
+                        
+              <key>Candy Floss Dreams</key>
+              <array>
+                  <string>E63946</string>
+                  <string>EC9A9A</string>
+                  <string>F1FAEE</string>
+                  <string>A8DADC</string>
+                  <string>457B9D</string>
+                  <string>1D3557</string>
+              </array>
+                        
+              <key>Sunrise Peach Terra</key>
+              <array>
+                  <string>F4F1DE</string>
+                  <string>EAB69F</string>
+                  <string>E07A5F</string>
+                  <string>3D405B</string>
+                  <string>81B29A</string>
+                  <string>F2CC8F</string>
+              </array>
+                        
+              <key>Vibrant Summer Burst</key>
+              <array>
+                  <string>0CB2AF</string>
+                  <string>A1C65D</string>
+                  <string>FAC723</string>
+                  <string>F29222</string>
+                  <string>E95E50</string>
+                  <string>936FAC</string>
+              </array>
+                        
+              <key>Rainbow Classic Neon</key>
+              <array>
+                  <string>FF0000</string>
+                  <string>FFFF00</string>
+                  <string>00FF00</string>
+                  <string>00FFFF</string>
+                  <string>0000FF</string>
+                  <string>FF00FF</string>
+              </array>
+                        
+              <key>Velvet Touch Sunset</key>
+              <array>
+                  <string>264653</string>
+                  <string>2A9D8F</string>
+                  <string>E9C46A</string>
+                  <string>F4A261</string>
+                  <string>E76F51</string>
+                  <string>EC8C74</string>
+              </array>
+                        
+              <key>Cozy Neutral Haven</key>
+              <array>
+                  <string>CB997E</string>
+                  <string>EDDCD2</string>
+                  <string>FFF1E6</string>
+                  <string>DDBEA9</string>
+                  <string>A5A58D</string>
+                  <string>B7B7A4</string>
+              </array>
+                        
+              <key>Autumn Sunset Glow</key>
+              <array>
+                  <string>335C67</string>
+                  <string>99A88C</string>
+                  <string>FFF3B0</string>
+                  <string>E09F3E</string>
+                  <string>9E2A2B</string>
+                  <string>540B0E</string>
+              </array>
+                        
+              <key>Toasty Caramel Delight</key>
+              <array>
+                  <string>6C5D4E</string>
+                  <string>826A48</string>
+                  <string>AE8853</string>
+                  <string>9D684B</string>
+                  <string>9D956C</string>
+                  <string>CBB874</string>
+              </array>
+                        
+              <key>Funky Retro Groove</key>
+              <array>
+                  <string>6667AB</string>
+                  <string>F18AAD</string>
+                  <string>EA6759</string>
+                  <string>F88F58</string>
+                  <string>F3C65F</string>
+                  <string>8BC28C</string>
+              </array>
+                        
+              <key>Soft Neutral Glow</key>
+              <array>
+                  <string>FFFFF7</string>
+                  <string>FBFBEB</string>
+                  <string>E2E2D4</string>
+                  <string>C9C9BC</string>
+                  <string>B5B5A9</string>
+                  <string>A3A398</string>
+              </array>
+                        
+              <key>Pastel Lemonade Dream</key>
+              <array>
+                  <string>FF9AA2</string>
+                  <string>FFB7B2</string>
+                  <string>FFDAC1</string>
+                  <string>E2F0CB</string>
+                  <string>B5EAD7</string>
+                  <string>C7CEEA</string>
+              </array>
+                        
+              <key>Mystic Sunset Hues</key>
+              <array>
+                  <string>23362B</string>
+                  <string>1BB28C</string>
+                  <string>E86A58</string>
+                  <string>FED45B</string>
+                  <string>9BC7C5</string>
+                  <string>EFEEEA</string>
+              </array>
+                        
+              <key>Fiery Ocean Sunset</key>
+              <array>
+                  <string>F93414</string>
+                  <string>FE6C31</string>
+                  <string>FEAE6C</string>
+                  <string>06889B</string>
+                  <string>006B8F</string>
+                  <string>011F51</string>
+              </array>
+            
+          
+</dict>
+</plist>

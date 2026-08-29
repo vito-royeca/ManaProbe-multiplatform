@@ -110,6 +110,18 @@
 		7650215F303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7650215C303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift */; };
 		76502161303C918D0015B8C9 /* SizeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76502160303C91870015B8C9 /* SizeCalculator.swift */; };
 		76502162303C918D0015B8C9 /* SizeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76502160303C91870015B8C9 /* SizeCalculator.swift */; };
+		7651F941304200B500D83ED8 /* LifeTrackerPlayerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7651F940304200B500D83ED8 /* LifeTrackerPlayerSettingsView.swift */; };
+		7651F942304200B500D83ED8 /* LifeTrackerPlayerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7651F940304200B500D83ED8 /* LifeTrackerPlayerSettingsView.swift */; };
+		7651F943304200B500D83ED8 /* LifeTrackerPlayerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7651F940304200B500D83ED8 /* LifeTrackerPlayerSettingsView.swift */; };
+		7651F94530421F0800D83ED8 /* AnimatingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7651F94430421F0800D83ED8 /* AnimatingTextView.swift */; };
+		7651F94630421F0800D83ED8 /* AnimatingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7651F94430421F0800D83ED8 /* AnimatingTextView.swift */; };
+		7651F94730421F0800D83ED8 /* AnimatingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7651F94430421F0800D83ED8 /* AnimatingTextView.swift */; };
+		7651F9493042520100D83ED8 /* 6colors.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7651F9483042520100D83ED8 /* 6colors.plist */; };
+		7651F94A3042520100D83ED8 /* 6colors.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7651F9483042520100D83ED8 /* 6colors.plist */; };
+		7651F94B3042520100D83ED8 /* 6colors.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7651F9483042520100D83ED8 /* 6colors.plist */; };
+		7651F94D304270C500D83ED8 /* LifeTrackerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7651F94C304270C500D83ED8 /* LifeTrackerSettingsView.swift */; };
+		7651F94E304270C500D83ED8 /* LifeTrackerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7651F94C304270C500D83ED8 /* LifeTrackerSettingsView.swift */; };
+		7651F94F304270C500D83ED8 /* LifeTrackerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7651F94C304270C500D83ED8 /* LifeTrackerSettingsView.swift */; };
 		7695BB21301AB69A00FCA122 /* ExpandableOutlineGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB20301AB69100FCA122 /* ExpandableOutlineGroup.swift */; };
 		7695BB22301AB69A00FCA122 /* ExpandableOutlineGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB20301AB69100FCA122 /* ExpandableOutlineGroup.swift */; };
 		7695BB2F301B9EBF00FCA122 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB2E301B9EBF00FCA122 /* SearchView.swift */; };
@@ -301,6 +313,10 @@
 		76502158303C7FAE0015B8C9 /* LifeTrackerGameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerGameModel.swift; sourceTree = "<group>"; };
 		7650215C303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerPlayerModel.swift; sourceTree = "<group>"; };
 		76502160303C91870015B8C9 /* SizeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeCalculator.swift; sourceTree = "<group>"; };
+		7651F940304200B500D83ED8 /* LifeTrackerPlayerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerPlayerSettingsView.swift; sourceTree = "<group>"; };
+		7651F94430421F0800D83ED8 /* AnimatingTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatingTextView.swift; sourceTree = "<group>"; };
+		7651F9483042520100D83ED8 /* 6colors.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = 6colors.plist; sourceTree = "<group>"; };
+		7651F94C304270C500D83ED8 /* LifeTrackerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerSettingsView.swift; sourceTree = "<group>"; };
 		767DD79C2FA286A200911032 /* CardGridItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGridItemView.swift; sourceTree = "<group>"; };
 		767DD7A12FA2893700911032 /* CardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsViewModel.swift; sourceTree = "<group>"; };
 		767DD7A62FA294C700911032 /* CardsSorterMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsSorterMenuView.swift; sourceTree = "<group>"; };
@@ -520,10 +536,13 @@
 		7648053D303C17A5006794FF /* Life Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				7651F9483042520100D83ED8 /* 6colors.plist */,
 				76502158303C7FAE0015B8C9 /* LifeTrackerGameModel.swift */,
 				7648053E303C17C5006794FF /* LifeTrackerMainView.swift */,
 				7650215C303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift */,
+				7651F940304200B500D83ED8 /* LifeTrackerPlayerSettingsView.swift */,
 				76502154303C7F910015B8C9 /* LifeTrackerPlayerView.swift */,
+				7651F94C304270C500D83ED8 /* LifeTrackerSettingsView.swift */,
 			);
 			path = "Life Tracker";
 			sourceTree = "<group>";
@@ -756,6 +775,7 @@
 				8BAC9E43282F4036008848D8 /* Date+ElapsedTime.swift */,
 				58AB9C5A2B0FF37F00A73696 /* LabeledContentStyle+Styles.swift */,
 				58A147162B0348DC00A957B7 /* Notifications+Names.swift */,
+				7651F94430421F0800D83ED8 /* AnimatingTextView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -925,6 +945,7 @@
 			files = (
 				760472B62FB96B5500B75E4F /* Launch Screen.storyboard in Resources */,
 				760472B72FB96B5500B75E4F /* Assets.xcassets in Resources */,
+				7651F94B3042520100D83ED8 /* 6colors.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -935,6 +956,7 @@
 				76CDDA212FB9698500B7A47E /* GoogleService-Info.plist in Resources */,
 				76CDDA222FB9698500B7A47E /* Assets.xcassets in Resources */,
 				76CDDA232FB9698500B7A47E /* Launch Screen.storyboard in Resources */,
+				7651F9493042520100D83ED8 /* 6colors.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -944,6 +966,7 @@
 			files = (
 				760472BE2FB96BA200B75E4F /* Manaprobe--iOS--Info.plist in Resources */,
 				76102D052F9D986C00A43DFA /* GoogleService-Info.plist in Resources */,
+				7651F94A3042520100D83ED8 /* 6colors.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1021,6 +1044,8 @@
 				760472A02FB96B5500B75E4F /* FavoritesView.swift in Sources */,
 				760472A12FB96B5500B75E4F /* CardViewModel.swift in Sources */,
 				7650215F303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift in Sources */,
+				7651F94630421F0800D83ED8 /* AnimatingTextView.swift in Sources */,
+				7651F942304200B500D83ED8 /* LifeTrackerPlayerSettingsView.swift in Sources */,
 				760472A22FB96B5500B75E4F /* CardPrintingsView.swift in Sources */,
 				760472A32FB96B5500B75E4F /* CardLanguagesView.swift in Sources */,
 				760472A52FB96B5500B75E4F /* CreateCollectionView.swift in Sources */,
@@ -1028,6 +1053,7 @@
 				760472A72FB96B5500B75E4F /* SetsViewModel.swift in Sources */,
 				760472A82FB96B5500B75E4F /* CollectionsView.swift in Sources */,
 				760472A92FB96B5500B75E4F /* CardPricingInfoView.swift in Sources */,
+				7651F94F304270C500D83ED8 /* LifeTrackerSettingsView.swift in Sources */,
 				760472AA2FB96B5500B75E4F /* SetViewModel.swift in Sources */,
 				760472AB2FB96B5500B75E4F /* CardComponentPartsView.swift in Sources */,
 				7695BB35301E84A300FCA122 /* SearchSuggestionsView.swift in Sources */,
@@ -1088,6 +1114,7 @@
 				76CDD9DE2FB9698500B7A47E /* MoreView.swift in Sources */,
 				473C581A2FD06A6B00219522 /* CardsNavigatorDisplayDelegate.swift in Sources */,
 				76CDD9DF2FB9698500B7A47E /* Color+Hex.swift in Sources */,
+				7651F94E304270C500D83ED8 /* LifeTrackerSettingsView.swift in Sources */,
 				76CDD9E02FB9698500B7A47E /* CardAllPrintingsViewModel.swift in Sources */,
 				76CDD9E12FB9698500B7A47E /* FlexibleTabView.swift in Sources */,
 				764E45F3303773ED00BA2FC1 /* RulesView.swift in Sources */,
@@ -1097,6 +1124,7 @@
 				7695BB30301B9EBF00FCA122 /* SearchView.swift in Sources */,
 				76CDD9E42FB9698500B7A47E /* FavoritesView.swift in Sources */,
 				7695BB32301BCA3D00FCA122 /* SearchViewModel.swift in Sources */,
+				7651F941304200B500D83ED8 /* LifeTrackerPlayerSettingsView.swift in Sources */,
 				76CDD9E52FB9698500B7A47E /* SetsSorterMenuView.swift in Sources */,
 				76CDD9E72FB9698500B7A47E /* CardView.swift in Sources */,
 				76CDD9E82FB9698500B7A47E /* CollectionsViewModel.swift in Sources */,
@@ -1109,6 +1137,7 @@
 				76CDD9EE2FB9698500B7A47E /* CardLanguagesView.swift in Sources */,
 				76CDD9EF2FB9698500B7A47E /* CardOtherInfoView.swift in Sources */,
 				76CDD9F02FB9698500B7A47E /* SetsViewModel.swift in Sources */,
+				7651F94530421F0800D83ED8 /* AnimatingTextView.swift in Sources */,
 				76CDD9F12FB9698500B7A47E /* CreateCollectionView.swift in Sources */,
 				76CDD9F22FB9698500B7A47E /* NewsView.swift in Sources */,
 				76CDD9F32FB9698500B7A47E /* FavoritesViewModel.swift in Sources */,
@@ -1146,11 +1175,14 @@
 				760472C92FB96DE400B75E4F /* Tests_Prefetch.swift in Sources */,
 				764E4601303944C000BA2FC1 /* RulesRowView.swift in Sources */,
 				76502159303C7FAE0015B8C9 /* LifeTrackerGameModel.swift in Sources */,
+				7651F94730421F0800D83ED8 /* AnimatingTextView.swift in Sources */,
 				8B41B74E2812144E00AECF85 /* Tests_iOS.swift in Sources */,
 				764E45F63037749700BA2FC1 /* RulesViewModel.swift in Sources */,
 				76502156303C7F910015B8C9 /* LifeTrackerPlayerView.swift in Sources */,
+				7651F94D304270C500D83ED8 /* LifeTrackerSettingsView.swift in Sources */,
 				8B6CAF6C284043DC0073E8FE /* SnapshotHelper.swift in Sources */,
 				76480541303C17C5006794FF /* LifeTrackerMainView.swift in Sources */,
+				7651F943304200B500D83ED8 /* LifeTrackerPlayerSettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
