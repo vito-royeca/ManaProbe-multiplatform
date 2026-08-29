@@ -44,11 +44,7 @@ struct LifeTrackerMainView: View {
     
     var playPauseButton: some View {
         Button {
-            gameModel.isGameStarted
-                ? gameModel.isGamePaused
-                    ? gameModel.resume()
-                    : gameModel.pause()
-                : gameModel.start()
+            gameModel.playPause()
         } label: {
             let name = gameModel.isGamePaused
                 ? "play.fill"
@@ -96,22 +92,15 @@ struct LifeTrackerMainView: View {
     }
 
     var timerView: some View {
-        if gameModel.isGamePaused {
-            Text(gameModel.timerEnd ?? Date(), style: .offset)
-                .font(.largeTitle)
-                .foregroundStyle(Color.white)
-                .monospacedDigit()
-        } else {
-            Text(gameModel.timerStart ?? Date(), style: .timer)
-                .font(.largeTitle)
-                .foregroundStyle(Color.white)
-                .monospacedDigit()
-        }
+        Text(gameModel.timerString)
+            .font(.largeTitle)
+            .foregroundStyle(Color.white)
+            .monospacedDigit()
     }
 
     var playersView: some View {
         Group {
-            if gameModel.isSettingsChanging {
+            if gameModel.isSettingsChanged {
                 EmptyView()
             } else {
                 switch gameModel.playerCount {

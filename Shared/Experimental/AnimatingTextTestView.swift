@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AnimatingTextView: View {
+struct AnimatingTextTestView: View {
     @State private var offset: CGFloat = 0
     @State private var color: Color = .black
 
@@ -36,5 +36,5 @@ struct AnimatingTextView: View {
 }
 
 #Preview {
-    AnimatingTextView()
+    AnimatingTextTestView()
 }

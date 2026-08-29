@@ -21,7 +21,7 @@
 		760472782FB96B5500B75E4F /* CardListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E029232FA167C200F77633 /* CardListItemView.swift */; };
 		760472792FB96B5500B75E4F /* CardsSorterMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767DD7A62FA294C700911032 /* CardsSorterMenuView.swift */; };
 		7604727A2FB96B5500B75E4F /* CardsChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470482C12FAA444A0004CC16 /* CardsChartsView.swift */; };
-		7604727B2FB96B5500B75E4F /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760B05082F8FF92F003DB025 /* TestView.swift */; };
+		7604727B2FB96B5500B75E4F /* TimeDisplayTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760B05082F8FF92F003DB025 /* TimeDisplayTestView.swift */; };
 		7604727C2FB96B5500B75E4F /* CollectionListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D60A482FAEEAA200A8F980 /* CollectionListItemView.swift */; };
 		7604727D2FB96B5500B75E4F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760B05272F903307003DB025 /* CardView.swift */; };
 		7604727E2FB96B5500B75E4F /* FlexibleTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C8DED82F929C4200B0144A /* FlexibleTabView.swift */; };
@@ -113,9 +113,9 @@
 		7651F941304200B500D83ED8 /* LifeTrackerPlayerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7651F940304200B500D83ED8 /* LifeTrackerPlayerSettingsView.swift */; };
 		7651F942304200B500D83ED8 /* LifeTrackerPlayerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7651F940304200B500D83ED8 /* LifeTrackerPlayerSettingsView.swift */; };
 		7651F943304200B500D83ED8 /* LifeTrackerPlayerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7651F940304200B500D83ED8 /* LifeTrackerPlayerSettingsView.swift */; };
-		7651F94530421F0800D83ED8 /* AnimatingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7651F94430421F0800D83ED8 /* AnimatingTextView.swift */; };
-		7651F94630421F0800D83ED8 /* AnimatingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7651F94430421F0800D83ED8 /* AnimatingTextView.swift */; };
-		7651F94730421F0800D83ED8 /* AnimatingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7651F94430421F0800D83ED8 /* AnimatingTextView.swift */; };
+		7651F94530421F0800D83ED8 /* AnimatingTextTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7651F94430421F0800D83ED8 /* AnimatingTextTestView.swift */; };
+		7651F94630421F0800D83ED8 /* AnimatingTextTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7651F94430421F0800D83ED8 /* AnimatingTextTestView.swift */; };
+		7651F94730421F0800D83ED8 /* AnimatingTextTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7651F94430421F0800D83ED8 /* AnimatingTextTestView.swift */; };
 		7651F9493042520100D83ED8 /* 6colors.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7651F9483042520100D83ED8 /* 6colors.plist */; };
 		7651F94A3042520100D83ED8 /* 6colors.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7651F9483042520100D83ED8 /* 6colors.plist */; };
 		7651F94B3042520100D83ED8 /* 6colors.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7651F9483042520100D83ED8 /* 6colors.plist */; };
@@ -125,6 +125,9 @@
 		76756D0230433D9B000C8279 /* LifeTrackerDiceMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76756D0130433D9B000C8279 /* LifeTrackerDiceMenuView.swift */; };
 		76756D0330433D9B000C8279 /* LifeTrackerDiceMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76756D0130433D9B000C8279 /* LifeTrackerDiceMenuView.swift */; };
 		76756D0430433D9B000C8279 /* LifeTrackerDiceMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76756D0130433D9B000C8279 /* LifeTrackerDiceMenuView.swift */; };
+		76756D0630437117000C8279 /* TimerTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76756D0530437117000C8279 /* TimerTestView.swift */; };
+		76756D0730437117000C8279 /* TimerTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76756D0530437117000C8279 /* TimerTestView.swift */; };
+		76756D0830437117000C8279 /* TimerTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76756D0530437117000C8279 /* TimerTestView.swift */; };
 		7695BB21301AB69A00FCA122 /* ExpandableOutlineGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB20301AB69100FCA122 /* ExpandableOutlineGroup.swift */; };
 		7695BB22301AB69A00FCA122 /* ExpandableOutlineGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB20301AB69100FCA122 /* ExpandableOutlineGroup.swift */; };
 		7695BB2F301B9EBF00FCA122 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB2E301B9EBF00FCA122 /* SearchView.swift */; };
@@ -141,7 +144,7 @@
 		76CDD9942FB9683D00B7A47E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 76CDD9932FB9683D00B7A47E /* FirebaseAuth */; };
 		76CDD9962FB9687000B7A47E /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 76CDD9952FB9687000B7A47E /* FirebaseFirestore */; };
 		76CDD9982FB968CF00B7A47E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 76CDD9972FB968CF00B7A47E /* FirebaseAuth */; };
-		76CDD9BE2FB9698500B7A47E /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760B05082F8FF92F003DB025 /* TestView.swift */; };
+		76CDD9BE2FB9698500B7A47E /* TimeDisplayTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760B05082F8FF92F003DB025 /* TimeDisplayTestView.swift */; };
 		76CDD9BF2FB9698500B7A47E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B41B79A2812585300AECF85 /* Constants.swift */; };
 		76CDD9C02FB9698500B7A47E /* SetHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760B05052F8FF41B003DB025 /* SetHeaderView.swift */; };
 		76CDD9C12FB9698500B7A47E /* FullscreenCardImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761CA9792FA5915600788AA6 /* FullscreenCardImageView.swift */; };
@@ -284,7 +287,7 @@
 		760472C12FB96BD600B75E4F /* Manaprobe--macOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Manaprobe--macOS--Info.plist"; sourceTree = "<group>"; };
 		760472C62FB96D0700B75E4F /* Tests_Prefetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_Prefetch.swift; sourceTree = "<group>"; };
 		760B05052F8FF41B003DB025 /* SetHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetHeaderView.swift; sourceTree = "<group>"; };
-		760B05082F8FF92F003DB025 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		760B05082F8FF92F003DB025 /* TimeDisplayTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeDisplayTestView.swift; sourceTree = "<group>"; };
 		760B05272F903307003DB025 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		760B05622F9038B3003DB025 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		760B05652F90710E003DB025 /* CardCommonInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCommonInfoView.swift; sourceTree = "<group>"; };
@@ -317,10 +320,11 @@
 		7650215C303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerPlayerModel.swift; sourceTree = "<group>"; };
 		76502160303C91870015B8C9 /* SizeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeCalculator.swift; sourceTree = "<group>"; };
 		7651F940304200B500D83ED8 /* LifeTrackerPlayerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerPlayerSettingsView.swift; sourceTree = "<group>"; };
-		7651F94430421F0800D83ED8 /* AnimatingTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatingTextView.swift; sourceTree = "<group>"; };
+		7651F94430421F0800D83ED8 /* AnimatingTextTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatingTextTestView.swift; sourceTree = "<group>"; };
 		7651F9483042520100D83ED8 /* 6colors.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = 6colors.plist; sourceTree = "<group>"; };
 		7651F94C304270C500D83ED8 /* LifeTrackerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerSettingsView.swift; sourceTree = "<group>"; };
 		76756D0130433D9B000C8279 /* LifeTrackerDiceMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerDiceMenuView.swift; sourceTree = "<group>"; };
+		76756D0530437117000C8279 /* TimerTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTestView.swift; sourceTree = "<group>"; };
 		767DD79C2FA286A200911032 /* CardGridItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGridItemView.swift; sourceTree = "<group>"; };
 		767DD7A12FA2893700911032 /* CardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsViewModel.swift; sourceTree = "<group>"; };
 		767DD7A62FA294C700911032 /* CardsSorterMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsSorterMenuView.swift; sourceTree = "<group>"; };
@@ -519,8 +523,9 @@
 		763D5BBF2F84CBD200405CD5 /* Experimental */ = {
 			isa = PBXGroup;
 			children = (
-				7651F94430421F0800D83ED8 /* AnimatingTextView.swift */,
-				760B05082F8FF92F003DB025 /* TestView.swift */,
+				7651F94430421F0800D83ED8 /* AnimatingTextTestView.swift */,
+				760B05082F8FF92F003DB025 /* TimeDisplayTestView.swift */,
+				76756D0530437117000C8279 /* TimerTestView.swift */,
 			);
 			path = Experimental;
 			sourceTree = "<group>";
@@ -996,7 +1001,7 @@
 				760472782FB96B5500B75E4F /* CardListItemView.swift in Sources */,
 				760472792FB96B5500B75E4F /* CardsSorterMenuView.swift in Sources */,
 				7604727A2FB96B5500B75E4F /* CardsChartsView.swift in Sources */,
-				7604727B2FB96B5500B75E4F /* TestView.swift in Sources */,
+				7604727B2FB96B5500B75E4F /* TimeDisplayTestView.swift in Sources */,
 				4739CAA92FC8A43200B787F0 /* CardsNavigatorDelegate.swift in Sources */,
 				7604727C2FB96B5500B75E4F /* CollectionListItemView.swift in Sources */,
 				764E45FA3037A82400BA2FC1 /* Tree.swift in Sources */,
@@ -1028,6 +1033,7 @@
 				764E45F2303773ED00BA2FC1 /* RulesView.swift in Sources */,
 				760472922FB96B5500B75E4F /* FirebaseModels.swift in Sources */,
 				760472932FB96B5500B75E4F /* Notifications+Names.swift in Sources */,
+				76756D0830437117000C8279 /* TimerTestView.swift in Sources */,
 				760E7E5D2FF22724003A3F49 /* CardRoute.swift in Sources */,
 				760472942FB96B5500B75E4F /* CardOtherInfoView.swift in Sources */,
 				7695BB33301BCA3D00FCA122 /* SearchViewModel.swift in Sources */,
@@ -1050,7 +1056,7 @@
 				760472A02FB96B5500B75E4F /* FavoritesView.swift in Sources */,
 				760472A12FB96B5500B75E4F /* CardViewModel.swift in Sources */,
 				7650215F303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift in Sources */,
-				7651F94630421F0800D83ED8 /* AnimatingTextView.swift in Sources */,
+				7651F94630421F0800D83ED8 /* AnimatingTextTestView.swift in Sources */,
 				7651F942304200B500D83ED8 /* LifeTrackerPlayerSettingsView.swift in Sources */,
 				760472A22FB96B5500B75E4F /* CardPrintingsView.swift in Sources */,
 				760472A32FB96B5500B75E4F /* CardLanguagesView.swift in Sources */,
@@ -1080,7 +1086,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76CDD9BE2FB9698500B7A47E /* TestView.swift in Sources */,
+				76CDD9BE2FB9698500B7A47E /* TimeDisplayTestView.swift in Sources */,
 				76CDD9BF2FB9698500B7A47E /* Constants.swift in Sources */,
 				76502155303C7F910015B8C9 /* LifeTrackerPlayerView.swift in Sources */,
 				76CDD9C02FB9698500B7A47E /* SetHeaderView.swift in Sources */,
@@ -1142,8 +1148,9 @@
 				76CDD9ED2FB9698500B7A47E /* CardPrintingsView.swift in Sources */,
 				76CDD9EE2FB9698500B7A47E /* CardLanguagesView.swift in Sources */,
 				76CDD9EF2FB9698500B7A47E /* CardOtherInfoView.swift in Sources */,
+				76756D0730437117000C8279 /* TimerTestView.swift in Sources */,
 				76CDD9F02FB9698500B7A47E /* SetsViewModel.swift in Sources */,
-				7651F94530421F0800D83ED8 /* AnimatingTextView.swift in Sources */,
+				7651F94530421F0800D83ED8 /* AnimatingTextTestView.swift in Sources */,
 				76CDD9F12FB9698500B7A47E /* CreateCollectionView.swift in Sources */,
 				76CDD9F22FB9698500B7A47E /* NewsView.swift in Sources */,
 				76CDD9F32FB9698500B7A47E /* FavoritesViewModel.swift in Sources */,
@@ -1182,10 +1189,11 @@
 				760472C92FB96DE400B75E4F /* Tests_Prefetch.swift in Sources */,
 				764E4601303944C000BA2FC1 /* RulesRowView.swift in Sources */,
 				76502159303C7FAE0015B8C9 /* LifeTrackerGameModel.swift in Sources */,
-				7651F94730421F0800D83ED8 /* AnimatingTextView.swift in Sources */,
+				7651F94730421F0800D83ED8 /* AnimatingTextTestView.swift in Sources */,
 				8B41B74E2812144E00AECF85 /* Tests_iOS.swift in Sources */,
 				76756D0430433D9B000C8279 /* LifeTrackerDiceMenuView.swift in Sources */,
 				764E45F63037749700BA2FC1 /* RulesViewModel.swift in Sources */,
+				76756D0630437117000C8279 /* TimerTestView.swift in Sources */,
 				76502156303C7F910015B8C9 /* LifeTrackerPlayerView.swift in Sources */,
 				7651F94D304270C500D83ED8 /* LifeTrackerSettingsView.swift in Sources */,
 				8B6CAF6C284043DC0073E8FE /* SnapshotHelper.swift in Sources */,

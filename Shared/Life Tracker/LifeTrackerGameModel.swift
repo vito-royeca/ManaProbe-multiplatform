@@ -10,13 +10,16 @@ import SwiftUI
 
 @Observable
 class LifeTrackerGameModel {
+    // MARK: - Constants
+    
     static let startingLives = [20, 30, 40]
     static let minStartingLife = 20
     static let minPlayers = 1
     static let maxPlayers = 6
     static let defaultColorPalette = "Electric Rainbow Burst"
-
-    var players = [LifeTrackerPlayerModel()]
+    
+    
+    // MARK: - Settings
     
     @AppStorage("LifeTrackerPlayerCount")
     @ObservationIgnored
@@ -29,15 +32,44 @@ class LifeTrackerGameModel {
     @AppStorage("LifeTrackerColorPalette")
     @ObservationIgnored
     var colorPalette = LifeTrackerGameModel.defaultColorPalette
+    
+    var isSettingsChanged = false
 
-    var isSettingsChanging = false
+    // MARK: - Players
+    
+    var players = [LifeTrackerPlayerModel()]
+    
+    // MARK: - Game state
+    
     var isGameOver = false
     var isGameStarted = false
     var isGamePaused = true
-    var timerStart: Date? = nil
-    var timerEnd: Date? = nil
     
+    // MARK: - Timer
+    
+    var timer = Timer()
+    var elapsedTime: Int = 0
+
+    private var _timerString = "00:00:00"
+    var timerString: String {
+        get {
+            let hours = elapsedTime / 3600
+            let minutes = elapsedTime / 60
+            let seconds = elapsedTime % 60
+//            let hoursString = hours > 0 ? String(format: "%02d", hours) : "00"
+            _timerString = String(format: "%02d:%02d:%02d", hours,minutes, seconds)
+            return _timerString
+        }
+        set {
+            _timerString = newValue
+        }
+    }
+
+    
+    // MARK: - Initializers
+
     init() {
+        stop()
         initPlayers()
     }
     
@@ -52,7 +84,7 @@ class LifeTrackerGameModel {
         if startingLife < LifeTrackerGameModel.minStartingLife {
             startingLife = LifeTrackerGameModel.minStartingLife
         }
-
+        
         players.removeAll()
         
         let colors = colorsFromPalette()
@@ -64,46 +96,61 @@ class LifeTrackerGameModel {
             players.append(player)
         }
     }
+
+    // MARK: - Methods
+    
+    func playPause() {
+        isGameStarted
+            ? isGamePaused
+                ? resume()
+                : pause()
+            : start()
+    }
     
     func start() {
-        isGameStarted = true
         isGameOver = false
+        isGameStarted = true
         isGamePaused = false
-        timerStart = Date()
+        
+        startTimer()
     }
     
     func stop() {
-        isGameStarted = false
         isGameOver = true
+        isGameStarted = false
         isGamePaused = true
-        timerStart = nil
-        timerEnd = nil
+        
+        stopTimer()
+        
+        elapsedTime = 0
+        timer.invalidate()
     }
     
     func pause() {
         isGamePaused = true
-        timerEnd = Date()
+        stopTimer()
     }
     
     func resume() {
-        if let timerEnd {
-            let interval = Date().timeIntervalSince(timerEnd)
-            timerStart = Date(timeIntervalSinceNow: -interval)
-        }
-        timerEnd = nil
         isGamePaused = false
+        timerString = "0:00"
+        startTimer()
     }
     
-    func pausedTime() -> String {
-        if let timerEnd {
-            let formatter = DateFormatter()
-            formatter.timeStyle = .short
-            return formatter.string(from: timerEnd)
-        } else {
-            return "0:00"
+    func startTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+            self.elapsedTime += 1
         }
     }
     
+    func stopTimer() {
+        timer.invalidate()
+    }
+}
+
+// MARK: - Utilities
+
+extension LifeTrackerGameModel {
     func colorsFromPalette() -> [Color] {
         let palettes = loadColorPalettes()
         var colors = [Color]()

@@ -59,7 +59,7 @@ struct LifeTrackerSettingsView: View {
             }
             .pickerStyle(.menu)
             .onChange(of: playerCount) {
-                gameModel.isSettingsChanging = true
+                gameModel.isSettingsChanged = true
             }
             .disabled(gameModel.isGameStarted)
         }, label: {
@@ -78,7 +78,7 @@ struct LifeTrackerSettingsView: View {
             }
             .pickerStyle(.menu)
             .onChange(of: startingLife) {
-                gameModel.isSettingsChanging = true
+                gameModel.isSettingsChanged = true
             }
             .disabled(gameModel.isGameStarted)
         }, label: {
@@ -99,7 +99,7 @@ struct LifeTrackerSettingsView: View {
                }
                .pickerStyle(.wheel)
                .onChange(of: colorPalette) {
-                   gameModel.isSettingsChanging = true
+                   gameModel.isSettingsChanged = true
                }
                .disabled(gameModel.isGameStarted)
     }
@@ -108,7 +108,7 @@ struct LifeTrackerSettingsView: View {
     var actionToolbar: some ToolbarContent {
         ToolbarItem(placement: .cancellationAction) {
             Button {
-                gameModel.isSettingsChanging = false
+                gameModel.isSettingsChanged = false
                 dismiss()
             } label: {
                 Image(systemName: "xmark")
@@ -118,7 +118,7 @@ struct LifeTrackerSettingsView: View {
         ToolbarItem(placement: .confirmationAction) {
             Button {
                 save()
-                gameModel.isSettingsChanging = false
+                gameModel.isSettingsChanged = false
                 dismiss()
             } label: {
                 Image(systemName: "checkmark")
