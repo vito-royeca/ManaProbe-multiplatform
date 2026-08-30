@@ -19,12 +19,15 @@ struct LifeTrackerPlayerSettingsView: View {
     var body: some View {
         NavigationStack {
             contentView
+                .onAppear {
+                    initPlayer()
+                }
         }
     }
     
     var contentView: some View {
         Form {
-            TextField(viewModel.name, text: $newName)
+            TextField("Name", text: $newName)
         }
         .navigationTitle("Player Settings")
         .toolbar {
@@ -54,6 +57,10 @@ struct LifeTrackerPlayerSettingsView: View {
 }
 
 extension LifeTrackerPlayerSettingsView {
+    func initPlayer() {
+        newName = viewModel.name
+    }
+
     func save() {
         viewModel.name = newName
     }

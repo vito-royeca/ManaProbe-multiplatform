@@ -69,16 +69,11 @@ struct MoreView: View {
         }
         .navigationDestination(for: String.self) { string in
             switch string {
-            case "Favorites":
-                favoritesView
-            case "Collections":
-                collectionsView
-            case "Rules":
-                rulesView
-            case "Life Tracker":
-                lifeTrackerView
-            default:
-                Text("Not Implemented")
+            case "Favorites": favoritesView
+            case "Collections": collectionsView
+            case "Rules": rulesView
+            case "Life Tracker": lifeTrackerView
+            default: Text("Not Implemented")
             }
         }
         .navigationDestination(for: GlossaryIndex.self) { index in

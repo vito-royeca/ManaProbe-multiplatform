@@ -21,6 +21,25 @@ class LifeTrackerGameModel {
     
     // MARK: - Settings
     
+    @AppStorage("LifeTrackerPlayerName1")
+    @ObservationIgnored
+    var playerName1 = "Player 1"
+    @AppStorage("LifeTrackerPlayerName2")
+    @ObservationIgnored
+    var playerName2 = "Player 2"
+    @AppStorage("LifeTrackerPlayerName3")
+    @ObservationIgnored
+    var playerName3 = "Player 3"
+    @AppStorage("LifeTrackerPlayerName4")
+    @ObservationIgnored
+    var playerName4 = "Player 4"
+    @AppStorage("LifeTrackerPlayerName5")
+    @ObservationIgnored
+    var playerName5 = "Player 5"
+    @AppStorage("LifeTrackerPlayerName6")
+    @ObservationIgnored
+    var playerName6 = "Player 6"
+    
     @AppStorage("LifeTrackerPlayerCount")
     @ObservationIgnored
     var playerCount = LifeTrackerGameModel.minPlayers
@@ -47,29 +66,30 @@ class LifeTrackerGameModel {
     
     // MARK: - Timer
     
-    var timer = Timer()
-    var elapsedTime: Int = 0
-
-    private var _timerString = "00:00:00"
     var timerString: String {
         get {
             let hours = elapsedTime / 3600
             let minutes = elapsedTime / 60
             let seconds = elapsedTime % 60
-//            let hoursString = hours > 0 ? String(format: "%02d", hours) : "00"
-            _timerString = String(format: "%02d:%02d:%02d", hours,minutes, seconds)
+            if hours > 0 {
+                _timerString = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+            } else {
+                _timerString = String(format: "%02d:%02d", minutes, seconds)
+            }
             return _timerString
         }
         set {
             _timerString = newValue
         }
     }
-
+    
+    private var timer = Timer()
+    private var elapsedTime: Int = 0
+    private var _timerString = "00:00:00"
     
     // MARK: - Initializers
 
     init() {
-        stop()
         initPlayers()
     }
     
@@ -88,11 +108,20 @@ class LifeTrackerGameModel {
         players.removeAll()
         
         let colors = colorsFromPalette()
-        for i in 0...playerCount-1 {
+        for index in 0...playerCount-1 {
             let player = LifeTrackerPlayerModel()
-            player.name = "Player \(i+1)"
+            
+            switch index {
+            case 0: player.name = playerName1
+            case 1: player.name = playerName2
+            case 2: player.name = playerName3
+            case 3: player.name = playerName4
+            case 4: player.name = playerName5
+            case 5: player.name = playerName6
+            default: ()
+            }
             player.life = startingLife
-            player.color = colors[i]
+            player.color = colors[index]
             players.append(player)
         }
     }
@@ -107,43 +136,59 @@ class LifeTrackerGameModel {
             : start()
     }
     
-    func start() {
-        isGameOver = false
-        isGameStarted = true
-        isGamePaused = false
-        
-        startTimer()
-    }
-    
     func stop() {
         isGameOver = true
         isGameStarted = false
         isGamePaused = true
-        
-        stopTimer()
-        
+
         elapsedTime = 0
-        timer.invalidate()
+        stopTimer()
+    }
+
+    func savePlayerNames() {
+        for (index, player) in players.enumerated() {
+            switch index {
+            case 0: playerName1 = player.name
+            case 1: playerName2 = player.name
+            case 2: playerName3 = player.name
+            case 3: playerName4 = player.name
+            case 4: playerName5 = player.name
+            case 5: playerName6 = player.name
+            default: ()
+            }
+        }
+    }
+
+    // MARK: - Private methods
+
+    private func start() {
+        isGameOver = false
+        isGameStarted = true
+        isGamePaused = false
+        
+        savePlayerNames()
+        initPlayers()
+        startTimer()
     }
     
-    func pause() {
+    private func pause() {
         isGamePaused = true
         stopTimer()
     }
     
-    func resume() {
+    private func resume() {
         isGamePaused = false
         timerString = "0:00"
         startTimer()
     }
     
-    func startTimer() {
+    private func startTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
             self.elapsedTime += 1
         }
     }
     
-    func stopTimer() {
+    private func stopTimer() {
         timer.invalidate()
     }
 }

@@ -83,6 +83,7 @@ struct LifeTrackerMainView: View {
 
     var closeButton: some View {
         Button {
+            gameModel.savePlayerNames()
             dismiss()
         } label: {
             Image(systemName: gameModel.isGameStarted ? "stop.fill" : "xmark")
@@ -101,23 +102,16 @@ struct LifeTrackerMainView: View {
     var playersView: some View {
         Group {
             if gameModel.isSettingsChanged {
-                EmptyView()
+                ProgressView()
             } else {
                 switch gameModel.playerCount {
-                case 1:
-                    onePlayerView
-                case 2:
-                    twoPlayersView
-                case 3:
-                    threePlayersView
-                case 4:
-                    fourPlayersView
-                case 5:
-                    fivePlayersView
-                case 6:
-                    sixPlayersView
-                default:
-                    Text("Not Implemented")
+                case 1: onePlayerView
+                case 2: twoPlayersView
+                case 3: threePlayersView
+                case 4: fourPlayersView
+                case 5: fivePlayersView
+                case 6: sixPlayersView
+                default: Text("Not Implemented")
                 }
             }
         }

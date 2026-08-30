@@ -10,12 +10,14 @@ import SwiftUI
 struct LifeTrackerSettingsView: View {
     @Environment(\.dismiss)
     private var dismiss
-
+    
     @Binding
     var gameModel: LifeTrackerGameModel
-
+    
     @State
     var playerCount = LifeTrackerGameModel.minPlayers
+    @State
+    var players = [LifeTrackerPlayerModel]()
     @State
     var startingLife = LifeTrackerGameModel.minStartingLife
     @State
@@ -28,18 +30,24 @@ struct LifeTrackerSettingsView: View {
                     playerCount = gameModel.playerCount
                     startingLife = gameModel.startingLife
                     colorPalette = gameModel.colorPalette
+                    initPlayers()
                 }
         }
     }
     
     var contentView: some View {
         Form {
-            playerCountView
             startingLifeView
+            
+            Section(header: Text("Players")) {
+                playerCountView
+                playerListView
+            }
+            
             Section(header: Text("Color")) {
-                colorPaletteView
                 colorPalette(for: colorPalette)
                     .frame(height: 100)
+                colorPaletteView
             }
         }
         .navigationTitle("Settings")
@@ -59,12 +67,23 @@ struct LifeTrackerSettingsView: View {
             }
             .pickerStyle(.menu)
             .onChange(of: playerCount) {
+                initPlayers()
                 gameModel.isSettingsChanged = true
             }
             .disabled(gameModel.isGameStarted)
         }, label: {
             Image(systemName: "person.3")
         })
+    }
+    
+    var playerListView: some View {
+        ForEach(players.enumerated(), id: \.offset) { index, player in
+            TextField("Name",
+                      text: $players[index].name)
+                .onChange(of: player.name) { _,_ in
+                    gameModel.isSettingsChanged = true
+                }
+        }
     }
     
     var startingLifeView: some View {
@@ -128,6 +147,40 @@ struct LifeTrackerSettingsView: View {
 }
 
 extension LifeTrackerSettingsView {
+    func initPlayers() {
+        let colors = colorsFrom(palette: colorPalette)
+        
+        players.removeAll()
+        for index in 0...playerCount-1 {
+            let player = LifeTrackerPlayerModel()
+            let origPlayer = index <= gameModel.playerCount-1
+                ? gameModel.players[index]
+                : nil
+            player.name = origPlayer?.name ?? "New Player"
+            player.life = startingLife
+            player.color = /*origPlayer?.color ?? */colors[index]
+            players.append(player)
+        }
+    }
+    
+    func save() {
+        gameModel.playerCount = playerCount
+        gameModel.startingLife = startingLife
+        gameModel.colorPalette = colorPalette
+        for (index, player) in players.enumerated() {
+            switch index {
+            case  0: gameModel.playerName1 = player.name
+            case  1: gameModel.playerName2 = player.name
+            case  2: gameModel.playerName3 = player.name
+            case  3: gameModel.playerName4 = player.name
+            case  4: gameModel.playerName5 = player.name
+            case  5: gameModel.playerName6 = player.name
+            default: ()
+            }
+        }
+        gameModel.initPlayers()
+    }
+    
     func colorsFrom(palette: String) -> [Color] {
         let palettes = gameModel.loadColorPalettes()
         var colors = [Color]()
@@ -152,13 +205,6 @@ extension LifeTrackerSettingsView {
                 }
             }
         }
-    }
-    
-    func save() {
-        gameModel.playerCount = playerCount
-        gameModel.startingLife = startingLife
-        gameModel.colorPalette = colorPalette
-        gameModel.initPlayers()
     }
 }
 

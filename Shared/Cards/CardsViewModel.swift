@@ -417,37 +417,24 @@ extension CardsViewModel {
     
     func color(rarity: String) -> Color {
         switch rarity {
-        case "Bonus":
-            Color(hex: "BF4427")
-        case "Common":
-            Color(hex: "1A1718")
-        case "Mythic":
-            Color(hex: "BF4427")
-        case "Rare":
-            Color(hex: "A58E4A")
-        case "Special":
-            Color(hex: "B22222")
-        case "Uncommon":
-            Color(hex: "707883")
-        default:
-            Color(hex: "000000")
+        case "Bonus": Color(hex: "BF4427")
+        case "Common": Color(hex: "1A1718")
+        case "Mythic": Color(hex: "BF4427")
+        case "Rare": Color(hex: "A58E4A")
+        case "Special": Color(hex: "B22222")
+        case "Uncommon": Color(hex: "707883")
+        default: Color(hex: "000000")
         }
     }
     
     func color(name: String) -> Color {
         switch name {
-        case "Black":
-            Color.black
-        case "Blue":
-            Color(hex: "305CDE") // Royal Blue
-        case "Green":
-            Color(hex: "2E6F40") // Forest Green
-        case "Red":
-            Color(hex: "CD1C18") // Chili Red
-        case "White":
-            Color(hex: "E8E4C9") // Dirty White
-        default:
-            Color(hex: "704214") // Sepia Brown
+        case "Black": Color.black
+        case "Blue": Color(hex: "305CDE") // Royal Blue
+        case "Green": Color(hex: "2E6F40") // Forest Green
+        case "Red": Color(hex: "CD1C18") // Chili Red
+        case "White": Color(hex: "E8E4C9") // Dirty White
+        default: Color(hex: "704214") // Sepia Brown
         }
     }
 }

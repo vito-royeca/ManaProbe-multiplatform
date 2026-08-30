@@ -17,9 +17,9 @@ enum FullscreenCardImageViewAction  {
     
     var iconName : String {
         switch self {
-        case .rotate: return "rectangle.landscape.rotate"
-        case .flip: return "rectangle.portrait.rotate"
-        case .transform: return "arrow.trianglehead.left.and.right.righttriangle.left.righttriangle.right"
+        case .rotate: "rectangle.landscape.rotate"
+        case .flip: "rectangle.portrait.rotate"
+        case .transform: "arrow.trianglehead.left.and.right.righttriangle.left.righttriangle.right"
         }
     }
 }

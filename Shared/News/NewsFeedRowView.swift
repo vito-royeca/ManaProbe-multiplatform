@@ -21,10 +21,8 @@ struct NewsFeedRowView: View {
     var body: some View {
         VStack(alignment: .leading) {
             switch style {
-            case .horizontal:
-                horizontalContentView
-            case .vertical:
-                verticalContentView
+            case .horizontal: horizontalContentView
+            case .vertical: verticalContentView
             }
             
             Spacer()

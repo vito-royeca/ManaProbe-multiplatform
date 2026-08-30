@@ -14,23 +14,6 @@ enum LifeTrackerPlayerViewRotation: Double {
     case upsideDown = 180
 }
 
-enum LifeTransitionColor {
-    case still
-    case decreasing
-    case increasing
-    
-    var value: Color {
-        switch self {
-        case .still:
-            Color.primary
-        case .decreasing:
-            Color.red
-        case .increasing:
-            Color.green
-        }
-    }
-}
-
 struct LifeTrackerPlayerView: View {
     let labelHeight = Double(60)
     @State
@@ -38,13 +21,12 @@ struct LifeTrackerPlayerView: View {
     @State
     var rotation: LifeTrackerPlayerViewRotation
     @State
-    private var lifeTransitionColor = LifeTransitionColor.still
-    @State
     private var isAnimating = false
     @State
     private var isSettingsPresented = false
         
-    init(viewModel: LifeTrackerPlayerModel, rotation: LifeTrackerPlayerViewRotation) {
+    init(viewModel: LifeTrackerPlayerModel,
+         rotation: LifeTrackerPlayerViewRotation) {
         self.viewModel = viewModel
         self.rotation = rotation
     }
@@ -169,11 +151,10 @@ struct LifeTrackerPlayerView: View {
     }
     
     var editButton: some View {
-        Image(systemName: "pencil")
+        Image(systemName: "pencil.line")
             .frame(width: 30.0, height: 30.0)
             .font(.title)
             .foregroundStyle(Color.gray)
-//            .glassEffect()
     }
     
     var minusButton: some View {
@@ -182,7 +163,6 @@ struct LifeTrackerPlayerView: View {
                 .frame(width: 30.0, height: 30.0)
                 .font(.title)
                 .foregroundStyle(Color.gray)
-//                .glassEffect()
                 .disabled(viewModel.isDead)
             Spacer()
         }
@@ -196,7 +176,6 @@ struct LifeTrackerPlayerView: View {
                 .frame(width: 30.0, height: 30.0)
                 .font(.title)
                 .foregroundStyle(Color.gray)
-//                .glassEffect()
                 .disabled(viewModel.isDead)
         }
         .padding()
@@ -232,22 +211,12 @@ extension LifeTrackerPlayerView {
     func decreaseStat() {
         withAnimation(.easeInOut(duration: 1.0)) {
             viewModel.life -= 1
-//            if lifeTransitionColor == .still {
-//                lifeTransitionColor = .decreasing
-//            } else {
-//                lifeTransitionColor = .still
-//            }
         }
     }
     
     func increaseStat() {
         withAnimation(.easeInOut(duration: 1.0)) {
             viewModel.life += 1
-//            if lifeTransitionColor == .still {
-//                lifeTransitionColor = .increasing
-//            } else {
-//                lifeTransitionColor = .still
-//            }
         }
     }
 }

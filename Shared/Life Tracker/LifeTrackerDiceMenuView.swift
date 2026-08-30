@@ -15,18 +15,12 @@ enum LifeTrackerDice: String, CaseIterable, Identifiable {
     var description: String {
         get {
             switch self {
-            case .d4:
-                "D4"
-            case .d6:
-                "D6"
-            case .d8:
-                "D8"
-            case .d10:
-                "D10"
-            case .d12:
-                "D12"
-            case .d20:
-                "D20"
+            case .d4: "D4"
+            case .d6: "D6"
+            case .d8: "D8"
+            case .d10: "D10"
+            case .d12: "D12"
+            case .d20: "D20"
             }
         }
     }
@@ -34,18 +28,12 @@ enum LifeTrackerDice: String, CaseIterable, Identifiable {
     var icon: Image {
         get {
             switch self {
-            case .d4:
-                Image("d4")
-            case .d6:
-                Image("d6")
-            case .d8:
-                Image("d8")
-            case .d10:
-                Image("d10")
-            case .d12:
-                Image("d12")
-            case .d20:
-                Image("d20")
+            case .d4: Image("d4")
+            case .d6: Image("d6")
+            case .d8: Image("d8")
+            case .d10: Image("d10")
+            case .d12: Image("d12")
+            case .d20: Image("d20")
             }
         }
     }
@@ -53,18 +41,12 @@ enum LifeTrackerDice: String, CaseIterable, Identifiable {
     var iconSolid: Image {
         get {
             switch self {
-            case .d4:
-                Image("d4 solid")
-            case .d6:
-                Image("d6 solid")
-            case .d8:
-                Image("d8 solid")
-            case .d10:
-                Image("d10 solid")
-            case .d12:
-                Image("d12 solid")
-            case .d20:
-                Image("d20 solid")
+            case .d4: Image("d4 solid")
+            case .d6: Image("d6 solid")
+            case .d8: Image("d8 solid")
+            case .d10: Image("d10 solid")
+            case .d12: Image("d12 solid")
+            case .d20: Image("d20 solid")
             }
         }
     }
