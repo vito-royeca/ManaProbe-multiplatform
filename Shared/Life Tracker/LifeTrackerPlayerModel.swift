@@ -19,7 +19,7 @@ class LifeTrackerPlayerModel: Identifiable {
     var energy = 0
     var name = ""
     var color: Color = .clear
-    var dice: DiceViewModel? = nil
+    var dices = [DiceViewModel]()
     
     private var _life: Int = 0
     var life: Int {

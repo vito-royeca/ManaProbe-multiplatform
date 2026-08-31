@@ -63,7 +63,7 @@ struct LifeTrackerPlayerView: View {
     
     var normalView: some View {
         GeometryReader { proxy in
-            ZStack() {
+            ZStack {
                 let size = computeSize(by: proxy)
                 
                 VStack(spacing: 0) {
@@ -72,7 +72,7 @@ struct LifeTrackerPlayerView: View {
                         Spacer()
                         editButton
                             .onTapGesture {
-                                if viewModel.dice == nil {
+                                if viewModel.dices.isEmpty {
                                     isSettingsPresented.toggle()
                                 }
                             }
@@ -88,7 +88,7 @@ struct LifeTrackerPlayerView: View {
                                    height: max(size.height - labelHeight, 0))
                             .background(Rectangle().fill(viewModel.color))
                             .onTapGesture {
-                                if viewModel.dice == nil {
+                                if viewModel.dices.isEmpty {
                                     decreaseStat()
                                 }
                             }
@@ -96,31 +96,36 @@ struct LifeTrackerPlayerView: View {
                             .frame(width: size.width / 2,
                                    height: max(size.height - labelHeight, 0))
                             .background(Rectangle().fill(viewModel.color))
-                            .disabled(viewModel.dice != nil)
                             .onTapGesture {
-                                if viewModel.dice == nil {
+                                if viewModel.dices.isEmpty {
                                     increaseStat()
                                 }
                             }
                     }
                 }
                 
-                if let dice = viewModel.dice {
-                    DiceView(model: dice,
-                             isTappable: true,
-                             color: viewModel.color,
-                             colorConvert: true)
-                        .tag(dice.id)
-                        .frame(width: size.width / 2,
-                               height: size.height / 2)
+                
+                lifeView
+                    .font(.system(size: size.height / 2))
+                    .frame(height: size.height)
+                    .opacity(!viewModel.dices.isEmpty ? 0 : 1)
+
+                HStack {
+                    let dWidth = size.width / 2
+                    let dHeight = size.height / 2
+                    ForEach(viewModel.dices, id: \.id) { dice in
+                        DiceView(model: dice,
+                                 isTappable: true,
+                                 color: viewModel.color,
+                                 colorConvert: true)
+                        .frame(width: dWidth,
+                               height: dHeight)
                         .onAppear {
                             dice.roll()
                         }
-                } else {
-                    lifeView
-                        .font(.system(size: size.height / 2))
-                        .frame(height: size.height)
+                    }
                 }
+                .opacity(viewModel.dices.isEmpty ? 0 : 1)
             }
         }
     }
@@ -136,7 +141,7 @@ struct LifeTrackerPlayerView: View {
                         Spacer()
                         editButton
                             .onTapGesture {
-                                if viewModel.dice == nil {
+                                if viewModel.dices.isEmpty {
                                     isSettingsPresented.toggle()
                                 }
                             }
@@ -152,7 +157,7 @@ struct LifeTrackerPlayerView: View {
                                    height: max(size.width - labelHeight, 0))
                             .background(Rectangle().fill(viewModel.color))
                             .onTapGesture {
-                                if viewModel.dice == nil {
+                                if viewModel.dices.isEmpty {
                                     decreaseStat()
                                 }
                             }
@@ -161,7 +166,7 @@ struct LifeTrackerPlayerView: View {
                                    height: max(size.width - labelHeight, 0))
                             .background(Rectangle().fill(viewModel.color))
                             .onTapGesture {
-                                if viewModel.dice == nil {
+                                if viewModel.dices.isEmpty {
                                     increaseStat()
                                 }
                             }
@@ -171,19 +176,25 @@ struct LifeTrackerPlayerView: View {
                 lifeView
                     .font(.system(size: size.height / 2))
                     .frame(height: size.height)
-                    .opacity(viewModel.dice != nil ? 0 : 1)
+                    .opacity(!viewModel.dices.isEmpty ? 0 : 1)
+
                 
-                if let dice = viewModel.dice {
-                    DiceView(model: dice,
-                             isTappable: true,
-                             color: viewModel.color,
-                             colorConvert: true)
-                    .frame(width: size.height / 2,
-                           height: size.width)
-                    .onAppear {
-                        dice.roll()
+                HStack {
+                    let dWidth = (size.height / 2)
+                    let dHeight = size.height / 2
+                    ForEach(viewModel.dices, id: \.id) { dice in
+                        DiceView(model: dice,
+                                 isTappable: true,
+                                 color: viewModel.color,
+                                 colorConvert: true)
+                        .frame(width: dWidth,
+                               height: dHeight)
+                        .onAppear {
+                            dice.roll()
+                        }
                     }
                 }
+                .opacity(viewModel.dices.isEmpty ? 0 : 1)
             }
         }
     }
@@ -200,7 +211,7 @@ struct LifeTrackerPlayerView: View {
             .frame(width: 30.0, height: 30.0)
             .font(.title)
             .foregroundStyle(Color.gray)
-            .opacity(viewModel.dice != nil
+            .opacity(!viewModel.dices.isEmpty
                      ? 0
                      : 1)
     }
@@ -211,7 +222,7 @@ struct LifeTrackerPlayerView: View {
                 .frame(width: 30.0, height: 30.0)
                 .font(.title)
                 .foregroundStyle(Color.gray)
-                .opacity(viewModel.dice != nil
+                .opacity(!viewModel.dices.isEmpty
                          ? 0
                          : 1)
             Spacer()
@@ -226,7 +237,7 @@ struct LifeTrackerPlayerView: View {
                 .frame(width: 30.0, height: 30.0)
                 .font(.title)
                 .foregroundStyle(Color.gray)
-                .opacity(viewModel.dice != nil
+                .opacity(!viewModel.dices.isEmpty
                          ? 0
                          : 1)
         }
@@ -280,26 +291,48 @@ extension LifeTrackerPlayerView {
                                         life: 40)
     let model3 = LifeTrackerPlayerModel(name: "Player 3",
                                         life: 40)
+    let model4 = LifeTrackerPlayerModel(name: "Player 4",
+                                        life: 40)
+    let model5 = LifeTrackerPlayerModel(name: "Player 5",
+                                        life: 40)
+    let model6 = LifeTrackerPlayerModel(name: "Player 6",
+                                        life: 40)
     
-    
-    VStack(spacing: 1) {
-        HStack(spacing: 1) {
+    HStack(spacing: 1) {
+        VStack(spacing: 1) {
             LifeTrackerPlayerView(viewModel: model1,
                                   rotation: .left)
                 .onAppear {
-                    model1.dice = DiceViewModel(dice: LifeTrackerDice.d4)
+                    model1.dices.append(DiceViewModel(dice: LifeTrackerDice.d20))
                 }
             LifeTrackerPlayerView(viewModel: model2,
-                                  rotation: .right)
-//                .onAppear {
-//                    model2.dice = DiceViewModel(dice: LifeTrackerDice.d4)
-//                }
+                                  rotation: .left)
+                .onAppear {
+                    model2.dices.append(DiceViewModel(dice: LifeTrackerDice.d20))
+                }
+            LifeTrackerPlayerView(viewModel: model3,
+                                  rotation: .left)
+                .onAppear {
+                    model3.dices.append(DiceViewModel(dice: LifeTrackerDice.d20))
+                }
         }
-        LifeTrackerPlayerView(viewModel: model3,
-                              rotation: .none)
-            .onAppear {
-                model3.dice = DiceViewModel(dice: LifeTrackerDice.d4)
-            }
+        VStack(spacing: 1) {
+            LifeTrackerPlayerView(viewModel: model6,
+                                  rotation: .right)
+                .onAppear {
+                    model6.dices.append(DiceViewModel(dice: LifeTrackerDice.d20))
+                }
+            LifeTrackerPlayerView(viewModel: model5,
+                                  rotation: .right)
+                .onAppear {
+                    model5.dices.append(DiceViewModel(dice: LifeTrackerDice.d20))
+                }
+            LifeTrackerPlayerView(viewModel: model4,
+                                  rotation: .right)
+                .onAppear {
+                    model4.dices.append(DiceViewModel(dice: LifeTrackerDice.d20))
+                }
+        }
     }
 }
 

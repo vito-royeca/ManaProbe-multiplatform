@@ -271,13 +271,14 @@ struct LifeTrackerMainView: View {
 extension LifeTrackerMainView {
     func onDiceClear() {
         for player in gameModel.players {
-            player.dice = nil
+            player.dices.removeAll()
         }
     }
 
     func onDiceRoll(dice: LifeTrackerDice) {
         for player in gameModel.players {
-            player.dice = DiceViewModel(dice: dice)
+            let dice = DiceViewModel(dice: dice)
+            player.dices.append(dice)
         }
     }
 }

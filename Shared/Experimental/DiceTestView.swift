@@ -7,9 +7,15 @@
 
 import SwiftUI
 
+@Observable
+class DiceTestViewModel: Identifiable {
+    let id = UUID().uuidString
+    var diceModels = [DiceViewModel]()
+}
+
 struct DiceTestView: View {
     @State
-    var diceModel:DiceViewModel? = nil
+    var viewModel = DiceTestViewModel()
 
     var body: some View {
         VStack(alignment: .center) {
@@ -21,19 +27,18 @@ struct DiceTestView: View {
 
             Spacer()
             HStack {
-                if let diceModel {
-                    DiceView(
-                        model: diceModel,
-                        isTappable: true,
-                        color: .cyan)
-                    .onAppear {
-                        diceModel.roll()
+                ForEach(viewModel.diceModels, id: \.id) { diceModel in
+                    VStack {
+                        DiceView(
+                            model: diceModel,
+                            isTappable: true,
+                            color: .cyan)
+                            .onAppear {
+                                diceModel.roll()
+                            }
                     }
-                } else {
-                    EmptyView()
                 }
             }
-            .tag(diceModel?.id ?? "\(Date())")
         }
         .padding()
     }
@@ -41,11 +46,11 @@ struct DiceTestView: View {
 
 extension DiceTestView {
     func onDiceClear() {
-        diceModel = nil
+        viewModel.diceModels.removeAll()
     }
 
     func onDiceRoll(dice: LifeTrackerDice) {
-        diceModel = DiceViewModel(dice: dice)
+        viewModel.diceModels.append(DiceViewModel(dice: dice))
     }
 }
 
