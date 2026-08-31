@@ -72,7 +72,9 @@ struct LifeTrackerPlayerView: View {
                         Spacer()
                         editButton
                             .onTapGesture {
-                                isSettingsPresented.toggle()
+                                if viewModel.dice == nil {
+                                    isSettingsPresented.toggle()
+                                }
                             }
                     }
                     .padding(1)
@@ -86,14 +88,19 @@ struct LifeTrackerPlayerView: View {
                                    height: max(size.height - labelHeight, 0))
                             .background(Rectangle().fill(viewModel.color))
                             .onTapGesture {
-                                decreaseStat()
+                                if viewModel.dice == nil {
+                                    decreaseStat()
+                                }
                             }
                         plusButton
                             .frame(width: size.width / 2,
                                    height: max(size.height - labelHeight, 0))
                             .background(Rectangle().fill(viewModel.color))
+                            .disabled(viewModel.dice != nil)
                             .onTapGesture {
-                                increaseStat()
+                                if viewModel.dice == nil {
+                                    increaseStat()
+                                }
                             }
                     }
                 }
@@ -129,7 +136,9 @@ struct LifeTrackerPlayerView: View {
                         Spacer()
                         editButton
                             .onTapGesture {
-                                isSettingsPresented.toggle()
+                                if viewModel.dice == nil {
+                                    isSettingsPresented.toggle()
+                                }
                             }
                     }
                     .padding(5)
@@ -143,35 +152,37 @@ struct LifeTrackerPlayerView: View {
                                    height: max(size.width - labelHeight, 0))
                             .background(Rectangle().fill(viewModel.color))
                             .onTapGesture {
-                                decreaseStat()
+                                if viewModel.dice == nil {
+                                    decreaseStat()
+                                }
                             }
                         plusButton
                             .frame(width: size.height / 2,
                                    height: max(size.width - labelHeight, 0))
                             .background(Rectangle().fill(viewModel.color))
                             .onTapGesture {
-                                increaseStat()
+                                if viewModel.dice == nil {
+                                    increaseStat()
+                                }
                             }
                     }
                 }
                 
+                lifeView
+                    .font(.system(size: size.height / 2))
+                    .frame(height: size.height)
+                    .opacity(viewModel.dice != nil ? 0 : 1)
+                
                 if let dice = viewModel.dice {
-                    HStack {
-                        DiceView(model: dice,
-                                 isTappable: true,
-                                 color: viewModel.color,
-                                 colorConvert: true)
-                        .tag(dice.id)
-                        .frame(width: size.height / 2,
-                               height: size.height)
-                        .onAppear {
-                            dice.roll()
-                        }
+                    DiceView(model: dice,
+                             isTappable: true,
+                             color: viewModel.color,
+                             colorConvert: true)
+                    .frame(width: size.height / 2,
+                           height: size.width)
+                    .onAppear {
+                        dice.roll()
                     }
-                } else {
-                    lifeView
-                        .font(.system(size: size.height / 2))
-                        .frame(height: size.height)
                 }
             }
         }
@@ -189,6 +200,9 @@ struct LifeTrackerPlayerView: View {
             .frame(width: 30.0, height: 30.0)
             .font(.title)
             .foregroundStyle(Color.gray)
+            .opacity(viewModel.dice != nil
+                     ? 0
+                     : 1)
     }
     
     var minusButton: some View {
@@ -197,7 +211,9 @@ struct LifeTrackerPlayerView: View {
                 .frame(width: 30.0, height: 30.0)
                 .font(.title)
                 .foregroundStyle(Color.gray)
-                .disabled(viewModel.isDead)
+                .opacity(viewModel.dice != nil
+                         ? 0
+                         : 1)
             Spacer()
         }
         .padding()
@@ -210,7 +226,9 @@ struct LifeTrackerPlayerView: View {
                 .frame(width: 30.0, height: 30.0)
                 .font(.title)
                 .foregroundStyle(Color.gray)
-                .disabled(viewModel.isDead)
+                .opacity(viewModel.dice != nil
+                         ? 0
+                         : 1)
         }
         .padding()
     }
@@ -256,30 +274,32 @@ extension LifeTrackerPlayerView {
 }
 
 #Preview {
-    @Previewable @State
-    var count = 2
+    let model1 = LifeTrackerPlayerModel(name: "Player 1",
+                                        life: 40)
+    let model2 = LifeTrackerPlayerModel(name: "Player 2",
+                                        life: 40)
+    let model3 = LifeTrackerPlayerModel(name: "Player 3",
+                                        life: 40)
     
-    NavigationStack {
-        VStack(spacing: 0) {
-            Picker("Players", selection: $count) {
-                ForEach((1...6), id: \.self) {
-                    Text("\($0)")
+    
+    VStack(spacing: 1) {
+        HStack(spacing: 1) {
+            LifeTrackerPlayerView(viewModel: model1,
+                                  rotation: .left)
+                .onAppear {
+                    model1.dice = DiceViewModel(dice: LifeTrackerDice.d4)
                 }
-            }
-            .pickerStyle(.segmented)
-            .padding(.bottom, 10)
-            
-            Group {
-                ForEach(1...count, id: \.self) { index in
-                    let model = LifeTrackerPlayerModel(name: "Player \(index)",
-                                                       life: 40)
-                    LifeTrackerPlayerView(viewModel: model,
-                                          rotation: .none)
-                    .border(Color.black, width: 1)
-                }
-            }
-            .padding(1)
+            LifeTrackerPlayerView(viewModel: model2,
+                                  rotation: .right)
+//                .onAppear {
+//                    model2.dice = DiceViewModel(dice: LifeTrackerDice.d4)
+//                }
         }
+        LifeTrackerPlayerView(viewModel: model3,
+                              rotation: .none)
+            .onAppear {
+                model3.dice = DiceViewModel(dice: LifeTrackerDice.d4)
+            }
     }
 }
 

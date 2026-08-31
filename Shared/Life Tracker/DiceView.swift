@@ -40,15 +40,15 @@ struct DiceView: View {
                                  : 1)
                 circleView
                     .frame(width: width * 0.4, height: height * 0.4)
-                    
                     .overlay {
                         if model.isAnimating {
                             EmptyView()
                         } else {
                             Text("\(model.value)")
-                                .foregroundColor(.white)
+                                .foregroundColor(color)
+                                .colorInvert()
                                 .font(.system(size: height / 4))
-                                .bold()
+                                .fontWeight(.bold)
                         }
                     }
             }
@@ -73,16 +73,18 @@ struct DiceView: View {
     }
     
     var circleView: some View {
-        Group {
-            if colorConvert {
-                Circle()
-                    .foregroundColor(color)
-                    .colorInvert()
-            } else {
-                Circle()
-                    .foregroundColor(color)
-            }
-        }
+//        Group {
+//            if colorConvert {
+//                Circle()
+//                    .foregroundColor(color)
+//                    .colorInvert()
+//            } else {
+//                Circle()
+//                    .foregroundColor(color)
+//            }
+//        }
+        Circle()
+            .foregroundColor(Color.white)
     }
 }
 

@@ -45,6 +45,8 @@ extension DiceTestView {
     }
 
     func onDiceRoll(dice: LifeTrackerDice) {
+        diceModels.removeAll()
+
         for _ in 0...Int.random(in: 1...2) {
             let diceModel = DiceViewModel(dice: dice)
             diceModels.append(diceModel)

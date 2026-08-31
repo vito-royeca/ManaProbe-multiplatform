@@ -68,9 +68,11 @@ class LifeTrackerPlayerModel: Identifiable, Equatable, Hashable {
     }
     
     init(name:String = "",
-         life: Int = 0) {
+         life: Int = 0,
+         color: Color = .cyan) {
         self.name = name
         self.life = life
+        self.color = color
     }
 }
 
