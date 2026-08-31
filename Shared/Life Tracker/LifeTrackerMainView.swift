@@ -30,7 +30,7 @@ struct LifeTrackerMainView: View {
                 stopButton
                 timerView
                 Spacer()
-                LifeTrackerDiceMenuView()
+                diceMenuView
                 settingsButton
                 closeButton
             }
@@ -97,6 +97,14 @@ struct LifeTrackerMainView: View {
             .font(.largeTitle)
             .foregroundStyle(Color.white)
             .monospacedDigit()
+    }
+
+    var diceMenuView: some View {
+        LifeTrackerDiceMenuView {
+            onDiceClear()
+        } onRoll: { dice in
+            onDiceRoll(dice: dice)
+        }
     }
 
     var playersView: some View {
@@ -256,6 +264,20 @@ struct LifeTrackerMainView: View {
                     }
                 }
             }
+        }
+    }
+}
+
+extension LifeTrackerMainView {
+    func onDiceClear() {
+        for player in gameModel.players {
+            player.dice = nil
+        }
+    }
+
+    func onDiceRoll(dice: LifeTrackerDice) {
+        for player in gameModel.players {
+            player.dice = DiceViewModel(dice: dice)
         }
     }
 }

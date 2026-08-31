@@ -15,21 +15,27 @@ enum LifeTrackerPlayerViewRotation: Double {
 }
 
 struct LifeTrackerPlayerView: View {
+    // MARK: - Constants
     let labelHeight = Double(60)
+    
+    // MARK: - Variables
+
     @State
     var viewModel: LifeTrackerPlayerModel
     @State
     var rotation: LifeTrackerPlayerViewRotation
     @State
-    private var isAnimating = false
-    @State
     private var isSettingsPresented = false
-        
+
+    // MARK: - Initializers
+    
     init(viewModel: LifeTrackerPlayerModel,
          rotation: LifeTrackerPlayerViewRotation) {
         self.viewModel = viewModel
         self.rotation = rotation
     }
+    
+    // MARK: - UI Variables
     
     var body: some View {
         switch rotation {
@@ -77,14 +83,14 @@ struct LifeTrackerPlayerView: View {
                     HStack(spacing: 0) {
                         minusButton
                             .frame(width: size.width / 2,
-                                   height: size.height - labelHeight)
+                                   height: max(size.height - labelHeight, 0))
                             .background(Rectangle().fill(viewModel.color))
                             .onTapGesture {
                                 decreaseStat()
                             }
                         plusButton
                             .frame(width: size.width / 2,
-                                   height: size.height - labelHeight)
+                                   height: max(size.height - labelHeight, 0))
                             .background(Rectangle().fill(viewModel.color))
                             .onTapGesture {
                                 increaseStat()
@@ -92,9 +98,22 @@ struct LifeTrackerPlayerView: View {
                     }
                 }
                 
-                lifeView
-                    .font(.system(size: size.height / 2))
-                    .frame(height: size.height)
+                if let dice = viewModel.dice {
+                    DiceView(model: dice,
+                             isTappable: true,
+                             color: viewModel.color,
+                             colorConvert: true)
+                        .tag(dice.id)
+                        .frame(width: size.width / 2,
+                               height: size.height / 2)
+                        .onAppear {
+                            dice.roll()
+                        }
+                } else {
+                    lifeView
+                        .font(.system(size: size.height / 2))
+                        .frame(height: size.height)
+                }
             }
         }
     }
@@ -121,14 +140,14 @@ struct LifeTrackerPlayerView: View {
                     HStack(spacing: 0) {
                         minusButton
                             .frame(width: size.height / 2,
-                                   height: size.width - labelHeight)
+                                   height: max(size.width - labelHeight, 0))
                             .background(Rectangle().fill(viewModel.color))
                             .onTapGesture {
                                 decreaseStat()
                             }
                         plusButton
                             .frame(width: size.height / 2,
-                                   height: size.width - labelHeight)
+                                   height: max(size.width - labelHeight, 0))
                             .background(Rectangle().fill(viewModel.color))
                             .onTapGesture {
                                 increaseStat()
@@ -136,9 +155,24 @@ struct LifeTrackerPlayerView: View {
                     }
                 }
                 
-                lifeView
-                    .font(.system(size: size.height / 2))
-                    .frame(height: size.height)
+                if let dice = viewModel.dice {
+                    HStack {
+                        DiceView(model: dice,
+                                 isTappable: true,
+                                 color: viewModel.color,
+                                 colorConvert: true)
+                        .tag(dice.id)
+                        .frame(width: size.height / 2,
+                               height: size.height)
+                        .onAppear {
+                            dice.roll()
+                        }
+                    }
+                } else {
+                    lifeView
+                        .font(.system(size: size.height / 2))
+                        .frame(height: size.height)
+                }
             }
         }
     }
@@ -248,3 +282,4 @@ extension LifeTrackerPlayerView {
         }
     }
 }
+

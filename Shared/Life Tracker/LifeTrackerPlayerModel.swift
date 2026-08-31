@@ -26,6 +26,7 @@ class LifeTrackerPlayerModel: Identifiable, Equatable, Hashable {
     var energy = 0
     var name = ""
     var color: Color = .clear
+    var dice: DiceViewModel? = nil
     
     private var _life: Int = 0
     var life: Int {

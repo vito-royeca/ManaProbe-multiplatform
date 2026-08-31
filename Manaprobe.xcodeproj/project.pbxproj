@@ -128,6 +128,18 @@
 		76756D0630437117000C8279 /* TimerTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76756D0530437117000C8279 /* TimerTestView.swift */; };
 		76756D0730437117000C8279 /* TimerTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76756D0530437117000C8279 /* TimerTestView.swift */; };
 		76756D0830437117000C8279 /* TimerTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76756D0530437117000C8279 /* TimerTestView.swift */; };
+		767B1DAB3044D9F9001C0EE9 /* DiceTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767B1DAA3044D9F9001C0EE9 /* DiceTestView.swift */; };
+		767B1DAC3044D9F9001C0EE9 /* DiceTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767B1DAA3044D9F9001C0EE9 /* DiceTestView.swift */; };
+		767B1DAD3044D9F9001C0EE9 /* DiceTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767B1DAA3044D9F9001C0EE9 /* DiceTestView.swift */; };
+		767B1DAF3044DDCC001C0EE9 /* LifeTrackerDice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767B1DAE3044DDCC001C0EE9 /* LifeTrackerDice.swift */; };
+		767B1DB03044DDCC001C0EE9 /* LifeTrackerDice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767B1DAE3044DDCC001C0EE9 /* LifeTrackerDice.swift */; };
+		767B1DB13044DDCC001C0EE9 /* LifeTrackerDice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767B1DAE3044DDCC001C0EE9 /* LifeTrackerDice.swift */; };
+		767B1DB33044F4FB001C0EE9 /* DiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767B1DB23044F4FB001C0EE9 /* DiceViewModel.swift */; };
+		767B1DB43044F4FB001C0EE9 /* DiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767B1DB23044F4FB001C0EE9 /* DiceViewModel.swift */; };
+		767B1DB53044F4FB001C0EE9 /* DiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767B1DB23044F4FB001C0EE9 /* DiceViewModel.swift */; };
+		767B1DB73044F525001C0EE9 /* DiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767B1DB63044F525001C0EE9 /* DiceView.swift */; };
+		767B1DB83044F525001C0EE9 /* DiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767B1DB63044F525001C0EE9 /* DiceView.swift */; };
+		767B1DB93044F525001C0EE9 /* DiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767B1DB63044F525001C0EE9 /* DiceView.swift */; };
 		7695BB21301AB69A00FCA122 /* ExpandableOutlineGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB20301AB69100FCA122 /* ExpandableOutlineGroup.swift */; };
 		7695BB22301AB69A00FCA122 /* ExpandableOutlineGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB20301AB69100FCA122 /* ExpandableOutlineGroup.swift */; };
 		7695BB2F301B9EBF00FCA122 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB2E301B9EBF00FCA122 /* SearchView.swift */; };
@@ -325,6 +337,10 @@
 		7651F94C304270C500D83ED8 /* LifeTrackerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerSettingsView.swift; sourceTree = "<group>"; };
 		76756D0130433D9B000C8279 /* LifeTrackerDiceMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerDiceMenuView.swift; sourceTree = "<group>"; };
 		76756D0530437117000C8279 /* TimerTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTestView.swift; sourceTree = "<group>"; };
+		767B1DAA3044D9F9001C0EE9 /* DiceTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceTestView.swift; sourceTree = "<group>"; };
+		767B1DAE3044DDCC001C0EE9 /* LifeTrackerDice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerDice.swift; sourceTree = "<group>"; };
+		767B1DB23044F4FB001C0EE9 /* DiceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceViewModel.swift; sourceTree = "<group>"; };
+		767B1DB63044F525001C0EE9 /* DiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceView.swift; sourceTree = "<group>"; };
 		767DD79C2FA286A200911032 /* CardGridItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGridItemView.swift; sourceTree = "<group>"; };
 		767DD7A12FA2893700911032 /* CardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsViewModel.swift; sourceTree = "<group>"; };
 		767DD7A62FA294C700911032 /* CardsSorterMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsSorterMenuView.swift; sourceTree = "<group>"; };
@@ -526,6 +542,7 @@
 				7651F94430421F0800D83ED8 /* AnimatingTextTestView.swift */,
 				760B05082F8FF92F003DB025 /* TimeDisplayTestView.swift */,
 				76756D0530437117000C8279 /* TimerTestView.swift */,
+				767B1DAA3044D9F9001C0EE9 /* DiceTestView.swift */,
 			);
 			path = Experimental;
 			sourceTree = "<group>";
@@ -547,6 +564,9 @@
 			isa = PBXGroup;
 			children = (
 				7651F9483042520100D83ED8 /* 6colors.plist */,
+				767B1DB63044F525001C0EE9 /* DiceView.swift */,
+				767B1DB23044F4FB001C0EE9 /* DiceViewModel.swift */,
+				767B1DAE3044DDCC001C0EE9 /* LifeTrackerDice.swift */,
 				76756D0130433D9B000C8279 /* LifeTrackerDiceMenuView.swift */,
 				76502158303C7FAE0015B8C9 /* LifeTrackerGameModel.swift */,
 				7648053E303C17C5006794FF /* LifeTrackerMainView.swift */,
@@ -998,6 +1018,7 @@
 				760472752FB96B5500B75E4F /* CardSetInfoView.swift in Sources */,
 				760472762FB96B5500B75E4F /* CardCommonInfoView.swift in Sources */,
 				760472772FB96B5500B75E4F /* CardsView.swift in Sources */,
+				767B1DB33044F4FB001C0EE9 /* DiceViewModel.swift in Sources */,
 				760472782FB96B5500B75E4F /* CardListItemView.swift in Sources */,
 				760472792FB96B5500B75E4F /* CardsSorterMenuView.swift in Sources */,
 				7604727A2FB96B5500B75E4F /* CardsChartsView.swift in Sources */,
@@ -1029,6 +1050,7 @@
 				7604728F2FB96B5500B75E4F /* AccountToolbar.swift in Sources */,
 				760472902FB96B5500B75E4F /* CollectionsRowView.swift in Sources */,
 				7648053F303C17C5006794FF /* LifeTrackerMainView.swift in Sources */,
+				767B1DAB3044D9F9001C0EE9 /* DiceTestView.swift in Sources */,
 				760472912FB96B5500B75E4F /* FavoritesViewModel.swift in Sources */,
 				764E45F2303773ED00BA2FC1 /* RulesView.swift in Sources */,
 				760472922FB96B5500B75E4F /* FirebaseModels.swift in Sources */,
@@ -1042,6 +1064,7 @@
 				760472962FB96B5500B75E4F /* SetsView.swift in Sources */,
 				47F6E0C12FD1F32C00F71B4A /* CardViewActionToolbar.swift in Sources */,
 				760472972FB96B5500B75E4F /* AsyncPreviewView.swift in Sources */,
+				767B1DB83044F525001C0EE9 /* DiceView.swift in Sources */,
 				760472982FB96B5500B75E4F /* CollectionsViewModel.swift in Sources */,
 				473C581B2FD06A6B00219522 /* CardsNavigatorDisplayDelegate.swift in Sources */,
 				76502162303C918D0015B8C9 /* SizeCalculator.swift in Sources */,
@@ -1071,6 +1094,7 @@
 				7695BB35301E84A300FCA122 /* SearchSuggestionsView.swift in Sources */,
 				760472AC2FB96B5500B75E4F /* Tabs.swift in Sources */,
 				760472AD2FB96B5500B75E4F /* ContentView.swift in Sources */,
+				767B1DB13044DDCC001C0EE9 /* LifeTrackerDice.swift in Sources */,
 				760472AE2FB96B5500B75E4F /* LabeledContentStyle+Styles.swift in Sources */,
 				76502157303C7F910015B8C9 /* LifeTrackerPlayerView.swift in Sources */,
 				7650215B303C7FAE0015B8C9 /* LifeTrackerGameModel.swift in Sources */,
@@ -1103,6 +1127,7 @@
 				76CDD9C92FB9698500B7A47E /* CardsView.swift in Sources */,
 				76CDD9CA2FB9698500B7A47E /* CardListItemView.swift in Sources */,
 				76CDD9CB2FB9698500B7A47E /* CardAllPrintingsView.swift in Sources */,
+				767B1DAF3044DDCC001C0EE9 /* LifeTrackerDice.swift in Sources */,
 				76CDD9CC2FB9698500B7A47E /* NewsViewModel.swift in Sources */,
 				7695BB36301E84A300FCA122 /* SearchSuggestionsView.swift in Sources */,
 				76CDD9CD2FB9698500B7A47E /* NewsFeedRowView.swift in Sources */,
@@ -1145,6 +1170,7 @@
 				76CDD9EB2FB9698500B7A47E /* Tabs.swift in Sources */,
 				4739CAAA2FC8A43200B787F0 /* CardsNavigatorDelegate.swift in Sources */,
 				76CDD9EC2FB9698500B7A47E /* NewsMap.swift in Sources */,
+				767B1DB53044F4FB001C0EE9 /* DiceViewModel.swift in Sources */,
 				76CDD9ED2FB9698500B7A47E /* CardPrintingsView.swift in Sources */,
 				76CDD9EE2FB9698500B7A47E /* CardLanguagesView.swift in Sources */,
 				76CDD9EF2FB9698500B7A47E /* CardOtherInfoView.swift in Sources */,
@@ -1152,6 +1178,7 @@
 				76CDD9F02FB9698500B7A47E /* SetsViewModel.swift in Sources */,
 				7651F94530421F0800D83ED8 /* AnimatingTextTestView.swift in Sources */,
 				76CDD9F12FB9698500B7A47E /* CreateCollectionView.swift in Sources */,
+				767B1DAD3044D9F9001C0EE9 /* DiceTestView.swift in Sources */,
 				76CDD9F22FB9698500B7A47E /* NewsView.swift in Sources */,
 				76CDD9F32FB9698500B7A47E /* FavoritesViewModel.swift in Sources */,
 				76CDD9F42FB9698500B7A47E /* EmptyResultView.swift in Sources */,
@@ -1164,6 +1191,7 @@
 				76756D0230433D9B000C8279 /* LifeTrackerDiceMenuView.swift in Sources */,
 				76CDD9F82FB9698500B7A47E /* ContentView.swift in Sources */,
 				76CDD9F92FB9698500B7A47E /* CardsSorterMenuView.swift in Sources */,
+				767B1DB73044F525001C0EE9 /* DiceView.swift in Sources */,
 				7695BB21301AB69A00FCA122 /* ExpandableOutlineGroup.swift in Sources */,
 				76CDD9FA2FB9698500B7A47E /* CardsChartsView.swift in Sources */,
 				76CDD9FB2FB9698500B7A47E /* AuthModel.swift in Sources */,
@@ -1183,6 +1211,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				767B1DAC3044D9F9001C0EE9 /* DiceTestView.swift in Sources */,
+				767B1DB93044F525001C0EE9 /* DiceView.swift in Sources */,
 				8B41B7502812144E00AECF85 /* Tests_iOSLaunchTests.swift in Sources */,
 				7650215E303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift in Sources */,
 				764E45F4303773ED00BA2FC1 /* RulesView.swift in Sources */,
@@ -1194,7 +1224,9 @@
 				76756D0430433D9B000C8279 /* LifeTrackerDiceMenuView.swift in Sources */,
 				764E45F63037749700BA2FC1 /* RulesViewModel.swift in Sources */,
 				76756D0630437117000C8279 /* TimerTestView.swift in Sources */,
+				767B1DB43044F4FB001C0EE9 /* DiceViewModel.swift in Sources */,
 				76502156303C7F910015B8C9 /* LifeTrackerPlayerView.swift in Sources */,
+				767B1DB03044DDCC001C0EE9 /* LifeTrackerDice.swift in Sources */,
 				7651F94D304270C500D83ED8 /* LifeTrackerSettingsView.swift in Sources */,
 				8B6CAF6C284043DC0073E8FE /* SnapshotHelper.swift in Sources */,
 				76480541303C17C5006794FF /* LifeTrackerMainView.swift in Sources */,
