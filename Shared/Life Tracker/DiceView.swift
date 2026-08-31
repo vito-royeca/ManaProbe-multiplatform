@@ -73,16 +73,6 @@ struct DiceView: View {
     }
     
     var circleView: some View {
-//        Group {
-//            if colorConvert {
-//                Circle()
-//                    .foregroundColor(color)
-//                    .colorInvert()
-//            } else {
-//                Circle()
-//                    .foregroundColor(color)
-//            }
-//        }
         Circle()
             .foregroundColor(Color.white)
     }

@@ -9,8 +9,7 @@ import SwiftUI
 
 struct DiceTestView: View {
     @State
-    var diceModels = [DiceViewModel]()
-    
+    var diceModel:DiceViewModel? = nil
 
     var body: some View {
         VStack(alignment: .center) {
@@ -22,18 +21,19 @@ struct DiceTestView: View {
 
             Spacer()
             HStack {
-                ForEach(diceModels.enumerated(), id: \.offset) { _, model in
+                if let diceModel {
                     DiceView(
-                        model: model,
+                        model: diceModel,
                         isTappable: true,
                         color: .cyan)
-                    .tag(model.id)
                     .onAppear {
-                        model.roll()
+                        diceModel.roll()
                     }
+                } else {
+                    EmptyView()
                 }
             }
-            Spacer()
+            .tag(diceModel?.id ?? "\(Date())")
         }
         .padding()
     }
@@ -41,16 +41,11 @@ struct DiceTestView: View {
 
 extension DiceTestView {
     func onDiceClear() {
-        diceModels.removeAll()
+        diceModel = nil
     }
 
     func onDiceRoll(dice: LifeTrackerDice) {
-        diceModels.removeAll()
-
-        for _ in 0...Int.random(in: 1...2) {
-            let diceModel = DiceViewModel(dice: dice)
-            diceModels.append(diceModel)
-        }
+        diceModel = DiceViewModel(dice: dice)
     }
 }
 

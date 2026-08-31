@@ -8,16 +8,9 @@
 import SwiftUI
 
 @Observable
-class LifeTrackerPlayerModel: Identifiable, Equatable, Hashable {
-    static func == (lhs: LifeTrackerPlayerModel, rhs: LifeTrackerPlayerModel) -> Bool {
-        lhs.id == rhs.id
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-    
+class LifeTrackerPlayerModel: Identifiable {
     let id = UUID().uuidString
+
     let minLife = 0
     let maxPoison = 10
     let maxCommanderDamage = 21
@@ -76,3 +69,19 @@ class LifeTrackerPlayerModel: Identifiable, Equatable, Hashable {
     }
 }
 
+// MARK: - Equatable
+
+extension LifeTrackerPlayerModel: Equatable {
+    static func == (lhs: LifeTrackerPlayerModel, rhs: LifeTrackerPlayerModel) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
+
+// MARK: - Hashable
+
+extension LifeTrackerPlayerModel: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}

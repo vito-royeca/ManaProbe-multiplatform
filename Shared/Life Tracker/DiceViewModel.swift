@@ -8,15 +8,7 @@
 import SwiftUI
 
 @Observable
-class DiceViewModel: Identifiable, Equatable, Hashable {
-    static func == (lhs: DiceViewModel, rhs: DiceViewModel) -> Bool {
-        lhs.id == rhs.id
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-    
+class DiceViewModel: Identifiable {
     let id = UUID().uuidString
     
     var isAnimating = false
@@ -41,3 +33,20 @@ class DiceViewModel: Identifiable, Equatable, Hashable {
         }
     }
 }
+
+// MARK: - Equatable
+
+extension DiceViewModel: Equatable{
+    static func == (lhs: DiceViewModel, rhs: DiceViewModel) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
+// MARK: - Hashable
+
+extension DiceViewModel: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
+
