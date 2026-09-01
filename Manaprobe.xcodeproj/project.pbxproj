@@ -85,6 +85,9 @@
 		760E7E5C2FF22724003A3F49 /* CardRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760E7E5B2FF2271C003A3F49 /* CardRoute.swift */; };
 		760E7E5D2FF22724003A3F49 /* CardRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760E7E5B2FF2271C003A3F49 /* CardRoute.swift */; };
 		76102D052F9D986C00A43DFA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 76102D032F9D986C00A43DFA /* GoogleService-Info.plist */; };
+		7635A4353046472800459B2E /* LifeTrackerCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7635A4343046472800459B2E /* LifeTrackerCounterView.swift */; };
+		7635A4363046472800459B2E /* LifeTrackerCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7635A4343046472800459B2E /* LifeTrackerCounterView.swift */; };
+		7635A4373046472800459B2E /* LifeTrackerCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7635A4343046472800459B2E /* LifeTrackerCounterView.swift */; };
 		7648053F303C17C5006794FF /* LifeTrackerMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7648053E303C17C5006794FF /* LifeTrackerMainView.swift */; };
 		76480540303C17C5006794FF /* LifeTrackerMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7648053E303C17C5006794FF /* LifeTrackerMainView.swift */; };
 		76480541303C17C5006794FF /* LifeTrackerMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7648053E303C17C5006794FF /* LifeTrackerMainView.swift */; };
@@ -319,6 +322,7 @@
 		761CA9A92FA84ADF00788AA6 /* CollectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsView.swift; sourceTree = "<group>"; };
 		761CA9AC2FA84AE500788AA6 /* CollectionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsViewModel.swift; sourceTree = "<group>"; };
 		761CA9AF2FA84F6300788AA6 /* CreateCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCollectionView.swift; sourceTree = "<group>"; };
+		7635A4343046472800459B2E /* LifeTrackerCounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerCounterView.swift; sourceTree = "<group>"; };
 		763D5BD22F84CE8F00405CD5 /* TextViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewWrapper.swift; sourceTree = "<group>"; };
 		763D5BD32F84CE8F00405CD5 /* View+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extras.swift"; sourceTree = "<group>"; };
 		763D5BD42F84CE8F00405CD5 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
@@ -574,6 +578,7 @@
 				7651F940304200B500D83ED8 /* LifeTrackerPlayerSettingsView.swift */,
 				76502154303C7F910015B8C9 /* LifeTrackerPlayerView.swift */,
 				7651F94C304270C500D83ED8 /* LifeTrackerSettingsView.swift */,
+				7635A4343046472800459B2E /* LifeTrackerCounterView.swift */,
 			);
 			path = "Life Tracker";
 			sourceTree = "<group>";
@@ -1055,6 +1060,7 @@
 				764E45F2303773ED00BA2FC1 /* RulesView.swift in Sources */,
 				760472922FB96B5500B75E4F /* FirebaseModels.swift in Sources */,
 				760472932FB96B5500B75E4F /* Notifications+Names.swift in Sources */,
+				7635A4373046472800459B2E /* LifeTrackerCounterView.swift in Sources */,
 				76756D0830437117000C8279 /* TimerTestView.swift in Sources */,
 				760E7E5D2FF22724003A3F49 /* CardRoute.swift in Sources */,
 				760472942FB96B5500B75E4F /* CardOtherInfoView.swift in Sources */,
@@ -1163,6 +1169,7 @@
 				7695BB32301BCA3D00FCA122 /* SearchViewModel.swift in Sources */,
 				7651F941304200B500D83ED8 /* LifeTrackerPlayerSettingsView.swift in Sources */,
 				76CDD9E52FB9698500B7A47E /* SetsSorterMenuView.swift in Sources */,
+				7635A4363046472800459B2E /* LifeTrackerCounterView.swift in Sources */,
 				76CDD9E72FB9698500B7A47E /* CardView.swift in Sources */,
 				76CDD9E82FB9698500B7A47E /* CollectionsViewModel.swift in Sources */,
 				76CDD9E92FB9698500B7A47E /* CardsGridView.swift in Sources */,
@@ -1217,6 +1224,7 @@
 				7650215E303C7FC00015B8C9 /* LifeTrackerPlayerModel.swift in Sources */,
 				764E45F4303773ED00BA2FC1 /* RulesView.swift in Sources */,
 				760472C92FB96DE400B75E4F /* Tests_Prefetch.swift in Sources */,
+				7635A4353046472800459B2E /* LifeTrackerCounterView.swift in Sources */,
 				764E4601303944C000BA2FC1 /* RulesRowView.swift in Sources */,
 				76502159303C7FAE0015B8C9 /* LifeTrackerGameModel.swift in Sources */,
 				7651F94730421F0800D83ED8 /* AnimatingTextTestView.swift in Sources */,

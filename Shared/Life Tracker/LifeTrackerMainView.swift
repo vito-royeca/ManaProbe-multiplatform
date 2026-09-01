@@ -272,6 +272,7 @@ extension LifeTrackerMainView {
     func onDiceClear() {
         for player in gameModel.players {
             player.dices.removeAll()
+            player.isEnabled = true
         }
     }
 
@@ -279,6 +280,7 @@ extension LifeTrackerMainView {
         for player in gameModel.players {
             let dice = DiceViewModel(dice: dice)
             player.dices.append(dice)
+            player.isEnabled = false
         }
     }
 }

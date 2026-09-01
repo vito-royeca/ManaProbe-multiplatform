@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+enum LifeTrackerPlayerStat {
+    case life, poison, energy
+}
+
 @Observable
 class LifeTrackerPlayerModel: Identifiable {
     let id = UUID().uuidString
@@ -20,6 +24,10 @@ class LifeTrackerPlayerModel: Identifiable {
     var name = ""
     var color: Color = .clear
     var dices = [DiceViewModel]()
+    var isEnabled = true
+    var showPoisonCounter = false
+    var showEnergyCounter = false
+    var showCommanderDamageCounter = false
     
     private var _life: Int = 0
     var life: Int {
@@ -66,6 +74,28 @@ class LifeTrackerPlayerModel: Identifiable {
         self.name = name
         self.life = life
         self.color = color
+    }
+    
+    func get(stat: LifeTrackerPlayerStat) -> Int {
+        switch stat {
+        case .life:
+            life
+        case .poison:
+            poison
+        case .energy:
+            energy
+        }
+    }
+
+    func set(stat: LifeTrackerPlayerStat, with value: Int) {
+        switch stat {
+        case .life:
+            life = value
+        case .poison:
+            poison = value
+        case .energy:
+            energy = value
+        }
     }
 }
 

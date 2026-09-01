@@ -43,14 +43,16 @@ struct LifeTrackerPlayerView: View {
             normalView
                 .rotationEffect(.degrees(rotation.rawValue))
                 .sheet(isPresented: $isSettingsPresented) {
-                    LifeTrackerPlayerSettingsView( viewModel: $viewModel)
+                    LifeTrackerPlayerSettingsView(viewModel: $viewModel)
                 }
         case .left, .right:
             GeometryReader { proxy in
                 let diff = proxy.size.height - proxy.size.width
                 sideView
                     .rotationEffect(.degrees(rotation.rawValue))
-                    .offset(x: 0,
+                    .offset(x: rotation == .left
+                                ? -diff/2
+                                : diff/2,
                             y: rotation == .left
                                 ? -diff/2
                                 : diff/2)
@@ -66,49 +68,15 @@ struct LifeTrackerPlayerView: View {
             ZStack {
                 let size = computeSize(by: proxy)
                 
-                VStack(spacing: 0) {
-                    HStack {
-                        playerNameView
-                        Spacer()
-                        editButton
-                            .onTapGesture {
-                                if viewModel.dices.isEmpty {
-                                    isSettingsPresented.toggle()
-                                }
-                            }
-                    }
-                    .padding(1)
+                mainView
                     .frame(width: size.width,
-                           height: labelHeight)
-                    .background(Rectangle().fill(viewModel.color))
-                    
-                    HStack(spacing: 0) {
-                        minusButton
-                            .frame(width: size.width / 2,
-                                   height: max(size.height - labelHeight, 0))
-                            .background(Rectangle().fill(viewModel.color))
-                            .onTapGesture {
-                                if viewModel.dices.isEmpty {
-                                    decreaseStat()
-                                }
-                            }
-                        plusButton
-                            .frame(width: size.width / 2,
-                                   height: max(size.height - labelHeight, 0))
-                            .background(Rectangle().fill(viewModel.color))
-                            .onTapGesture {
-                                if viewModel.dices.isEmpty {
-                                    increaseStat()
-                                }
-                            }
-                    }
-                }
-                
-                
+                           height: size.height)
+
                 lifeView
-                    .font(.system(size: size.height / 2))
-                    .frame(height: size.height)
-                    .opacity(!viewModel.dices.isEmpty ? 0 : 1)
+                    .font(.system(size: size.height * 0.6))
+                    .fixedSize()
+                    .frame(width: size.width,
+                           height: size.height)
 
                 HStack {
                     let dWidth = size.width / 2
@@ -125,60 +93,26 @@ struct LifeTrackerPlayerView: View {
                         }
                     }
                 }
-                .opacity(viewModel.dices.isEmpty ? 0 : 1)
+                .opacity(viewModel.isEnabled ? 0 : 1)
             }
         }
     }
     
     var sideView: some View {
         GeometryReader { proxy in
-            ZStack() {
+            ZStack {
                 let size = computeSize(by: proxy)
                 
-                VStack(spacing: 0) {
-                    HStack {
-                        playerNameView
-                        Spacer()
-                        editButton
-                            .onTapGesture {
-                                if viewModel.dices.isEmpty {
-                                    isSettingsPresented.toggle()
-                                }
-                            }
-                    }
-                    .padding(5)
+                mainView
                     .frame(width: size.height,
-                           height: labelHeight)
-                    .background(Rectangle().fill(viewModel.color))
-                    
-                    HStack(spacing: 0) {
-                        minusButton
-                            .frame(width: size.height / 2,
-                                   height: max(size.width - labelHeight, 0))
-                            .background(Rectangle().fill(viewModel.color))
-                            .onTapGesture {
-                                if viewModel.dices.isEmpty {
-                                    decreaseStat()
-                                }
-                            }
-                        plusButton
-                            .frame(width: size.height / 2,
-                                   height: max(size.width - labelHeight, 0))
-                            .background(Rectangle().fill(viewModel.color))
-                            .onTapGesture {
-                                if viewModel.dices.isEmpty {
-                                    increaseStat()
-                                }
-                            }
-                    }
-                }
-                
-                lifeView
-                    .font(.system(size: size.height / 2))
-                    .frame(height: size.height)
-                    .opacity(!viewModel.dices.isEmpty ? 0 : 1)
+                           height: size.width)
 
-                
+                lifeView
+                    .font(.system(size: size.height * 0.6))
+                    .fixedSize()
+                    .frame(width: size.width / 2,
+                           height: size.height / 2)
+
                 HStack {
                     let dWidth = (size.height / 2)
                     let dHeight = size.height / 2
@@ -194,61 +128,51 @@ struct LifeTrackerPlayerView: View {
                         }
                     }
                 }
-                .opacity(viewModel.dices.isEmpty ? 0 : 1)
+                .opacity(viewModel.isEnabled ? 0 : 1)
             }
         }
     }
     
+    var mainView: some View {
+        VStack(spacing: 0) {
+            playerNameView
+            LifeTrackerCounterView(player: $viewModel,
+                                   stat: .life,
+                                   showStat: false)
+        }
+    }
+
     var playerNameView: some View {
-        Text(viewModel.name)
-            .font(.default)
-            .foregroundStyle(viewModel.color)
-            .colorInvert()
-    }
-    
-    var editButton: some View {
-        Image(systemName: "pencil.line")
-            .frame(width: 30.0, height: 30.0)
-            .font(.title)
-            .foregroundStyle(Color.gray)
-            .opacity(!viewModel.dices.isEmpty
-                     ? 0
-                     : 1)
-    }
-    
-    var minusButton: some View {
-        HStack() {
-            Image(systemName: "minus")
+        HStack(spacing: 0) {
+            Text(viewModel.name)
+                .font(.default)
+                .foregroundStyle(viewModel.color)
+                .colorInvert()
+            Spacer()
+            
+            Image(systemName: "pencil.line")
                 .frame(width: 30.0, height: 30.0)
                 .font(.title)
                 .foregroundStyle(Color.gray)
-                .opacity(!viewModel.dices.isEmpty
+                .opacity(!viewModel.isEnabled
                          ? 0
                          : 1)
-            Spacer()
+                .onTapGesture {
+                    if viewModel.isEnabled {
+                        isSettingsPresented.toggle()
+                    }
+                }
         }
-        .padding()
-    }
-    
-    var plusButton: some View {
-        HStack {
-            Spacer()
-            Image(systemName: "plus")
-                .frame(width: 30.0, height: 30.0)
-                .font(.title)
-                .foregroundStyle(Color.gray)
-                .opacity(!viewModel.dices.isEmpty
-                         ? 0
-                         : 1)
-        }
-        .padding()
+        .background(Rectangle().fill(viewModel.color))
     }
     
     var lifeView: some View {
-        Text("\(viewModel.life)")
+        Text("\(viewModel.get(stat: .life))")
+            .monospacedDigit()
             .contentTransition(.numericText())
             .foregroundStyle(viewModel.color)
             .colorInvert()
+            .opacity(!viewModel.isEnabled ? 0 : 1)
     }
 }
 
@@ -261,8 +185,8 @@ extension LifeTrackerPlayerView {
         case .none, .upsideDown:
             width = proxy.size.width
             height = proxy.size.height >= proxy.size.width
-            ? proxy.size.width
-            : proxy.size.height
+                ? proxy.size.width
+                : proxy.size.height
         case .left, .right:
             width = proxy.size.width
             height = proxy.size.height
@@ -291,48 +215,24 @@ extension LifeTrackerPlayerView {
                                         life: 40)
     let model3 = LifeTrackerPlayerModel(name: "Player 3",
                                         life: 40)
-    let model4 = LifeTrackerPlayerModel(name: "Player 4",
-                                        life: 40)
-    let model5 = LifeTrackerPlayerModel(name: "Player 5",
-                                        life: 40)
-    let model6 = LifeTrackerPlayerModel(name: "Player 6",
-                                        life: 40)
     
-    HStack(spacing: 1) {
-        VStack(spacing: 1) {
+    VStack(spacing: 1) {
+        HStack(spacing: 1) {
             LifeTrackerPlayerView(viewModel: model1,
                                   rotation: .left)
-                .onAppear {
-                    model1.dices.append(DiceViewModel(dice: LifeTrackerDice.d20))
-                }
             LifeTrackerPlayerView(viewModel: model2,
-                                  rotation: .left)
+                                  rotation: .right)
                 .onAppear {
                     model2.dices.append(DiceViewModel(dice: LifeTrackerDice.d20))
-                }
-            LifeTrackerPlayerView(viewModel: model3,
-                                  rotation: .left)
-                .onAppear {
-                    model3.dices.append(DiceViewModel(dice: LifeTrackerDice.d20))
+                    model2.isEnabled = false
                 }
         }
-        VStack(spacing: 1) {
-            LifeTrackerPlayerView(viewModel: model6,
-                                  rotation: .right)
-                .onAppear {
-                    model6.dices.append(DiceViewModel(dice: LifeTrackerDice.d20))
-                }
-            LifeTrackerPlayerView(viewModel: model5,
-                                  rotation: .right)
-                .onAppear {
-                    model5.dices.append(DiceViewModel(dice: LifeTrackerDice.d20))
-                }
-            LifeTrackerPlayerView(viewModel: model4,
-                                  rotation: .right)
-                .onAppear {
-                    model4.dices.append(DiceViewModel(dice: LifeTrackerDice.d20))
-                }
-        }
+        LifeTrackerPlayerView(viewModel: model3,
+                              rotation: .none)
+            .onAppear {
+                model3.dices.append(DiceViewModel(dice: LifeTrackerDice.d20))
+                model2.isEnabled = false
+            }
     }
 }
 
