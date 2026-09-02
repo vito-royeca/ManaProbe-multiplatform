@@ -126,7 +126,7 @@ struct LifeTrackerMainView: View {
     }
     
     var onePlayerView: some View {
-        VStack(spacing: 1) {
+        VStack(spacing: 2) {
             ForEach(gameModel.players.enumerated(), id: \.offset) { index, player in
                 LifeTrackerPlayerView(viewModel: player,
                                       rotation: .none)
@@ -135,7 +135,7 @@ struct LifeTrackerMainView: View {
     }
     
     var twoPlayersView: some View {
-        VStack(spacing: 1) {
+        VStack(spacing: 2) {
             ForEach(gameModel.players.enumerated(), id: \.offset) { index, player in
                 switch index {
                 case 0:
@@ -163,8 +163,8 @@ struct LifeTrackerMainView: View {
                 let view3 = LifeTrackerPlayerView(viewModel: gameModel.players[2],
                                                   rotation: .none)
                     
-                VStack(spacing: 1) {
-                    HStack(spacing: 1) {
+                VStack(spacing: 2) {
+                    HStack(spacing: 2) {
                         view1
                         view2
                     }
@@ -188,12 +188,12 @@ struct LifeTrackerMainView: View {
                 let view4 = LifeTrackerPlayerView(viewModel: gameModel.players[3],
                                                   rotation: .right)
 
-                VStack(spacing: 1) {
-                    HStack(spacing: 1) {
+                VStack(spacing: 2) {
+                    HStack(spacing: 2) {
                         view1
                         view4
                     }
-                    HStack(spacing: 1) {
+                    HStack(spacing: 2) {
                         view2
                         view3
                     }
@@ -218,12 +218,12 @@ struct LifeTrackerMainView: View {
                 let view5 = LifeTrackerPlayerView(viewModel: gameModel.players[4],
                                                   rotation: .right)
 
-                HStack(spacing: 1) {
-                    VStack(spacing: 1) {
+                HStack(spacing: 2) {
+                    VStack(spacing: 2) {
                         view1
                         view2
                     }
-                    VStack(spacing: 1) {
+                    VStack(spacing: 2) {
                         view5
                         view4
                         view3
@@ -251,13 +251,13 @@ struct LifeTrackerMainView: View {
                 let view6 = LifeTrackerPlayerView(viewModel: gameModel.players[5],
                                                   rotation: .right)
 
-                HStack(spacing: 1) {
-                    VStack(spacing: 1) {
+                HStack(spacing: 2) {
+                    VStack(spacing: 2) {
                         view1
                         view2
                         view3
                     }
-                    VStack(spacing: 1) {
+                    VStack(spacing: 2) {
                         view6
                         view5
                         view4

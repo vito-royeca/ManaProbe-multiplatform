@@ -8,21 +8,32 @@
 import SwiftUI
 
 struct LifeTrackerCounterView: View {
+    // MARK: - Constants
+    let labelHeight = Double(40)
+    let iconColor = Color.accentColor
+
     @Binding
     var player: LifeTrackerPlayerModel
     @State
     var stat: LifeTrackerPlayerStat
-    @State
-    var showStat: Bool
+    @Binding
+    var isSettingsPresented: Bool
     
     // MARK: - Initializers
     
     init(player: Binding<LifeTrackerPlayerModel>,
          stat: LifeTrackerPlayerStat,
-         showStat: Bool) {
+         isSettingsPresented: Binding<Bool>) {
         self._player = player
         self.stat = stat
-        self.showStat = showStat
+        self._isSettingsPresented = isSettingsPresented
+    }
+    
+    init(player: Binding<LifeTrackerPlayerModel>,
+         stat: LifeTrackerPlayerStat) {
+        self._player = player
+        self.stat = stat
+        self._isSettingsPresented = .constant(false)
     }
     
     var body: some View {
@@ -30,36 +41,83 @@ struct LifeTrackerCounterView: View {
             ZStack {
                 let size = computeSize(by: proxy)
                 
-                HStack(spacing: 0) {
-                    minusButton
-                        .frame(width: size.width / 2,
-                               height: size.height)
-                        .background(Rectangle().fill(player.color))
-                        .onTapGesture {
-                            if player.isEnabled {
-                                decreaseStat()
+                VStack(spacing: 0) {
+                    infoView
+                        .padding(2)
+                        .frame(width: size.width,
+                               height: labelHeight)
+                    HStack(spacing: 0) {
+                        minusButton
+                            .frame(width: size.width / 2,
+                                   height: size.height - labelHeight)
+                            .background(minusRectangleView.fill(player.color))
+                            .onTapGesture {
+                                if player.isEnabled {
+                                    decreaseStat()
+                                }
                             }
-                        }
-                    plusButton
-                        .frame(width: size.width / 2,
-                               height: size.height)
-                        .background(Rectangle().fill(player.color))
-                        .onTapGesture {
-                            if player.isEnabled {
-                                increaseStat()
+                        plusButton
+                            .frame(width: size.width / 2,
+                                   height: size.height - labelHeight)
+                            .background(plusRectangleView.fill(player.color))
+                            .onTapGesture {
+                                if player.isEnabled {
+                                    increaseStat()
+                                }
                             }
-                        }
+                    }
                 }
                 
-                if showStat {
-                    statView
-                        .font(.system(size: size.height * 0.6))
-                        .fixedSize()
-                        .frame(width: size.width,
-                               height: size.height)
-                }
+                statView
+                    .font(.system(size: size.height * 0.6))
             }
         }
+    }
+    
+    var infoView: some View {
+        Group {
+            if stat == .life {
+                HStack(spacing: 10) {
+                    Image(systemName: "pencil.line")
+                        .frame(width: 30.0, height: 30.0)
+                        .font(.title)
+                        .foregroundStyle(iconColor)
+                        .opacity(!player.isEnabled ? 0 : 1)
+                        .onTapGesture {
+                            if player.isEnabled {
+                                isSettingsPresented.toggle()
+                            }
+                        }
+                    Text(player.name)
+                        .font(.default)
+                        .foregroundStyle(player.color)
+                        .colorInvert()
+                    Spacer()
+                }
+            } else {
+                HStack(spacing: 10) {
+                    Image(stat == .poison
+                          ? "BP"
+                          : "E")
+                        .resizable()
+                        .frame(width: 30.0, height: 30.0)
+                        .font(.title)
+                        .foregroundStyle(Color.gray)
+                        .opacity(!player.isEnabled ? 0 : 1)
+                    Spacer()
+                }
+                .opacity(!player.isEnabled ? 0 : 1)
+            }
+        }
+    }
+    
+    var statView: some View {
+        Text("\(player.get(stat: stat))")
+            .monospacedDigit()
+            .contentTransition(.numericText())
+            .foregroundStyle(player.color)
+            .opacity(!player.isEnabled ? 0 : 1)
+            .colorInvert()
     }
     
     var minusButton: some View {
@@ -67,7 +125,7 @@ struct LifeTrackerCounterView: View {
             Image(systemName: "minus")
                 .frame(width: 30.0, height: 30.0)
                 .font(.title)
-                .foregroundStyle(Color.gray)
+                .foregroundStyle(iconColor)
                 .opacity(!player.isEnabled ? 0 : 1)
             Spacer()
         }
@@ -80,18 +138,34 @@ struct LifeTrackerCounterView: View {
             Image(systemName: "plus")
                 .frame(width: 30.0, height: 30.0)
                 .font(.title)
-                .foregroundStyle(Color.gray)
+                .foregroundStyle(iconColor)
                 .opacity(!player.isEnabled ? 0 : 1)
         }
         .padding()
     }
     
-    var statView: some View {
-        Text("\(player.get(stat: stat))")
-            .monospacedDigit()
-            .contentTransition(.numericText())
-            .foregroundStyle(player.color)
-            .colorInvert()
+    var minusRectangleView: UnevenRoundedRectangle {
+        let bottomLeading = CGFloat(20)
+        let bottomTrailing = CGFloat(0)
+        
+        return UnevenRoundedRectangle(cornerRadii: .init(
+            topLeading: 0,
+            bottomLeading: bottomLeading,
+            bottomTrailing: bottomTrailing,
+            topTrailing: 0),
+                                      style: .continuous)
+    }
+    
+    var plusRectangleView: UnevenRoundedRectangle {
+        let bottomLeading = CGFloat(0)
+        let bottomTrailing = CGFloat(20)
+        
+        return UnevenRoundedRectangle(cornerRadii: .init(
+            topLeading: 0,
+            bottomLeading: bottomLeading,
+            bottomTrailing: bottomTrailing,
+            topTrailing: 0),
+                                      style: .continuous)
     }
 }
 
@@ -123,9 +197,9 @@ extension LifeTrackerCounterView {
 #Preview {
     @Previewable @State
     var model = LifeTrackerPlayerModel(name: "Player 1",
-                                        life: 99)
+                                       life: 99)
     
     LifeTrackerCounterView(player: $model,
                            stat: .life,
-                           showStat: true)
+                           isSettingsPresented: .constant(false))
 }

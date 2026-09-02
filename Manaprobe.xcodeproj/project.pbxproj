@@ -570,6 +570,7 @@
 				7651F9483042520100D83ED8 /* 6colors.plist */,
 				767B1DB63044F525001C0EE9 /* DiceView.swift */,
 				767B1DB23044F4FB001C0EE9 /* DiceViewModel.swift */,
+				7635A4343046472800459B2E /* LifeTrackerCounterView.swift */,
 				767B1DAE3044DDCC001C0EE9 /* LifeTrackerDice.swift */,
 				76756D0130433D9B000C8279 /* LifeTrackerDiceMenuView.swift */,
 				76502158303C7FAE0015B8C9 /* LifeTrackerGameModel.swift */,
@@ -578,7 +579,6 @@
 				7651F940304200B500D83ED8 /* LifeTrackerPlayerSettingsView.swift */,
 				76502154303C7F910015B8C9 /* LifeTrackerPlayerView.swift */,
 				7651F94C304270C500D83ED8 /* LifeTrackerSettingsView.swift */,
-				7635A4343046472800459B2E /* LifeTrackerCounterView.swift */,
 			);
 			path = "Life Tracker";
 			sourceTree = "<group>";
@@ -1325,7 +1325,7 @@
 		76CDDA262FB9698500B7A47E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				API_URL_ENDPOINT = "http://localhost:4000/graphql";
+				API_URL_ENDPOINT = "https://api.manaprobe.com";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;

@@ -15,6 +15,7 @@ struct SearchSuggestionsView: View {
     var contentView: some View {
         List {
             Text("Artists")
+            Text("Banned and Restricted")
             Text("Power Nine")
             Text("Reserved List")
         }

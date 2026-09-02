@@ -28,6 +28,10 @@ struct LifeTrackerPlayerSettingsView: View {
     var contentView: some View {
         Form {
             TextField("Name", text: $newName)
+            Toggle("Show Poison Counter",
+                   isOn: $viewModel.showPoisonCounter)
+            Toggle("Show Energy Counter",
+                   isOn: $viewModel.showEnergyCounter)
         }
         .navigationTitle("Player Settings")
         .toolbar {

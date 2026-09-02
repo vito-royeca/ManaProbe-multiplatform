@@ -6,9 +6,18 @@
 //
 
 import SwiftUI
+import ManaKit
 
 enum LifeTrackerPlayerStat {
     case life, poison, energy
+    
+    var name: String {
+        switch self {
+        case .life: "Life"
+        case .poison: "Poison"
+        case .energy: "Energy"
+        }
+    }
 }
 
 @Observable
