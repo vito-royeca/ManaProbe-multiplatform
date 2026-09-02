@@ -10,6 +10,9 @@ import ManaKit
 import UniformTypeIdentifiers
 
 struct RulesRowView: View {
+    @Environment(\.colorScheme)
+    private var colorScheme
+
     @State
     var term: String
     @State
@@ -23,12 +26,13 @@ struct RulesRowView: View {
         LabeledContent {
             VStack {
                 AttributedText(
-                    NSAttributedString(symbol: definition,
-                                       pointSize: 16)
+                    addColor(to: NSAttributedString(symbol: definition,
+                                                    pointSize: 16),
+                             colorScheme: colorScheme)
+//                    NSAttributedString(symbol: definition,
+//                                       pointSize: 16)
                 )
                 HStack {
-//                    
-//                    copyButton
                     Spacer()
                     shareButton
                 }

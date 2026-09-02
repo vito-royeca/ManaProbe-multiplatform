@@ -40,8 +40,11 @@ struct CardCommonInfoView: View {
             
             LabeledContent {
                 AttributedText(
-                    NSAttributedString(symbol: card?.displayManaCost ?? face?.displayManaCost ?? "",
-                                       pointSize: 16)
+                    addColor(to: NSAttributedString(symbol: card?.displayManaCost ?? face?.displayManaCost ?? "",
+                                                    pointSize: 16),
+                             colorScheme: colorScheme)
+//                    NSAttributedString(symbol: card?.displayManaCost ?? face?.displayManaCost ?? "",
+//                                       pointSize: 16)
                 )
                 .multilineTextAlignment(.trailing)
             } label: {
@@ -68,11 +71,11 @@ struct CardCommonInfoView: View {
                !printedText.isEmpty {
                 LabeledContent {
                     AttributedText(
-//                        addColor(to: NSAttributedString(symbol: printedText,
-//                                                        pointSize: 16),
-//                                 colorScheme: colorScheme)
-                        NSAttributedString(symbol: printedText,
-                                           pointSize: 16)
+                        addColor(to: NSAttributedString(symbol: printedText,
+                                                        pointSize: 16),
+                                 colorScheme: colorScheme)
+//                        NSAttributedString(symbol: printedText,
+//                                           pointSize: 16)
                     )
                 } label: {
                     Text("Printed Text")
@@ -84,11 +87,11 @@ struct CardCommonInfoView: View {
                !oracleText.isEmpty {
                 LabeledContent {
                     AttributedText(
-//                        addColor(to: NSAttributedString(symbol: oracleText,
-//                                                        pointSize: 16),
-//                                 colorScheme: colorScheme)
-                        NSAttributedString(symbol: oracleText,
-                                           pointSize: 16)
+                        addColor(to: NSAttributedString(symbol: oracleText,
+                                                        pointSize: 16),
+                                 colorScheme: colorScheme)
+//                        NSAttributedString(symbol: oracleText,
+//                                           pointSize: 16)
                     )
                 } label: {
                     Text("Oracle Text")

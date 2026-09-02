@@ -46,11 +46,11 @@ struct CardExtraInfoView: View {
                 ForEach(rulings, id: \.id) { ruling in
                     LabeledContent {
                         AttributedText(
-//                            addColor(to: NSAttributedString(symbol: ruling.text,
-//                                                            pointSize: 16),
-//                                     colorScheme: colorScheme)
-                            NSAttributedString(symbol: ruling.text,
-                                               pointSize: 16)
+                            addColor(to: NSAttributedString(symbol: ruling.text,
+                                                            pointSize: 16),
+                                     colorScheme: colorScheme)
+//                            NSAttributedString(symbol: ruling.text,
+//                                               pointSize: 16)
                         )
                     } label: {
                         Text(ruling.datePublished)
