@@ -40,6 +40,10 @@ struct LifeTrackerMainView: View {
         .sheet(isPresented: $isSettingsPresented) {
             LifeTrackerSettingsView(gameModel: $gameModel)
         }
+        .onAppear {
+            // prevent screen lock
+            UIApplication.shared.isIdleTimerDisabled = true
+        }
     }
     
     var playPauseButton: some View {
@@ -84,6 +88,8 @@ struct LifeTrackerMainView: View {
     var closeButton: some View {
         Button {
             gameModel.savePlayerNames()
+            // enable screen lock
+            UIApplication.shared.isIdleTimerDisabled = false
             dismiss()
         } label: {
             Image(systemName: gameModel.isGameStarted ? "stop.fill" : "xmark")
