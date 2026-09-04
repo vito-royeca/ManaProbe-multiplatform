@@ -85,6 +85,9 @@
 		760E7E5C2FF22724003A3F49 /* CardRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760E7E5B2FF2271C003A3F49 /* CardRoute.swift */; };
 		760E7E5D2FF22724003A3F49 /* CardRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760E7E5B2FF2271C003A3F49 /* CardRoute.swift */; };
 		76102D052F9D986C00A43DFA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 76102D032F9D986C00A43DFA /* GoogleService-Info.plist */; };
+		7630EE17304A516F00DE6FDA /* ManaFontTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7630EE16304A516F00DE6FDA /* ManaFontTestView.swift */; };
+		7630EE18304A516F00DE6FDA /* ManaFontTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7630EE16304A516F00DE6FDA /* ManaFontTestView.swift */; };
+		7630EE19304A516F00DE6FDA /* ManaFontTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7630EE16304A516F00DE6FDA /* ManaFontTestView.swift */; };
 		7635A4353046472800459B2E /* LifeTrackerCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7635A4343046472800459B2E /* LifeTrackerCounterView.swift */; };
 		7635A4363046472800459B2E /* LifeTrackerCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7635A4343046472800459B2E /* LifeTrackerCounterView.swift */; };
 		7635A4373046472800459B2E /* LifeTrackerCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7635A4343046472800459B2E /* LifeTrackerCounterView.swift */; };
@@ -322,6 +325,7 @@
 		761CA9A92FA84ADF00788AA6 /* CollectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsView.swift; sourceTree = "<group>"; };
 		761CA9AC2FA84AE500788AA6 /* CollectionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsViewModel.swift; sourceTree = "<group>"; };
 		761CA9AF2FA84F6300788AA6 /* CreateCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCollectionView.swift; sourceTree = "<group>"; };
+		7630EE16304A516F00DE6FDA /* ManaFontTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManaFontTestView.swift; sourceTree = "<group>"; };
 		7635A4343046472800459B2E /* LifeTrackerCounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTrackerCounterView.swift; sourceTree = "<group>"; };
 		763D5BD22F84CE8F00405CD5 /* TextViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewWrapper.swift; sourceTree = "<group>"; };
 		763D5BD32F84CE8F00405CD5 /* View+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extras.swift"; sourceTree = "<group>"; };
@@ -547,6 +551,7 @@
 				760B05082F8FF92F003DB025 /* TimeDisplayTestView.swift */,
 				76756D0530437117000C8279 /* TimerTestView.swift */,
 				767B1DAA3044D9F9001C0EE9 /* DiceTestView.swift */,
+				7630EE16304A516F00DE6FDA /* ManaFontTestView.swift */,
 			);
 			path = Experimental;
 			sourceTree = "<group>";
@@ -1028,6 +1033,7 @@
 				760472792FB96B5500B75E4F /* CardsSorterMenuView.swift in Sources */,
 				7604727A2FB96B5500B75E4F /* CardsChartsView.swift in Sources */,
 				7604727B2FB96B5500B75E4F /* TimeDisplayTestView.swift in Sources */,
+				7630EE19304A516F00DE6FDA /* ManaFontTestView.swift in Sources */,
 				4739CAA92FC8A43200B787F0 /* CardsNavigatorDelegate.swift in Sources */,
 				7604727C2FB96B5500B75E4F /* CollectionListItemView.swift in Sources */,
 				764E45FA3037A82400BA2FC1 /* Tree.swift in Sources */,
@@ -1148,6 +1154,7 @@
 				76CDD9D62FB9698500B7A47E /* CollectionView.swift in Sources */,
 				76CDD9D72FB9698500B7A47E /* ManaprobeApp.swift in Sources */,
 				76CDD9D82FB9698500B7A47E /* CardPricingInfoView.swift in Sources */,
+				7630EE17304A516F00DE6FDA /* ManaFontTestView.swift in Sources */,
 				76CDD9D92FB9698500B7A47E /* CollectionsRowView.swift in Sources */,
 				76CDD9DA2FB9698500B7A47E /* SetView.swift in Sources */,
 				76CDD9DB2FB9698500B7A47E /* CardGridItemView.swift in Sources */,
@@ -1238,6 +1245,7 @@
 				7651F94D304270C500D83ED8 /* LifeTrackerSettingsView.swift in Sources */,
 				8B6CAF6C284043DC0073E8FE /* SnapshotHelper.swift in Sources */,
 				76480541303C17C5006794FF /* LifeTrackerMainView.swift in Sources */,
+				7630EE18304A516F00DE6FDA /* ManaFontTestView.swift in Sources */,
 				7651F943304200B500D83ED8 /* LifeTrackerPlayerSettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

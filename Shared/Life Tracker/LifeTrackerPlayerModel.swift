@@ -9,13 +9,23 @@ import SwiftUI
 import ManaKit
 
 enum LifeTrackerPlayerStat {
-    case life, poison, energy
+    case life, poison, energy, commander
     
     var name: String {
         switch self {
         case .life: "Life"
         case .poison: "Poison"
         case .energy: "Energy"
+        case .commander: "Commander Damage"
+        }
+    }
+    
+    var manaSymbol: String {
+        switch self {
+        case .poison: "H"
+        case .energy: "E"
+        case .commander: "Commander"
+        default: ""
         }
     }
 }
@@ -64,18 +74,33 @@ class LifeTrackerPlayerModel: Identifiable {
         }
     }
     
-    private var _commanderDamage: Int = 0
-    var commanderDamage: Int {
+    private var _commanderDamage: [LifeTrackerPlayerModel: Int] = [:]
+    var commanderDamage: [LifeTrackerPlayerModel: Int] {
         get {
             _commanderDamage
         }
         set {
             _commanderDamage = newValue
-            if _commanderDamage >= maxCommanderDamage {
-                isDead = true
+            for (_,v) in _commanderDamage {
+                if v >= maxCommanderDamage {
+                    isDead = true
+                }
             }
         }
     }
+    
+//    private var _commanderDamage: Int = 0
+//    var commanderDamage: Int {
+//        get {
+//            _commanderDamage
+//        }
+//        set {
+//            _commanderDamage = newValue
+//            if _commanderDamage >= maxCommanderDamage {
+//                isDead = true
+//            }
+//        }
+//    }
     
     init(name:String = "",
          life: Int = 0,
@@ -87,12 +112,10 @@ class LifeTrackerPlayerModel: Identifiable {
     
     func get(stat: LifeTrackerPlayerStat) -> Int {
         switch stat {
-        case .life:
-            life
-        case .poison:
-            poison
-        case .energy:
-            energy
+        case .life: life
+        case .poison: poison
+        case .energy: energy
+        default: 0
         }
     }
 
@@ -104,6 +127,8 @@ class LifeTrackerPlayerModel: Identifiable {
             poison = value
         case .energy:
             energy = value
+        default:
+            ()
         }
     }
 }

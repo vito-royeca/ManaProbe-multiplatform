@@ -70,8 +70,8 @@ struct LifeTrackerPlayerView: View {
                            height: size.height)
 
                 HStack {
-                    let dWidth = size.width / 2
-                    let dHeight = size.height / 2
+                    let dWidth = size.width * 0.6
+                    let dHeight = size.height * 0.6
                     ForEach(viewModel.dices, id: \.id) { dice in
                         DiceView(model: dice,
                                  isTappable: true,
@@ -110,8 +110,8 @@ struct LifeTrackerPlayerView: View {
                            height: size.width)
 
                 HStack {
-                    let dWidth = (size.height / 2)
-                    let dHeight = size.height / 2
+                    let dWidth = (size.height * 0.6) - LifeTrackerCounterView.labelHeight
+                    let dHeight = (size.height * 0.6) - LifeTrackerCounterView.labelHeight
                     ForEach(viewModel.dices, id: \.id) { dice in
                         DiceView(model: dice,
                                  isTappable: true,
@@ -301,7 +301,7 @@ extension LifeTrackerPlayerView {
                               rotation: .none)
             .onAppear {
                 model3.dices.append(DiceViewModel(dice: LifeTrackerDice.d20))
-                model2.isEnabled = false
+//                model3.isEnabled = false
             }
     }
     .background(Color.black)

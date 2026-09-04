@@ -28,10 +28,27 @@ struct LifeTrackerPlayerSettingsView: View {
     var contentView: some View {
         Form {
             TextField("Name", text: $newName)
-            Toggle("Show Poison Counter",
-                   isOn: $viewModel.showPoisonCounter)
-            Toggle("Show Energy Counter",
-                   isOn: $viewModel.showEnergyCounter)
+            Toggle(isOn: $viewModel.showEnergyCounter) {
+                HStack {
+                    Text("E".toUnicode())
+                        .font(Font.custom("Mana", size: 30))
+                    Text("Energy")
+                }
+            }
+            Toggle(isOn: $viewModel.showCommanderDamageCounter) {
+                HStack {
+                    Text("Commander".toUnicode())
+                        .font(Font.custom("Mana", size: 30))
+                    Text("Commander Damage")
+                }
+            }
+            Toggle(isOn: $viewModel.showPoisonCounter) {
+                HStack {
+                    Text("H".toUnicode())
+                        .font(Font.custom("Mana", size: 30))
+                    Text("Poison")
+                }
+            }
         }
         .navigationTitle("Player Settings")
         .toolbar {

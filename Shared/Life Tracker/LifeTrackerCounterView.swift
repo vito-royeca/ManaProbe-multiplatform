@@ -9,8 +9,8 @@ import SwiftUI
 
 struct LifeTrackerCounterView: View {
     // MARK: - Constants
-    let labelHeight = Double(40)
-    let iconColor = Color.accentColor
+    static let labelHeight = Double(40)
+    static let iconColor = Color.accentColor
 
     @Binding
     var player: LifeTrackerPlayerModel
@@ -45,11 +45,11 @@ struct LifeTrackerCounterView: View {
                     infoView
                         .padding(2)
                         .frame(width: size.width,
-                               height: labelHeight)
+                               height: LifeTrackerCounterView.labelHeight)
                     HStack(spacing: 0) {
                         minusButton
                             .frame(width: size.width / 2,
-                                   height: size.height - labelHeight)
+                                   height: size.height - LifeTrackerCounterView.labelHeight)
                             .background(minusRectangleView.fill(player.color))
                             .onTapGesture {
                                 if player.isEnabled {
@@ -58,7 +58,7 @@ struct LifeTrackerCounterView: View {
                             }
                         plusButton
                             .frame(width: size.width / 2,
-                                   height: size.height - labelHeight)
+                                   height: size.height - LifeTrackerCounterView.labelHeight)
                             .background(plusRectangleView.fill(player.color))
                             .onTapGesture {
                                 if player.isEnabled {
@@ -74,14 +74,14 @@ struct LifeTrackerCounterView: View {
         }
     }
     
-    var infoView: some View {
+    private var infoView: some View {
         Group {
             if stat == .life {
                 HStack(spacing: 10) {
                     Image(systemName: "pencil.line")
                         .frame(width: 30.0, height: 30.0)
                         .font(.title)
-                        .foregroundStyle(iconColor)
+                        .foregroundStyle(LifeTrackerCounterView.iconColor)
                         .opacity(!player.isEnabled ? 0 : 1)
                         .onTapGesture {
                             if player.isEnabled {
@@ -96,14 +96,10 @@ struct LifeTrackerCounterView: View {
                 }
             } else {
                 HStack(spacing: 10) {
-                    Image(stat == .poison
-                          ? "BP"
-                          : "E")
-                        .resizable()
-                        .frame(width: 30.0, height: 30.0)
-                        .font(.title)
-                        .foregroundStyle(Color.gray)
-                        .opacity(!player.isEnabled ? 0 : 1)
+                    Text(stat.manaSymbol.toUnicode())
+                        .font(Font.custom("Mana", size: 30))
+                        .foregroundStyle(player.color)
+                        .colorInvert()
                     Spacer()
                 }
                 .opacity(!player.isEnabled ? 0 : 1)
@@ -111,7 +107,7 @@ struct LifeTrackerCounterView: View {
         }
     }
     
-    var statView: some View {
+    private var statView: some View {
         Text("\(player.get(stat: stat))")
             .monospacedDigit()
             .contentTransition(.numericText())
@@ -120,31 +116,31 @@ struct LifeTrackerCounterView: View {
             .colorInvert()
     }
     
-    var minusButton: some View {
+    private var minusButton: some View {
         HStack() {
             Image(systemName: "minus")
                 .frame(width: 30.0, height: 30.0)
                 .font(.title)
-                .foregroundStyle(iconColor)
+                .foregroundStyle(LifeTrackerCounterView.iconColor)
                 .opacity(!player.isEnabled ? 0 : 1)
             Spacer()
         }
         .padding()
     }
     
-    var plusButton: some View {
+    private var plusButton: some View {
         HStack {
             Spacer()
             Image(systemName: "plus")
                 .frame(width: 30.0, height: 30.0)
                 .font(.title)
-                .foregroundStyle(iconColor)
+                .foregroundStyle(LifeTrackerCounterView.iconColor)
                 .opacity(!player.isEnabled ? 0 : 1)
         }
         .padding()
     }
     
-    var minusRectangleView: UnevenRoundedRectangle {
+    private var minusRectangleView: UnevenRoundedRectangle {
         let bottomLeading = CGFloat(20)
         let bottomTrailing = CGFloat(0)
         
@@ -155,8 +151,8 @@ struct LifeTrackerCounterView: View {
             topTrailing: 0),
                                       style: .continuous)
     }
-    
-    var plusRectangleView: UnevenRoundedRectangle {
+        
+    private var plusRectangleView: UnevenRoundedRectangle {
         let bottomLeading = CGFloat(0)
         let bottomTrailing = CGFloat(20)
         
@@ -200,6 +196,6 @@ extension LifeTrackerCounterView {
                                        life: 99)
     
     LifeTrackerCounterView(player: $model,
-                           stat: .life,
+                           stat: .energy,
                            isSettingsPresented: .constant(false))
 }
