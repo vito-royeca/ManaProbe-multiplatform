@@ -124,6 +124,12 @@ class LifeTrackerGameModel {
             player.color = colors[index]
             players.append(player)
         }
+        
+        for player in players {
+            for otherPlayer in players.filter({$0 != player}) {
+                player.commanderDamage[otherPlayer] = 0
+            }
+        }
     }
 
     // MARK: - Methods

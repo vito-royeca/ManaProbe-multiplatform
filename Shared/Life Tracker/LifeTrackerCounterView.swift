@@ -93,6 +93,15 @@ struct LifeTrackerCounterView: View {
                         .foregroundStyle(player.color)
                         .colorInvert()
                     Spacer()
+                    Text("Commander".toUnicode())
+                        .font(Font.custom("Mana", size: 30))
+                        .foregroundStyle(LifeTrackerCounterView.iconColor)
+                        .opacity(!player.isEnabled ? 0 : 1)
+                        .onTapGesture {
+                            if player.isEnabled {
+                                player.showCommanderDamageCounter.toggle()
+                            }
+                        }
                 }
             } else {
                 HStack(spacing: 10) {
@@ -196,6 +205,6 @@ extension LifeTrackerCounterView {
                                        life: 99)
     
     LifeTrackerCounterView(player: $model,
-                           stat: .energy,
+                           stat: .life,
                            isSettingsPresented: .constant(false))
 }

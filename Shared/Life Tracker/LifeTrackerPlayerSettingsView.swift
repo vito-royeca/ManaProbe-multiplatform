@@ -35,13 +35,6 @@ struct LifeTrackerPlayerSettingsView: View {
                     Text("Energy")
                 }
             }
-            Toggle(isOn: $viewModel.showCommanderDamageCounter) {
-                HStack {
-                    Text("Commander".toUnicode())
-                        .font(Font.custom("Mana", size: 30))
-                    Text("Commander Damage")
-                }
-            }
             Toggle(isOn: $viewModel.showPoisonCounter) {
                 HStack {
                     Text("H".toUnicode())

@@ -144,46 +144,52 @@ struct LifeTrackerPlayerView: View {
             let size = computeSize(by: proxy)
 
             VStack(spacing: 0) {
-                LifeTrackerCounterView(player: $viewModel,
-                                       stat: .life,
-                                       isSettingsPresented: $isSettingsPresented)
-                if (viewModel.showPoisonCounter ||
-                   viewModel.showEnergyCounter) &&
-                   viewModel.isEnabled {
-                    let divisor =  viewModel.showPoisonCounter &&
+                if viewModel.showCommanderDamageCounter {
+                    commanderView
+                        .padding(5)
+                } else {
+                    LifeTrackerCounterView(player: $viewModel,
+                                           stat: .life,
+                                           isSettingsPresented: $isSettingsPresented)
+                    
+                    if (viewModel.showPoisonCounter ||
+                        viewModel.showEnergyCounter) &&
+                        viewModel.isEnabled {
+                        let divisor =  viewModel.showPoisonCounter &&
                         viewModel.showEnergyCounter
                         ? CGFloat(2)
                         : CGFloat(1)
-                    let width = size.width / divisor
-                    let height = size.height / 3
-                    
-                    HStack(spacing: 0) {
-                        if viewModel.showPoisonCounter  {
-                            poisonView
-                                .frame(width: width,
-                                       height: height)
-                                .background(
-                                    poisonRectangleView
-                                        .fill(viewModel.color)
-                                )
-                                .overlay {
-                                    poisonRectangleView
-                                        .stroke(.gray, lineWidth: 1)
-                                }
-                        }
-                        if viewModel.showEnergyCounter {
-                            energyView
-                                .frame(width: width,
-                                       height: height)
-                                .background(
-                                    energyRectangleView
-                                        .fill(viewModel.color)
+                        let width = size.width / divisor
+                        let height = size.height / 3
+                        
+                        HStack(spacing: 0) {
+                            if viewModel.showEnergyCounter {
+                                energyView
+                                    .frame(width: width,
+                                           height: height)
+                                    .background(
+                                        energyRectangleView
+                                            .fill(viewModel.color)
                                         
-                                )
-                                .overlay {
-                                    energyRectangleView
-                                        .stroke(.gray, lineWidth: 1)
-                                }
+                                    )
+                                    .overlay {
+                                        energyRectangleView
+                                            .stroke(.gray, lineWidth: 1)
+                                    }
+                            }
+                            if viewModel.showPoisonCounter  {
+                                poisonView
+                                    .frame(width: width,
+                                           height: height)
+                                    .background(
+                                        poisonRectangleView
+                                            .fill(viewModel.color)
+                                    )
+                                    .overlay {
+                                        poisonRectangleView
+                                            .stroke(.gray, lineWidth: 1)
+                                    }
+                            }
                         }
                     }
                 }
@@ -200,6 +206,100 @@ struct LifeTrackerPlayerView: View {
             .opacity(!viewModel.isEnabled ? 0 : 1)
     }
     
+    var commanderView: some View {
+        VStack(spacing: 0) {
+            HStack {
+                Spacer()
+                Image(systemName: "xmark")
+                    .frame(width: 30.0, height: 30.0)
+                    .font(.title)
+                    .foregroundStyle(LifeTrackerCounterView.iconColor)
+                    .opacity(!viewModel.isEnabled ? 0 : 1)
+                    .onTapGesture {
+                        if viewModel.isEnabled {
+                            viewModel.showCommanderDamageCounter.toggle()
+                        }
+                    }
+            }
+            
+            ScrollView {
+                HStack {
+                    Text("Commander Tax")
+                        .font(.default)
+                        .foregroundStyle(viewModel.color)
+                        .colorInvert()
+                    Spacer()
+                    Text("\(viewModel.commanderTax)")
+                        .font(.default)
+                        .foregroundStyle(viewModel.color)
+                        .colorInvert()
+                        .monospacedDigit()
+                    Image(systemName: "minus")
+                        .frame(width: 30.0, height: 30.0)
+                        .font(.title)
+                        .foregroundStyle(LifeTrackerCounterView.iconColor)
+                        .onTapGesture {
+                            decrease(stat: .commanderTax,
+                                     from: viewModel)
+                        }
+                    Image(systemName: "plus")
+                        .frame(width: 30.0, height: 30.0)
+                        .font(.title)
+                        .foregroundStyle(LifeTrackerCounterView.iconColor)
+                        .onTapGesture {
+                            increase(stat: .commanderTax,
+                                     from: viewModel)
+                        }
+                }
+                .listRowSeparator(.hidden)
+                .listRowSpacing(0)
+                .listRowBackground(viewModel.color)
+                
+                HStack {
+                    Text("Commander Damage From")
+                        .font(.default)
+                        .foregroundStyle(viewModel.color)
+                        .colorInvert()
+                    Spacer()
+                }
+
+                ForEach(viewModel.commanderDamage.keys.sorted(), id: \.self) { player in
+                    let damage = viewModel.commanderDamage[player] ?? 0
+                    HStack {
+                        Text(player.name)
+                            .font(.default)
+                            .foregroundStyle(player.color)
+                            .monospacedDigit()
+                        Spacer()
+                        Text("\(damage)")
+                            .font(.default)
+                            .foregroundStyle(player.color)
+                            .monospacedDigit()
+                        Image(systemName: "minus")
+                            .frame(width: 30.0, height: 30.0)
+                            .font(.title)
+                            .foregroundStyle(LifeTrackerCounterView.iconColor)
+                            .onTapGesture {
+                                decrease(stat: .commander,
+                                         from: player)
+                            }
+                        Image(systemName: "plus")
+                            .frame(width: 30.0, height: 30.0)
+                            .font(.title)
+                            .foregroundStyle(LifeTrackerCounterView.iconColor)
+                            .onTapGesture {
+                                increase(stat: .commander,
+                                         from: player)
+                            }
+                    }
+                    .listRowSeparator(.hidden)
+                    .listRowSpacing(0)
+                }
+                .listRowBackground(viewModel.color)
+            }
+        }
+    }
+    
     var poisonView: some View {
         LifeTrackerCounterView(player: $viewModel,
                                stat: .poison)
@@ -210,7 +310,7 @@ struct LifeTrackerPlayerView: View {
                                stat: .energy)
     }
     
-    var poisonRectangleView: UnevenRoundedRectangle {
+    var energyRectangleView: UnevenRoundedRectangle {
         let bottomLeading = CGFloat(20)
         var bottomTrailing = CGFloat(20)
         
@@ -226,7 +326,7 @@ struct LifeTrackerPlayerView: View {
                                       style: .continuous)
     }
     
-    var energyRectangleView: UnevenRoundedRectangle {
+    var poisonRectangleView: UnevenRoundedRectangle {
         var bottomLeading = CGFloat(20)
         let bottomTrailing = CGFloat(20)
         
@@ -262,15 +362,32 @@ extension LifeTrackerPlayerView {
         return CGSize(width: width, height: height)
     }
 
-    func decreaseStat() {
-        withAnimation(.easeInOut(duration: 1.0)) {
-            viewModel.life -= 1
+    func decrease(stat: LifeTrackerPlayerStat, from player: LifeTrackerPlayerModel) {
+        
+        switch stat {
+        case .commanderTax:
+            let value = player.get(stat: stat)
+            player.set(stat: stat, with: value - 2)
+        case .commander:
+            let value = viewModel.get(stat: stat, from: player)
+            viewModel.set(stat: stat, with: value - 1, to: player)
+        default:
+            ()
         }
     }
     
-    func increaseStat() {
-        withAnimation(.easeInOut(duration: 1.0)) {
-            viewModel.life += 1
+    func increase(stat: LifeTrackerPlayerStat, from player: LifeTrackerPlayerModel) {
+        
+        
+        switch stat {
+        case .commanderTax:
+            let value = player.get(stat: stat)
+            player.set(stat: stat, with: value + 2)
+        case .commander:
+            let value = viewModel.get(stat: stat, from: player)
+            viewModel.set(stat: stat, with: value + 1, to: player)
+        default:
+            ()
         }
     }
 }
@@ -290,18 +407,26 @@ extension LifeTrackerPlayerView {
         HStack(spacing: 2) {
             LifeTrackerPlayerView(viewModel: model1,
                                   rotation: .left)
+                .onAppear {
+                    model1.commanderDamage[model2] = 0
+                    model1.commanderDamage[model3] = 0
+                }
             LifeTrackerPlayerView(viewModel: model2,
                                   rotation: .right)
                 .onAppear {
                     model2.dices.append(DiceViewModel(dice: LifeTrackerDice.d20))
                     model2.isEnabled = false
+                    
+                    model2.commanderDamage[model1] = 0
+                    model2.commanderDamage[model3] = 0
                 }
         }
         LifeTrackerPlayerView(viewModel: model3,
                               rotation: .none)
             .onAppear {
                 model3.dices.append(DiceViewModel(dice: LifeTrackerDice.d20))
-//                model3.isEnabled = false
+                model3.commanderDamage[model1] = 0
+                model3.commanderDamage[model2] = 0
             }
     }
     .background(Color.black)

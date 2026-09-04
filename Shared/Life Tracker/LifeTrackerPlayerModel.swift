@@ -9,7 +9,7 @@ import SwiftUI
 import ManaKit
 
 enum LifeTrackerPlayerStat {
-    case life, poison, energy, commander
+    case life, poison, energy, commander, commanderTax
     
     var name: String {
         switch self {
@@ -17,6 +17,7 @@ enum LifeTrackerPlayerStat {
         case .poison: "Poison"
         case .energy: "Energy"
         case .commander: "Commander Damage"
+        case .commanderTax: "Commander Tax"
         }
     }
     
@@ -89,19 +90,8 @@ class LifeTrackerPlayerModel: Identifiable {
         }
     }
     
-//    private var _commanderDamage: Int = 0
-//    var commanderDamage: Int {
-//        get {
-//            _commanderDamage
-//        }
-//        set {
-//            _commanderDamage = newValue
-//            if _commanderDamage >= maxCommanderDamage {
-//                isDead = true
-//            }
-//        }
-//    }
-    
+    var commanderTax = 0
+
     init(name:String = "",
          life: Int = 0,
          color: Color = .cyan) {
@@ -110,16 +100,17 @@ class LifeTrackerPlayerModel: Identifiable {
         self.color = color
     }
     
-    func get(stat: LifeTrackerPlayerStat) -> Int {
+    func get(stat: LifeTrackerPlayerStat, from player: LifeTrackerPlayerModel? = nil) -> Int {
         switch stat {
         case .life: life
         case .poison: poison
         case .energy: energy
-        default: 0
+        case .commander: commanderDamage[player ?? self] ?? 0
+        case .commanderTax: commanderTax
         }
     }
 
-    func set(stat: LifeTrackerPlayerStat, with value: Int) {
+    func set(stat: LifeTrackerPlayerStat, with value: Int, to player: LifeTrackerPlayerModel? = nil) {
         switch stat {
         case .life:
             life = value
@@ -127,8 +118,12 @@ class LifeTrackerPlayerModel: Identifiable {
             poison = value
         case .energy:
             energy = value
-        default:
-            ()
+        case .commander:
+            if let player = player {
+                commanderDamage[player] = value
+            }
+        case .commanderTax:
+            commanderTax = value
         }
     }
 }
@@ -141,6 +136,13 @@ extension LifeTrackerPlayerModel: Equatable {
     }
 }
 
+// MARK: - Comparable
+
+extension LifeTrackerPlayerModel: Comparable {
+    static func < (lhs: LifeTrackerPlayerModel, rhs: LifeTrackerPlayerModel) -> Bool {
+        lhs.name < rhs.name
+    }
+}
 
 // MARK: - Hashable
 
@@ -149,3 +151,4 @@ extension LifeTrackerPlayerModel: Hashable {
         hasher.combine(id)
     }
 }
+
