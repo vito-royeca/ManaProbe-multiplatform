@@ -147,6 +147,15 @@ struct LifeTrackerPlayerView: View {
                 if viewModel.showCommanderDamageCounter {
                     commanderView
                         .padding(5)
+                        .background(
+                            commanderRectangleView
+                                .fill(viewModel.color)
+                            
+                        )
+                        .overlay {
+                            commanderRectangleView
+                                .stroke(.gray, lineWidth: 1)
+                        }
                 } else {
                     LifeTrackerCounterView(player: $viewModel,
                                            stat: .life,
@@ -308,6 +317,10 @@ struct LifeTrackerPlayerView: View {
     var energyView: some View {
         LifeTrackerCounterView(player: $viewModel,
                                stat: .energy)
+    }
+    
+    var commanderRectangleView: RoundedRectangle {
+        RoundedRectangle(cornerRadius: 20)
     }
     
     var energyRectangleView: UnevenRoundedRectangle {

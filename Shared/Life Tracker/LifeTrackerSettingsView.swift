@@ -70,7 +70,6 @@ struct LifeTrackerSettingsView: View {
                 initPlayers()
                 gameModel.isSettingsChanged = true
             }
-            .disabled(gameModel.isGameStarted)
         }, label: {
             Image(systemName: "person.3")
         })
@@ -99,7 +98,6 @@ struct LifeTrackerSettingsView: View {
             .onChange(of: startingLife) {
                 gameModel.isSettingsChanged = true
             }
-            .disabled(gameModel.isGameStarted)
         }, label: {
             Image(systemName: "staroflife")
         })
@@ -120,7 +118,6 @@ struct LifeTrackerSettingsView: View {
                .onChange(of: colorPalette) {
                    gameModel.isSettingsChanged = true
                }
-               .disabled(gameModel.isGameStarted)
     }
     
     @ToolbarContentBuilder

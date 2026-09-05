@@ -69,7 +69,7 @@ struct LifeTrackerCounterView: View {
                 }
                 
                 statView
-                    .font(.system(size: size.height * 0.6))
+                    .font(.system(size: size.height * statHeightRatio()))
             }
         }
     }
@@ -77,7 +77,7 @@ struct LifeTrackerCounterView: View {
     private var infoView: some View {
         Group {
             if stat == .life {
-                HStack(spacing: 10) {
+                HStack(spacing: 5) {
                     Image(systemName: "pencil.line")
                         .frame(width: 30.0, height: 30.0)
                         .font(.title)
@@ -93,6 +93,10 @@ struct LifeTrackerCounterView: View {
                         .foregroundStyle(player.color)
                         .colorInvert()
                     Spacer()
+                    Text("\(player.commanderTax)")
+                        .font(.default)
+                        .foregroundStyle(player.color)
+                        .colorInvert()
                     Text("Commander".toUnicode())
                         .font(Font.custom("Mana", size: 30))
                         .foregroundStyle(LifeTrackerCounterView.iconColor)
@@ -197,12 +201,24 @@ extension LifeTrackerCounterView {
             player.set(stat: stat, with: value + 1)
         }
     }
+    
+    func statHeightRatio() -> CGFloat {
+        let value = player.get(stat: stat)
+        
+        if value >= 100 || value <= -100 {
+            return 0.5
+        } else if value >= 1000 || value <= -1000 {
+            return 0.4
+        } else {
+            return 0.6
+        }
+    }
 }
 
 #Preview {
     @Previewable @State
     var model = LifeTrackerPlayerModel(name: "Player 1",
-                                       life: 99)
+                                       life: -100)
     
     LifeTrackerCounterView(player: $model,
                            stat: .life,

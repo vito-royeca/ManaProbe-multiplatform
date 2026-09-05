@@ -116,7 +116,7 @@ struct LifeTrackerMainView: View {
     var playersView: some View {
         Group {
             if gameModel.isSettingsChanged {
-                ProgressView()
+                EmptyView()
             } else {
                 switch gameModel.playerCount {
                 case 1: onePlayerView

@@ -69,7 +69,7 @@ class LifeTrackerGameModel {
     var timerString: String {
         get {
             let hours = elapsedTime / 3600
-            let minutes = elapsedTime / 60
+            let minutes = (elapsedTime % 3600) / 60
             let seconds = elapsedTime % 60
             if hours > 0 {
                 _timerString = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
@@ -85,7 +85,7 @@ class LifeTrackerGameModel {
     
     private var timer = Timer()
     private var elapsedTime: Int = 0
-    private var _timerString = "00:00:00"
+    private var _timerString = "00:00"
     
     // MARK: - Initializers
 
