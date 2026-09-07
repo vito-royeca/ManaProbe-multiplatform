@@ -9,13 +9,14 @@ import SwiftUI
 import ManaKit
 
 enum LifeTrackerPlayerStat {
-    case life, poison, energy, commander, commanderTax
+    case life, poison, energy, rad, commander, commanderTax
     
     var name: String {
         switch self {
         case .life: "Life"
         case .poison: "Poison"
         case .energy: "Energy"
+        case .rad: "Rad"
         case .commander: "Commander Damage"
         case .commanderTax: "Commander Tax"
         }
@@ -25,6 +26,7 @@ enum LifeTrackerPlayerStat {
         switch self {
         case .poison: "H"
         case .energy: "E"
+        case .rad: "Rad"
         case .commander: "Commander"
         default: ""
         }
@@ -40,10 +42,11 @@ class LifeTrackerPlayerModel: Identifiable {
     let maxCommanderDamage = 21
 
     var isDead = false
-    var energy = 0
     var name = ""
     var color: Color = .clear
     var dices = [DiceViewModel]()
+    var energy = 0
+    var rad = 0
     var isEnabled = true
     var showPoisonCounter = false
     var showEnergyCounter = false
@@ -105,6 +108,7 @@ class LifeTrackerPlayerModel: Identifiable {
         case .life: life
         case .poison: poison
         case .energy: energy
+        case .rad: rad
         case .commander: commanderDamage[player ?? self] ?? 0
         case .commanderTax: commanderTax
         }
@@ -118,6 +122,8 @@ class LifeTrackerPlayerModel: Identifiable {
             poison = value
         case .energy:
             energy = value
+        case .rad:
+            rad = value
         case .commander:
             if let player = player {
                 commanderDamage[player] = value

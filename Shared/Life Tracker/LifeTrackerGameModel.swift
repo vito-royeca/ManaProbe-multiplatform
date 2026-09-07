@@ -227,4 +227,8 @@ extension LifeTrackerGameModel {
     
         return [:]
     }
+    
+    func playersExcept(player: LifeTrackerPlayerModel) -> [LifeTrackerPlayerModel] {
+        return players.filter { $0 != player }
+    }
 }

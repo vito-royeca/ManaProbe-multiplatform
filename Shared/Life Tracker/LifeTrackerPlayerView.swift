@@ -17,8 +17,10 @@ enum LifeTrackerPlayerViewRotation: Double {
 struct LifeTrackerPlayerView: View {
     // MARK: - Variables
 
-    @State
+    @Binding
     var viewModel: LifeTrackerPlayerModel
+    @State
+    var otherPlayers: [LifeTrackerPlayerModel]
     @State
     var rotation: LifeTrackerPlayerViewRotation
     @State
@@ -26,9 +28,11 @@ struct LifeTrackerPlayerView: View {
 
     // MARK: - Initializers
     
-    init(viewModel: LifeTrackerPlayerModel,
+    init(viewModel: Binding<LifeTrackerPlayerModel>,
+         otherPlayers: [LifeTrackerPlayerModel],
          rotation: LifeTrackerPlayerViewRotation) {
-        self.viewModel = viewModel
+        self._viewModel = viewModel
+        self.otherPlayers = otherPlayers
         self.rotation = rotation
     }
     
@@ -147,15 +151,15 @@ struct LifeTrackerPlayerView: View {
                 if viewModel.showCommanderDamageCounter {
                     commanderView
                         .padding(5)
-                        .background(
-                            commanderRectangleView
-                                .fill(viewModel.color)
-                            
-                        )
-                        .overlay {
-                            commanderRectangleView
-                                .stroke(.gray, lineWidth: 1)
-                        }
+//                        .background(
+//                            commanderRectangleView
+//                                .fill(viewModel.color)
+//                            
+//                        )
+//                        .overlay {
+//                            commanderRectangleView
+//                                .stroke(.gray, lineWidth: 1)
+//                        }
                 } else {
                     LifeTrackerCounterView(player: $viewModel,
                                            stat: .life,
@@ -231,7 +235,7 @@ struct LifeTrackerPlayerView: View {
                     }
             }
             
-            ScrollView {
+            ScrollView(.vertical, showsIndicators: true) {
                 HStack {
                     Text("Commander Tax")
                         .font(.default)
@@ -260,9 +264,6 @@ struct LifeTrackerPlayerView: View {
                                      from: viewModel)
                         }
                 }
-                .listRowSeparator(.hidden)
-                .listRowSpacing(0)
-                .listRowBackground(viewModel.color)
                 
                 HStack {
                     Text("Commander Damage From")
@@ -271,40 +272,41 @@ struct LifeTrackerPlayerView: View {
                         .colorInvert()
                     Spacer()
                 }
-
-                ForEach(viewModel.commanderDamage.keys.sorted(), id: \.self) { player in
-                    let damage = viewModel.commanderDamage[player] ?? 0
-                    HStack {
-                        Text(player.name)
-                            .font(.default)
-                            .foregroundStyle(player.color)
-                            .monospacedDigit()
-                        Spacer()
-                        Text("\(damage)")
-                            .font(.default)
-                            .foregroundStyle(player.color)
-                            .monospacedDigit()
-                        Image(systemName: "minus")
-                            .frame(width: 30.0, height: 30.0)
-                            .font(.title)
-                            .foregroundStyle(LifeTrackerCounterView.iconColor)
-                            .onTapGesture {
-                                decrease(stat: .commander,
-                                         from: player)
-                            }
-                        Image(systemName: "plus")
-                            .frame(width: 30.0, height: 30.0)
-                            .font(.title)
-                            .foregroundStyle(LifeTrackerCounterView.iconColor)
-                            .onTapGesture {
-                                increase(stat: .commander,
-                                         from: player)
-                            }
+                VStack(spacing: 0) {
+                    ForEach(otherPlayers.enumerated(), id: \.offset) { _,player in
+                        let damage = viewModel.commanderDamage[player] ?? 0
+                        HStack {
+                            Text(player.name)
+                                .font(.default)
+                                .foregroundStyle(player.color)
+                                .colorInvert()
+                                .monospacedDigit()
+                            Spacer()
+                            Text("\(damage)")
+                                .font(.default)
+                                .foregroundStyle(player.color)
+                                .colorInvert()
+                                .monospacedDigit()
+                            Image(systemName: "minus")
+                                .frame(width: 30.0, height: 30.0)
+                                .font(.title)
+                                .foregroundStyle(LifeTrackerCounterView.iconColor)
+                                .onTapGesture {
+                                    decrease(stat: .commander,
+                                             from: player)
+                                }
+                            Image(systemName: "plus")
+                                .frame(width: 30.0, height: 30.0)
+                                .font(.title)
+                                .foregroundStyle(LifeTrackerCounterView.iconColor)
+                                .onTapGesture {
+                                    increase(stat: .commander,
+                                             from: player)
+                                }
+                        }
+                        .background(player.color)
                     }
-                    .listRowSeparator(.hidden)
-                    .listRowSpacing(0)
                 }
-                .listRowBackground(viewModel.color)
             }
         }
     }
@@ -406,25 +408,30 @@ extension LifeTrackerPlayerView {
 }
 
 #Preview {
-    let model1 = LifeTrackerPlayerModel(name: "Player 1",
+    @Previewable @State
+    var model1 = LifeTrackerPlayerModel(name: "Player 1",
                                         life: 40,
                                         color: Color(hex: "01BEFE"))
-    let model2 = LifeTrackerPlayerModel(name: "Player 2",
+    @Previewable @State
+    var model2 = LifeTrackerPlayerModel(name: "Player 2",
                                         life: 40,
                                         color: Color(hex: "FFDDOO"))
-    let model3 = LifeTrackerPlayerModel(name: "Player 3",
+    @Previewable @State
+    var model3 = LifeTrackerPlayerModel(name: "Player 3",
                                         life: 40,
                                         color: Color(hex: "FF7DOO"))
     
     VStack(spacing: 2) {
         HStack(spacing: 2) {
-            LifeTrackerPlayerView(viewModel: model1,
+            LifeTrackerPlayerView(viewModel: $model1,
+                                  otherPlayers: [model2, model3],
                                   rotation: .left)
                 .onAppear {
                     model1.commanderDamage[model2] = 0
                     model1.commanderDamage[model3] = 0
                 }
-            LifeTrackerPlayerView(viewModel: model2,
+            LifeTrackerPlayerView(viewModel: $model2,
+                                  otherPlayers: [model1, model3],
                                   rotation: .right)
                 .onAppear {
                     model2.dices.append(DiceViewModel(dice: LifeTrackerDice.d20))
@@ -434,7 +441,8 @@ extension LifeTrackerPlayerView {
                     model2.commanderDamage[model3] = 0
                 }
         }
-        LifeTrackerPlayerView(viewModel: model3,
+        LifeTrackerPlayerView(viewModel: $model3,
+                              otherPlayers: [model1, model2],
                               rotation: .none)
             .onAppear {
                 model3.dices.append(DiceViewModel(dice: LifeTrackerDice.d20))

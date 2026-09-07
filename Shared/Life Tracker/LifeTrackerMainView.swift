@@ -13,6 +13,8 @@ struct LifeTrackerMainView: View {
     
     @State
     var gameModel: LifeTrackerGameModel
+//    @State
+//    var players: [LifeTrackerPlayerModel] = []
     @State
     private var isSettingsPresented: Bool = false
     @State
@@ -21,6 +23,7 @@ struct LifeTrackerMainView: View {
     init() {
         let model = LifeTrackerGameModel()
         _gameModel = State(wrappedValue: model)
+//        _players = State(wrappedValue: gameModel.players.map { $0 })
     }
 
     var body: some View {
@@ -132,26 +135,26 @@ struct LifeTrackerMainView: View {
     }
     
     var onePlayerView: some View {
-        VStack(spacing: 2) {
-            ForEach(gameModel.players.enumerated(), id: \.offset) { index, player in
-                LifeTrackerPlayerView(viewModel: player,
-                                      rotation: .none)
-            }
-        }
+        LifeTrackerPlayerView(viewModel: $gameModel.players[0],
+                              otherPlayers: [],
+                              rotation: .none)
     }
     
     var twoPlayersView: some View {
-        VStack(spacing: 2) {
-            ForEach(gameModel.players.enumerated(), id: \.offset) { index, player in
-                switch index {
-                case 0:
-                    LifeTrackerPlayerView(viewModel: player,
-                                          rotation: .upsideDown)
-                case 1:
-                    LifeTrackerPlayerView(viewModel: player,
-                                          rotation: .none)
-                default:
-                    EmptyView()
+        Group {
+            if gameModel.players.count != 2 {
+                EmptyView()
+            } else {
+                let view1 = LifeTrackerPlayerView(viewModel: $gameModel.players[0],
+                                                  otherPlayers: gameModel.playersExcept(player: gameModel.players[0]),
+                                                  rotation: .upsideDown)
+                let view2 = LifeTrackerPlayerView(viewModel: $gameModel.players[1],
+                                                  otherPlayers: gameModel.playersExcept(player: gameModel.players[1]),
+                                                  rotation: .none)
+                    
+                VStack(spacing: 2) {
+                    view1
+                    view2
                 }
             }
         }
@@ -162,11 +165,14 @@ struct LifeTrackerMainView: View {
             if gameModel.players.count != 3 {
                 EmptyView()
             } else {
-                let view1 = LifeTrackerPlayerView(viewModel: gameModel.players[0],
+                let view1 = LifeTrackerPlayerView(viewModel: $gameModel.players[0],
+                                                  otherPlayers: gameModel.playersExcept(player: gameModel.players[0]),
                                                   rotation: .left)
-                let view2 = LifeTrackerPlayerView(viewModel: gameModel.players[1],
+                let view2 = LifeTrackerPlayerView(viewModel: $gameModel.players[1],
+                                                  otherPlayers: gameModel.playersExcept(player: gameModel.players[1]),
                                                   rotation: .right)
-                let view3 = LifeTrackerPlayerView(viewModel: gameModel.players[2],
+                let view3 = LifeTrackerPlayerView(viewModel: $gameModel.players[2],
+                                                  otherPlayers: gameModel.playersExcept(player: gameModel.players[2]),
                                                   rotation: .none)
                     
                 VStack(spacing: 2) {
@@ -185,13 +191,17 @@ struct LifeTrackerMainView: View {
             if gameModel.players.count != 4 {
                 EmptyView()
             } else {
-                let view1 = LifeTrackerPlayerView(viewModel: gameModel.players[0],
+                let view1 = LifeTrackerPlayerView(viewModel: $gameModel.players[0],
+                                                  otherPlayers: gameModel.playersExcept(player: gameModel.players[0]),
                                                   rotation: .left)
-                let view2 = LifeTrackerPlayerView(viewModel: gameModel.players[1],
+                let view2 = LifeTrackerPlayerView(viewModel: $gameModel.players[1],
+                                                  otherPlayers: gameModel.playersExcept(player: gameModel.players[1]),
                                                   rotation: .left)
-                let view3 = LifeTrackerPlayerView(viewModel: gameModel.players[2],
+                let view3 = LifeTrackerPlayerView(viewModel: $gameModel.players[2],
+                                                  otherPlayers: gameModel.playersExcept(player: gameModel.players[2]),
                                                   rotation: .right)
-                let view4 = LifeTrackerPlayerView(viewModel: gameModel.players[3],
+                let view4 = LifeTrackerPlayerView(viewModel: $gameModel.players[3],
+                                                  otherPlayers: gameModel.playersExcept(player: gameModel.players[3]),
                                                   rotation: .right)
 
                 VStack(spacing: 2) {
@@ -213,15 +223,20 @@ struct LifeTrackerMainView: View {
             if gameModel.players.count != 5 {
                 EmptyView()
             } else {
-                let view1 = LifeTrackerPlayerView(viewModel: gameModel.players[0],
+                let view1 = LifeTrackerPlayerView(viewModel: $gameModel.players[0],
+                                                  otherPlayers: gameModel.playersExcept(player: gameModel.players[0]),
                                                   rotation: .left)
-                let view2 = LifeTrackerPlayerView(viewModel: gameModel.players[1],
+                let view2 = LifeTrackerPlayerView(viewModel: $gameModel.players[1],
+                                                  otherPlayers: gameModel.playersExcept(player: gameModel.players[1]),
                                                   rotation: .left)
-                let view3 = LifeTrackerPlayerView(viewModel: gameModel.players[2],
+                let view3 = LifeTrackerPlayerView(viewModel: $gameModel.players[2],
+                                                  otherPlayers: gameModel.playersExcept(player: gameModel.players[2]),
                                                   rotation: .right)
-                let view4 = LifeTrackerPlayerView(viewModel: gameModel.players[3],
+                let view4 = LifeTrackerPlayerView(viewModel: $gameModel.players[3],
+                                                  otherPlayers: gameModel.playersExcept(player: gameModel.players[3]),
                                                   rotation: .right)
-                let view5 = LifeTrackerPlayerView(viewModel: gameModel.players[4],
+                let view5 = LifeTrackerPlayerView(viewModel: $gameModel.players[4],
+                                                  otherPlayers: gameModel.playersExcept(player: gameModel.players[4]),
                                                   rotation: .right)
 
                 HStack(spacing: 2) {
@@ -244,17 +259,23 @@ struct LifeTrackerMainView: View {
             if gameModel.players.count != 6 {
                 EmptyView()
             } else {
-                let view1 = LifeTrackerPlayerView(viewModel: gameModel.players[0],
+                let view1 = LifeTrackerPlayerView(viewModel: $gameModel.players[0],
+                                                  otherPlayers: gameModel.playersExcept(player: gameModel.players[0]),
                                                   rotation: .left)
-                let view2 = LifeTrackerPlayerView(viewModel: gameModel.players[1],
+                let view2 = LifeTrackerPlayerView(viewModel: $gameModel.players[1],
+                                                  otherPlayers: gameModel.playersExcept(player: gameModel.players[1]),
                                                   rotation: .left)
-                let view3 = LifeTrackerPlayerView(viewModel: gameModel.players[2],
+                let view3 = LifeTrackerPlayerView(viewModel: $gameModel.players[2],
+                                                  otherPlayers: gameModel.playersExcept(player: gameModel.players[2]),
                                                   rotation: .left)
-                let view4 = LifeTrackerPlayerView(viewModel: gameModel.players[3],
+                let view4 = LifeTrackerPlayerView(viewModel: $gameModel.players[3],
+                                                  otherPlayers: gameModel.playersExcept(player: gameModel.players[3]),
                                                   rotation: .right)
-                let view5 = LifeTrackerPlayerView(viewModel: gameModel.players[4],
+                let view5 = LifeTrackerPlayerView(viewModel: $gameModel.players[4],
+                                                  otherPlayers: gameModel.playersExcept(player: gameModel.players[4]),
                                                   rotation: .right)
-                let view6 = LifeTrackerPlayerView(viewModel: gameModel.players[5],
+                let view6 = LifeTrackerPlayerView(viewModel: $gameModel.players[5],
+                                                  otherPlayers: gameModel.playersExcept(player: gameModel.players[5]),
                                                   rotation: .right)
 
                 HStack(spacing: 2) {
