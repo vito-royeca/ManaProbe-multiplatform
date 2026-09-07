@@ -42,6 +42,13 @@ struct LifeTrackerPlayerSettingsView: View {
                     Text("Poison")
                 }
             }
+            Toggle(isOn: $viewModel.showRadCounter) {
+                HStack {
+                    Text("Rad".toUnicode())
+                        .font(Font.custom("Mana", size: 30))
+                    Text("Rad")
+                }
+            }
         }
         .navigationTitle("Player Settings")
         .toolbar {

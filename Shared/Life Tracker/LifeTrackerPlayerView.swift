@@ -16,7 +16,7 @@ enum LifeTrackerPlayerViewRotation: Double {
 
 struct LifeTrackerPlayerView: View {
     // MARK: - Variables
-
+    
     @Binding
     var viewModel: LifeTrackerPlayerModel
     @State
@@ -25,7 +25,7 @@ struct LifeTrackerPlayerView: View {
     var rotation: LifeTrackerPlayerViewRotation
     @State
     private var isSettingsPresented = false
-
+    
     // MARK: - Initializers
     
     init(viewModel: Binding<LifeTrackerPlayerModel>,
@@ -52,11 +52,11 @@ struct LifeTrackerPlayerView: View {
                 sideView
                     .rotationEffect(.degrees(rotation.rawValue))
                     .offset(x: rotation == .left
-                                ? -diff/2
-                                : diff/2,
+                            ? -diff/2
+                            : diff/2,
                             y: rotation == .left
-                                ? -diff/2
-                                : diff/2)
+                            ? -diff/2
+                            : diff/2)
                     .sheet(isPresented: $isSettingsPresented) {
                         LifeTrackerPlayerSettingsView(viewModel: $viewModel)
                     }
@@ -72,7 +72,7 @@ struct LifeTrackerPlayerView: View {
                 mainView
                     .frame(width: size.width,
                            height: size.height)
-
+                
                 HStack {
                     let dWidth = size.width * 0.6
                     let dHeight = size.height * 0.6
@@ -93,12 +93,12 @@ struct LifeTrackerPlayerView: View {
             .background(
                 RoundedRectangle(cornerRadius: 20,
                                  style: .continuous)
-                    .fill(viewModel.color)
+                .fill(viewModel.color)
             )
             .overlay {
                 RoundedRectangle(cornerRadius: 20,
                                  style: .continuous)
-                    .stroke(.black, lineWidth: 1)
+                .stroke(.black, lineWidth: 1)
             }
         }
         
@@ -112,7 +112,7 @@ struct LifeTrackerPlayerView: View {
                 mainView
                     .frame(width: size.height,
                            height: size.width)
-
+                
                 HStack {
                     let dWidth = (size.height * 0.6) - LifeTrackerCounterView.labelHeight
                     let dHeight = (size.height * 0.6) - LifeTrackerCounterView.labelHeight
@@ -133,12 +133,12 @@ struct LifeTrackerPlayerView: View {
             .background(
                 RoundedRectangle(cornerRadius: 20,
                                  style: .continuous)
-                    .fill(viewModel.color)
+                .fill(viewModel.color)
             )
             .overlay {
                 RoundedRectangle(cornerRadius: 20,
                                  style: .continuous)
-                    .stroke(.black, lineWidth: 1)
+                .stroke(.black, lineWidth: 1)
             }
         }
     }
@@ -146,33 +146,35 @@ struct LifeTrackerPlayerView: View {
     var mainView: some View {
         GeometryReader { proxy in
             let size = computeSize(by: proxy)
-
+            
             VStack(spacing: 0) {
                 if viewModel.showCommanderDamageCounter {
                     commanderView
                         .padding(5)
-//                        .background(
-//                            commanderRectangleView
-//                                .fill(viewModel.color)
-//                            
-//                        )
-//                        .overlay {
-//                            commanderRectangleView
-//                                .stroke(.gray, lineWidth: 1)
-//                        }
+                    //                        .background(
+                    //                            commanderRectangleView
+                    //                                .fill(viewModel.color)
+                    //
+                    //                        )
+                    //                        .overlay {
+                    //                            commanderRectangleView
+                    //                                .stroke(.gray, lineWidth: 1)
+                    //                        }
                 } else {
                     LifeTrackerCounterView(player: $viewModel,
                                            stat: .life,
                                            isSettingsPresented: $isSettingsPresented)
                     
-                    if (viewModel.showPoisonCounter ||
-                        viewModel.showEnergyCounter) &&
+                    if (viewModel.showEnergyCounter ||
+                        viewModel.showPoisonCounter ||
+                        viewModel.showRadCounter) &&
                         viewModel.isEnabled {
-                        let divisor =  viewModel.showPoisonCounter &&
-                        viewModel.showEnergyCounter
-                        ? CGFloat(2)
-                        : CGFloat(1)
-                        let width = size.width / divisor
+                        //                        let divisor =  viewModel.showPoisonCounter &&
+                        //                            viewModel.showEnergyCounter
+                        //                            ? CGFloat(2)
+                        //                            : CGFloat(1)
+                        
+                        let width = size.width / statWidthDivisor()
                         let height = size.height / 3
                         
                         HStack(spacing: 0) {
@@ -203,13 +205,26 @@ struct LifeTrackerPlayerView: View {
                                             .stroke(.gray, lineWidth: 1)
                                     }
                             }
+                            if viewModel.showRadCounter  {
+                                radView
+                                    .frame(width: width,
+                                           height: height)
+                                    .background(
+                                        radRectangleView
+                                            .fill(viewModel.color)
+                                    )
+                                    .overlay {
+                                        radRectangleView
+                                            .stroke(.gray, lineWidth: 1)
+                                    }
+                            }
                         }
                     }
                 }
             }
         }
     }
-
+    
     var lifeView: some View {
         Text("\(viewModel.get(stat: .life))")
             .monospacedDigit()
@@ -311,14 +326,19 @@ struct LifeTrackerPlayerView: View {
         }
     }
     
+    var energyView: some View {
+        LifeTrackerCounterView(player: $viewModel,
+                               stat: .energy)
+    }
+    
     var poisonView: some View {
         LifeTrackerCounterView(player: $viewModel,
                                stat: .poison)
     }
     
-    var energyView: some View {
+    var radView: some View {
         LifeTrackerCounterView(player: $viewModel,
-                               stat: .energy)
+                               stat: .rad)
     }
     
     var commanderRectangleView: RoundedRectangle {
@@ -329,7 +349,7 @@ struct LifeTrackerPlayerView: View {
         let bottomLeading = CGFloat(20)
         var bottomTrailing = CGFloat(20)
         
-        if viewModel.showPoisonCounter && viewModel.showEnergyCounter {
+        if viewModel.showPoisonCounter || viewModel.showRadCounter {
             bottomTrailing = CGFloat(0)
         }
         
@@ -343,9 +363,28 @@ struct LifeTrackerPlayerView: View {
     
     var poisonRectangleView: UnevenRoundedRectangle {
         var bottomLeading = CGFloat(20)
+        var bottomTrailing = CGFloat(20)
+        
+        if viewModel.showEnergyCounter {
+            bottomLeading = CGFloat(0)
+        }
+        if viewModel.showRadCounter {
+            bottomTrailing = CGFloat(0)
+        }
+        
+        return UnevenRoundedRectangle(cornerRadii: .init(
+            topLeading: 0,
+            bottomLeading: bottomLeading,
+            bottomTrailing: bottomTrailing,
+            topTrailing: 0),
+                                      style: .continuous)
+    }
+    
+    var radRectangleView: UnevenRoundedRectangle {
+        var bottomLeading = CGFloat(20)
         let bottomTrailing = CGFloat(20)
         
-        if viewModel.showPoisonCounter && viewModel.showEnergyCounter {
+        if viewModel.showPoisonCounter || viewModel.showEnergyCounter {
             bottomLeading = CGFloat(0)
         }
         
@@ -404,6 +443,22 @@ extension LifeTrackerPlayerView {
         default:
             ()
         }
+    }
+    
+    func statWidthDivisor() -> CGFloat {
+        var divisor = CGFloat(1)
+        
+        if viewModel.showPoisonCounter &&
+            viewModel.showEnergyCounter &&
+            viewModel.showRadCounter {
+            divisor = 3
+        } else if (viewModel.showEnergyCounter && viewModel.showPoisonCounter) ||
+            (viewModel.showEnergyCounter && viewModel.showRadCounter) ||
+            (viewModel.showPoisonCounter && viewModel.showRadCounter) {
+            divisor = 2
+        }
+        
+        return divisor
     }
 }
 

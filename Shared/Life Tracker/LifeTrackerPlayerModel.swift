@@ -50,6 +50,7 @@ class LifeTrackerPlayerModel: Identifiable {
     var isEnabled = true
     var showPoisonCounter = false
     var showEnergyCounter = false
+    var showRadCounter = false
     var showCommanderDamageCounter = false
     
     private var _life: Int = 0
