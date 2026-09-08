@@ -13,8 +13,6 @@ struct LifeTrackerMainView: View {
     
     @State
     var gameModel: LifeTrackerGameModel
-//    @State
-//    var players: [LifeTrackerPlayerModel] = []
     @State
     private var isSettingsPresented: Bool = false
     @State
@@ -23,7 +21,6 @@ struct LifeTrackerMainView: View {
     init() {
         let model = LifeTrackerGameModel()
         _gameModel = State(wrappedValue: model)
-//        _players = State(wrappedValue: gameModel.players.map { $0 })
     }
 
     var body: some View {
@@ -85,7 +82,6 @@ struct LifeTrackerMainView: View {
             Image(systemName: "gearshape.fill")
                 .font(.largeTitle)
         }
-        .disabled(gameModel.isGameStarted)
     }
 
     var closeButton: some View {

@@ -96,6 +96,9 @@ struct LifeTrackerSettingsView: View {
             }
             .pickerStyle(.menu)
             .onChange(of: startingLife) {
+                for player in players {
+                    player.life = startingLife
+                }
                 gameModel.isSettingsChanged = true
             }
         }, label: {
@@ -116,6 +119,10 @@ struct LifeTrackerSettingsView: View {
                }
                .pickerStyle(.wheel)
                .onChange(of: colorPalette) {
+                   let colors = colorsFrom(palette: colorPalette)
+                   for (index, player) in players.enumerated() {
+                       player.color = colors[index]
+                   }
                    gameModel.isSettingsChanged = true
                }
     }
@@ -154,8 +161,8 @@ extension LifeTrackerSettingsView {
                 ? gameModel.players[index]
                 : nil
             player.name = origPlayer?.name ?? "New Player"
-            player.life = startingLife
-            player.color = /*origPlayer?.color ?? */colors[index]
+            player.life = origPlayer?.life ?? startingLife
+            player.color = origPlayer?.color ?? colors[index]
             players.append(player)
         }
     }
@@ -164,18 +171,7 @@ extension LifeTrackerSettingsView {
         gameModel.playerCount = playerCount
         gameModel.startingLife = startingLife
         gameModel.colorPalette = colorPalette
-        for (index, player) in players.enumerated() {
-            switch index {
-            case  0: gameModel.playerName1 = player.name
-            case  1: gameModel.playerName2 = player.name
-            case  2: gameModel.playerName3 = player.name
-            case  3: gameModel.playerName4 = player.name
-            case  4: gameModel.playerName5 = player.name
-            case  5: gameModel.playerName6 = player.name
-            default: ()
-            }
-        }
-        gameModel.initPlayers()
+        gameModel.players = players
     }
     
     func colorsFrom(palette: String) -> [Color] {

@@ -48,8 +48,8 @@ struct LifeTrackerCounterView: View {
                                height: LifeTrackerCounterView.labelHeight)
                     HStack(spacing: 0) {
                         minusButton
-                            .frame(width: size.width / 2,
-                                   height: size.height - LifeTrackerCounterView.labelHeight)
+                            .frame(width: max(1, size.width / 2),
+                                   height: max(1, size.height - LifeTrackerCounterView.labelHeight))
                             .background(minusRectangleView.fill(player.color))
                             .onTapGesture {
                                 if player.isEnabled {
@@ -57,8 +57,8 @@ struct LifeTrackerCounterView: View {
                                 }
                             }
                         plusButton
-                            .frame(width: size.width / 2,
-                                   height: size.height - LifeTrackerCounterView.labelHeight)
+                            .frame(width: max(1, size.width / 2),
+                                   height: max(1, size.height - LifeTrackerCounterView.labelHeight))
                             .background(plusRectangleView.fill(player.color))
                             .onTapGesture {
                                 if player.isEnabled {
