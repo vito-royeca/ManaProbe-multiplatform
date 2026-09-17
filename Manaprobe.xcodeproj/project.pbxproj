@@ -374,11 +374,11 @@
 		76ABF9EC305B7CE100A66DE8 /* QA.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = QA.xcconfig; sourceTree = "<group>"; };
 		76ABF9ED305B7CF900A66DE8 /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
 		76ABFA2D305BA9C900A66DE8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		76ABFA2E305BA9D000A66DE8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		76ABFA2F305BA9D200A66DE8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		76ABFA30305BA9D400A66DE8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		76ABFA31305BA9D500A66DE8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		76ABFA32305BA9D700A66DE8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		76ABFA33305BAA6C00A66DE8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		76ABFA34305BAA7E00A66DE8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		76C8DED82F929C4200B0144A /* FlexibleTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleTabView.swift; sourceTree = "<group>"; };
 		76C8DEDE2F93FC6D00B0144A /* PlaceholderImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderImageView.swift; sourceTree = "<group>"; };
 		76C8DEE42F96E5D800B0144A /* AsyncPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncPreviewView.swift; sourceTree = "<group>"; };
@@ -659,7 +659,7 @@
 		76ABF9FE305B83D400A66DE8 /* Debug (Production) */ = {
 			isa = PBXGroup;
 			children = (
-				76ABFA2E305BA9D000A66DE8 /* GoogleService-Info.plist */,
+				76ABFA33305BAA6C00A66DE8 /* GoogleService-Info.plist */,
 			);
 			path = "Debug (Production)";
 			sourceTree = "<group>";
@@ -699,7 +699,7 @@
 		76ABFA1F305BA06600A66DE8 /* Release (Production) */ = {
 			isa = PBXGroup;
 			children = (
-				76ABFA31305BA9D500A66DE8 /* GoogleService-Info.plist */,
+				76ABFA34305BAA7E00A66DE8 /* GoogleService-Info.plist */,
 			);
 			path = "Release (Production)";
 			sourceTree = "<group>";
