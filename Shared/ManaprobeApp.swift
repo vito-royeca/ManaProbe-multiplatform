@@ -45,12 +45,15 @@ struct ManaprobeApp: App {
         UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = UIColor(Color.accentColor)
 
         // ManaKit
-        let apiURLEndpoint = Bundle.main.infoDictionary! ["API_URL_ENDPOINT"] as! String
-        print("apiURLEndpoint = \(apiURLEndpoint)")
-        ManaKitUtilities.shared.configure(apiURL: apiURLEndpoint)
-        ManaKitUtilities.shared.loadCustomFonts()
-        Task {
-            await ManaKitUtilities.shared.downloadSymbolsFont()
+        if let apiURL = Bundle.main.infoDictionary?["API_URL"] as? String {
+            print("apiURL = \(apiURL)")
+            ManaKitUtilities.shared.configure(apiURL: apiURL)
+            ManaKitUtilities.shared.loadCustomFonts()
+            Task {
+                await ManaKitUtilities.shared.downloadSymbolsFont()
+            }
+        } else {
+            fatalError("API_URL not found!")
         }
     }
     

@@ -3,6 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>API_URL_ENDPOINT</key>
-	<string>$(API_URL_ENDPOINT)</string>
+	<string>$(API_URL)</string>
 </dict>
 </plist>
