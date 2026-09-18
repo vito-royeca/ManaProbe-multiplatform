@@ -4,6 +4,8 @@
 <dict>
 	<key>API_URL</key>
 	<string>$(API_URL)</string>
+	<key>INFOPLIST_KEY_CFBundleDisplayName</key>
+	<string>$(INFOPLIST_KEY_CFBundleDisplayName)</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
