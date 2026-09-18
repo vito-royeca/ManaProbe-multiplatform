@@ -69,4 +69,5 @@ xcshareddata
 fastlane/screenshots/en-US/*.png
 .idea
 Gemfile.lock
-Firebase/*
+Firebase/Release (Production)/GoogleService-Info.plist
+Firebase/Debug (Production)/GoogleService-Info.plist
