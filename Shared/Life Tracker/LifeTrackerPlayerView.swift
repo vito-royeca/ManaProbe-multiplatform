@@ -257,11 +257,6 @@ struct LifeTrackerPlayerView: View {
                         .foregroundStyle(viewModel.color)
                         .colorInvert()
                     Spacer()
-                    Text("\(viewModel.commanderTax)")
-                        .font(.default)
-                        .foregroundStyle(viewModel.color)
-                        .colorInvert()
-                        .monospacedDigit()
                     Image(systemName: "minus")
                         .frame(width: 30.0, height: 30.0)
                         .font(.title)
@@ -270,6 +265,11 @@ struct LifeTrackerPlayerView: View {
                             decrease(stat: .commanderTax,
                                      from: viewModel)
                         }
+                    Text("\(viewModel.commanderTax)")
+                        .font(.default)
+                        .foregroundStyle(viewModel.color)
+                        .colorInvert()
+                        .monospacedDigit()
                     Image(systemName: "plus")
                         .frame(width: 30.0, height: 30.0)
                         .font(.title)
@@ -297,11 +297,6 @@ struct LifeTrackerPlayerView: View {
                                 .colorInvert()
                                 .monospacedDigit()
                             Spacer()
-                            Text("\(damage)")
-                                .font(.default)
-                                .foregroundStyle(player.color)
-                                .colorInvert()
-                                .monospacedDigit()
                             Image(systemName: "minus")
                                 .frame(width: 30.0, height: 30.0)
                                 .font(.title)
@@ -310,6 +305,11 @@ struct LifeTrackerPlayerView: View {
                                     decrease(stat: .commander,
                                              from: player)
                                 }
+                            Text("\(damage)")
+                                .font(.default)
+                                .foregroundStyle(player.color)
+                                .colorInvert()
+                                .monospacedDigit()
                             Image(systemName: "plus")
                                 .frame(width: 30.0, height: 30.0)
                                 .font(.title)
@@ -423,8 +423,10 @@ extension LifeTrackerPlayerView {
             let value = player.get(stat: stat)
             player.set(stat: stat, with: value - 2)
         case .commander:
-            let value = viewModel.get(stat: stat, from: player)
-            viewModel.set(stat: stat, with: value - 1, to: player)
+            let statValue = viewModel.get(stat: stat, from: player)
+            let lifeValue = viewModel.get(stat: .life, from: player)
+            viewModel.set(stat: stat, with: statValue - 1, to: player)
+            viewModel.set(stat: .life, with: lifeValue + 1, to: player)
         default:
             ()
         }
@@ -438,8 +440,10 @@ extension LifeTrackerPlayerView {
             let value = player.get(stat: stat)
             player.set(stat: stat, with: value + 2)
         case .commander:
-            let value = viewModel.get(stat: stat, from: player)
-            viewModel.set(stat: stat, with: value + 1, to: player)
+            let statValue = viewModel.get(stat: stat, from: player)
+            let lifeValue = viewModel.get(stat: .life, from: player)
+            viewModel.set(stat: stat, with: statValue + 1, to: player)
+            viewModel.set(stat: .life, with: lifeValue - 1, to: player)
         default:
             ()
         }
