@@ -7,5 +7,6 @@
 
 // Configuration settings file format documentation can be found at:
 // https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
+INFOPLIST_KEY_CFBundleDisplayName = Manaprobe QA
 API_URL = qa-api.manaprobe.com
 ENVIRONMENT = QA

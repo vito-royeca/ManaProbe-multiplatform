@@ -382,7 +382,7 @@
 		76C8DED82F929C4200B0144A /* FlexibleTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleTabView.swift; sourceTree = "<group>"; };
 		76C8DEDE2F93FC6D00B0144A /* PlaceholderImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderImageView.swift; sourceTree = "<group>"; };
 		76C8DEE42F96E5D800B0144A /* AsyncPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncPreviewView.swift; sourceTree = "<group>"; };
-		76CDDA282FB9698500B7A47E /* Manaprobe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Manaprobe.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		76CDDA282FB9698500B7A47E /* Manaprobe Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Manaprobe Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		76D609A72FACF16B00A8F980 /* CollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionHeaderView.swift; sourceTree = "<group>"; };
 		76D609AB2FACF2C400A8F980 /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		76D60A3F2FAD9DCB00A8F980 /* MoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreView.swift; sourceTree = "<group>"; };
@@ -804,7 +804,7 @@
 			children = (
 				8B41B7492812144E00AECF85 /* Tests iOS.xctest */,
 				8B41B7552812144F00AECF85 /* Tests macOS.xctest */,
-				76CDDA282FB9698500B7A47E /* Manaprobe.app */,
+				76CDDA282FB9698500B7A47E /* Manaprobe Dev.app */,
 				760472BB2FB96B5500B75E4F /* Manaprobe.app */,
 			);
 			name = Products;
@@ -979,7 +979,7 @@
 				76CDD9BC2FB9698500B7A47E /* FirebaseStorageUI */,
 			);
 			productName = "ManaGuide (iOS)";
-			productReference = 76CDDA282FB9698500B7A47E /* Manaprobe.app */;
+			productReference = 76CDDA282FB9698500B7A47E /* Manaprobe Dev.app */;
 			productType = "com.apple.product-type.application";
 		};
 		8B41B7482812144E00AECF85 /* Tests iOS */ = {
@@ -1559,6 +1559,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				API_URL_ENDPOINT = "";
+				APP_DISPLAY_NAME = Manaprobe;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -1572,7 +1573,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Manaprobe--iOS--Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = Manaprobe;
+				INFOPLIST_KEY_CFBundleDisplayName = "$(INFOPLIST_KEY_CFBundleDisplayName)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.card-games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1736,6 +1737,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				API_URL_ENDPOINT = "";
+				APP_DISPLAY_NAME = "Manaprobe QA";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -1749,7 +1751,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Manaprobe--iOS--Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = Manaprobe;
+				INFOPLIST_KEY_CFBundleDisplayName = "$(INFOPLIST_KEY_CFBundleDisplayName)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.card-games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1762,8 +1764,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.manaprobe.Manaprobe;
-				PRODUCT_NAME = Manaprobe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.manaprobe.ManaprobeQA;
+				PRODUCT_NAME = "Manaprobe QA";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Manaprobe-dev";
 				SDKROOT = iphoneos;
@@ -1907,6 +1909,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				API_URL_ENDPOINT = "";
+				APP_DISPLAY_NAME = Manaprobe;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -1920,7 +1923,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Manaprobe--iOS--Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = Manaprobe;
+				INFOPLIST_KEY_CFBundleDisplayName = "$(INFOPLIST_KEY_CFBundleDisplayName)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.card-games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -2079,6 +2082,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				API_URL_ENDPOINT = "";
+				APP_DISPLAY_NAME = "Manaprobe QA";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -2092,7 +2096,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Manaprobe--iOS--Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = Manaprobe;
+				INFOPLIST_KEY_CFBundleDisplayName = "$(INFOPLIST_KEY_CFBundleDisplayName)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.card-games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -2105,8 +2109,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.manaprobe.Manaprobe;
-				PRODUCT_NAME = Manaprobe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.manaprobe.ManaprobeQA;
+				PRODUCT_NAME = "Manaprobe QA";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Manaprobe-dev";
 				SDKROOT = iphoneos;
@@ -2154,6 +2158,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				API_URL_ENDPOINT = "";
+				APP_DISPLAY_NAME = "Manaprobe Dev";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -2167,7 +2172,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Manaprobe--iOS--Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = Manaprobe;
+				INFOPLIST_KEY_CFBundleDisplayName = "$(INFOPLIST_KEY_CFBundleDisplayName)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.card-games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -2180,8 +2185,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.manaprobe.Manaprobe;
-				PRODUCT_NAME = Manaprobe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.manaprobe.ManaprobeDev;
+				PRODUCT_NAME = "Manaprobe Dev";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Manaprobe-dev";
 				SDKROOT = iphoneos;
@@ -2198,6 +2203,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				API_URL_ENDPOINT = "";
+				APP_DISPLAY_NAME = "Manaprobe Dev";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -2211,7 +2217,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Manaprobe--iOS--Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = Manaprobe;
+				INFOPLIST_KEY_CFBundleDisplayName = "$(INFOPLIST_KEY_CFBundleDisplayName)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.card-games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -2224,8 +2230,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.manaprobe.Manaprobe;
-				PRODUCT_NAME = Manaprobe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.manaprobe.ManaprobeDev;
+				PRODUCT_NAME = "Manaprobe Dev";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Manaprobe-dev";
 				SDKROOT = iphoneos;
