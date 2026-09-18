@@ -40,9 +40,14 @@ class AuthModel {
         let actionCodeSettings = ActionCodeSettings()
 
         actionCodeSettings.handleCodeInApp = true
-        actionCodeSettings.url = URL(string: "https://manaprobe-dev.firebaseapp.com ")
+        if let url = Bundle.main.infoDictionary?["ACTION_CODE_SETTINGS_URL"] as? String {
+            actionCodeSettings.url = URL(string: "https://\(url)")
+        }
+        if let linkDomain = Bundle.main.infoDictionary?["ACTION_CODE_SETTINGS_LINK_DOMAIN"] as? String {
+            actionCodeSettings.linkDomain = linkDomain
+        }
         actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
-        actionCodeSettings.linkDomain = "manaprobe-dev.firebaseapp.com"
+        
         let configuration = AuthConfiguration(
           shouldAutoUpgradeAnonymousUsers: true,
           customStringsBundle: .main,

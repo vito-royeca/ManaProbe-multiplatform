@@ -10,3 +10,5 @@
 INFOPLIST_KEY_CFBundleDisplayName = Manaprobe Dev
 API_URL = dev-api.manaprobe.com
 ENVIRONMENT = Development
+ACTION_CODE_SETTINGS_URL = manaprobe-dev.firebaseapp.com
+ACTION_CODE_SETTINGS_LINK_DOMAIN = manaprobe-dev.firebaseapp.com

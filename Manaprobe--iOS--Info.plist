@@ -2,8 +2,63 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ACTION_CODE_SETTINGS_LINK_DOMAIN</key>
+	<string>$(ACTION_CODE_SETTINGS_LINK_DOMAIN)</string>
+	<key>ACTION_CODE_SETTINGS_URL</key>
+	<string>ACTION_CODE_SETTINGS_LINK_DOMAIN</string>
 	<key>API_URL</key>
 	<string>$(API_URL)</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.215998824564-uiro90n3nsuva2cup6qqce0nu50g1dmg</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>215998824564-uiro90n3nsuva2cup6qqce0nu50g1dmg.apps.googleusercontent.com</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.298478805701-je0s7hh2mqpjh3h8appub1628q1vihl2</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>298478805701-je0s7hh2mqpjh3h8appub1628q1vihl2.apps.googleusercontent.com</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.468585955186-7ed8g5cbhfid39okjns9vs614jsq6rbu</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>468585955186-7ed8g5cbhfid39okjns9vs614jsq6rbu.apps.googleusercontent.com</string>
+			</array>
+		</dict>
+	</array>
 	<key>INFOPLIST_KEY_CFBundleDisplayName</key>
 	<string>$(INFOPLIST_KEY_CFBundleDisplayName)</string>
 	<key>NSAppTransportSecurity</key>
