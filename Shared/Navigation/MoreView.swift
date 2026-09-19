@@ -76,6 +76,17 @@ struct MoreView: View {
             default: Text("Not Implemented")
             }
         }
+        .navigationDestination(for: CardRoute.self) { route in
+            switch route {
+            case .details(let selectedCard, let navigator):
+                CardView(card: selectedCard, navigator: navigator)
+            case .printings(let card):
+                CardAllPrintingsView(card: card)
+            }
+        }
+        .navigationDestination(for: FBCollection.self) { collecton in
+            CollectionView(collection: collecton)
+        }
         .navigationDestination(for: GlossaryIndex.self) { index in
             RulesView(glossaryIndex: index)
         }
@@ -85,33 +96,15 @@ struct MoreView: View {
         .navigationDestination(for: RuleInfo.Child.self) { rule in
             RulesView(rule: rule.fragments.ruleBasicInfo)
         }
+        
     }
     
     var favoritesView: some View {
         FavoritesView()
-            .navigationDestination(for: CardRoute.self) { route in
-                switch route {
-                case .details(let selectedCard, let navigator):
-                    CardView(card: selectedCard, navigator: navigator)
-                case .printings(let card):
-                    CardAllPrintingsView(card: card)
-                }
-            }
     }
     
     var collectionsView: some View {
         CollectionsView()
-            .navigationDestination(for: CardRoute.self) { route in
-                switch route {
-                case .details(let selectedCard, let navigator):
-                    CardView(card: selectedCard, navigator: navigator)
-                case .printings(let card):
-                    CardAllPrintingsView(card: card)
-                }
-            }
-            .navigationDestination(for: FBCollection.self) { collecton in
-                CollectionView(collection: collecton)
-            }
     }
     
     var decksView: some View {

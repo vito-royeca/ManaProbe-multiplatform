@@ -230,7 +230,6 @@ class CardsViewModel {
         }
         updateNavigation()
         
-//        cards.removeAll()
         cards = tempCards
     }
     

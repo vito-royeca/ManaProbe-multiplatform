@@ -30,13 +30,20 @@ struct FBFavorite: Identifiable, Codable {
     var dateAdded: Foundation.Date
 }
 
-struct FBCard: Identifiable, Codable, Hashable {
-    var id: String { cardID }
-    var cardID: String
-    var quantity: Int
+struct FBCardItem: Identifiable, Codable, Hashable {
+    @DocumentID
+    var id: String?
     var isFoil: Bool
     var condition: CardCondition
     var notes: String
+    var dateAdded: Foundation.Date?
+    var dateUpdated: Foundation.Date?
+}
+
+struct FBCard: Identifiable, Codable, Hashable {
+    var id: String { cardID }
+    var cardID: String
+    var items: [FBCardItem]
 }
 
 struct FBCollection: Identifiable, Codable, Hashable {

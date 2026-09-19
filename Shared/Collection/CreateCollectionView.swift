@@ -30,16 +30,11 @@ struct CreateCollectionView: View {
     
     @State
     private var newName: String = ""
-    
     @State
-    private var quantity = 1
+    private var description: String = ""
     @State
-    private var isFoil = false
-    @State
-    private var condition = CardCondition.lightlyPlayed
-    @State
-    private var notes = ""
-    
+    private var items = [FBCardItem]()
+
     var body: some View {
         NavigationStack {
             Group {
@@ -53,13 +48,12 @@ struct CreateCollectionView: View {
                     }
                 } else {
                     contentView
+                        .onAppear {
+                            if items.isEmpty {
+                                addNewItem()
+                            }
+                        }
                 }
-            }
-            .onChange(of: collectionsViewModel.selectedCollection) {
-                handleCollectionChange()
-            }
-            .onChange(of: type) {
-                handleTypeChange()
             }
             .task {
                 fetchData()
@@ -71,11 +65,11 @@ struct CreateCollectionView: View {
         Form {
             CardListItemView(card: card)
 
-            Section {
+            Section (content: {
                 Picker("Collection", selection: $type) {
                     Text("Create New")
                         .tag(CreateCollectionType.new)
-                    Text("Add To")
+                    Text("Select")
                         .tag(CreateCollectionType.existing)
                 }
                 .pickerStyle(.segmented)
@@ -83,6 +77,12 @@ struct CreateCollectionView: View {
                 switch type {
                 case .new:
                     TextField("New Collection \(newNameNumber)", text: $newName)
+                    DisclosureGroup(content: {
+                        TextEditor(text: $description)
+                            .frame(height: 100)
+                    }, label: {
+                        Text("Description")
+                    })
                 case .existing:
                     Picker("Collection", selection: $collectionsViewModel.selectedCollection) {
                         ForEach(collectionsViewModel.collections, id: \.id) { collection in
@@ -90,47 +90,31 @@ struct CreateCollectionView: View {
                                 .tag(collection)
                         }
                     }
-                    .pickerStyle(.wheel)
+                    .pickerStyle(.menu)
                 }
-            } footer: {
-                if type == .new {
-                    Text("Name is required.")
+            }, footer: {
+                switch type {
+                case .new:
+                    Text("Create a new Collection and add \(items.count > 1 ? "these cards" : "this card") to it.")
+                case .existing:
+                    Text("Select an existing Collection and add \(items.count > 1 ? "these cards" : "this card") to it.")
                 }
-            }
+                
+            })
             
-            Section {
-                Stepper {
-                    Text("Quantity: \(quantity)")
-                } onIncrement: {
-                    quantity += 1
-                } onDecrement: {
-                    quantity -= 1
-                    
-                    if quantity <= 0 {
-                        quantity = 0
-                    }
+            ForEach(items.enumerated(), id: \.offset) { index,item in
+                Section {
+                    CollectionItemView(item: $items[index])
+                    Button(role: .destructive,
+                           action: {
+                        items.remove(at: index)
+                    },
+                           label: {
+                        Text("Remove")
+                    })
+                    .buttonStyle(.borderedProminent)
+                        
                 }
-
-                Toggle("Foil", isOn: $isFoil)
-
-                Picker("Condition", selection: $condition) {
-                    ForEach(CardCondition.allCases, id: \.self) { collection in
-                        Text(collection.description)
-                            .tag(collection)
-                    }
-                }
-                .pickerStyle(.automatic)
-            } footer: {
-                if type == .existing {
-                    Text("Note: setting the Quantity to Zero will remove this card from the collection.")
-                }
-            }
-            
-            Section {
-                TextEditor(text: $notes)
-                    .frame(height: 100)
-            } header: {
-                Text("Notes")
             }
         }
         .navigationTitle("Collection")
@@ -148,7 +132,14 @@ struct CreateCollectionView: View {
                 Image(systemName: "xmark")
             }
         }
-        
+        ToolbarItem(placement: .topBarTrailing) {
+            Button {
+                addNewItem()
+            } label: {
+                Image(systemName: "plus")
+            }
+        }
+        ToolbarSpacer(.fixed)
         ToolbarItem(placement: .confirmationAction) {
             Button {
                 save()
@@ -161,76 +152,48 @@ struct CreateCollectionView: View {
 }
 
 extension CreateCollectionView {
+    func addNewItem() {
+        let item = FBCardItem(isFoil: false,
+                              condition: .lightlyPlayed,
+                              notes: "",
+                              dateAdded: Date(),
+                              dateUpdated: Date())
+        items.append(item)
+    }
+
     func fetchData() {
         Task {
             await collectionsViewModel.fetchData()
         }
     }
 
-    func handleTypeChange() {
-        if type == .new {
-            quantity = 1
-            isFoil = false
-            condition = CardCondition.lightlyPlayed
-            notes = ""
-        } else {
-            guard let selectedCollection = collectionsViewModel.selectedCollection,
-                  let card = selectedCollection.cards.filter({ $0.cardID == card.id }).first else {
-                quantity = 1
-                isFoil = false
-                condition = CardCondition.lightlyPlayed
-                notes = ""
-                return
-            }
-            
-            quantity = card.quantity
-            isFoil = card.isFoil
-            condition = card.condition
-            notes = card.notes
-        }
-    }
-    
-    func handleCollectionChange() {
-        guard type == .existing,
-            let selectedCollection = collectionsViewModel.selectedCollection,
-              let card = selectedCollection.cards.filter({ $0.cardID == card.id }).first else {
-            quantity = 1
-            isFoil = false
-            condition = CardCondition.lightlyPlayed
-            notes = ""
-            return
-        }
-        
-        quantity = card.quantity
-        isFoil = card.isFoil
-        condition = card.condition
-        notes = card.notes
-    }
-
     func save() {
         Task {
-            let card = FBCard(cardID: card.id,
-                              quantity: quantity,
-                              isFoil: isFoil,
-                              condition: condition,
-                              notes: notes)
-            var result = false
-
-            if type == .new {
-                result = try await collectionViewModel.create(name: newName, card: card)
-                newNameNumber += 1
-            } else {
-                guard let selectedCollection = collectionsViewModel.selectedCollection else {
-                    return
+            do {
+                let card = FBCard(cardID: card.id,
+                                  items: items)
+                var result = false
+                
+                if type == .new {
+                    
+                    result = try await collectionViewModel.create(name: newName,
+                                                                  description: description,
+                                                                  card: card)
+                    newNameNumber += 1
+                } else {
+                    guard let collection = collectionsViewModel.selectedCollection else {
+                        return
+                    }
+                    
+                    result = try await collectionViewModel.update(collection: collection,
+                                                                  with: card)
                 }
                 
-                result = try await collectionViewModel.update(collectionUpdate: selectedCollection,
-                                                              name: selectedCollection.name,
-                                                              card: card)
-            }
-            
-            if result {
-                dismiss()
+                if result {
+                    dismiss()
+                }
+            } catch {
+                print(error)
             }
         }
     }
@@ -240,16 +203,9 @@ extension CreateCollectionView {
         
         switch type {
         case .new:
-            if newName.isEmpty {
-                result  = false
-            }
-            if quantity == 0 {
-                result  = false
-            }
+            result = !newName.isEmpty && !items.isEmpty
         case .existing:
-            if collectionsViewModel.selectedCollection == nil {
-                result = false
-            }
+            result = collectionsViewModel.selectedCollection != nil
         }
         
         return result
@@ -264,5 +220,29 @@ extension CreateCollectionView {
     } fetchData: {
         try await ManaKitUtilities.shared.card(fetchRemote: false,
                                                id: "inr_en_14b")
+    }
+}
+
+struct CollectionItemView: View {
+    @Binding
+    var item: FBCardItem
+    
+    var body: some View {
+        Toggle("Foil", isOn: $item.isFoil)
+
+        Picker("Condition", selection: $item.condition) {
+            ForEach(CardCondition.allCases, id: \.self) { collection in
+                Text(collection.description)
+                    .tag(collection)
+            }
+        }
+        .pickerStyle(.automatic)
+        
+        DisclosureGroup(content: {
+            TextEditor(text: $item.notes)
+                .frame(height: 50)
+        }, label: {
+            Text("Notes")
+        })
     }
 }

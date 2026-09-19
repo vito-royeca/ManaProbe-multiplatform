@@ -25,11 +25,11 @@ struct CollectionListItemView: View {
                         Spacer()
                         quantityView
                     }
-                    Text(fbCard.notes)
-                        .font(.caption)
-                        .foregroundColor(Color.gray)
-                        .lineLimit(1)
-                        .padding(.top, 10)
+//                    Text(fbCard.notes)
+//                        .font(.caption)
+//                        .foregroundColor(Color.gray)
+//                        .lineLimit(1)
+//                        .padding(.top, 10)
                 }
             }
     }
@@ -90,12 +90,12 @@ struct CollectionListItemView: View {
     
     var quantityView: some View {
         VStack(alignment: .leading) {
-            Text("Qty: \(fbCard.quantity)x")
+            Text("Qty: \(fbCard.items.count)x")
                 .font(.footnote)
                 .multilineTextAlignment(.trailing)
-            Text("Foil: \(fbCard.isFoil ? "Yes" : "No")")
-                .font(.footnote)
-                .multilineTextAlignment(.trailing)
+//            Text("Foil: \(fbCard.isFoil ? "Yes" : "No")")
+//                .font(.footnote)
+//                .multilineTextAlignment(.trailing)
         }
     }
 }
@@ -103,10 +103,11 @@ struct CollectionListItemView: View {
 #Preview {
     let cardID = "isd_en_51"
     let fbCard = FBCard(cardID: cardID,
-                        quantity: 1,
+                        items: []
+                        /*quantity: 1,
                         isFoil: false,
                         condition: CardCondition.lightlyPlayed,
-                        notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non nisl at nunc lobortis accumsan a eget est. Integer eleifend.")
+                        notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non nisl at nunc lobortis accumsan a eget est. Integer eleifend."*/)
     AsyncPreviewView { data in
         List {
             CollectionListItemView(card: data.fragments.innerCardInfo,

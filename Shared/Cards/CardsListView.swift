@@ -12,7 +12,7 @@ struct CardsListView<Header: View>: View {
     // MARK: - Variables
 
     @Environment(CardsViewModel.self)
-    private var viewModel: CardsViewModel
+    private var viewModel
     
     @Environment(AuthModel.self)
     private var authModel
@@ -24,7 +24,7 @@ struct CardsListView<Header: View>: View {
 
     @State
     private var isCollectionPresented = false
-    
+
     // MARK: - Initializers
 
     init(@ViewBuilder headerBuilder: () -> Header) {
@@ -60,6 +60,17 @@ struct CardsListView<Header: View>: View {
                         }
                         .buttonStyle(.plain)
                         .id(card.id)
+                        
+                        if let collectionViewModel = viewModel as? CollectionViewModel {
+                            let items = collectionViewModel.collection?.cards.filter { $0.cardID == card.id }
+                                .first?.items ?? []
+                            ForEach(items.enumerated(), id: \.offset) { index,item in
+                                XCollectionListItemView(item: item)
+                                .swipeActions(allowsFullSwipe: false) {
+                                    swipeActions(for: card, and: item)
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -102,12 +113,29 @@ extension CardsListView {
             }
         }
         .tint(.accentColor)
-
+        
         Button {
             handleCollections(card: card)
         } label: {
             Image(systemName: "folder.badge.plus")
         }
+        .tint(.accentColor)
+    }
+    
+    @ViewBuilder
+    func swipeActions(for card: CardBasicInfo, and item: FBCardItem) -> some View {
+        Button(role: .destructive,
+               action: {
+            
+        }, label: {
+            Image(systemName: "trash")
+        })
+        
+        Button(action: {
+            
+        }, label: {
+            Image(systemName: "pencil")
+        })
         .tint(.accentColor)
     }
     
@@ -118,7 +146,7 @@ extension CardsListView {
             viewModel.selectedCard = card.fragments.innerCardInfo
         }
     }
-
+    
     func handleFavorite(card: CardBasicInfo) {
         if authModel.user == nil {
             authModel.showAccountView.toggle()
@@ -126,6 +154,39 @@ extension CardsListView {
             Task {
                 try await favoritesViewModel.createOrDelete(card: card)
             }
+        }
+    }
+}
+
+struct XCollectionListItemView: View {
+    
+    @State
+    var item: FBCardItem
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Text(item.condition.description)
+                Spacer()
+                Text(item.isFoil ? "Foil" : "Normal")
+                    .foregroundColor(item.isFoil ? Color.green : Color.blue)
+                    .multilineTextAlignment(.trailing)
+                
+            }
+            if !item.notes.isEmpty {
+                Text(item.notes)
+                    .font(.footnote)
+            }
+            
+            if let dateUpdated = item.dateUpdated {
+                HStack {
+                    Spacer()
+                    Text(dateUpdated.formatted(.dateTime))
+                        .multilineTextAlignment(.trailing)
+                        .font(.footnote)
+                }
+            }
+            
         }
     }
 }
