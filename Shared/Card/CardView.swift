@@ -19,6 +19,9 @@ struct CardView: View {
     private var viewModel: CardViewModel
     private var navigator: CardsNavigatorDelegate?
 
+    @State
+    private var collectionViewModel = CollectionViewModel(collection: nil)
+
     @Environment(\.horizontalSizeClass)
     private var horizontalSizeClass
     @State

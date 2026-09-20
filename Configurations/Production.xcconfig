@@ -9,6 +9,6 @@
 // https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
 INFOPLIST_KEY_CFBundleDisplayName = Manaprobe
 API_URL = api.manaprobe.com
-ENVIRONMENT = Production
+APP_ENVIRONMENT = Production
 ACTION_CODE_SETTINGS_URL = manaprobe-prod.firebaseapp.com
 ACTION_CODE_SETTINGS_LINK_DOMAIN = manaprobe-prod.firebaseapp.com

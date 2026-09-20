@@ -14,6 +14,7 @@ enum CreateCollectionType {
 
 struct CreateCollectionView: View {
     var card: InnerCardInfo
+    var saveCallback: (() -> Void)? = nil
 
     @Environment(\.dismiss)
     private var dismiss
@@ -33,7 +34,8 @@ struct CreateCollectionView: View {
     @State
     private var description: String = ""
     @State
-    private var items = [FBCardItem]()
+    private var item = FBCollectionItem(isFoil: false,
+                                        condition: .lightlyPlayed)
 
     var body: some View {
         NavigationStack {
@@ -48,11 +50,6 @@ struct CreateCollectionView: View {
                     }
                 } else {
                     contentView
-                        .onAppear {
-                            if items.isEmpty {
-                                addNewItem()
-                            }
-                        }
                 }
             }
             .task {
@@ -65,7 +62,7 @@ struct CreateCollectionView: View {
         Form {
             CardListItemView(card: card)
 
-            Section (content: {
+            Section {
                 Picker("Collection", selection: $type) {
                     Text("Create New")
                         .tag(CreateCollectionType.new)
@@ -90,34 +87,26 @@ struct CreateCollectionView: View {
                                 .tag(collection)
                         }
                     }
-                    .pickerStyle(.menu)
+                    .pickerStyle(.wheel)
                 }
-            }, footer: {
+            } header: {
+                Text("Collection")
+            } footer: {
                 switch type {
                 case .new:
-                    Text("Create a new Collection and add \(items.count > 1 ? "these cards" : "this card") to it.")
+                    Text("Create a new Collection and add this card.")
                 case .existing:
-                    Text("Select an existing Collection and add \(items.count > 1 ? "these cards" : "this card") to it.")
-                }
-                
-            })
-            
-            ForEach(items.enumerated(), id: \.offset) { index,item in
-                Section {
-                    CollectionItemView(item: $items[index])
-                    Button(role: .destructive,
-                           action: {
-                        items.remove(at: index)
-                    },
-                           label: {
-                        Text("Remove")
-                    })
-                    .buttonStyle(.borderedProminent)
-                        
+                    Text("Select an existing Collection and add this card.")
                 }
             }
+            
+            Section{
+                CollectionListItemView(item: $item)
+            } header: {
+                Text("Card details")
+            }
         }
-        .navigationTitle("Collection")
+        .navigationTitle("Add to Collection")
         .toolbar {
             actionToolbar
         }
@@ -132,14 +121,6 @@ struct CreateCollectionView: View {
                 Image(systemName: "xmark")
             }
         }
-        ToolbarItem(placement: .topBarTrailing) {
-            Button {
-                addNewItem()
-            } label: {
-                Image(systemName: "plus")
-            }
-        }
-        ToolbarSpacer(.fixed)
         ToolbarItem(placement: .confirmationAction) {
             Button {
                 save()
@@ -152,15 +133,6 @@ struct CreateCollectionView: View {
 }
 
 extension CreateCollectionView {
-    func addNewItem() {
-        let item = FBCardItem(isFoil: false,
-                              condition: .lightlyPlayed,
-                              notes: "",
-                              dateAdded: Date(),
-                              dateUpdated: Date())
-        items.append(item)
-    }
-
     func fetchData() {
         Task {
             await collectionsViewModel.fetchData()
@@ -170,15 +142,14 @@ extension CreateCollectionView {
     func save() {
         Task {
             do {
-                let card = FBCard(cardID: card.id,
-                                  items: items)
                 var result = false
-                
+
                 if type == .new {
-                    
                     result = try await collectionViewModel.create(name: newName,
-                                                                  description: description,
-                                                                  card: card)
+                                                                  description: description.isEmpty
+                                                                      ? nil
+                                                                      : description,
+                                                                  newItems: [[card.id: item]])
                     newNameNumber += 1
                 } else {
                     guard let collection = collectionsViewModel.selectedCollection else {
@@ -186,10 +157,11 @@ extension CreateCollectionView {
                     }
                     
                     result = try await collectionViewModel.update(collection: collection,
-                                                                  with: card)
+                                                                  newItems: [[card.id: item]])
                 }
                 
                 if result {
+                    saveCallback?()
                     dismiss()
                 }
             } catch {
@@ -203,7 +175,7 @@ extension CreateCollectionView {
         
         switch type {
         case .new:
-            result = !newName.isEmpty && !items.isEmpty
+            result = !newName.isEmpty
         case .existing:
             result = collectionsViewModel.selectedCollection != nil
         }
@@ -212,37 +184,13 @@ extension CreateCollectionView {
     }
 }
 
-#Preview {
-    AsyncPreviewView { data in
-        List {
-            CreateCollectionView(card: data.fragments.innerCardInfo)
-        }
-    } fetchData: {
-        try await ManaKitUtilities.shared.card(fetchRemote: false,
-                                               id: "inr_en_14b")
-    }
-}
-
-struct CollectionItemView: View {
-    @Binding
-    var item: FBCardItem
-    
-    var body: some View {
-        Toggle("Foil", isOn: $item.isFoil)
-
-        Picker("Condition", selection: $item.condition) {
-            ForEach(CardCondition.allCases, id: \.self) { collection in
-                Text(collection.description)
-                    .tag(collection)
-            }
-        }
-        .pickerStyle(.automatic)
-        
-        DisclosureGroup(content: {
-            TextEditor(text: $item.notes)
-                .frame(height: 50)
-        }, label: {
-            Text("Notes")
-        })
-    }
-}
+//#Preview {
+//    AsyncPreviewView { data in
+//        List {
+//            CreateCollectionView(card: data.fragments.innerCardInfo)
+//        }
+//    } fetchData: {
+//        try await ManaKitUtilities.shared.card(fetchRemote: false,
+//                                               id: "inr_en_14b")
+//    }
+//}

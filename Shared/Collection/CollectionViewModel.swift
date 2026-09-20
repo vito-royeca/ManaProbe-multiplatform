@@ -17,9 +17,10 @@ import ManaKit
 @Observable
 class CollectionViewModel: CardsViewModel {
     var collection: FBCollection?
+    var items = [FBCollectionItem]()
 
     @ObservationIgnored
-    private let collentionName = "collections"
+    private let collectionName = "collections"
     
     @ObservationIgnored
     private var db = Firestore.firestore()
@@ -37,10 +38,33 @@ class CollectionViewModel: CardsViewModel {
             isFailed = false
             isBusy = true
             cards.removeAll()
+            items.removeAll()
             
-            let ids = collection.cards.map(\.cardID)
-            cards[""] = try await ManaKitUtilities.shared.cardsByIDs(fetchRemote: fetchRemote, cardIDs: ids)?
-                .cards.map { $0.fragments.cardBasicInfo } ?? []
+            var ids = [String]()
+            
+            if let id = collection.id {
+                let snapshot = try await db
+                    .collection("\(collectionName)/\(id)/cards")
+                    .getDocuments()
+                
+                for document in snapshot.documents {
+                    ids.append(document.documentID)
+                    for itemDoc in try await db
+                        .collection("\(collectionName)/\(id)/cards/\(document.documentID)/items")
+                        .getDocuments()
+                        .documents {
+                        
+                        var item = try itemDoc.data(as: FBCollectionItem.self)
+                        item.id = itemDoc.documentID
+                        items.append(item)
+                    }
+                }
+            }
+            
+            if !ids.isEmpty {
+                cards[""] = try await ManaKitUtilities.shared.cardsByIDs(fetchRemote: fetchRemote, cardIDs: ids)?
+                    .cards.map { $0.fragments.cardBasicInfo } ?? []
+            }
             
             formatData()
             
@@ -53,7 +77,7 @@ class CollectionViewModel: CardsViewModel {
 
     func create(name: String,
                 description: String? = nil,
-                card: FBCard) async throws -> Bool {
+                newItems: [[String: FBCollectionItem]]) async throws -> Bool {
         guard let user = Auth.auth().currentUser else {
             return false
         }
@@ -63,15 +87,47 @@ class CollectionViewModel: CardsViewModel {
         
         let newCollection = FBCollection(uid: user.uid,
                                          name: name,
-                                         description: description,
-                                         cards: [card],
-                                         dateAdded: Date(),
-                                         dateUpdated: Date())
+                                         description: description)
         
         do {
-            let ref = try db.collection(collentionName).addDocument(from: newCollection)
-            let doc = try await ref.getDocument()
-            collection = try doc.data(as: FBCollection.self)
+            // create the collection
+            let collectionRef = try db.collection(collectionName).addDocument(from: newCollection)
+            let collectionDoc = try await collectionRef.getDocument()
+            
+            // add the card items
+            for item in newItems {
+                for (k,v) in item {
+                    let encoder = JSONEncoder()
+                    let data = try encoder.encode(v)
+                    
+                    if var json = try JSONSerialization.jsonObject(with: data,
+                                                                   options: .allowFragments) as? [String: Any] {
+                        json["dateAdded"] = FieldValue.serverTimestamp()
+                        json["dateUpdated"] = FieldValue.serverTimestamp()
+                        
+                        try await collectionRef
+                            .collection("cards")
+                            .document(k)
+                            .setData([
+                                "dateAdded": FieldValue.serverTimestamp(),
+                                "dateUpdated": FieldValue.serverTimestamp()
+                            ])
+                            
+                        try await collectionRef
+                            .collection("cards")
+                            .document(k)
+                            .collection("items")
+                            .addDocument(data: json)
+                    }
+                }
+            }
+
+            // update the collection
+            try await collectionRef.updateData([
+                "dateAdded": FieldValue.serverTimestamp(),
+                "dateUpdated": FieldValue.serverTimestamp()
+            ])
+            collection = try collectionDoc.data(as: FBCollection.self)
             
             isBusy = false
             return true
@@ -83,9 +139,9 @@ class CollectionViewModel: CardsViewModel {
     }
 
     func update(collection: FBCollection,
-                with card: FBCard) async throws -> Bool {
-        guard let user = Auth.auth().currentUser,
-              let id = collection.id else {
+                newItems: [[String: FBCollectionItem]]) async throws -> Bool {
+        guard let _ = Auth.auth().currentUser,
+              let collectionID = collection.id else {
             return false
         }
         
@@ -93,38 +149,87 @@ class CollectionViewModel: CardsViewModel {
         isBusy = true
         
         do {
-            var cards = [FBCard]()
-            var found = false
-            for collectionCard in collection.cards {
-                if collectionCard.cardID == card.cardID {
-                    var updateCard = collectionCard
-                    updateCard.items.append(contentsOf: card.items)
-                    cards.append(updateCard)
-                    found = true
-                } else {
-                    cards.append(collectionCard)
+            // get the collection
+            let collectionRef = db.collection(collectionName).document(collectionID)
+            let collectionDoc = try await collectionRef.getDocument()
+            
+            // add the card items
+            for item in newItems {
+                for (k,v) in item {
+                    let encoder = JSONEncoder()
+                    let data = try encoder.encode(v)
+                    
+                    if var json = try JSONSerialization.jsonObject(with: data,
+                                                                   options: .allowFragments) as? [String: Any] {
+                        json["dateAdded"] = FieldValue.serverTimestamp()
+                        json["dateUpdated"] = FieldValue.serverTimestamp()
+                        
+                        try await collectionRef
+                            .collection("cards")
+                            .document(k)
+                            .collection("items")
+                            .addDocument(data: json)
+                        
+                        try await collectionRef
+                            .collection("cards")
+                            .document(k)
+                            .updateData([
+                                "dateUpdated": FieldValue.serverTimestamp()
+                            ])
+                    }
                 }
             }
+            
+            // update the collection
+            try await collectionRef.updateData([
+                "dateAdded": FieldValue.serverTimestamp(),
+                "dateUpdated": FieldValue.serverTimestamp()
+            ])
+            self.collection = try collectionDoc.data(as: FBCollection.self)
 
-            if !found {
-                cards.append(card)
+            return true
+        } catch {
+            isFailed = true
+            isBusy = false
+            return false
+        }
+    }
+    
+    func delete(cardID: String, itemID: String) async throws -> Bool {
+        guard let _ = Auth.auth().currentUser,
+              let collection,
+              let collectionID = collection.id else {
+            return false
+        }
+        
+        isFailed = false
+        isBusy = true
+        
+        do {
+            var ref = db.collection(collectionName)
+                .document(collectionID)
+                .collection("cards")
+                .document(cardID)
+                .collection("items")
+                .document(itemID)
+            try await ref.delete()
+            
+            // delete the card if this is the last item
+            if try await db.collection(collectionName)
+                .document(collectionID)
+                .collection("cards")
+                .document(cardID)
+                .collection("items")
+                .getDocuments().documents.isEmpty {
+                ref = db.collection(collectionName)
+                    .document(collectionID)
+                    .collection("cards")
+                    .document(cardID)
+                try await ref.delete()
             }
+                
             
-            let updateData = FBCollection(uid: user.uid,
-                                          name: collection.name,
-                                          description: collection.description,
-                                          cards: cards,
-                                          dateUpdated: Date())
-//            let updateData: [String: Any] = [
-//                "cards": cards,
-//                "dateUpdated": Foundation.Date()
-//            ]
             
-            let ref = db.collection(collentionName).document(id)
-            try ref.setData(from: updateData)
-//            try await ref.updateData(updateData)
-            let doc = try await ref.getDocument()
-            self.collection = try doc.data(as: FBCollection.self)
             isBusy = false
             return true
         } catch {
@@ -146,4 +251,12 @@ class CollectionViewModel: CardsViewModel {
 //        
 //        return (normalTotal, foilTotal)
 //    }
+    
+    func getUID() -> String? {
+        guard let user = Auth.auth().currentUser else {
+            return nil
+        }
+        
+        return user.uid
+    }
 }

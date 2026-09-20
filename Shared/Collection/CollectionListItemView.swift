@@ -10,111 +10,139 @@ import ManaKit
 import NukeUI
 
 struct CollectionListItemView: View {
-    var card: InnerCardInfo
-    var fbCard: FBCard
-
+    @Binding
+    var item: FBCollectionItem
+    
+    @State
+    private var setDateAcquired = false
+    @State
+    private var dateAcquired = Foundation.Date()
+    
+    @State
+    private var setPlaceAcquired = false
+    @State
+    private var placeAcquired = ""
+    
+    @State
+    private var setPurchasePrice = false
+    @State
+    private var purchaseCurrencyCode = ""
+    @State
+    private var purchasePrice = ""
+    
+    @State
+    private var notes = ""
+    
     var body: some View {
+        contentView
+            .onChange(of: setDateAcquired) {
+                item.dateAcquired = setDateAcquired
+                    ? dateAcquired
+                    : nil
+            }
+            .onChange(of: dateAcquired) {
+                item.dateAcquired = dateAcquired
+            }
         
-            HStack(alignment: .top) {
-                thumbnailView
-                VStack(alignment: .leading) {
-                    informationView
-                    Spacer()
-                    HStack {
-                        pricingView
-                        Spacer()
-                        quantityView
-                    }
-//                    Text(fbCard.notes)
-//                        .font(.caption)
-//                        .foregroundColor(Color.gray)
-//                        .lineLimit(1)
-//                        .padding(.top, 10)
+            .onChange(of: setPlaceAcquired) {
+                item.placeAcquired = setPlaceAcquired
+                    ? placeAcquired
+                    : nil
+            }
+            .onChange(of: placeAcquired) {
+                item.placeAcquired = placeAcquired
+            }
+        
+            .onChange(of: setPurchasePrice) {
+                item.purchaseCurrencyCode = setPurchasePrice
+                    ? purchaseCurrencyCode
+                    : nil
+                item.purchasePrice = setPurchasePrice
+                    ? Double(purchasePrice)
+                    : nil
+            }
+            .onChange(of: purchaseCurrencyCode) {
+                item.purchaseCurrencyCode = purchaseCurrencyCode
+            }
+            .onChange(of: purchasePrice) {
+                item.purchasePrice = Double(purchasePrice)
+            }
+            .onChange(of: notes) {
+                item.notes = notes.isEmpty
+                    ? nil
+                    : notes
+            }
+    }
+    
+    var contentView: some View {
+        Group {
+            Toggle("Is Foil?", isOn: $item.isFoil)
+            
+            Picker("Condition", selection: $item.condition) {
+                ForEach(CardCondition.allCases, id: \.self) { collection in
+                    Text(collection.description)
+                        .tag(collection)
                 }
             }
-    }
-    
-    var thumbnailView: some View {
-        LazyImage(url: URL(string: card.artCropURL ?? "")) { phase in
-            if let image = phase.image {
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .clipped()
-            } else {
-                PlaceholderImageView(imageName: ManaKitUtilities.ImageName.cardBackCropped)
+            .pickerStyle(.automatic)
+            
+            Toggle(isOn: $setDateAcquired, label: { Text("Set Date Acquired")})
+            if setDateAcquired {
+                DatePicker("Date Acquired",
+                           selection: $dateAcquired,
+                           displayedComponents: .date)
+                .datePickerStyle(.compact)
             }
-        }
-        .frame(width: 120, height: 100)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
-    }
-    
-    var informationView: some View {
-        VStack(alignment: .leading) {
-            Text(card.displayName ?? "")
-            Spacer()
-            HStack {
-                Text(card.set?.keyruneUnicode.toSetUnicode() ?? "e684")
-                    .font(Font.custom("Keyrune", size: 20))
-                    .foregroundColor(Color(hex: card.keyruneColor ?? "000"))
-                Text("\u{2022} #\(card.collectorNumber ?? "") \u{2022} \(card.rarity?.name ?? "") \u{2022} \(card.language?.displayID ?? "")")
-                    .font(.footnote)
-                    .foregroundColor(Color.gray)
-                Spacer()
+            
+            Toggle(isOn: $setPlaceAcquired, label: { Text("Set Place Acquired")})
+            if setPlaceAcquired {
+                TextField("Place Acquired", text: $placeAcquired)
             }
-        }
-    }
-    
-    var pricingView: some View {
-        VStack(alignment: .leading) {
-            if let price = card.prices?.filter({ !($0.isFoil ?? false)}).first,
-               let marketPrice = price.market,
-               marketPrice > 0 {
-                Text("Normal: \(String(format: "$%.2f", marketPrice))")
-                    .font(.footnote)
-            } else {
-                Text("Normal: \u{2014}")
-                    .font(.footnote)
+            
+            Toggle(isOn: $setPurchasePrice, label: { Text("Set Purchase Price")})
+            if setPurchasePrice {
+                Picker("Currency", selection: $purchaseCurrencyCode) {
+                    ForEach(Locale.commonISOCurrencyCodes.enumerated(), id: \.offset) { index,currency in
+                        Text(getSymbol(forCurrencyCode: currency))
+                            .tag(currency)
+                    }
+                }
+                .pickerStyle(.automatic)
+                TextField("Purchase Price", text: $purchasePrice)
+                    .keyboardType(.decimalPad)
             }
-            if let price = card.prices?.filter({ ($0.isFoil ?? false)}).first,
-               let marketPrice = price.market,
-               marketPrice > 0 {
-                Text("Foil: \(String(format: "$%.2f", marketPrice))")
-                    .font(.footnote)
-            } else {
-                Text("Foil: \u{2014}")
-                    .font(.footnote)
-            }
-        }
-    }
-    
-    var quantityView: some View {
-        VStack(alignment: .leading) {
-            Text("Qty: \(fbCard.items.count)x")
-                .font(.footnote)
-                .multilineTextAlignment(.trailing)
-//            Text("Foil: \(fbCard.isFoil ? "Yes" : "No")")
-//                .font(.footnote)
-//                .multilineTextAlignment(.trailing)
+            
+            DisclosureGroup(content: {
+                TextEditor(text: $notes)
+                    .frame(height: 50)
+            }, label: {
+                Text("Notes")
+            })
         }
     }
 }
 
-#Preview {
-    let cardID = "isd_en_51"
-    let fbCard = FBCard(cardID: cardID,
-                        items: []
-                        /*quantity: 1,
-                        isFoil: false,
-                        condition: CardCondition.lightlyPlayed,
-                        notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non nisl at nunc lobortis accumsan a eget est. Integer eleifend."*/)
-    AsyncPreviewView { data in
-        List {
-            CollectionListItemView(card: data.fragments.innerCardInfo,
-                                   fbCard: fbCard)
+extension CollectionListItemView {
+    func getSymbol(forCurrencyCode code: String) -> String {
+        let locale = NSLocale(localeIdentifier: code)
+        let symbol = locale.displayName(forKey: .currencySymbol, value: code)
+        let string = locale.localizedString(forCurrencyCode: code)
+        
+        var result = symbol ?? code
+        
+        if let string {
+            result = "\(result) - \(string)"
         }
-    } fetchData: {
-        try await ManaKitUtilities.shared.card(fetchRemote: false,
-                                               id: cardID)
+        
+        return result
+    }
+}
+
+#Preview {
+    @State @Previewable
+    var item = FBCollectionItem(isFoil: false,
+                                condition: .lightlyPlayed)
+    List {
+        CollectionListItemView(item: $item)
     }
 }

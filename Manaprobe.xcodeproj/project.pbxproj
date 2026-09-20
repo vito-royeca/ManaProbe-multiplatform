@@ -153,6 +153,10 @@
 		7695BB33301BCA3D00FCA122 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB31301BCA3D00FCA122 /* SearchViewModel.swift */; };
 		7695BB35301E84A300FCA122 /* SearchSuggestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB34301E84A300FCA122 /* SearchSuggestionsView.swift */; };
 		7695BB36301E84A300FCA122 /* SearchSuggestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7695BB34301E84A300FCA122 /* SearchSuggestionsView.swift */; };
+		76A09D91305E4EAB00496B4E /* CountBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A09D90305E4E9A00496B4E /* CountBadge.swift */; };
+		76A09D92305E4EAB00496B4E /* CountBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A09D90305E4E9A00496B4E /* CountBadge.swift */; };
+		76A09D97305EFC9000496B4E /* CardListCollectionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A09D96305EFC9000496B4E /* CardListCollectionItemView.swift */; };
+		76A09D98305EFC9000496B4E /* CardListCollectionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A09D96305EFC9000496B4E /* CardListCollectionItemView.swift */; };
 		76ABFA20305BA6F500A66DE8 /* Development.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 76ABF9EB305B7CC900A66DE8 /* Development.xcconfig */; };
 		76ABFA21305BA6F500A66DE8 /* Development.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 76ABF9EB305B7CC900A66DE8 /* Development.xcconfig */; };
 		76ABFA22305BA6F500A66DE8 /* Development.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 76ABF9EB305B7CC900A66DE8 /* Development.xcconfig */; };
@@ -370,6 +374,8 @@
 		7695BB2E301B9EBF00FCA122 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		7695BB31301BCA3D00FCA122 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		7695BB34301E84A300FCA122 /* SearchSuggestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSuggestionsView.swift; sourceTree = "<group>"; };
+		76A09D90305E4E9A00496B4E /* CountBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountBadge.swift; sourceTree = "<group>"; };
+		76A09D96305EFC9000496B4E /* CardListCollectionItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListCollectionItemView.swift; sourceTree = "<group>"; };
 		76ABF9EB305B7CC900A66DE8 /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		76ABF9EC305B7CE100A66DE8 /* QA.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = QA.xcconfig; sourceTree = "<group>"; };
 		76ABF9ED305B7CF900A66DE8 /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
@@ -577,8 +583,9 @@
 		763D5BD52F84CE8F00405CD5 /* Common Views */ = {
 			isa = PBXGroup;
 			children = (
-				7695BB20301AB69100FCA122 /* ExpandableOutlineGroup.swift */,
 				76C8DEE42F96E5D800B0144A /* AsyncPreviewView.swift */,
+				76A09D90305E4E9A00496B4E /* CountBadge.swift */,
+				7695BB20301AB69100FCA122 /* ExpandableOutlineGroup.swift */,
 				76C8DEDE2F93FC6D00B0144A /* PlaceholderImageView.swift */,
 				763D5BD22F84CE8F00405CD5 /* TextViewWrapper.swift */,
 				763D5BD32F84CE8F00405CD5 /* View+Extras.swift */,
@@ -739,6 +746,7 @@
 			isa = PBXGroup;
 			children = (
 				767DD79C2FA286A200911032 /* CardGridItemView.swift */,
+				76A09D96305EFC9000496B4E /* CardListCollectionItemView.swift */,
 				76E029232FA167C200F77633 /* CardListItemView.swift */,
 				760E7E5B2FF2271C003A3F49 /* CardRoute.swift */,
 				470482C12FAA444A0004CC16 /* CardsChartsView.swift */,
@@ -1167,6 +1175,7 @@
 				760472812FB96B5500B75E4F /* SetsSorterMenuView.swift in Sources */,
 				760472822FB96B5500B75E4F /* Color+Hex.swift in Sources */,
 				760472832FB96B5500B75E4F /* CardAllPrintingsView.swift in Sources */,
+				76A09D91305E4EAB00496B4E /* CountBadge.swift in Sources */,
 				760472842FB96B5500B75E4F /* WebView.swift in Sources */,
 				760472852FB96B5500B75E4F /* View+Extras.swift in Sources */,
 				760472862FB96B5500B75E4F /* CardsGridView.swift in Sources */,
@@ -1200,6 +1209,7 @@
 				760472972FB96B5500B75E4F /* AsyncPreviewView.swift in Sources */,
 				767B1DB83044F525001C0EE9 /* DiceView.swift in Sources */,
 				760472982FB96B5500B75E4F /* CollectionsViewModel.swift in Sources */,
+				76A09D97305EFC9000496B4E /* CardListCollectionItemView.swift in Sources */,
 				473C581B2FD06A6B00219522 /* CardsNavigatorDisplayDelegate.swift in Sources */,
 				76502162303C918D0015B8C9 /* SizeCalculator.swift in Sources */,
 				760472992FB96B5500B75E4F /* CardVariationsView.swift in Sources */,
@@ -1272,6 +1282,7 @@
 				76CDD9D22FB9698500B7A47E /* CollectionHeaderView.swift in Sources */,
 				76CDD9D32FB9698500B7A47E /* SetViewModel.swift in Sources */,
 				76CDD9D42FB9698500B7A47E /* Date+ElapsedTime.swift in Sources */,
+				76A09D92305E4EAB00496B4E /* CountBadge.swift in Sources */,
 				76CDD9D52FB9698500B7A47E /* SetsView.swift in Sources */,
 				76CDD9D62FB9698500B7A47E /* CollectionView.swift in Sources */,
 				76CDD9D72FB9698500B7A47E /* ManaprobeApp.swift in Sources */,
@@ -1287,6 +1298,7 @@
 				473C581A2FD06A6B00219522 /* CardsNavigatorDisplayDelegate.swift in Sources */,
 				76CDD9DF2FB9698500B7A47E /* Color+Hex.swift in Sources */,
 				7651F94E304270C500D83ED8 /* LifeTrackerSettingsView.swift in Sources */,
+				76A09D98305EFC9000496B4E /* CardListCollectionItemView.swift in Sources */,
 				76CDD9E02FB9698500B7A47E /* CardAllPrintingsViewModel.swift in Sources */,
 				76CDD9E12FB9698500B7A47E /* FlexibleTabView.swift in Sources */,
 				764E45F3303773ED00BA2FC1 /* RulesView.swift in Sources */,

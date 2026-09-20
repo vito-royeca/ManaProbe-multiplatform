@@ -19,7 +19,6 @@ struct CollectionsRowView: View {
                     .font(.subheadline)
                     .padding(.bottom, 10)
             }
-            Text("\(collection.cards.count) card\(collection.cards.count == 1 ? "" : "s")")
         }
     }
 }
@@ -27,9 +26,6 @@ struct CollectionsRowView: View {
 #Preview {
     let collection = FBCollection(uid: "1",
                                   name: "Test Collection",
-                                  description: "This is the description.",
-                                  cards: [],
-                                  dateAdded: Date(),
-                                  dateUpdated: Date())
+                                  description: "This is the description.")
     CollectionsRowView(collection: collection)
 }

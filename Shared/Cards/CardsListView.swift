@@ -24,6 +24,10 @@ struct CardsListView<Header: View>: View {
 
     @State
     private var isCollectionPresented = false
+    @State
+    private var isEditPresented = false
+    @State
+    private var isDeletePresented = false
 
     // MARK: - Initializers
 
@@ -55,20 +59,19 @@ struct CardsListView<Header: View>: View {
                         NavigationLink(value: route) {
                             CardListItemView(card: innerCardInfo)
                                 .swipeActions(allowsFullSwipe: false) {
-                                    swipeActions(for: card)
+                                    swipeActions(card: card)
                                 }
                         }
                         .buttonStyle(.plain)
                         .id(card.id)
                         
                         if let collectionViewModel = viewModel as? CollectionViewModel {
-                            let items = collectionViewModel.collection?.cards.filter { $0.cardID == card.id }
-                                .first?.items ?? []
+                           let items = collectionViewModel.items
                             ForEach(items.enumerated(), id: \.offset) { index,item in
-                                XCollectionListItemView(item: item)
-                                .swipeActions(allowsFullSwipe: false) {
-                                    swipeActions(for: card, and: item)
-                                }
+                                CardListCollectionItemView(item: item)
+                                    .swipeActions(allowsFullSwipe: false) {
+                                        swipeActions(card: card, item: item)
+                                    }
                             }
                         }
                     }
@@ -79,7 +82,9 @@ struct CardsListView<Header: View>: View {
         .navigationLinkIndicatorVisibility(.hidden)
         .sheet(isPresented: $isCollectionPresented) {
             if let card = viewModel.selectedCard {
-                CreateCollectionView(card: card)
+                CreateCollectionView(card: card) {
+                    reloadData()
+                }
             } else {
                 EmptyView()
             }
@@ -102,7 +107,7 @@ extension CardsListView {
 
 extension CardsListView {
     @ViewBuilder
-    func swipeActions(for card: CardBasicInfo) -> some View {
+    func swipeActions(card: CardBasicInfo) -> some View {
         Button {
             handleFavorite(card: card)
         } label: {
@@ -115,7 +120,8 @@ extension CardsListView {
         .tint(.accentColor)
         
         Button {
-            handleCollections(card: card)
+            viewModel.selectedCard = card.fragments.innerCardInfo
+            isCollectionPresented.toggle()
         } label: {
             Image(systemName: "folder.badge.plus")
         }
@@ -123,28 +129,29 @@ extension CardsListView {
     }
     
     @ViewBuilder
-    func swipeActions(for card: CardBasicInfo, and item: FBCardItem) -> some View {
-        Button(role: .destructive,
-               action: {
-            
-        }, label: {
-            Image(systemName: "trash")
-        })
-        
-        Button(action: {
-            
-        }, label: {
+    func swipeActions(card: CardBasicInfo, item: FBCollectionItem) -> some View {
+        Button {
+            isEditPresented.toggle()
+        } label: {
             Image(systemName: "pencil")
-        })
-        .tint(.accentColor)
-    }
-    
-    func handleCollections(card: CardBasicInfo) {
-        if authModel.user == nil {
-            authModel.showAccountView.toggle()
-        } else {
-            viewModel.selectedCard = card.fragments.innerCardInfo
         }
+        .tint(.accentColor)
+
+        Button {
+            isDeletePresented.toggle()
+        } label: {
+            Image(systemName: "trash")
+        }
+        .tint(Color.red)
+        .confirmationDialog("Delete Confirmation",
+                            isPresented: $isDeletePresented,
+                            titleVisibility: .visible) {
+            Button("Your item in the collection will be deleted. Are you sure?") {
+                handleDelete(card: card, item: item)
+            }
+            .tint(Color.red)
+        }
+                                
     }
     
     func handleFavorite(card: CardBasicInfo) {
@@ -152,41 +159,30 @@ extension CardsListView {
             authModel.showAccountView.toggle()
         } else {
             Task {
-                try await favoritesViewModel.createOrDelete(card: card)
+                do {
+                    try await favoritesViewModel.createOrDelete(card: card)
+                } catch {
+                    print(error)
+                }
             }
         }
     }
-}
-
-struct XCollectionListItemView: View {
     
-    @State
-    var item: FBCardItem
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text(item.condition.description)
-                Spacer()
-                Text(item.isFoil ? "Foil" : "Normal")
-                    .foregroundColor(item.isFoil ? Color.green : Color.blue)
-                    .multilineTextAlignment(.trailing)
-                
-            }
-            if !item.notes.isEmpty {
-                Text(item.notes)
-                    .font(.footnote)
-            }
-            
-            if let dateUpdated = item.dateUpdated {
-                HStack {
-                    Spacer()
-                    Text(dateUpdated.formatted(.dateTime))
-                        .multilineTextAlignment(.trailing)
-                        .font(.footnote)
+    func handleDelete(card: CardBasicInfo, item: FBCollectionItem) {
+        if authModel.user == nil {
+            authModel.showAccountView.toggle()
+        } else {
+            if let collectionViewModel = viewModel as? CollectionViewModel,
+               let itemID = item.id {
+                Task {
+                    do {
+                        let _ = try await collectionViewModel.delete(cardID: card.id, itemID: itemID)
+                        await collectionViewModel.fetchData()
+                    } catch {
+                        print(error)
+                    }
                 }
             }
-            
         }
     }
 }

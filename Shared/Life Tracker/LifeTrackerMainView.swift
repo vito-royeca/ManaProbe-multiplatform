@@ -66,7 +66,8 @@ struct LifeTrackerMainView: View {
                 .font(.largeTitle)
         }
         .confirmationDialog("Game Stop Confirmation",
-                            isPresented: $isStopPresented) {
+                            isPresented: $isStopPresented,
+                            titleVisibility: .visible) {
             Button("Your current will game reset. Are you sure?",
                    role: .destructive) {
                 gameModel.stop()

@@ -47,7 +47,6 @@ struct CollectionsView: View {
             }
         }
         .listStyle(.plain)
-//        .navigationLinkIndicatorVisibility(.hidden)
         .navigationTitle(Text(MyTabs.collections.name))
     }
 }

@@ -51,11 +51,20 @@ struct CardsGridView<Header: View>: View {
                             let route = CardRoute.details(selectedCard: innerCardInfo, navigator: viewModel)
                             NavigationLink(value: route) {
                                 VStack {
-                                    CardGridItemView(card: innerCardInfo)
+                                    if let collectionViewModel = viewModel as? CollectionViewModel {
+                                       let items = collectionViewModel.items
+                                        CardGridItemView(card: innerCardInfo)
+                                            .countBadge(items.count)
+                                        Text("")
+                                    } else {
+                                        CardGridItemView(card: innerCardInfo)
+                                    }
                                     Divider()
                                 }
                             }
                             .buttonStyle(.plain)
+                            
+                            
                         }
                     }
                 }

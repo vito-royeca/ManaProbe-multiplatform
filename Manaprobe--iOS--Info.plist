@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>APP_ENVIRONMENT</key>
+	<string>$(APP_ENVIRONMENT)</string>
 	<key>ACTION_CODE_SETTINGS_LINK_DOMAIN</key>
 	<string>$(ACTION_CODE_SETTINGS_LINK_DOMAIN)</string>
 	<key>ACTION_CODE_SETTINGS_URL</key>
