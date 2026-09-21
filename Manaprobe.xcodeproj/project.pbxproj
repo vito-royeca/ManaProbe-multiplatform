@@ -466,6 +466,10 @@
 		76CDDA1E2FB9698500B7A47E /* ManaKit in Frameworks */ = {isa = PBXBuildFile; productRef = 76CDD9A02FB9698500B7A47E /* ManaKit */; };
 		76CDDA222FB9698500B7A47E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B41B7372812144E00AECF85 /* Assets.xcassets */; };
 		76CDDA232FB9698500B7A47E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58A147102B033A9E00A957B7 /* Launch Screen.storyboard */; };
+		76EFAD5E3061B7340060E244 /* EditCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76EFAD5D3061B7340060E244 /* EditCollectionView.swift */; };
+		76EFAD5F3061B7340060E244 /* EditCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76EFAD5D3061B7340060E244 /* EditCollectionView.swift */; };
+		76EFAD603061B7340060E244 /* EditCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76EFAD5D3061B7340060E244 /* EditCollectionView.swift */; };
+		76EFAD613061B7340060E244 /* EditCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76EFAD5D3061B7340060E244 /* EditCollectionView.swift */; };
 		8B41B74E2812144E00AECF85 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B41B74D2812144E00AECF85 /* Tests_iOS.swift */; };
 		8B41B7502812144E00AECF85 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B41B74F2812144E00AECF85 /* Tests_iOSLaunchTests.swift */; };
 		8B41B75A2812144F00AECF85 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B41B7592812144F00AECF85 /* Tests_macOS.swift */; };
@@ -601,6 +605,7 @@
 		76E0287E2F9F0E4700F77633 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		76E029232FA167C200F77633 /* CardListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListItemView.swift; sourceTree = "<group>"; };
 		76E029282FA167C200F77633 /* CardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsView.swift; sourceTree = "<group>"; };
+		76EFAD5D3061B7340060E244 /* EditCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCollectionView.swift; sourceTree = "<group>"; };
 		8B41B7352812144D00AECF85 /* ManaprobeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManaprobeApp.swift; sourceTree = "<group>"; };
 		8B41B7372812144E00AECF85 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B41B7442812144E00AECF85 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
@@ -936,6 +941,7 @@
 				76D60A452FAE474A00A8F980 /* CollectionViewModel.swift */,
 				761CA9AF2FA84F6300788AA6 /* CreateCollectionView.swift */,
 				76A09D993060567900496B4E /* EditCollectionItemView.swift */,
+				76EFAD5D3061B7340060E244 /* EditCollectionView.swift */,
 			);
 			path = Collection;
 			sourceTree = "<group>";
@@ -1482,6 +1488,7 @@
 				76A09E743060917000496B4E /* ErrorView.swift in Sources */,
 				473C581B2FD06A6B00219522 /* CardsNavigatorDisplayDelegate.swift in Sources */,
 				76502162303C918D0015B8C9 /* SizeCalculator.swift in Sources */,
+				76EFAD613061B7340060E244 /* EditCollectionView.swift in Sources */,
 				760472992FB96B5500B75E4F /* CardVariationsView.swift in Sources */,
 				7604729A2FB96B5500B75E4F /* ManaprobeApp.swift in Sources */,
 				76756D0330433D9B000C8279 /* LifeTrackerDiceMenuView.swift in Sources */,
@@ -1588,6 +1595,7 @@
 				76CDD9EB2FB9698500B7A47E /* Tabs.swift in Sources */,
 				4739CAAA2FC8A43200B787F0 /* CardsNavigatorDelegate.swift in Sources */,
 				76CDD9EC2FB9698500B7A47E /* NewsMap.swift in Sources */,
+				76EFAD5E3061B7340060E244 /* EditCollectionView.swift in Sources */,
 				767B1DB53044F4FB001C0EE9 /* DiceViewModel.swift in Sources */,
 				76CDD9ED2FB9698500B7A47E /* CardPrintingsView.swift in Sources */,
 				76CDD9EE2FB9698500B7A47E /* CardLanguagesView.swift in Sources */,
@@ -1701,6 +1709,7 @@
 				76A09E3A306090EE00496B4E /* FavoritesViewModel.swift in Sources */,
 				7635A4353046472800459B2E /* LifeTrackerCounterView.swift in Sources */,
 				764E4601303944C000BA2FC1 /* RulesRowView.swift in Sources */,
+				76EFAD5F3061B7340060E244 /* EditCollectionView.swift in Sources */,
 				76502159303C7FAE0015B8C9 /* LifeTrackerGameModel.swift in Sources */,
 				8B41B74E2812144E00AECF85 /* Tests_iOS.swift in Sources */,
 				76756D0430433D9B000C8279 /* LifeTrackerDiceMenuView.swift in Sources */,
@@ -1815,6 +1824,7 @@
 				76A09E273060908600496B4E /* WebView.swift in Sources */,
 				76A09E283060908600496B4E /* View+Extras.swift in Sources */,
 				76A09E293060908600496B4E /* ExpandableOutlineGroup.swift in Sources */,
+				76EFAD603061B7340060E244 /* EditCollectionView.swift in Sources */,
 				76A09E2A3060908600496B4E /* CountBadge.swift in Sources */,
 				76A09E2B3060908600496B4E /* TextViewWrapper.swift in Sources */,
 				76A09E2C3060908600496B4E /* PlaceholderImageView.swift in Sources */,

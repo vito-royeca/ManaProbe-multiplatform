@@ -32,19 +32,17 @@ struct CollectionsRowView: View {
 
             HStack {
                 if let dateUpdated = collection.dateUpdated {
-                    Text(dateUpdated, style: .date)
+                    Text(dateUpdated.elapsedTime())
                         .font(.footnote)
                         .safeAreaInset(edge: .leading) {
-                            Image(systemName: "clock")
+                            Image(systemName: "document.badge.clock")
                                 .foregroundStyle(Color.gray)
                         }
                 }
                 
-                if let count = collection.count {
-                    Spacer()
-                    Text("\(count) card\(count > 1 ? "s" : "")")
-                        .font(.footnote)
-                }
+                Spacer()
+                Text(collection.countDescription)
+                    .font(.footnote)
             }
         }
     }

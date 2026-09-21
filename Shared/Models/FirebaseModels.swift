@@ -178,6 +178,12 @@ struct FBCollection: Identifiable, Codable, Hashable {
     var count: Int?
     var dateAdded: Foundation.Date?
     var dateUpdated: Foundation.Date?
+    
+    var countDescription: String {
+        get {
+            "\(count ?? 0) card\(count ?? 0 > 1 ? "s" : "")"
+        }
+    }
 }
 
 struct FBDeck: Identifiable, Codable {

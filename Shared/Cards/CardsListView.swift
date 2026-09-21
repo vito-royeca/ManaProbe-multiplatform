@@ -59,6 +59,22 @@ struct CardsListView<Header: View>: View {
                         cardListItem(for: card)
                         collectionListItem(for: card)
                     }
+                    .confirmationDialog("Delete Confirmation",
+                                        isPresented: $isDeleteCollectionPresented,
+                                        titleVisibility: .visible) {
+                                            Button(role: .destructive,
+                                                   action: {
+                                                withAnimation {
+                                                    handleDelete()
+                                                }
+                                            }, label: {
+                                                Text("OK")
+                                            })
+                                            Button("Cancel", role: .cancel) { }
+                                        }
+                                        message: {
+                                            Text("This item in the collection will be deleted. Are you sure?")
+                                        }
                 }
             }
         }
@@ -110,19 +126,6 @@ private extension CardsListView {
                 CardListCollectionItemView(item: item, index: index+1)
                     .swipeActions(allowsFullSwipe: true) {
                         swipeActions(card: card, item: item)
-                    }
-                    .confirmationDialog("Delete Confirmation",
-                                        isPresented: $isDeleteCollectionPresented,
-                                        titleVisibility: .visible) {
-                        Button(role: .destructive,
-                               action: {
-                                    withAnimation {
-                                        handleDelete()
-                                    }
-                               },
-                               label: {
-                                   Text("This item in the collection will be deleted. Are you sure?")
-                               })
                     }
             }
         }
@@ -189,7 +192,6 @@ private extension CardsListView {
         }
         .tint(.accentColor)
 
-        // TODO: Fix confirmation not swowing up
         Button(role: .destructive,
                action: {
                    (viewModel as? CollectionViewModel)?.selectedCardForEdit = card

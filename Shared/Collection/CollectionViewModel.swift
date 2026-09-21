@@ -79,6 +79,38 @@ class CollectionViewModel: CardsViewModel {
         }
     }
 
+    func save() async throws {
+        guard let _ = Auth.auth().currentUser,
+            let collection,
+            let collectionID = collection.id else {
+            return
+        }
+        
+        isFailed = false
+        isBusy = true
+        
+        do {
+            // get the collection
+            let collectionRef = db
+                .collection(collectionName)
+                .document(collectionID)
+            
+
+            // update the collection
+            try await collectionRef.updateData([
+                "name": collection.name,
+                "description": collection.description ?? "",
+                "dateUpdated": FieldValue.serverTimestamp()
+            ])
+            
+            isBusy = false
+        } catch {
+            print(error)
+            isFailed = true
+            isBusy = false
+        }
+    }
+    
     func create(name: String,
                 description: String? = nil,
                 newItems: [FBCollectionItem]) async throws {

@@ -33,9 +33,10 @@ struct CollectionView: View {
     }
   
     private var contentView: some View {
-        CardsView(viewModel: viewModel)
+        CardsView(viewModel: viewModel) {
+            CollectionHeaderView(viewModel: $viewModel)
+        }
             .navigationLinkIndicatorVisibility(.hidden)
-            .navigationTitle(viewModel.collection?.name ?? "")
     }
 }
 
