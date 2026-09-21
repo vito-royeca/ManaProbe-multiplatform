@@ -30,8 +30,12 @@ struct CollectionHeaderView: View {
     private var displayView: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text(viewModel.collection?.countDescription ?? "")
-                    .font(.subheadline)
+                VStack {
+                    Text("\(viewModel.collection?.count ?? 0)")
+                        .font(.title)
+                    Text(viewModel.collection?.count ?? 0 > 1 ? "cards" : "card")
+                        .font(.headline)
+                }
                 Spacer()
                 Button("Edit") {
                     isEditingPresented.toggle()
@@ -46,7 +50,6 @@ struct CollectionHeaderView: View {
                     .foregroundStyle(Color.gray)
                     .safeAreaInset(edge: .leading) {
                         Image(systemName: "text.document")
-                            .foregroundStyle(Color.gray)
                     }
             }
             
@@ -57,7 +60,6 @@ struct CollectionHeaderView: View {
                         .foregroundStyle(Color.gray)
                         .safeAreaInset(edge: .leading) {
                             Image(systemName: "document.badge.plus")
-                                .foregroundStyle(Color.gray)
                         }
                 }
                 Spacer()
@@ -67,7 +69,6 @@ struct CollectionHeaderView: View {
                         .foregroundStyle(Color.gray)
                         .safeAreaInset(edge: .leading) {
                             Image(systemName: "document.badge.clock")
-                                .foregroundStyle(Color.gray)
                         }
                 }
             }

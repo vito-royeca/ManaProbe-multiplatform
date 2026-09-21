@@ -32,7 +32,7 @@ struct CardListCollectionItemView: View {
                     .foregroundStyle(Color.gray)
                     .safeAreaInset(edge: .leading) {
                         Image(systemName: "text.document")
-                            .foregroundStyle(Color.gray)
+//                            .foregroundStyle(Color.gray)
                     }
             }
             
@@ -50,7 +50,6 @@ struct CardListCollectionItemView: View {
                             .foregroundStyle(Color.gray)
                             .safeAreaInset(edge: .leading) {
                                 Image(systemName: "calendar")
-                                    .foregroundStyle(Color.gray)
                             }
                     }
                     
@@ -61,7 +60,6 @@ struct CardListCollectionItemView: View {
                             .foregroundStyle(Color.gray)
                             .safeAreaInset(edge: .leading) {
                                 Image(systemName: "map")
-                                    .foregroundStyle(Color.gray)
                             }
                     }
                     

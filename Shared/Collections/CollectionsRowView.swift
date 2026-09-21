@@ -26,7 +26,6 @@ struct CollectionsRowView: View {
                     .foregroundStyle(Color.gray)
                     .safeAreaInset(edge: .leading) {
                         Image(systemName: "text.document")
-                            .foregroundStyle(Color.gray)
                     }
             }
 
@@ -34,9 +33,9 @@ struct CollectionsRowView: View {
                 if let dateUpdated = collection.dateUpdated {
                     Text(dateUpdated.elapsedTime())
                         .font(.footnote)
+                        .foregroundStyle(Color.gray)
                         .safeAreaInset(edge: .leading) {
                             Image(systemName: "document.badge.clock")
-                                .foregroundStyle(Color.gray)
                         }
                 }
                 

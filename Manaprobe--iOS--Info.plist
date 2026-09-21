@@ -25,14 +25,6 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>215998824564-uiro90n3nsuva2cup6qqce0nu50g1dmg.apps.googleusercontent.com</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
 				<string>com.googleusercontent.apps.298478805701-je0s7hh2mqpjh3h8appub1628q1vihl2</string>
 			</array>
 		</dict>
@@ -41,23 +33,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>298478805701-je0s7hh2mqpjh3h8appub1628q1vihl2.apps.googleusercontent.com</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
 				<string>com.googleusercontent.apps.468585955186-7ed8g5cbhfid39okjns9vs614jsq6rbu</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>468585955186-7ed8g5cbhfid39okjns9vs614jsq6rbu.apps.googleusercontent.com</string>
 			</array>
 		</dict>
 	</array>
