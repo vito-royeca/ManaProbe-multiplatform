@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import Firebase
 import ManaKit
 
 @MainActor
@@ -13,9 +14,25 @@ final class Tests_Prefetch: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        let apiURLEndpoint = "http://matilda:4000/graphql"
-        print("apiURLEndpoint = \(apiURLEndpoint)")
-        ManaKitUtilities.shared.configure(apiURL: apiURLEndpoint)
+        if let environment = Bundle.main.infoDictionary?["APP_ENVIRONMENT"] as? String,
+            environment == "Development" {
+                let settings = Firestore.firestore().settings
+                settings.host = "127.0.0.1:8080"
+                settings.cacheSettings = MemoryCacheSettings()
+                settings.isSSLEnabled = false
+                Firestore.firestore().settings = settings
+        }
+        
+        if let apiURL = Bundle.main.infoDictionary?["API_URL"] as? String {
+            print("apiURL = \(apiURL)")
+            ManaKitUtilities.shared.configure(apiURL: "https://\(apiURL)")
+            ManaKitUtilities.shared.loadCustomFonts()
+            Task {
+                await ManaKitUtilities.shared.downloadSymbolsFont()
+            }
+        } else {
+            fatalError("API_URL not found!")
+        }
     }
 
     override func tearDownWithError() throws {

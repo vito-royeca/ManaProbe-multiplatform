@@ -17,11 +17,12 @@ import ManaKit
 @Observable
 class CollectionViewModel: CardsViewModel {
     var collection: FBCollection?
-    var items = [FBCollectionItem]()
+    var items = [String: [FBCollectionItem]]()
+    var selectedCardForEdit: CardBasicInfo? = nil
+    var selectedItemForEdit: FBCollectionItem? = nil
 
     @ObservationIgnored
     private let collectionName = "collections"
-    
     @ObservationIgnored
     private var db = Firestore.firestore()
     
@@ -49,15 +50,17 @@ class CollectionViewModel: CardsViewModel {
                 
                 for document in snapshot.documents {
                     ids.append(document.documentID)
+                    var set = Set<FBCollectionItem>()
+                    
                     for itemDoc in try await db
                         .collection("\(collectionName)/\(id)/cards/\(document.documentID)/items")
                         .getDocuments()
                         .documents {
-                        
-                        var item = try itemDoc.data(as: FBCollectionItem.self)
-                        item.id = itemDoc.documentID
-                        items.append(item)
+                            var item = try itemDoc.data(as: FBCollectionItem.self)
+                            item.id = itemDoc.documentID
+                            set.insert(item)
                     }
+                    items[document.documentID] = Array(set)
                 }
             }
             
@@ -70,6 +73,7 @@ class CollectionViewModel: CardsViewModel {
             
             isBusy = false
         } catch {
+            print(error)
             isFailed = true
             isBusy = false
         }
@@ -77,9 +81,9 @@ class CollectionViewModel: CardsViewModel {
 
     func create(name: String,
                 description: String? = nil,
-                newItems: [[String: FBCollectionItem]]) async throws -> Bool {
+                newItems: [FBCollectionItem]) async throws {
         guard let user = Auth.auth().currentUser else {
-            return false
+            return
         }
         
         isFailed = false
@@ -87,38 +91,38 @@ class CollectionViewModel: CardsViewModel {
         
         let newCollection = FBCollection(uid: user.uid,
                                          name: name,
-                                         description: description)
+                                         description: description,
+                                         count: newItems.count)
         
         do {
             // create the collection
-            let collectionRef = try db.collection(collectionName).addDocument(from: newCollection)
-            let collectionDoc = try await collectionRef.getDocument()
+            let collectionRef = try db
+                .collection(collectionName)
+                .addDocument(from: newCollection)
+            let encoder = JSONEncoder()
             
             // add the card items
             for item in newItems {
-                for (k,v) in item {
-                    let encoder = JSONEncoder()
-                    let data = try encoder.encode(v)
+                let data = try encoder.encode(item)
+                
+                if var json = try JSONSerialization.jsonObject(with: data,
+                                                               options: .allowFragments) as? [String: Any] {
+                    json["dateAdded"] = FieldValue.serverTimestamp()
+                    json["dateUpdated"] = FieldValue.serverTimestamp()
                     
-                    if var json = try JSONSerialization.jsonObject(with: data,
-                                                                   options: .allowFragments) as? [String: Any] {
-                        json["dateAdded"] = FieldValue.serverTimestamp()
-                        json["dateUpdated"] = FieldValue.serverTimestamp()
+                    try await collectionRef
+                        .collection("cards")
+                        .document(item.cardID)
+                        .setData([
+                            "dateAdded": FieldValue.serverTimestamp(),
+                            "dateUpdated": FieldValue.serverTimestamp()
+                        ])
                         
-                        try await collectionRef
-                            .collection("cards")
-                            .document(k)
-                            .setData([
-                                "dateAdded": FieldValue.serverTimestamp(),
-                                "dateUpdated": FieldValue.serverTimestamp()
-                            ])
-                            
-                        try await collectionRef
-                            .collection("cards")
-                            .document(k)
-                            .collection("items")
-                            .addDocument(data: json)
-                    }
+                    try await collectionRef
+                        .collection("cards")
+                        .document(item.cardID)
+                        .collection("items")
+                        .addDocument(data: json)
                 }
             }
 
@@ -127,22 +131,20 @@ class CollectionViewModel: CardsViewModel {
                 "dateAdded": FieldValue.serverTimestamp(),
                 "dateUpdated": FieldValue.serverTimestamp()
             ])
-            collection = try collectionDoc.data(as: FBCollection.self)
             
             isBusy = false
-            return true
         } catch {
+            print(error)
             isFailed = true
             isBusy = false
-            return false
         }
     }
 
     func update(collection: FBCollection,
-                newItems: [[String: FBCollectionItem]]) async throws -> Bool {
+                newItems: [FBCollectionItem]) async throws {
         guard let _ = Auth.auth().currentUser,
               let collectionID = collection.id else {
-            return false
+            return
         }
         
         isFailed = false
@@ -150,92 +152,144 @@ class CollectionViewModel: CardsViewModel {
         
         do {
             // get the collection
-            let collectionRef = db.collection(collectionName).document(collectionID)
-            let collectionDoc = try await collectionRef.getDocument()
-            
+            let collectionRef = db
+                .collection(collectionName)
+                .document(collectionID)
+            let encoder = JSONEncoder()
+
             // add the card items
             for item in newItems {
-                for (k,v) in item {
-                    let encoder = JSONEncoder()
-                    let data = try encoder.encode(v)
+                let data = try encoder.encode(item)
+                
+                if var json = try JSONSerialization.jsonObject(with: data,
+                                                               options: .allowFragments) as? [String: Any] {
+                    json["dateAdded"] = FieldValue.serverTimestamp()
+                    json["dateUpdated"] = FieldValue.serverTimestamp()
                     
-                    if var json = try JSONSerialization.jsonObject(with: data,
-                                                                   options: .allowFragments) as? [String: Any] {
-                        json["dateAdded"] = FieldValue.serverTimestamp()
-                        json["dateUpdated"] = FieldValue.serverTimestamp()
-                        
-                        try await collectionRef
-                            .collection("cards")
-                            .document(k)
-                            .collection("items")
-                            .addDocument(data: json)
-                        
-                        try await collectionRef
-                            .collection("cards")
-                            .document(k)
-                            .updateData([
-                                "dateUpdated": FieldValue.serverTimestamp()
-                            ])
-                    }
+                    try await collectionRef
+                        .collection("cards")
+                        .document(item.cardID)
+                        .setData([
+                            "dateAdded": FieldValue.serverTimestamp(),
+                            "dateUpdated": FieldValue.serverTimestamp()
+                        ])
+                    
+                    try await collectionRef
+                        .collection("cards")
+                        .document(item.cardID)
+                        .collection("items")
+                        .addDocument(data: json)
                 }
             }
             
             // update the collection
             try await collectionRef.updateData([
-                "dateAdded": FieldValue.serverTimestamp(),
-                "dateUpdated": FieldValue.serverTimestamp()
+                "dateUpdated": FieldValue.serverTimestamp(),
+                "count": (collection.count ?? 0) + 1
             ])
-            self.collection = try collectionDoc.data(as: FBCollection.self)
-
-            return true
+            
+            isBusy = false
         } catch {
             isFailed = true
             isBusy = false
-            return false
         }
     }
     
-    func delete(cardID: String, itemID: String) async throws -> Bool {
+    func update(item: FBCollectionItem) async throws {
         guard let _ = Auth.auth().currentUser,
-              let collection,
-              let collectionID = collection.id else {
-            return false
+              let collectionID = collection?.id,
+              let itemID = item.id else {
+            return
         }
         
         isFailed = false
         isBusy = true
         
         do {
-            var ref = db.collection(collectionName)
+            // get the collection
+            let collectionRef = db
+                .collection(collectionName)
+                .document(collectionID)
+            // get the item
+            let itemRef = db
+                .collection(collectionName)
                 .document(collectionID)
                 .collection("cards")
-                .document(cardID)
+                .document(item.cardID)
                 .collection("items")
                 .document(itemID)
-            try await ref.delete()
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(item)
             
-            // delete the card if this is the last item
-            if try await db.collection(collectionName)
-                .document(collectionID)
-                .collection("cards")
-                .document(cardID)
-                .collection("items")
-                .getDocuments().documents.isEmpty {
-                ref = db.collection(collectionName)
-                    .document(collectionID)
-                    .collection("cards")
-                    .document(cardID)
-                try await ref.delete()
-            }
+            if var json = try JSONSerialization.jsonObject(with: data,
+                                                           options: .allowFragments) as? [String: Any] {
+                json["dateUpdated"] = FieldValue.serverTimestamp()
                 
+                try await itemRef
+                    .updateData(json)
+            }
             
+            // update the collection
+            try await collectionRef.updateData([
+                "dateUpdated": FieldValue.serverTimestamp()
+            ])
             
             isBusy = false
-            return true
         } catch {
             isFailed = true
             isBusy = false
-            return false
+        }
+    }
+    
+    func delete(item: FBCollectionItem) async throws {
+        guard let _ = Auth.auth().currentUser,
+              let collection,
+              let collectionID = collection.id else {
+            return
+        }
+        
+        isFailed = false
+        isBusy = true
+        
+        do {
+            // get the collection
+            let collectionRef = db
+                .collection(collectionName)
+                .document(collectionID)
+            
+            let deleteItemRef = db.collection(collectionName)
+                .document(collectionID)
+                .collection("cards")
+                .document(item.cardID)
+                .collection("items")
+                .document(item.id ?? "")
+            try await deleteItemRef.delete()
+            
+            // delete the cards cpllection if this is the last item
+            if try await db.collection(collectionName)
+                .document(collectionID)
+                .collection("cards")
+                .document(item.cardID)
+                .collection("items")
+                .getDocuments().documents.isEmpty {
+                
+                let deleteCardsRef = db.collection(collectionName)
+                    .document(collectionID)
+                    .collection("cards")
+                    .document(item.cardID)
+                try await deleteCardsRef.delete()
+            }
+            
+            // update the collection
+            try await collectionRef.updateData([
+                "dateUpdated": FieldValue.serverTimestamp(),
+                "count": (collection.count ?? 0) - 1
+            ])
+            
+            isBusy = false
+        } catch {
+            isFailed = true
+            isBusy = false
         }
     }
     

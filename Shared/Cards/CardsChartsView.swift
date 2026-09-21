@@ -129,7 +129,7 @@ struct CardsChartsView<Header: View>: View {
     }
 }
 
-extension CardsChartsView {
+private extension CardsChartsView {
     func reloadData() -> Void {
         Task {
             await viewModel.reloadData()

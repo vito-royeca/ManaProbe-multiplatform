@@ -34,7 +34,11 @@ struct CreateCollectionView: View {
     @State
     private var description: String = ""
     @State
-    private var item = FBCollectionItem(isFoil: false,
+    private var isDescriptionExpanded = true
+    
+    @State
+    private var item = FBCollectionItem(cardID: "",
+                                        isFoil: false,
                                         condition: .lightlyPlayed)
 
     var body: some View {
@@ -74,12 +78,15 @@ struct CreateCollectionView: View {
                 switch type {
                 case .new:
                     TextField("New Collection \(newNameNumber)", text: $newName)
-                    DisclosureGroup(content: {
-                        TextEditor(text: $description)
-                            .frame(height: 100)
-                    }, label: {
-                        Text("Description")
-                    })
+                    DisclosureGroup(isExpanded: $isDescriptionExpanded,
+                                    content: {
+                                        TextEditor(text: $description)
+                                            .frame(height: 100)
+                                    },
+                                    label: {
+                                        Text("Description")
+                                            .safeAreaInset(edge: .leading) { Image(systemName: "text.document") }
+                                    })
                 case .existing:
                     Picker("Collection", selection: $collectionsViewModel.selectedCollection) {
                         ForEach(collectionsViewModel.collections, id: \.id) { collection in
@@ -100,11 +107,7 @@ struct CreateCollectionView: View {
                 }
             }
             
-            Section{
-                CollectionListItemView(item: $item)
-            } header: {
-                Text("Card details")
-            }
+            CollectionListItemView(item: $item)
         }
         .navigationTitle("Add to Collection")
         .toolbar {
@@ -142,28 +145,25 @@ extension CreateCollectionView {
     func save() {
         Task {
             do {
-                var result = false
-
+                item.cardID = card.id
                 if type == .new {
-                    result = try await collectionViewModel.create(name: newName,
-                                                                  description: description.isEmpty
-                                                                      ? nil
-                                                                      : description,
-                                                                  newItems: [[card.id: item]])
+                    try await collectionViewModel.create(name: newName,
+                                                         description: description.isEmpty
+                                                             ? nil
+                                                             : description,
+                                                         newItems: [item])
                     newNameNumber += 1
                 } else {
                     guard let collection = collectionsViewModel.selectedCollection else {
                         return
                     }
                     
-                    result = try await collectionViewModel.update(collection: collection,
-                                                                  newItems: [[card.id: item]])
+                    try await collectionViewModel.update(collection: collection,
+                                                         newItems: [item])
                 }
-                
-                if result {
-                    saveCallback?()
-                    dismiss()
-                }
+
+                saveCallback?()
+                dismiss()
             } catch {
                 print(error)
             }

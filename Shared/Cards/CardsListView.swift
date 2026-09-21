@@ -23,11 +23,11 @@ struct CardsListView<Header: View>: View {
     private var header: Header
 
     @State
-    private var isCollectionPresented = false
+    private var isCreateCollectionPresented = false
     @State
-    private var isEditPresented = false
+    private var isEditCollectionPresented = false
     @State
-    private var isDeletePresented = false
+    private var isDeleteCollectionPresented = false
 
     // MARK: - Initializers
 
@@ -40,7 +40,9 @@ struct CardsListView<Header: View>: View {
             contentView
                 .onAppear() {
                     if let selectedCard = viewModel.selectedCard {
-                        proxy.scrollTo(selectedCard.id, anchor: .top)
+                        withAnimation {
+                            proxy.scrollTo(selectedCard.id, anchor: .top)
+                        }
                     }
                 }
         }
@@ -54,40 +56,19 @@ struct CardsListView<Header: View>: View {
             ForEach(viewModel.cardSections, id: \.self) { section in
                 Section(header: Text(section)) {
                     ForEach(viewModel.cards[section] ?? [], id: \.self) { card in
-                        let innerCardInfo = card.fragments.innerCardInfo
-                        let route = CardRoute.details(selectedCard: innerCardInfo, navigator: viewModel)
-                        NavigationLink(value: route) {
-                            CardListItemView(card: innerCardInfo)
-                                .swipeActions(allowsFullSwipe: false) {
-                                    swipeActions(card: card)
-                                }
-                        }
-                        .buttonStyle(.plain)
-                        .id(card.id)
-                        
-                        if let collectionViewModel = viewModel as? CollectionViewModel {
-                           let items = collectionViewModel.items
-                            ForEach(items.enumerated(), id: \.offset) { index,item in
-                                CardListCollectionItemView(item: item)
-                                    .swipeActions(allowsFullSwipe: false) {
-                                        swipeActions(card: card, item: item)
-                                    }
-                            }
-                        }
+                        cardListItem(for: card)
+                        collectionListItem(for: card)
                     }
                 }
             }
         }
         .listStyle(.plain)
         .navigationLinkIndicatorVisibility(.hidden)
-        .sheet(isPresented: $isCollectionPresented) {
-            if let card = viewModel.selectedCard {
-                CreateCollectionView(card: card) {
-                    reloadData()
-                }
-            } else {
-                EmptyView()
-            }
+        .sheet(isPresented: $isCreateCollectionPresented) {
+            createCollectionSheet()
+        }
+        .sheet(isPresented: $isEditCollectionPresented) {
+            editCollectionSheet()
         }
         .modifier(SectionIndex(sections: viewModel.cardSections,
                                sectionIndexTitles: viewModel.cardSectionIndexTitles))
@@ -97,7 +78,7 @@ struct CardsListView<Header: View>: View {
     }
 }
 
-extension CardsListView {
+private extension CardsListView {
     func reloadData() -> Void {
         Task {
             await viewModel.reloadData()
@@ -105,10 +86,79 @@ extension CardsListView {
     }
 }
 
-extension CardsListView {
+private extension CardsListView {
+    @ViewBuilder
+    func cardListItem(for card: CardBasicInfo) -> some View {
+        let innerCardInfo = card.fragments.innerCardInfo
+        let route = CardRoute.details(selectedCard: innerCardInfo,
+                                      navigator: viewModel)
+        NavigationLink(value: route) {
+            CardListItemView(card: innerCardInfo)
+                .swipeActions(allowsFullSwipe: false) {
+                    swipeActions(card: card)
+                }
+        }
+        .buttonStyle(.plain)
+        .id(card.id)
+    }
+    
+    @ViewBuilder
+    func collectionListItem(for card: CardBasicInfo) -> some View {
+        if let collectionViewModel = viewModel as? CollectionViewModel {
+            let items = collectionViewModel.items
+            ForEach((items[card.id] ?? []).enumerated(), id: \.offset) { index,item in
+                CardListCollectionItemView(item: item, index: index+1)
+                    .swipeActions(allowsFullSwipe: true) {
+                        swipeActions(card: card, item: item)
+                    }
+                    .confirmationDialog("Delete Confirmation",
+                                        isPresented: $isDeleteCollectionPresented,
+                                        titleVisibility: .visible) {
+                        Button(role: .destructive,
+                               action: {
+                                    withAnimation {
+                                        handleDelete()
+                                    }
+                               },
+                               label: {
+                                   Text("This item in the collection will be deleted. Are you sure?")
+                               })
+                    }
+            }
+        }
+    }
+}
+
+private extension CardsListView {
+    @ViewBuilder
+    func createCollectionSheet() -> some View {
+        if let card = viewModel.selectedCard {
+            CreateCollectionView(card: card) {
+                reloadData()
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func editCollectionSheet() -> some View {
+        if let card = (viewModel as? CollectionViewModel)?.selectedCardForEdit,
+            let item = (viewModel as? CollectionViewModel)?.selectedItemForEdit {
+            EditCollectionItemView(card: card.fragments.innerCardInfo,
+                                   item: item,
+                                   viewModel: (viewModel as? CollectionViewModel)!) {
+                (viewModel as? CollectionViewModel)?.selectedCardForEdit = nil
+                (viewModel as? CollectionViewModel)?.selectedItemForEdit = nil
+                reloadData()
+            }
+        }
+    }
+}
+
+private extension CardsListView {
     @ViewBuilder
     func swipeActions(card: CardBasicInfo) -> some View {
         Button {
+            (viewModel as? CollectionViewModel)?.selectedCardForEdit = card
             handleFavorite(card: card)
         } label: {
             if favoritesViewModel.isFavorite(cardID: card.id) {
@@ -121,7 +171,7 @@ extension CardsListView {
         
         Button {
             viewModel.selectedCard = card.fragments.innerCardInfo
-            isCollectionPresented.toggle()
+            isCreateCollectionPresented.toggle()
         } label: {
             Image(systemName: "folder.badge.plus")
         }
@@ -131,27 +181,24 @@ extension CardsListView {
     @ViewBuilder
     func swipeActions(card: CardBasicInfo, item: FBCollectionItem) -> some View {
         Button {
-            isEditPresented.toggle()
+            (viewModel as? CollectionViewModel)?.selectedCardForEdit = card
+            (viewModel as? CollectionViewModel)?.selectedItemForEdit = item
+            isEditCollectionPresented.toggle()
         } label: {
             Image(systemName: "pencil")
         }
         .tint(.accentColor)
 
-        Button {
-            isDeletePresented.toggle()
-        } label: {
-            Image(systemName: "trash")
-        }
-        .tint(Color.red)
-        .confirmationDialog("Delete Confirmation",
-                            isPresented: $isDeletePresented,
-                            titleVisibility: .visible) {
-            Button("Your item in the collection will be deleted. Are you sure?") {
-                handleDelete(card: card, item: item)
-            }
-            .tint(Color.red)
-        }
-                                
+        // TODO: Fix confirmation not swowing up
+        Button(role: .destructive,
+               action: {
+                   (viewModel as? CollectionViewModel)?.selectedCardForEdit = card
+                   (viewModel as? CollectionViewModel)?.selectedItemForEdit = item
+                   isDeleteCollectionPresented.toggle()
+               },
+               label: {
+                   Image(systemName: "trash")
+               })
     }
     
     func handleFavorite(card: CardBasicInfo) {
@@ -168,16 +215,15 @@ extension CardsListView {
         }
     }
     
-    func handleDelete(card: CardBasicInfo, item: FBCollectionItem) {
+    func handleDelete() {
         if authModel.user == nil {
             authModel.showAccountView.toggle()
         } else {
-            if let collectionViewModel = viewModel as? CollectionViewModel,
-               let itemID = item.id {
+            if let item = (viewModel as? CollectionViewModel)?.selectedItemForEdit {
                 Task {
                     do {
-                        let _ = try await collectionViewModel.delete(cardID: card.id, itemID: itemID)
-                        await collectionViewModel.fetchData()
+                        try await (viewModel as? CollectionViewModel)?.delete(item: item)
+                        await viewModel.reloadData()
                     } catch {
                         print(error)
                     }
@@ -187,10 +233,12 @@ extension CardsListView {
     }
 }
 
-//#Preview {
-//    let model = CardsViewModel()
-//    
-//    return CardsListView(selectedCard: .constant(nil))
-//        .environmentObject(model)
-//}
+#Preview {
+    let model = CardsViewModel()
+    
+    return CardsListView {
+        Text("Header")
+    }
+        .environment(model)
+}
 

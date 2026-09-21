@@ -33,6 +33,7 @@ struct FBFavorite: Identifiable, Codable {
 struct FBCollectionItem: Identifiable, Codable, Hashable {
     @DocumentID
     var id: String?
+    var cardID: String
     var isFoil: Bool
     var condition: CardCondition
     var notes: String?
@@ -45,6 +46,7 @@ struct FBCollectionItem: Identifiable, Codable, Hashable {
     
     enum CodingKeys: String, CodingKey {
         case id,
+            cardID,
             isFoil,
             condition,
             notes,
@@ -56,8 +58,10 @@ struct FBCollectionItem: Identifiable, Codable, Hashable {
             dateUpdated
     }
     
-    init(isFoil: Bool,
+    init(cardID: String,
+         isFoil: Bool,
          condition: CardCondition) {
+        self.cardID = cardID
         self.isFoil = isFoil
         self.condition = condition
     }
@@ -68,6 +72,12 @@ struct FBCollectionItem: Identifiable, Codable, Hashable {
         
         if let id = try container.decodeIfPresent(String.self, forKey: .id) {
             self.id = id
+        }
+        
+        if let cardID = try container.decodeIfPresent(String.self, forKey: .cardID) {
+            self.cardID = cardID
+        } else {
+            cardID = ""
         }
         
         if let isFoil = try container.decodeIfPresent(Bool.self, forKey: .isFoil) {
@@ -88,9 +98,16 @@ struct FBCollectionItem: Identifiable, Codable, Hashable {
             notes = ""
         }
 
-        if let dateAcquired = try container.decodeIfPresent(Double.self, forKey: .dateAcquired) {
-            self.dateAcquired = Date(timeIntervalSinceReferenceDate: dateAcquired)
+        do {
+            if let dateAcquired = try container.decodeIfPresent(Double.self, forKey: .dateAcquired) {
+                self.dateAcquired = Date(timeIntervalSinceReferenceDate: dateAcquired)
+            }
+        } catch {
+            if let dateAcquired = try container.decodeIfPresent(Double.self, forKey: .dateAcquired) {
+                self.dateAcquired = Date(timeIntervalSinceReferenceDate: dateAcquired)
+            }
         }
+        
         if let placeAcquired = try container.decodeIfPresent(String.self, forKey: .placeAcquired) {
             self.placeAcquired = placeAcquired
         }
@@ -100,17 +117,32 @@ struct FBCollectionItem: Identifiable, Codable, Hashable {
         if let purchasePrice = try container.decodeIfPresent(Double.self, forKey: .purchasePrice) {
             self.purchasePrice = purchasePrice
         }
-        if let dateAdded = try container.decodeIfPresent(Foundation.Date.self, forKey: .dateAdded) {
-            self.dateAdded = dateAdded
+        
+        do {
+            if let dateAdded = try container.decodeIfPresent(Foundation.Date.self, forKey: .dateAdded) {
+                self.dateAdded = dateAdded
+            }
+        } catch {
+            if let dateAdded = try container.decodeIfPresent(Double.self, forKey: .dateAdded) {
+                self.dateAdded = Date(timeIntervalSinceReferenceDate: dateAdded)
+            }
         }
-        if let dateUpdated = try container.decodeIfPresent(Foundation.Date.self, forKey: .dateUpdated) {
-            self.dateUpdated = dateUpdated
+        
+        do {
+            if let dateUpdated = try container.decodeIfPresent(Foundation.Date.self, forKey: .dateUpdated) {
+                self.dateUpdated = dateUpdated
+            }
+        } catch {
+            if let dateUpdated = try container.decodeIfPresent(Double.self, forKey: .dateUpdated) {
+                self.dateUpdated = Date(timeIntervalSinceReferenceDate: dateUpdated)
+            }
         }
     }
 
     func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
+        try container.encode(cardID, forKey: .cardID)
         try container.encode(isFoil, forKey: .isFoil)
         try container.encode(condition, forKey: .condition)
         if let notes {
@@ -143,6 +175,7 @@ struct FBCollection: Identifiable, Codable, Hashable {
     var uid: String
     var name: String
     var description: String?
+    var count: Int?
     var dateAdded: Foundation.Date?
     var dateUpdated: Foundation.Date?
 }

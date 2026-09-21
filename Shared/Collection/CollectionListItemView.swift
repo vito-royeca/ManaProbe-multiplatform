@@ -19,11 +19,6 @@ struct CollectionListItemView: View {
     private var dateAcquired = Foundation.Date()
     
     @State
-    private var setPlaceAcquired = false
-    @State
-    private var placeAcquired = ""
-    
-    @State
     private var setPurchasePrice = false
     @State
     private var purchaseCurrencyCode = ""
@@ -31,10 +26,23 @@ struct CollectionListItemView: View {
     private var purchasePrice = ""
     
     @State
+    private var setPlaceAcquired = false
+    @State
+    private var placeAcquired = ""
+    
+    @State
     private var notes = ""
+    @State
+    private var isNotesExpanded = true
+    
+    @State
+    private var currencyCodeSymbols = [String: String]()
     
     var body: some View {
         contentView
+            .onAppear {
+                setupData()
+            }
             .onChange(of: setDateAcquired) {
                 item.dateAcquired = setDateAcquired
                     ? dateAcquired
@@ -76,48 +84,86 @@ struct CollectionListItemView: View {
     
     var contentView: some View {
         Group {
-            Toggle("Is Foil?", isOn: $item.isFoil)
-            
-            Picker("Condition", selection: $item.condition) {
-                ForEach(CardCondition.allCases, id: \.self) { collection in
-                    Text(collection.description)
-                        .tag(collection)
-                }
-            }
-            .pickerStyle(.automatic)
-            
-            Toggle(isOn: $setDateAcquired, label: { Text("Set Date Acquired")})
-            if setDateAcquired {
-                DatePicker("Date Acquired",
-                           selection: $dateAcquired,
-                           displayedComponents: .date)
-                .datePickerStyle(.compact)
-            }
-            
-            Toggle(isOn: $setPlaceAcquired, label: { Text("Set Place Acquired")})
-            if setPlaceAcquired {
-                TextField("Place Acquired", text: $placeAcquired)
-            }
-            
-            Toggle(isOn: $setPurchasePrice, label: { Text("Set Purchase Price")})
-            if setPurchasePrice {
-                Picker("Currency", selection: $purchaseCurrencyCode) {
-                    ForEach(Locale.commonISOCurrencyCodes.enumerated(), id: \.offset) { index,currency in
-                        Text(getSymbol(forCurrencyCode: currency))
-                            .tag(currency)
+            Section {
+                Picker("Condition", selection: $item.condition) {
+                    ForEach(CardCondition.allCases, id: \.self) { collection in
+                        Text(collection.description)
+                            .tag(collection)
                     }
                 }
                 .pickerStyle(.automatic)
-                TextField("Purchase Price", text: $purchasePrice)
-                    .keyboardType(.decimalPad)
+                
+                Toggle("Is Foil?", isOn: $item.isFoil)
+                
+                DisclosureGroup(isExpanded: $isNotesExpanded,
+                                content: {
+                                    TextEditor(text: $notes)
+                                        .frame(height: 100)
+                                },
+                                label: {
+                                    Text("Notes")
+                                        .safeAreaInset(edge: .leading) { Image(systemName: "text.document") }
+                                })
+            } header: {
+                Text("Card Details")
             }
             
-            DisclosureGroup(content: {
-                TextEditor(text: $notes)
-                    .frame(height: 50)
-            }, label: {
-                Text("Notes")
-            })
+            Section {
+                Toggle(isOn: $setDateAcquired, label: { Text("Set Date Acquired")})
+                    .safeAreaInset(edge: .leading) { Image(systemName: "calendar") }
+                if setDateAcquired {
+                    DatePicker("Date Acquired",
+                               selection: $dateAcquired,
+                               displayedComponents: .date)
+                    .datePickerStyle(.compact)
+                }
+                
+                Toggle(isOn: $setPlaceAcquired, label: { Text("Set Place Acquired")})
+                    .safeAreaInset(edge: .leading) { Image(systemName: "map") }
+                if setPlaceAcquired {
+                    TextField("Place Acquired", text: $placeAcquired)
+                }
+                
+                Toggle(isOn: $setPurchasePrice, label: { Text("Set Purchase Price")})
+                if setPurchasePrice {
+                    Picker("Currency", selection: $purchaseCurrencyCode) {
+                        ForEach(currencyCodeSymbols.keys.sorted().enumerated(), id: \.offset) { index,code in
+                            Text(currencyCodeSymbols[code] ?? "")
+                                .tag(code)
+                        }
+                    }
+                    .pickerStyle(.automatic)
+                    TextField("Purchase Price", text: $purchasePrice)
+                        .keyboardType(.decimalPad)
+                }
+            } header: {
+                Text("Acquisition Info")
+            }
+        }
+    }
+    
+    private func setupData() {
+        for code in Locale.commonISOCurrencyCodes {
+            currencyCodeSymbols[code] = getSymbol(forCurrencyCode: code)
+        }
+        
+        setDateAcquired = item.dateAcquired != nil
+        
+        if let price = item.purchasePrice {
+            setPurchasePrice = true
+            purchasePrice = "\(price)"
+        }
+        if let code = item.purchaseCurrencyCode {
+            purchaseCurrencyCode = code
+        }
+        
+        if let place = item.placeAcquired {
+            setPlaceAcquired = true
+            placeAcquired = place
+        }
+        
+        if let string = item.notes {
+            notes = string
         }
     }
 }
@@ -140,7 +186,8 @@ extension CollectionListItemView {
 
 #Preview {
     @State @Previewable
-    var item = FBCollectionItem(isFoil: false,
+    var item = FBCollectionItem(cardID: "isd_en_23",
+                                isFoil: false,
                                 condition: .lightlyPlayed)
     List {
         CollectionListItemView(item: $item)

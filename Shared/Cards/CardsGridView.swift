@@ -47,24 +47,7 @@ struct CardsGridView<Header: View>: View {
                 ForEach(viewModel.cardSections, id: \.self) { section in
                     Section(header: Text(section)) {
                         ForEach(viewModel.cards[section] ?? [], id: \.self) { card in
-                            let innerCardInfo = card.fragments.innerCardInfo
-                            let route = CardRoute.details(selectedCard: innerCardInfo, navigator: viewModel)
-                            NavigationLink(value: route) {
-                                VStack {
-                                    if let collectionViewModel = viewModel as? CollectionViewModel {
-                                       let items = collectionViewModel.items
-                                        CardGridItemView(card: innerCardInfo)
-                                            .countBadge(items.count)
-                                        Text("")
-                                    } else {
-                                        CardGridItemView(card: innerCardInfo)
-                                    }
-                                    Divider()
-                                }
-                            }
-                            .buttonStyle(.plain)
-                            
-                            
+                            cardGridItem(for: card)
                         }
                     }
                 }
@@ -81,7 +64,28 @@ struct CardsGridView<Header: View>: View {
     }
 }
 
-extension CardsGridView {
+private extension CardsGridView {
+    @ViewBuilder
+    func cardGridItem(for card: CardBasicInfo) -> some View {
+        let innerCardInfo = card.fragments.innerCardInfo
+        let route = CardRoute.details(selectedCard: innerCardInfo, navigator: viewModel)
+        NavigationLink(value: route) {
+            VStack {
+                if let collectionViewModel = viewModel as? CollectionViewModel {
+                   let items = collectionViewModel.items
+                    CardGridItemView(card: innerCardInfo)
+                        .countBadge(items[card.id]?.count ?? 0)
+                } else {
+                    CardGridItemView(card: innerCardInfo)
+                }
+                Divider()
+            }
+        }
+        .buttonStyle(.plain)
+    }
+}
+
+private extension CardsGridView {
     func reloadData() -> Void {
         Task {
             await viewModel.reloadData()
