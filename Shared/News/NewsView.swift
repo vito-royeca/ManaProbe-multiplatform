@@ -40,7 +40,7 @@ struct NewsView: View {
             }
         }
         .task {
-            //            fetchData()
+            fetchData()
         }
     }
 
@@ -50,15 +50,12 @@ struct NewsView: View {
             ForEach(keys, id: \.self) { key in
                 Section(header: Text(key)) {
                     ForEach(viewModel.feeds[key] ?? [], id: \.self) { feed in
-                        let tap = TapGesture()
-                            .onEnded { _ in
-                                currentFeed = feed
-                            }
-                        
                         NewsFeedRowView(item: feed,
                                         style: .horizontal)
-                            .gesture(tap)
                             .listRowSeparator(.hidden)
+                            .onTapGesture {
+                                currentFeed = feed
+                            }
                     }
 
                 }
@@ -87,16 +84,13 @@ struct NewsView: View {
                 ForEach(keys, id: \.self) { key in
                     Section(header: Text(key)) {
                         ForEach(viewModel.feeds[key] ?? [], id: \.self) { feed in
-                            let tap = TapGesture()
-                                .onEnded { _ in
-                                    currentFeed = feed
-                                }
-                            
                             NewsFeedRowView(item: feed,
                                             style: .vertical)
-                                .gesture(tap)
                                 .listRowSeparator(.hidden)
                                 .padding(.bottom)
+                                .onTapGesture {
+                                    currentFeed = feed
+                                }
                         }
                     }
                 }

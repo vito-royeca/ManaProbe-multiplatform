@@ -38,7 +38,7 @@ extension ManaFontTestView {
     func loadFonts() -> [String: [String:String]] {
         do {
             if let data = try! ManaKitUtilities.shared.read(from: nil,
-                                                     or: "mana",
+                                                            or: "mana",
                                                             ofType: "plist") {
                 
                 let decoder = PropertyListDecoder()

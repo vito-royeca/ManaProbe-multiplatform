@@ -151,15 +151,6 @@ struct LifeTrackerPlayerView: View {
                 if viewModel.showCommanderDamageCounter {
                     commanderView
                         .padding(5)
-                    //                        .background(
-                    //                            commanderRectangleView
-                    //                                .fill(viewModel.color)
-                    //
-                    //                        )
-                    //                        .overlay {
-                    //                            commanderRectangleView
-                    //                                .stroke(.gray, lineWidth: 1)
-                    //                        }
                 } else {
                     LifeTrackerCounterView(player: $viewModel,
                                            stat: .life,
@@ -169,10 +160,6 @@ struct LifeTrackerPlayerView: View {
                         viewModel.showPoisonCounter ||
                         viewModel.showRadCounter) &&
                         viewModel.isEnabled {
-                        //                        let divisor =  viewModel.showPoisonCounter &&
-                        //                            viewModel.showEnergyCounter
-                        //                            ? CGFloat(2)
-                        //                            : CGFloat(1)
                         
                         let width = size.width / statWidthDivisor()
                         let height = size.height / 3

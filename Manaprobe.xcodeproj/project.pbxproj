@@ -470,6 +470,10 @@
 		76EFAD5F3061B7340060E244 /* EditCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76EFAD5D3061B7340060E244 /* EditCollectionView.swift */; };
 		76EFAD603061B7340060E244 /* EditCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76EFAD5D3061B7340060E244 /* EditCollectionView.swift */; };
 		76EFAD613061B7340060E244 /* EditCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76EFAD5D3061B7340060E244 /* EditCollectionView.swift */; };
+		76EFAD63306212B90060E244 /* feeds.json in Resources */ = {isa = PBXBuildFile; fileRef = 76EFAD62306212B00060E244 /* feeds.json */; };
+		76EFAD64306212B90060E244 /* feeds.json in Resources */ = {isa = PBXBuildFile; fileRef = 76EFAD62306212B00060E244 /* feeds.json */; };
+		76EFAD65306212B90060E244 /* feeds.json in Resources */ = {isa = PBXBuildFile; fileRef = 76EFAD62306212B00060E244 /* feeds.json */; };
+		76EFAD66306212B90060E244 /* feeds.json in Resources */ = {isa = PBXBuildFile; fileRef = 76EFAD62306212B00060E244 /* feeds.json */; };
 		8B41B74E2812144E00AECF85 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B41B74D2812144E00AECF85 /* Tests_iOS.swift */; };
 		8B41B7502812144E00AECF85 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B41B74F2812144E00AECF85 /* Tests_iOSLaunchTests.swift */; };
 		8B41B75A2812144F00AECF85 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B41B7592812144F00AECF85 /* Tests_macOS.swift */; };
@@ -606,6 +610,7 @@
 		76E029232FA167C200F77633 /* CardListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListItemView.swift; sourceTree = "<group>"; };
 		76E029282FA167C200F77633 /* CardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsView.swift; sourceTree = "<group>"; };
 		76EFAD5D3061B7340060E244 /* EditCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCollectionView.swift; sourceTree = "<group>"; };
+		76EFAD62306212B00060E244 /* feeds.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = feeds.json; sourceTree = "<group>"; };
 		8B41B7352812144D00AECF85 /* ManaprobeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManaprobeApp.swift; sourceTree = "<group>"; };
 		8B41B7372812144E00AECF85 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B41B7442812144E00AECF85 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
@@ -1093,6 +1098,7 @@
 		8B41B83A28126ED600AECF85 /* News */ = {
 			isa = PBXGroup;
 			children = (
+				76EFAD62306212B00060E244 /* feeds.json */,
 				8B41B83C28126ED600AECF85 /* NewsView.swift */,
 				8B41B83D28126ED600AECF85 /* NewsViewModel.swift */,
 				8B41B83E28126ED700AECF85 /* NewsMap.swift */,
@@ -1332,6 +1338,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				76ABFA27305BA6FD00A66DE8 /* QA.xcconfig in Resources */,
+				76EFAD63306212B90060E244 /* feeds.json in Resources */,
 				760472B62FB96B5500B75E4F /* Launch Screen.storyboard in Resources */,
 				760472B72FB96B5500B75E4F /* Assets.xcassets in Resources */,
 				76ABFA23305BA6F500A66DE8 /* Development.xcconfig in Resources */,
@@ -1345,6 +1352,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				76ABFA26305BA6FD00A66DE8 /* QA.xcconfig in Resources */,
+				76EFAD64306212B90060E244 /* feeds.json in Resources */,
 				76CDDA222FB9698500B7A47E /* Assets.xcassets in Resources */,
 				76CDDA232FB9698500B7A47E /* Launch Screen.storyboard in Resources */,
 				76ABFA22305BA6F500A66DE8 /* Development.xcconfig in Resources */,
@@ -1358,6 +1366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				76ABFA24305BA6FD00A66DE8 /* QA.xcconfig in Resources */,
+				76EFAD66306212B90060E244 /* feeds.json in Resources */,
 				76ABFA28305BA70600A66DE8 /* Production.xcconfig in Resources */,
 				76ABFA20305BA6F500A66DE8 /* Development.xcconfig in Resources */,
 				760472BE2FB96BA200B75E4F /* Manaprobe--iOS--Info.plist in Resources */,
@@ -1375,6 +1384,7 @@
 				76ABFA25305BA6FD00A66DE8 /* QA.xcconfig in Resources */,
 				760472C32FB96BD600B75E4F /* Manaprobe--macOS--Info.plist in Resources */,
 				76A09DD33060901C00496B4E /* Assets.xcassets in Resources */,
+				76EFAD65306212B90060E244 /* feeds.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -25,7 +25,7 @@ class NewsViewModel {
     private let maxFeeds = 20
     
     func fetchData() async {
-        guard !isBusy, feeds.isEmpty/*, willFetchNews()*/ else {
+        guard !isBusy, feeds.isEmpty, willFetchNews() else {
             return
         }
         
@@ -33,11 +33,15 @@ class NewsViewModel {
         isFailed = false
         
         do {
-            let feedData = try await ManaKitUtilities.shared.feeds(fetchRemote: false)?
-                .feeds ?? []
+//            let feedData = try await ManaKitUtilities.shared.feeds(fetchRemote: false)?
+//                .feeds ?? []
+            let jsonFeeds = try loadFeeds()
+            var feedData = [FeedsQuery.Data.Feeds.Feed]()
+            for feed in jsonFeeds {
+                try await feedData.append(FeedsQuery.Data.Feeds.Feed(data: feed))
+            }
             
             for feedItem in feedData {
-                
                 // Read any type of feed
                 let feed = try await Feed(urlString: feedItem.url)
                 let date = Foundation.Date()
@@ -61,6 +65,7 @@ class NewsViewModel {
             isBusy = false
             isFailed = false
         } catch {
+            print(error)
             isFailed = true
             isBusy = false
         }
@@ -70,7 +75,6 @@ class NewsViewModel {
         var willFetch = true
 
         if let lastUpdated = lastUpdated {
-            // 5 minutes
             if let diff = Calendar.current.dateComponents([.minute],
                                                           from: lastUpdated,
                                                           to: Date()).minute {
@@ -81,6 +85,21 @@ class NewsViewModel {
         }
         
         return willFetch
+    }
+    
+    func loadFeeds() throws -> [[String:String]] {
+        do {
+            if let path = Bundle.main.path(forResource: "feeds", ofType: "json") {
+                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                let decoder = JSONDecoder()
+                let dict = try decoder.decode([[String:String]].self, from: data)
+                return dict
+            }
+        } catch {
+            print(error)
+        }
+    
+        return [[:]]
     }
 }
 

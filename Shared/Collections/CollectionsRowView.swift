@@ -35,7 +35,7 @@ struct CollectionsRowView: View {
                         .font(.footnote)
                         .foregroundStyle(Color.gray)
                         .safeAreaInset(edge: .leading) {
-                            Image(systemName: "document.badge.clock")
+                            Image(systemName: "square.and.pencil")
                         }
                 }
                 

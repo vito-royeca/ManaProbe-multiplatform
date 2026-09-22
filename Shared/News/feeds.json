@@ -1,0 +1,27 @@
+[
+    {
+        "__typename": "Feed",
+        "title": "MTG Goldfish",
+        "url": "https://www.mtggoldfish.com/feed.rss"
+    },
+    {
+        "__typename": "Feed",
+        "title": "HotC",
+        "url": "https://www.hipstersofthecoast.com/feed/"
+    },
+    {
+        "__typename": "Feed",
+        "title": "EDHREC",
+        "url": "https://edhrec.com/articles//feed"
+    },
+    {
+        "__typename": "Feed",
+        "title": "SCG",
+        "url": "https://articles.starcitygames.com/feed/"
+    },
+    {
+        "__typename": "Feed",
+        "title": "Draftism",
+        "url": "https://draftsim.com//feed"
+    }
+]

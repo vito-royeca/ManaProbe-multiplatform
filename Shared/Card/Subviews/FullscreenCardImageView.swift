@@ -48,12 +48,20 @@ struct FullscreenCardImageView: View {
                     closeToolbarItem
                     
                     if let navigatorDelegate, let displayDelegate {
-                        CardsNavigatorToolbar(navigatorDelegate: navigatorDelegate, displayDelegate: displayDelegate)
+                        CardsNavigatorToolbar(navigatorDelegate: navigatorDelegate,
+                                              displayDelegate: displayDelegate)
                     }
                     
                     CardViewActionToolbar(viewModel: $model,
                                           isCollectionsPresented: $isCollectionsPresented,
                                           rotation: $rotation)
+                }
+                .sheet(isPresented: $isCollectionsPresented) {
+                    if let card = model.card {
+                        CreateCollectionView(card: card.fragments.innerCardInfo)
+                    } else {
+                        EmptyView()
+                    }
                 }
         }
         .background(Color.black)

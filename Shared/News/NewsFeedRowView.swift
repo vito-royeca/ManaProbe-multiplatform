@@ -17,15 +17,18 @@ enum NewsFeedRowViewStyle {
 struct NewsFeedRowView: View {
     var item: FeedItem
     var style: NewsFeedRowViewStyle
+    
+    @State
+    private var size: CGSize = .zero
 
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
+            
             switch style {
             case .horizontal: horizontalContentView
             case .vertical: verticalContentView
             }
             
-            Spacer()
             Divider()
                 .background(Color.secondary)
             footerView
@@ -35,6 +38,7 @@ struct NewsFeedRowView: View {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.secondary, lineWidth: 1)
         )
+        .saveSize(in: $size)
     }
     
     var channelView: some View {
@@ -45,26 +49,25 @@ struct NewsFeedRowView: View {
             Text(item.channel ?? "")
                 .font(.subheadline)
         }
-        .padding(5)
     }
 
     var horizontalContentView: some View {
-        VStack(alignment: .leading) {
-            channelView
-            HStack(alignment: .top, spacing: 10) {
-                if let _ = item.image {
-                    itemImageView
-                        .frame(maxWidth: 80)
-                }
+        HStack(alignment: .top) {
+            if let _ = item.image {
+                itemImageView
+                    .frame(width: 120, height: size.height)
+                    .clipShape(UnevenRoundedRectangle(topLeadingRadius: 10))
+            }
+            VStack(alignment: .leading) {
+                channelView
                 Text(item.title ?? "")
                     .font(.headline)
                     .fixedSize(horizontal: false, vertical: true)
-                
             }
             .padding(10)
         }
     }
-
+    
     var verticalContentView: some View {
         VStack(alignment: .leading) {
             if let _ = item.image {
@@ -85,7 +88,7 @@ struct NewsFeedRowView: View {
             if let image = phase.image {
                 image
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
+                    .aspectRatio(contentMode: .fill)
                     .clipped()
             } else if let _ = phase.error {
                 EmptyView()
@@ -118,8 +121,9 @@ struct NewsFeedRowView: View {
             Text("\(item.datePublished?.elapsedTime() ?? "")\(authorString)")
                 .font(.footnote)
                 .foregroundColor(.secondary)
-            Spacer()
-            actionButton
+            // TODO: implement the actionButton
+//            Spacer()
+//            actionButton
         }
         .padding(5)
     }
@@ -130,37 +134,32 @@ struct NewsFeedRowView: View {
         } label: {
             Image(systemName: "ellipsis.circle")
                 .renderingMode(.original)
-                .foregroundColor(Color(.systemBlue))
+                .foregroundStyle(Color.accentColor)
         }
         .buttonStyle(.plain)
+        
     }
 }
 
 #Preview {
+    let channel = "Manaprobe"
+    let channelImage = "https://manaprobe.com/images/favicon.ico"
+    let title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    let image = "https://manaprobe.com/images/logo_words-light.png"
+    let datePublished = Date()
+    let author = "Manaprobe"
     let item = FeedItem(channel: "Manaprobe",
-                        channelImage: "https://manaprobe.com/images/favicon.ico",
-                        title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                        image: "https://manaprobe.com/images/logo.png",
+                        channelImage: channelImage,
+                        title: title,
+                        image: image,
                         datePublished: Date(),
-                        author: "Manaprobe")
-    let item2 = FeedItem(channel: "Manaprobe",
-                        channelImage: "https://manaprobe.com/images/favicon.ico",
-                        title: "Lorem ipsum dolor sit amet",
-                        image: "https://manaprobe.com/images/logo.png",
-                         datePublished: Date(),
-                         author: "Manaprobe")
-    let item3 = FeedItem(channel: "Manaprobe",
-                        channelImage: "https://manaprobe.com/images/favicon.ico",
-                         title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                         datePublished: Date(),
-                         author: "Manaprobe")
+                        author: author)
+    
     Group {
         List {
             NewsFeedRowView(item: item, style: .vertical)
                 .listRowSeparator(.hidden)
-            NewsFeedRowView(item: item2, style: .horizontal)
-                .listRowSeparator(.hidden)
-            NewsFeedRowView(item: item3, style: .horizontal)
+            NewsFeedRowView(item: item, style: .horizontal)
                 .listRowSeparator(.hidden)
         }
         .listStyle(.plain)
